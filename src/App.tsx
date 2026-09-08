@@ -1,9 +1,14 @@
 import { useState } from "react";
 
+import type { ComponentType } from "./domain/grid/cell";
 import { Grid } from "./domain/grid/grid";
 import { CircuitGrid } from "./ui/grid/circuitGrid";
+import { ComponentPalette } from "./ui/palette/componentPalette";
 
 export function App() {
+    const [selectedComponent, setSelectedComponent] =
+        useState<ComponentType>("wire");
+
     const [grid, setGrid] = useState(() =>
         Grid.empty()
             .withCell(0, 0, { type: "source" })
@@ -13,16 +18,22 @@ export function App() {
 
     const handleCellPaint = (x: number, y: number) => {
         setGrid((currentGrid) =>
-            currentGrid.withCell(x, y, { type: "wire" }),
+            currentGrid.withCell(x, y, { type: selectedComponent }),
         );
     };
 
     return (
-        <CircuitGrid
-            grid={grid}
-            width={32}
-            height={24}
-            onCellPaint={handleCellPaint}
-        />
+        <main className="circuit-editor">
+            <CircuitGrid
+                grid={grid}
+                width={32}
+                height={24}
+                onCellPaint={handleCellPaint}
+            />
+            <ComponentPalette
+                selectedComponent={selectedComponent}
+                onSelect={setSelectedComponent}
+            />
+        </main>
     );
 }
