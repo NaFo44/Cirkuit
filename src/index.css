@@ -3,9 +3,9 @@
     --grid-line: #dfdfdf;
 
     --cell-empty: transparent;
-    --cell-wire: #888;
-    --cell-source: #00ff00;
-    --cell-light: #ffff00;
+    --cell-wire: #99ccff;
+    --cell-source: #ff99cc;
+    --cell-light: #ffcc99;
 }
 
 html,
@@ -98,7 +98,7 @@ button {
     flex-direction: column;
     gap: 10px;
 
-    padding: 12px;
+    padding: 10px;
 
     background: white;
     border: 1px solid #ddd;
@@ -110,8 +110,8 @@ button {
 .component-palette__item {
     box-sizing: border-box;
 
-    width: 28px;
-    height: 28px;
+    width: 56px;
+    height: 56px;
     padding: 0;
 
     border: 2px solid transparent;
