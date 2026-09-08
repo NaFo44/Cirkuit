@@ -1,6 +1,5 @@
 import {
     useRef,
-    type MouseEvent as ReactMouseEvent,
     type PointerEvent as ReactPointerEvent,
 } from "react";
 
@@ -8,6 +7,7 @@ import type { Grid } from "../../domain/grid/grid";
 import {
     CELL_SIZE,
     cellsBetween,
+    gridToWorld,
     worldToGrid,
 } from "../../domain/grid/gridCoordinates";
 import type { Position } from "../../domain/grid/position";
@@ -34,8 +34,15 @@ export function CircuitGrid({
         const gridElement = event.currentTarget;
         const bounds = gridElement.getBoundingClientRect();
 
-        const localX = event.clientX - bounds.left - gridElement.clientLeft;
-        const localY = event.clientY - bounds.top - gridElement.clientTop;
+        const scaleX = bounds.width / gridElement.offsetWidth;
+        const scaleY = bounds.height / gridElement.offsetHeight;
+
+        const localX =
+            (event.clientX - bounds.left) / scaleX
+            - gridElement.clientLeft;
+        const localY =
+            (event.clientY - bounds.top) / scaleY
+            - gridElement.clientTop;
         const position = worldToGrid(localX, localY);
         const { x, y } = position;
 
@@ -114,50 +121,58 @@ export function CircuitGrid({
         }
     };
 
-    const paintWithKeyboard = (
-        event: ReactMouseEvent<HTMLButtonElement>,
-        x: number,
-        y: number,
-    ) => {
-        const isKeyboardActivation = event.detail === 0;
+    const components = [];
 
-        if (isKeyboardActivation) {
-            onCellPaint?.(x, y);
+    for (const [{ x, y }, cell] of grid.entries()) {
+        if (
+            cell.type === "empty"
+            || x < 0
+            || y < 0
+            || x >= width
+            || y >= height
+        ) {
+            continue;
         }
-    };
 
-    const cells = [];
+        const position = gridToWorld(x, y);
 
-    for (let y = 0; y < height; y++) {
-        for (let x = 0; x < width; x++) {
-            const cell = grid.get(x, y);
-
-            cells.push(
-                <button
-                    key={`${x},${y}`}
-                    type="button"
-                    className={`circuit-cell circuit-cell--${cell.type}`}
-                    onClick={(event) => paintWithKeyboard(event, x, y)}
-                    aria-label={`Cellule ${x},${y}`}
-                />,
-            );
-        }
+        components.push(
+            <div
+                key={`${x},${y}`}
+                role="gridcell"
+                className={`circuit-component circuit-cell--${cell.type}`}
+                style={{
+                    left: position.x + 1,
+                    top: position.y + 1,
+                    width: CELL_SIZE - 1,
+                    height: CELL_SIZE - 1,
+                }}
+                aria-label={`Cellule ${x},${y}: ${cell.type}`}
+                aria-rowindex={y + 1}
+                aria-colindex={x + 1}
+            />,
+        );
     }
 
     return (
         <div
             className="circuit-grid"
             style={{
-                gridTemplateColumns: `repeat(${width}, ${CELL_SIZE}px)`,
-                gridTemplateRows: `repeat(${height}, ${CELL_SIZE}px)`,
+                width: width * CELL_SIZE,
+                height: height * CELL_SIZE,
+                backgroundSize: `${CELL_SIZE}px ${CELL_SIZE}px`,
             }}
+            role="grid"
+            aria-label="Grille du circuit"
+            aria-rowcount={height}
+            aria-colcount={width}
             onPointerDown={startPainting}
             onPointerMove={continuePainting}
             onPointerUp={stopPainting}
             onPointerCancel={cancelPainting}
             onLostPointerCapture={cancelPainting}
         >
-            {cells}
+            {components}
         </div>
     );
 }
