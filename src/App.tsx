@@ -11,7 +11,7 @@ export function App() {
             .withCell(2, 0, { type: "light" }),
     );
 
-    const handleCellClick = (x: number, y: number) => {
+    const handleCellPaint = (x: number, y: number) => {
         setGrid((currentGrid) =>
             currentGrid.withCell(x, y, { type: "wire" }),
         );
@@ -22,7 +22,7 @@ export function App() {
             grid={grid}
             width={32}
             height={24}
-            onCellClick={handleCellClick}
+            onCellPaint={handleCellPaint}
         />
     );
 }

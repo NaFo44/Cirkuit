@@ -23,15 +23,27 @@ export class Grid {
     }
 
     withCell(x: number, y: number, cell: Cell): Grid {
+        const key = this.key(x, y);
+
+        if (this.cells.get(key)?.type === cell.type) {
+            return this;
+        }
+
         const cells = new Map(this.cells);
-        cells.set(this.key(x, y), cell);
+        cells.set(key, cell);
 
         return new Grid(cells);
     }
 
     withoutCell(x: number, y: number): Grid {
+        const key = this.key(x, y);
+
+        if (!this.cells.has(key)) {
+            return this;
+        }
+
         const cells = new Map(this.cells);
-        cells.delete(this.key(x, y));
+        cells.delete(key);
 
         return new Grid(cells);
     }

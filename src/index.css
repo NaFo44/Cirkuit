@@ -1,5 +1,5 @@
 :root {
-    --grid-background: #transparent;
+    --grid-background: transparent;
     --grid-line: #cbcbcb;
 
     --cell-empty: transparent;
@@ -34,6 +34,9 @@ button {
 
     border-top: 1px solid var(--grid-line);
     border-left: 1px solid var(--grid-line);
+
+    touch-action: none;
+    user-select: none;
 }
 
 .circuit-cell {

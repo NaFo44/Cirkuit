@@ -55,4 +55,13 @@ describe("Grid", () => {
         expect(grid.get(0, 0).type).toBe("empty");
         expect(updatedGrid.get(0, 0).type).toBe("wire");
     });
+
+    it("reuses the grid when an update changes nothing", () => {
+        const grid = Grid.empty().withCell(0, 0, {
+            type: "wire",
+        });
+
+        expect(grid.withCell(0, 0, { type: "wire" })).toBe(grid);
+        expect(grid.withoutCell(1, 1)).toBe(grid);
+    });
 });

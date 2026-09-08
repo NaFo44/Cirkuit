@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import {
+    cellsBetween,
     gridToWorld,
     worldToGrid,
 } from "./gridCoordinates";
@@ -37,5 +38,29 @@ describe("GridCoordinates", () => {
             x: 40,
             y: 60,
         });
+    });
+
+    it("returns every cell crossed by a horizontal movement", () => {
+        expect(cellsBetween({ x: 1, y: 2 }, { x: 4, y: 2 })).toEqual([
+            { x: 1, y: 2 },
+            { x: 2, y: 2 },
+            { x: 3, y: 2 },
+            { x: 4, y: 2 },
+        ]);
+
+        expect(cellsBetween({ x: 4, y: 2 }, { x: 1, y: 2 })).toEqual([
+            { x: 4, y: 2 },
+            { x: 3, y: 2 },
+            { x: 2, y: 2 },
+            { x: 1, y: 2 },
+        ]);
+    });
+
+    it("returns every cell crossed by a diagonal movement", () => {
+        expect(cellsBetween({ x: 1, y: 1 }, { x: 3, y: 3 })).toEqual([
+            { x: 1, y: 1 },
+            { x: 2, y: 2 },
+            { x: 3, y: 3 },
+        ]);
     });
 });
