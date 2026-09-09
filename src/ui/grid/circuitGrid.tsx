@@ -1,7 +1,4 @@
-import {
-    useRef,
-    type PointerEvent as ReactPointerEvent,
-} from "react";
+import { useRef, type PointerEvent as ReactPointerEvent } from "react";
 
 import type { Grid } from "../../domain/grid/grid";
 import {
@@ -28,9 +25,7 @@ export function CircuitGrid({
     const activePointerId = useRef<number | null>(null);
     const lastPaintedCell = useRef<Position | null>(null);
 
-    const paintAtPointer = (
-        event: ReactPointerEvent<HTMLDivElement>,
-    ) => {
+    const paintAtPointer = (event: ReactPointerEvent<HTMLDivElement>) => {
         const gridElement = event.currentTarget;
         const bounds = gridElement.getBoundingClientRect();
 
@@ -38,11 +33,9 @@ export function CircuitGrid({
         const scaleY = bounds.height / gridElement.offsetHeight;
 
         const localX =
-            (event.clientX - bounds.left) / scaleX
-            - gridElement.clientLeft;
+            (event.clientX - bounds.left) / scaleX - gridElement.clientLeft;
         const localY =
-            (event.clientY - bounds.top) / scaleY
-            - gridElement.clientTop;
+            (event.clientY - bounds.top) / scaleY - gridElement.clientTop;
         const position = worldToGrid(localX, localY);
         const { x, y } = position;
 
@@ -67,13 +60,11 @@ export function CircuitGrid({
         }
     };
 
-    const startPainting = (
-        event: ReactPointerEvent<HTMLDivElement>,
-    ) => {
+    const startPainting = (event: ReactPointerEvent<HTMLDivElement>) => {
         if (
-            event.button !== 0
-            || activePointerId.current !== null
-            || !onCellPaint
+            event.button !== 0 ||
+            activePointerId.current !== null ||
+            !onCellPaint
         ) {
             return;
         }
@@ -87,17 +78,13 @@ export function CircuitGrid({
         paintAtPointer(event);
     };
 
-    const continuePainting = (
-        event: ReactPointerEvent<HTMLDivElement>,
-    ) => {
+    const continuePainting = (event: ReactPointerEvent<HTMLDivElement>) => {
         if (activePointerId.current === event.pointerId) {
             paintAtPointer(event);
         }
     };
 
-    const stopPainting = (
-        event: ReactPointerEvent<HTMLDivElement>,
-    ) => {
+    const stopPainting = (event: ReactPointerEvent<HTMLDivElement>) => {
         if (activePointerId.current !== event.pointerId) {
             return;
         }
@@ -112,9 +99,7 @@ export function CircuitGrid({
         }
     };
 
-    const cancelPainting = (
-        event: ReactPointerEvent<HTMLDivElement>,
-    ) => {
+    const cancelPainting = (event: ReactPointerEvent<HTMLDivElement>) => {
         if (activePointerId.current === event.pointerId) {
             activePointerId.current = null;
             lastPaintedCell.current = null;
@@ -125,11 +110,11 @@ export function CircuitGrid({
 
     for (const [{ x, y }, cell] of grid.entries()) {
         if (
-            cell.type === "empty"
-            || x < 0
-            || y < 0
-            || x >= width
-            || y >= height
+            cell.type === "empty" ||
+            x < 0 ||
+            y < 0 ||
+            x >= width ||
+            y >= height
         ) {
             continue;
         }

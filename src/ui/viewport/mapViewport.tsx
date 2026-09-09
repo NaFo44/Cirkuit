@@ -94,9 +94,7 @@ export function MapViewport({ children }: MapViewportProps) {
         };
     }, []);
 
-    const startPanning = (
-        event: ReactPointerEvent<HTMLDivElement>,
-    ) => {
+    const startPanning = (event: ReactPointerEvent<HTMLDivElement>) => {
         if (event.button !== 1 || panGesture.current) {
             return;
         }
@@ -113,9 +111,7 @@ export function MapViewport({ children }: MapViewportProps) {
         event.currentTarget.setPointerCapture(event.pointerId);
     };
 
-    const continuePanning = (
-        event: ReactPointerEvent<HTMLDivElement>,
-    ) => {
+    const continuePanning = (event: ReactPointerEvent<HTMLDivElement>) => {
         const gesture = panGesture.current;
 
         if (!gesture || gesture.pointerId !== event.pointerId) {
@@ -135,9 +131,7 @@ export function MapViewport({ children }: MapViewportProps) {
         }));
     };
 
-    const stopPanning = (
-        event: ReactPointerEvent<HTMLDivElement>,
-    ) => {
+    const stopPanning = (event: ReactPointerEvent<HTMLDivElement>) => {
         const gesture = panGesture.current;
 
         if (!gesture || gesture.pointerId !== event.pointerId) {
@@ -155,9 +149,11 @@ export function MapViewport({ children }: MapViewportProps) {
     return (
         <div
             ref={viewportRef}
-            className={isPanning
-                ? "map-viewport map-viewport--panning"
-                : "map-viewport"}
+            className={
+                isPanning
+                    ? "map-viewport map-viewport--panning"
+                    : "map-viewport"
+            }
             onPointerDown={startPanning}
             onPointerMove={continuePanning}
             onPointerUp={stopPanning}

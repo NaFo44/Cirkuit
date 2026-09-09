@@ -5,4 +5,4 @@ export const SIGNALS = {
     conflict: "conflict",
 } as const;
 
-export type Signal = typeof SIGNALS[keyof typeof SIGNALS];
+export type Signal = (typeof SIGNALS)[keyof typeof SIGNALS];

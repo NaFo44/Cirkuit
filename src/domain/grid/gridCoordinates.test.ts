@@ -1,9 +1,5 @@
 import { describe, expect, it } from "vitest";
-import {
-    cellsBetween,
-    gridToWorld,
-    worldToGrid,
-} from "./gridCoordinates";
+import { cellsBetween, gridToWorld, worldToGrid } from "./gridCoordinates";
 
 describe("GridCoordinates", () => {
     it("converts world coordinates to grid coordinates", () => {

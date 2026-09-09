@@ -17,9 +17,11 @@ export class Grid {
     }
 
     get(x: number, y: number): Cell {
-        return this.cells.get(this.key(x, y)) ?? {
-            type: "empty",
-        };
+        return (
+            this.cells.get(this.key(x, y)) ?? {
+                type: "empty",
+            }
+        );
     }
 
     withCell(x: number, y: number, cell: Cell): Grid {

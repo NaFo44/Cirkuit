@@ -1,6 +1,4 @@
-import type {
-    ComponentDefinition,
-} from "../componentDefinition";
+import type { ComponentDefinition } from "../componentDefinition";
 
 export const wireDefinition = {
     type: "wire",
@@ -12,9 +10,7 @@ export const wireDefinition = {
         { id: "west", kind: "passive", side: "west" },
     ],
 
-    conductiveGroups: [
-        ["north", "east", "south", "west"],
-    ],
+    conductiveGroups: [["north", "east", "south", "west"]],
 
     createInitialState: () => null,
 

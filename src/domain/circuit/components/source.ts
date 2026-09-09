@@ -1,6 +1,4 @@
-import type {
-    ComponentDefinition,
-} from "../componentDefinition";
+import type { ComponentDefinition } from "../componentDefinition";
 
 export const sourceDefinition = {
     type: "source",
@@ -14,5 +12,5 @@ export const sourceDefinition = {
 
     createInitialState: () => null,
 
-    computeOutputs: () => new Map([["output", "high"]])
+    computeOutputs: () => new Map([["output", "high"]]),
 } satisfies ComponentDefinition;

@@ -1,7 +1,4 @@
-import {
-    COMPONENT_TYPES,
-    type ComponentType,
-} from "../../domain/grid/cell";
+import { COMPONENT_TYPES, type ComponentType } from "../../domain/grid/cell";
 
 interface ComponentPaletteProps {
     selectedComponent: ComponentType;
@@ -19,10 +16,7 @@ export function ComponentPalette({
     onSelect,
 }: ComponentPaletteProps) {
     return (
-        <aside
-            className="component-palette"
-            aria-label="Component palette"
-        >
+        <aside className="component-palette" aria-label="Component palette">
             {COMPONENT_TYPES.map((component) => (
                 <button
                     key={component}
