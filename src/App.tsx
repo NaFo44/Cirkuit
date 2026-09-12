@@ -1,39 +1,42 @@
 import { useState } from "react";
 
-import type { ComponentType } from "./domain/grid/cell";
+import { CircuitLayout } from "./domain/circuit/circuitLayout";
+import type { BuiltInComponentType } from "./domain/circuit/components/componentType";
 import { GRID_DIMENSIONS } from "./domain/grid/gridDimensions";
-import { Grid } from "./domain/grid/grid";
+import type { Position } from "./domain/grid/position";
+import { createPlacedComponent } from "./ui/editor/createPlacedComponent";
 import { CircuitGrid } from "./ui/grid/circuitGrid";
 import { ComponentPalette } from "./ui/palette/componentPalette";
 import { MapViewport } from "./ui/viewport/mapViewport";
 
 export function App() {
     const [selectedComponent, setSelectedComponent] =
-        useState<ComponentType>("wire");
+        useState<BuiltInComponentType>("wire");
 
-    const [grid, setGrid] = useState(() =>
-        Grid.empty()
-            .withCell(0, 0, { type: "source" })
-            .withCell(1, 0, { type: "wire" })
-            .withCell(2, 0, { type: "light" }),
+    const [circuit, setCircuit] = useState(() =>
+        CircuitLayout.empty(GRID_DIMENSIONS.width, GRID_DIMENSIONS.height),
     );
 
-    const handleCellPaint = (x: number, y: number) => {
-        setGrid((currentGrid) =>
-            currentGrid.withCell(x, y, { type: selectedComponent }),
-        );
+    const paintComponent = (position: Position) => {
+        setCircuit((currentCircuit) => {
+            const existing = currentCircuit.getComponentAt(position);
+
+            if (existing?.type === selectedComponent) {
+                return currentCircuit;
+            }
+
+            return currentCircuit.withComponent(
+                createPlacedComponent(selectedComponent, position),
+            );
+        });
     };
 
     return (
         <main className="circuit-editor">
             <MapViewport>
-                <CircuitGrid
-                    grid={grid}
-                    width={GRID_DIMENSIONS.width}
-                    height={GRID_DIMENSIONS.height}
-                    onCellPaint={handleCellPaint}
-                />
+                <CircuitGrid circuit={circuit} onCellPaint={paintComponent} />
             </MapViewport>
+
             <ComponentPalette
                 selectedComponent={selectedComponent}
                 onSelect={setSelectedComponent}

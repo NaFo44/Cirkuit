@@ -1,4 +1,4 @@
 export interface Position {
-    x: number;
-    y: number;
+    readonly x: number;
+    readonly y: number;
 }

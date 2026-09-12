@@ -1,6 +1,6 @@
 import { useRef, type PointerEvent as ReactPointerEvent } from "react";
 
-import type { Grid } from "../../domain/grid/grid";
+import type { CircuitLayout } from "../../domain/circuit/circuitLayout";
 import {
     CELL_SIZE,
     cellsBetween,
@@ -10,18 +10,11 @@ import {
 import type { Position } from "../../domain/grid/position";
 
 interface CircuitGridProps {
-    grid: Grid;
-    width: number;
-    height: number;
-    onCellPaint?: (x: number, y: number) => void;
+    circuit: CircuitLayout;
+    onCellPaint?: (position: Position) => void;
 }
 
-export function CircuitGrid({
-    grid,
-    width,
-    height,
-    onCellPaint,
-}: CircuitGridProps) {
+export function CircuitGrid({ circuit, onCellPaint }: CircuitGridProps) {
     const activePointerId = useRef<number | null>(null);
     const lastPaintedCell = useRef<Position | null>(null);
 
@@ -36,10 +29,11 @@ export function CircuitGrid({
             (event.clientX - bounds.left) / scaleX - gridElement.clientLeft;
         const localY =
             (event.clientY - bounds.top) / scaleY - gridElement.clientTop;
+
         const position = worldToGrid(localX, localY);
         const { x, y } = position;
 
-        if (x < 0 || y < 0 || x >= width || y >= height) {
+        if (x < 0 || y < 0 || x >= circuit.width || y >= circuit.height) {
             return;
         }
 
@@ -56,7 +50,7 @@ export function CircuitGrid({
         lastPaintedCell.current = position;
 
         for (const cell of cells) {
-            onCellPaint?.(cell.x, cell.y);
+            onCellPaint?.(cell);
         }
     };
 
@@ -75,6 +69,7 @@ export function CircuitGrid({
         lastPaintedCell.current = null;
 
         event.currentTarget.setPointerCapture(event.pointerId);
+
         paintAtPointer(event);
     };
 
@@ -90,7 +85,6 @@ export function CircuitGrid({
         }
 
         paintAtPointer(event);
-
         activePointerId.current = null;
         lastPaintedCell.current = null;
 
@@ -106,58 +100,45 @@ export function CircuitGrid({
         }
     };
 
-    const components = [];
-
-    for (const [{ x, y }, cell] of grid.entries()) {
-        if (
-            cell.type === "empty" ||
-            x < 0 ||
-            y < 0 ||
-            x >= width ||
-            y >= height
-        ) {
-            continue;
-        }
-
-        const position = gridToWorld(x, y);
-
-        components.push(
-            <div
-                key={`${x},${y}`}
-                role="gridcell"
-                className={`circuit-component circuit-cell--${cell.type}`}
-                style={{
-                    left: position.x + 1,
-                    top: position.y + 1,
-                    width: CELL_SIZE - 1,
-                    height: CELL_SIZE - 1,
-                }}
-                aria-label={`Cellule ${x},${y}: ${cell.type}`}
-                aria-rowindex={y + 1}
-                aria-colindex={x + 1}
-            />,
-        );
-    }
-
     return (
         <div
             className="circuit-grid"
             style={{
-                width: width * CELL_SIZE,
-                height: height * CELL_SIZE,
+                width: circuit.width * CELL_SIZE,
+                height: circuit.height * CELL_SIZE,
                 backgroundSize: `${CELL_SIZE}px ${CELL_SIZE}px`,
             }}
             role="grid"
-            aria-label="Grille du circuit"
-            aria-rowcount={height}
-            aria-colcount={width}
+            aria-label="Circuit grid"
+            aria-rowcount={circuit.height}
+            aria-colcount={circuit.width}
             onPointerDown={startPainting}
             onPointerMove={continuePainting}
             onPointerUp={stopPainting}
             onPointerCancel={cancelPainting}
             onLostPointerCapture={cancelPainting}
         >
-            {components}
+            {circuit.components.map((component) => {
+                const { x, y } = component.position;
+                const position = gridToWorld(x, y);
+
+                return (
+                    <div
+                        key={component.id}
+                        role="gridcell"
+                        className={`circuit-component circuit-cell--${component.type}`}
+                        style={{
+                            left: position.x + 1,
+                            top: position.y + 1,
+                            width: CELL_SIZE - 1,
+                            height: CELL_SIZE - 1,
+                        }}
+                        aria-label={`Cell ${x},${y}: ${component.type}`}
+                        aria-rowindex={y + 1}
+                        aria-colindex={x + 1}
+                    />
+                );
+            })}
         </div>
     );
 }

@@ -1,11 +1,14 @@
-import { COMPONENT_TYPES, type ComponentType } from "../../domain/grid/cell";
+import {
+    BUILT_IN_COMPONENT_TYPES,
+    type BuiltInComponentType,
+} from "../../domain/circuit/components/componentType";
 
 interface ComponentPaletteProps {
-    selectedComponent: ComponentType;
-    onSelect: (component: ComponentType) => void;
+    selectedComponent: BuiltInComponentType;
+    onSelect: (component: BuiltInComponentType) => void;
 }
 
-const COMPONENT_LABELS: Record<ComponentType, string> = {
+const COMPONENT_LABELS: Record<BuiltInComponentType, string> = {
     wire: "Wire",
     source: "Source",
     light: "Light",
@@ -17,7 +20,7 @@ export function ComponentPalette({
 }: ComponentPaletteProps) {
     return (
         <aside className="component-palette" aria-label="Component palette">
-            {COMPONENT_TYPES.map((component) => (
+            {BUILT_IN_COMPONENT_TYPES.map((component) => (
                 <button
                     key={component}
                     type="button"
