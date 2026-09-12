@@ -37,11 +37,7 @@ export function ComponentPalette({
                     aria-pressed={selectedComponent === component}
                     onClick={() => onSelect(component)}
                 >
-                    <ComponentGlyph
-                        size={25}
-                        componentType={component}
-                        rotation={selectedRotation}
-                    />
+                    <ComponentGlyph size={25} componentType={component} />
                 </button>
             ))}
         </aside>

@@ -149,7 +149,6 @@ export function CircuitGrid({
                     >
                         <ComponentGlyph
                             componentType={component.type}
-                            rotation={component.rotation}
                             size={13}
                         />
                     </div>

@@ -43,9 +43,7 @@ describe("simulationEngine", () => {
 
         const simulation = createSimulation(circuit, defaultComponentRegistry);
 
-        expect(getPortSignal(simulation, "light-1", "input")).toBe(
-            SIGNALS.high,
-        );
+        expect(getPortSignal(simulation, "light-1", "west")).toBe(SIGNALS.high);
     });
 
     it("powers a light through a wire", () => {
@@ -61,9 +59,7 @@ describe("simulationEngine", () => {
 
         const simulation = createSimulation(circuit, defaultComponentRegistry);
 
-        expect(getPortSignal(simulation, "light-1", "input")).toBe(
-            SIGNALS.high,
-        );
+        expect(getPortSignal(simulation, "light-1", "west")).toBe(SIGNALS.high);
     });
 
     it("powers a light through a vertical wire", () => {
@@ -71,15 +67,15 @@ describe("simulationEngine", () => {
             width: 1,
             height: 3,
             components: [
-                component("source-1", "source", 0, 0, 90),
-                component("wire-1", "wire", 0, 1, 90),
-                component("light-1", "light", 0, 2, 90),
+                component("source-1", "source", 0, 0),
+                component("wire-1", "wire", 0, 1),
+                component("light-1", "light", 0, 2),
             ],
         };
 
         const simulation = createSimulation(circuit, defaultComponentRegistry);
 
-        expect(getPortSignal(simulation, "light-1", "input")).toBe(
+        expect(getPortSignal(simulation, "light-1", "north")).toBe(
             SIGNALS.high,
         );
     });
@@ -96,7 +92,7 @@ describe("simulationEngine", () => {
 
         const simulation = createSimulation(circuit, defaultComponentRegistry);
 
-        expect(getPortSignal(simulation, "light-1", "input")).toBe(
+        expect(getPortSignal(simulation, "light-1", "west")).toBe(
             SIGNALS.floating,
         );
     });
@@ -142,9 +138,7 @@ describe("simulationEngine", () => {
 
         const simulation = createSimulation(circuit, registry);
 
-        expect(getPortSignal(simulation, "light-1", "input")).toBe(
-            SIGNALS.high,
-        );
+        expect(getPortSignal(simulation, "light-1", "west")).toBe(SIGNALS.high);
     });
 
     it("reports conflicts between high and low drivers", () => {
@@ -184,7 +178,7 @@ describe("simulationEngine", () => {
 
         const simulation = createSimulation(circuit, registry);
 
-        expect(getPortSignal(simulation, "light-1", "input")).toBe(
+        expect(getPortSignal(simulation, "light-1", "west")).toBe(
             SIGNALS.conflict,
         );
     });
@@ -228,16 +222,16 @@ describe("simulationEngine", () => {
         const nextSimulation = advanceSimulation(initialSimulation);
 
         expect(initialSimulation.snapshot.tick).toBe(0);
-        expect(getPortSignal(initialSimulation, "light-1", "input")).toBe(
+        expect(getPortSignal(initialSimulation, "light-1", "west")).toBe(
             SIGNALS.low,
         );
 
         expect(nextSimulation.snapshot.tick).toBe(1);
-        expect(getPortSignal(nextSimulation, "light-1", "input")).toBe(
+        expect(getPortSignal(nextSimulation, "light-1", "west")).toBe(
             SIGNALS.high,
         );
 
-        expect(getPortSignal(initialSimulation, "light-1", "input")).toBe(
+        expect(getPortSignal(initialSimulation, "light-1", "west")).toBe(
             SIGNALS.low,
         );
     });

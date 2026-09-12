@@ -2,8 +2,10 @@ import {
     isBuiltInComponentType,
     type BuiltInComponentType,
 } from "../../domain/circuit/components/componentType";
+import { DIRECTIONS } from "../../domain/circuit/direction";
 import type { PlacedComponent } from "../../domain/circuit/placedComponent";
 import { SIGNALS } from "../../domain/circuit/signal";
+import { resolveSignals } from "../../domain/circuit/simulation/resolveSignals";
 import {
     getPortSignal,
     type Simulation,
@@ -22,7 +24,11 @@ const VISUAL_STATE_RESOLVERS = {
     source: () => "default",
 
     light: (component, simulation) => {
-        const signal = getPortSignal(simulation, component.id, "input");
+        const signal = resolveSignals(
+            DIRECTIONS.map((portId) =>
+                getPortSignal(simulation, component.id, portId),
+            ),
+        );
 
         if (signal === SIGNALS.conflict) {
             return "conflict";

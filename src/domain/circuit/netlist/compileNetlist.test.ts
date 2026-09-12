@@ -65,17 +65,29 @@ describe("compileNetlist", () => {
 
         const netlist = compileNetlist(circuit, defaultComponentRegistry);
 
-        expect(getNetId(netlist, "source-1", "output")).toBe(
-            getNetId(netlist, "light-1", "input"),
+        const connectedNetId = getNetId(netlist, "source-1", "east");
+
+        expect(connectedNetId).toBe(getNetId(netlist, "light-1", "west"));
+
+        const connectedNet = netlist.nets.find(
+            (net) => net.id === connectedNetId,
         );
 
-        expect(netlist.nets).toHaveLength(1);
-        expect(netlist.nets[0].drivers).toEqual([
+        expect(connectedNet?.drivers).toEqual([
             {
                 componentId: "source-1",
-                portId: "output",
+                portId: "east",
             },
         ]);
+
+        expect(connectedNet?.readers).toEqual([
+            {
+                componentId: "light-1",
+                portId: "west",
+            },
+        ]);
+
+        expect(netlist.nets).toHaveLength(7);
     });
 
     it("connects a source to a light through a wire", () => {
@@ -106,11 +118,12 @@ describe("compileNetlist", () => {
 
         const netlist = compileNetlist(circuit, defaultComponentRegistry);
 
-        const sourceNet = getNetId(netlist, "source-1", "output");
+        const sourceNet = getNetId(netlist, "source-1", "east");
 
         expect(sourceNet).toBe(getNetId(netlist, "wire-1", "west"));
         expect(sourceNet).toBe(getNetId(netlist, "wire-1", "east"));
-        expect(sourceNet).toBe(getNetId(netlist, "light-1", "input"));
+        expect(sourceNet).toBe(getNetId(netlist, "light-1", "west"));
+        expect(netlist.nets).toHaveLength(7);
     });
 
     it("creates no driver for a wire connected to a light", () => {
@@ -135,16 +148,18 @@ describe("compileNetlist", () => {
 
         const netlist = compileNetlist(circuit, defaultComponentRegistry);
 
-        const netId = getNetId(netlist, "light-1", "input");
+        const netId = getNetId(netlist, "light-1", "west");
         const net = netlist.nets.find((candidate) => candidate.id === netId);
 
         expect(net?.drivers).toEqual([]);
         expect(net?.readers).toEqual([
             {
                 componentId: "light-1",
-                portId: "input",
+                portId: "west",
             },
         ]);
+
+        expect(netlist.nets).toHaveLength(4);
     });
 
     it("rejects duplicate component ids", () => {
@@ -225,28 +240,26 @@ describe("compileNetlist", () => {
 
         const netlist = compileNetlist(circuit, defaultComponentRegistry);
 
-        expect(getNetId(netlist, "source-1", "output")).toBe(
-            getNetId(netlist, "light-1", "input"),
+        expect(getNetId(netlist, "source-1", "east")).toBe(
+            getNetId(netlist, "light-1", "west"),
         );
     });
 
-    it("does not connect adjacent ports that do not face each other", () => {
+    it("connects omnidirectional components vertically without rotation", () => {
         const circuit: Circuit = {
-            width: 2,
-            height: 1,
+            width: 1,
+            height: 2,
             components: [
                 component("source-1", "source", 0, 0),
-                component("light-1", "light", 1, 0, 180),
+                component("light-1", "light", 0, 1),
             ],
         };
 
         const netlist = compileNetlist(circuit, defaultComponentRegistry);
 
-        expect(getNetId(netlist, "source-1", "output")).not.toBe(
-            getNetId(netlist, "light-1", "input"),
+        expect(getNetId(netlist, "source-1", "south")).toBe(
+            getNetId(netlist, "light-1", "north"),
         );
-
-        expect(netlist.nets).toHaveLength(2);
     });
 
     it("handles conductive loops", () => {

@@ -2,7 +2,12 @@ import type { Position } from "../grid/position";
 import type { Direction } from "./port";
 import type { Rotation } from "./placedComponent";
 
-const DIRECTIONS: readonly Direction[] = ["north", "east", "south", "west"];
+export const DIRECTIONS: readonly Direction[] = [
+    "north",
+    "east",
+    "south",
+    "west",
+];
 
 export const DIRECTION_OFFSETS: Record<Direction, Position> = {
     north: { x: 0, y: -1 },

@@ -1,39 +1,30 @@
-import { ArrowRight, ArrowLeft, Plus, type LucideIcon } from "lucide-react";
+import { Lightbulb, Zap, Cable, type LucideIcon } from "lucide-react";
 import {
     isBuiltInComponentType,
     type BuiltInComponentType,
 } from "../../domain/circuit/components/componentType";
-import type { Rotation } from "../../domain/circuit/placedComponent";
 
-const COMPONENT_ICONS: Record<BuiltInComponentType, LucideIcon> = {
-    wire: Plus,
-    source: ArrowRight,
-    light: ArrowLeft,
+const COMPONENT_ICONS: Partial<Record<BuiltInComponentType, LucideIcon>> = {
+    source: Zap,
+    light: Lightbulb,
+    wire: Cable,
 };
 
 interface ComponentGlyphProps {
     componentType: string;
-    rotation: Rotation;
     size?: number;
 }
 
-export function ComponentGlyph({
-    componentType,
-    rotation,
-    size,
-}: ComponentGlyphProps) {
+export function ComponentGlyph({ componentType, size }: ComponentGlyphProps) {
     if (!isBuiltInComponentType(componentType)) {
         return null;
     }
 
     const Icon = COMPONENT_ICONS[componentType];
 
-    return (
-        <Icon
-            className="component-glyph"
-            style={{ transform: `rotate(${rotation}deg)` }}
-            size={size}
-            aria-hidden="true"
-        />
-    );
+    if (!Icon) {
+        return null;
+    }
+
+    return <Icon className="component-glyph" size={size} aria-hidden="true" />;
 }

@@ -45,10 +45,23 @@ button {
 .circuit-component {
     position: absolute;
     box-sizing: border-box;
-    pointer-events: none;
+    pointer-events: auto;
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.circuit-component .component-glyph {
+    opacity: 0;
+    transition: opacity 120ms ease;
+}
+
+.circuit-component:hover .component-glyph {
+    opacity: 1;
+}
+
+.component-palette__item .component-glyph {
+    opacity: 1;
 }
 
 .component-glyph {

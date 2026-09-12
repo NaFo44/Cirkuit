@@ -212,19 +212,19 @@ describe("CircuitLayout", () => {
         const sourceNet = netlist.netByPort.get(
             portKey({
                 componentId: "source-1",
-                portId: "output",
+                portId: "east",
             }),
         );
 
         const lightNet = netlist.netByPort.get(
             portKey({
                 componentId: "light-1",
-                portId: "input",
+                portId: "west",
             }),
         );
 
         expect(sourceNet).toBeDefined();
         expect(sourceNet).toBe(lightNet);
-        expect(netlist.nets).toHaveLength(1);
+        expect(netlist.nets).toHaveLength(7);
     });
 });
