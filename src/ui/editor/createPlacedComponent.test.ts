@@ -1,9 +1,6 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 
-import {
-    createComponentId,
-    createPlacedComponent,
-} from "./createPlacedComponent";
+import { createPlacedComponent } from "./createPlacedComponent";
 
 afterEach(() => {
     vi.restoreAllMocks();
@@ -48,5 +45,15 @@ describe("createPlacedComponent", () => {
         expect(placedComponent.position).toEqual(position);
 
         expect(placedComponent.position).not.toBe(position);
+    });
+
+    it("uses the requested rotation", () => {
+        const placedComponent = createPlacedComponent(
+            "light",
+            { x: 1, y: 2 },
+            270,
+        );
+
+        expect(placedComponent.rotation).toBe(270);
     });
 });

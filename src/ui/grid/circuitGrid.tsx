@@ -8,13 +8,20 @@ import {
     worldToGrid,
 } from "../../domain/grid/gridCoordinates";
 import type { Position } from "../../domain/grid/position";
+import { ComponentGlyph } from "../components/componentGlyph";
+import type { ComponentVisualState } from "../components/componentVisualState";
 
 interface CircuitGridProps {
     circuit: CircuitLayout;
     onCellPaint?: (position: Position) => void;
+    componentVisualStates: ReadonlyMap<string, ComponentVisualState>;
 }
 
-export function CircuitGrid({ circuit, onCellPaint }: CircuitGridProps) {
+export function CircuitGrid({
+    circuit,
+    onCellPaint,
+    componentVisualStates,
+}: CircuitGridProps) {
     const activePointerId = useRef<number | null>(null);
     const lastPaintedCell = useRef<Position | null>(null);
 
@@ -121,22 +128,31 @@ export function CircuitGrid({ circuit, onCellPaint }: CircuitGridProps) {
             {circuit.components.map((component) => {
                 const { x, y } = component.position;
                 const position = gridToWorld(x, y);
+                const visualState =
+                    componentVisualStates.get(component.id) ?? "default";
 
                 return (
                     <div
                         key={component.id}
                         role="gridcell"
-                        className={`circuit-component circuit-cell--${component.type}`}
+                        className={`circuit-component circuit-cell--${component.type} circuit-component--${visualState}`}
                         style={{
                             left: position.x + 1,
                             top: position.y + 1,
                             width: CELL_SIZE - 1,
                             height: CELL_SIZE - 1,
                         }}
-                        aria-label={`Cell ${x},${y}: ${component.type}`}
+                        aria-label={`Cell ${x},${y}: ${component.type}, ${visualState}, ${component.rotation} degrees`}
                         aria-rowindex={y + 1}
                         aria-colindex={x + 1}
-                    />
+                        data-visual-state={visualState}
+                    >
+                        <ComponentGlyph
+                            componentType={component.type}
+                            rotation={component.rotation}
+                            size={13}
+                        />
+                    </div>
                 );
             })}
         </div>

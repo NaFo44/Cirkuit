@@ -66,6 +66,24 @@ describe("simulationEngine", () => {
         );
     });
 
+    it("powers a light through a vertical wire", () => {
+        const circuit: Circuit = {
+            width: 1,
+            height: 3,
+            components: [
+                component("source-1", "source", 0, 0, 90),
+                component("wire-1", "wire", 0, 1, 90),
+                component("light-1", "light", 0, 2, 90),
+            ],
+        };
+
+        const simulation = createSimulation(circuit, defaultComponentRegistry);
+
+        expect(getPortSignal(simulation, "light-1", "input")).toBe(
+            SIGNALS.high,
+        );
+    });
+
     it("leaves a light floating without a source", () => {
         const circuit: Circuit = {
             width: 2,

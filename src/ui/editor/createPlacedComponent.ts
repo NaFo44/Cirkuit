@@ -1,5 +1,8 @@
 import type { BuiltInComponentType } from "../../domain/circuit/components/componentType";
-import type { PlacedComponent } from "../../domain/circuit/placedComponent";
+import type {
+    PlacedComponent,
+    Rotation,
+} from "../../domain/circuit/placedComponent";
 import type { Position } from "../../domain/grid/position";
 
 export function createComponentId(): string {
@@ -9,6 +12,7 @@ export function createComponentId(): string {
 export function createPlacedComponent(
     componentType: BuiltInComponentType,
     position: Position,
+    rotation: Rotation = 0,
 ): PlacedComponent {
     return {
         id: createComponentId(),
@@ -17,6 +21,6 @@ export function createPlacedComponent(
             x: position.x,
             y: position.y,
         },
-        rotation: 0,
+        rotation,
     };
 }
