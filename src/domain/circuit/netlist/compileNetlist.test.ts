@@ -327,4 +327,31 @@ describe("compileNetlist", () => {
             "Component id cannot be empty",
         );
     });
+
+    it("keeps switch ports on separate bidirectional nets", () => {
+        const circuit: Circuit = {
+            width: 1,
+            height: 1,
+            components: [component("switch-1", "switch", 0, 0)],
+        };
+
+        const netlist = compileNetlist(circuit, defaultComponentRegistry);
+
+        expect(netlist.nets).toHaveLength(4);
+
+        for (const portId of ["north", "east", "south", "west"] as const) {
+            const netId = getNetId(netlist, "switch-1", portId);
+            const net = netlist.nets.find(
+                (candidate) => candidate.id === netId,
+            );
+
+            const reference = {
+                componentId: "switch-1",
+                portId,
+            };
+
+            expect(net?.drivers).toEqual([reference]);
+            expect(net?.readers).toEqual([reference]);
+        }
+    });
 });

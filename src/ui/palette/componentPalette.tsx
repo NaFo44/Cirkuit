@@ -3,11 +3,14 @@ import {
     type BuiltInComponentType,
 } from "../../domain/circuit/components/componentType";
 import { ComponentGlyph } from "../components/componentGlyph";
+import type { EditorMode } from "../editor/editorMode";
 import type { EditorTool } from "../editor/editorTool";
-import { Eraser } from "pixelarticons/react";
+import { Eraser, MagicEdit, Play } from "pixelarticons/react";
 
 interface ComponentPaletteProps {
+    mode: EditorMode;
     selectedTool: EditorTool;
+    onModeChange: (mode: EditorMode) => void;
     onSelectComponent: (componentType: BuiltInComponentType) => void;
     onSelectEraser: () => void;
 }
@@ -16,15 +19,35 @@ const COMPONENT_LABELS: Record<BuiltInComponentType, string> = {
     wire: "Wire",
     source: "Source",
     light: "Light",
+    switch: "Switch",
 };
 
 export function ComponentPalette({
+    mode,
     selectedTool,
+    onModeChange,
     onSelectComponent,
     onSelectEraser,
 }: ComponentPaletteProps) {
     return (
         <aside className="component-palette" aria-label="Component palette">
+            <button
+                type="button"
+                className="component-palette__item component-palette__item--mode"
+                title={mode === "edit" ? "Run circuit" : "Edit circuit"}
+                aria-label={mode === "edit" ? "Run circuit" : "Edit circuit"}
+                aria-pressed={mode === "simulate"}
+                onClick={() =>
+                    onModeChange(mode === "edit" ? "simulate" : "edit")
+                }
+            >
+                {mode === "edit" ? (
+                    <Play width={25} height={25} aria-hidden="true" />
+                ) : (
+                    <MagicEdit width={25} height={25} aria-hidden="true" />
+                )}
+            </button>
+
             {BUILT_IN_COMPONENT_TYPES.map((component) => (
                 <button
                     key={component}
@@ -40,6 +63,7 @@ export function ComponentPalette({
                         selectedTool.componentType === component
                     }
                     onClick={() => onSelectComponent(component)}
+                    disabled={mode === "simulate"}
                 >
                     <ComponentGlyph size={25} componentType={component} />
                 </button>
@@ -51,6 +75,7 @@ export function ComponentPalette({
                 aria-label="Eraser"
                 aria-pressed={selectedTool.kind === "eraser"}
                 onClick={onSelectEraser}
+                disabled={mode === "simulate"}
             >
                 <Eraser width={25} height={25} aria-hidden="true" />
             </button>

@@ -11,7 +11,10 @@ import type {
     Rotation,
 } from "../../domain/circuit/placedComponent";
 import { SIGNALS } from "../../domain/circuit/signal";
-import { createSimulation } from "../../domain/circuit/simulation/simulationEngine";
+import {
+    advanceSimulation,
+    createSimulation,
+} from "../../domain/circuit/simulation/simulationEngine";
 import { createComponentVisualStates } from "./componentVisualState";
 
 function component(
@@ -115,5 +118,26 @@ describe("createComponentVisualStates", () => {
 
         expect(visualStates.get("light-1")).toBe("conflict");
         expect(visualStates.get("low-source-1")).toBe("default");
+    });
+
+    it("marks a closed switch as active", () => {
+        const initialSimulation = simulate([
+            component("switch-1", "switch", 0, 0),
+        ]);
+
+        expect(
+            createComponentVisualStates(initialSimulation).get("switch-1"),
+        ).toBe("default");
+
+        const closedSimulation = advanceSimulation(initialSimulation, [
+            {
+                componentId: "switch-1",
+                type: "toggle",
+            },
+        ]);
+
+        expect(
+            createComponentVisualStates(closedSimulation).get("switch-1"),
+        ).toBe("active");
     });
 });

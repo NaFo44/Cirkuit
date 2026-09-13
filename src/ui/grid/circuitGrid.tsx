@@ -10,16 +10,21 @@ import {
 import type { Position } from "../../domain/grid/position";
 import { ComponentGlyph } from "../components/componentGlyph";
 import type { ComponentVisualState } from "../components/componentVisualState";
+import type { PlacedComponent } from "../../domain/circuit/placedComponent";
 
 interface CircuitGridProps {
     circuit: CircuitLayout;
     onCellPaint?: (position: Position) => void;
+    onComponentInteract?: (component: PlacedComponent) => void;
+    isComponentInteractive?: (component: PlacedComponent) => boolean;
     componentVisualStates: ReadonlyMap<string, ComponentVisualState>;
 }
 
 export function CircuitGrid({
     circuit,
     onCellPaint,
+    onComponentInteract,
+    isComponentInteractive,
     componentVisualStates,
 }: CircuitGridProps) {
     const activePointerId = useRef<number | null>(null);
@@ -109,7 +114,9 @@ export function CircuitGrid({
 
     return (
         <div
-            className="circuit-grid"
+            className={`circuit-grid${
+                onCellPaint ? " circuit-grid--editable" : ""
+            }`}
             style={{
                 width: circuit.width * CELL_SIZE,
                 height: circuit.height * CELL_SIZE,
@@ -130,12 +137,36 @@ export function CircuitGrid({
                 const position = gridToWorld(x, y);
                 const visualState =
                     componentVisualStates.get(component.id) ?? "default";
+                const interactive =
+                    onComponentInteract !== undefined &&
+                    (isComponentInteractive?.(component) ?? true);
 
                 return (
                     <div
                         key={component.id}
                         role="gridcell"
-                        className={`circuit-component circuit-cell--${component.type} circuit-component--${visualState}`}
+                        className={`circuit-component circuit-cell--${component.type} circuit-component--${visualState}${
+                            interactive ? " circuit-component--interactive" : ""
+                        }`}
+                        tabIndex={interactive ? 0 : undefined}
+                        onClick={
+                            interactive
+                                ? () => onComponentInteract(component)
+                                : undefined
+                        }
+                        onKeyDown={
+                            interactive
+                                ? (event) => {
+                                      if (
+                                          event.key === "Enter" ||
+                                          event.key === " "
+                                      ) {
+                                          event.preventDefault();
+                                          onComponentInteract(component);
+                                      }
+                                  }
+                                : undefined
+                        }
                         style={{
                             left: position.x,
                             top: position.y,

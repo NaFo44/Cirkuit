@@ -6,7 +6,12 @@ import {
     oppositeDirection,
     rotateDirection,
 } from "../direction";
-import type { Direction, PortKind } from "../port";
+import {
+    portCanDrive,
+    portCanRead,
+    type Direction,
+    type PortKind,
+} from "../port";
 import { portKey, type Net, type Netlist, type PortReference } from "./netlist";
 import { UnionFind } from "./unionFind";
 
@@ -94,12 +99,12 @@ function createNet(resolvedPorts: readonly ResolvedPort[]): Net {
         .sort(comparePorts);
 
     const drivers = resolvedPorts
-        .filter((port) => port.kind === "output")
+        .filter((port) => portCanDrive(port.kind))
         .map((port) => port.reference)
         .sort(comparePorts);
 
     const readers = resolvedPorts
-        .filter((port) => port.kind === "input")
+        .filter((port) => portCanRead(port.kind))
         .map((port) => port.reference)
         .sort(comparePorts);
 

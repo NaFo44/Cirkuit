@@ -11,8 +11,13 @@ import { useCircuitSimulation } from "./ui/simulation/useCircuitSimulation";
 import { MapViewport } from "./ui/viewport/mapViewport";
 import type { EditorTool } from "./ui/editor/editorTool";
 import { applyEditorTool } from "./ui/editor/applyEditorTool";
+import { defaultComponentRegistry } from "./domain/circuit/components/defaultComponentRegistry";
+import type { PlacedComponent } from "./domain/circuit/placedComponent";
+import type { EditorMode } from "./ui/editor/editorMode";
 
 export function App() {
+    const [mode, setMode] = useState<EditorMode>("edit");
+
     const [selectedTool, setSelectedTool] = useState<EditorTool>({
         kind: "component",
         componentType: "wire",
@@ -23,7 +28,10 @@ export function App() {
         CircuitLayout.empty(GRID_DIMENSIONS.width, GRID_DIMENSIONS.height),
     );
 
-    const simulation = useCircuitSimulation(circuit);
+    const { simulation, dispatchAction } = useCircuitSimulation(
+        circuit,
+        defaultComponentRegistry,
+    );
 
     const componentVisualStates = useMemo(
         () => createComponentVisualStates(simulation),
@@ -50,18 +58,43 @@ export function App() {
         );
     };
 
+    const isComponentInteractive = (component: PlacedComponent): boolean =>
+        defaultComponentRegistry.get(component.type).primaryAction !==
+        undefined;
+
+    const interactWithComponent = (component: PlacedComponent) => {
+        const actionType = defaultComponentRegistry.get(
+            component.type,
+        ).primaryAction;
+
+        if (!actionType) {
+            return;
+        }
+
+        dispatchAction({
+            componentId: component.id,
+            type: actionType,
+        });
+    };
+
     return (
         <main className="circuit-editor">
             <MapViewport>
                 <CircuitGrid
                     circuit={circuit}
                     componentVisualStates={componentVisualStates}
-                    onCellPaint={paintCell}
+                    onCellPaint={mode === "edit" ? paintCell : undefined}
+                    onComponentInteract={
+                        mode === "simulate" ? interactWithComponent : undefined
+                    }
+                    isComponentInteractive={isComponentInteractive}
                 />
             </MapViewport>
 
             <ComponentPalette
+                mode={mode}
                 selectedTool={selectedTool}
+                onModeChange={setMode}
                 onSelectComponent={selectComponent}
                 onSelectEraser={selectEraser}
             />

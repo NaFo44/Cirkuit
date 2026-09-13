@@ -5,6 +5,24 @@ function validateDefinition(definition: ComponentDefinition): void {
         throw new Error("Component type cannot be empty");
     }
 
+    if (
+        definition.primaryAction !== undefined &&
+        definition.primaryAction.trim() === ""
+    ) {
+        throw new Error(
+            `Primary action cannot be empty in component type ${definition.type}`,
+        );
+    }
+
+    if (
+        definition.primaryAction !== undefined &&
+        definition.computeNextState === undefined
+    ) {
+        throw new Error(
+            `Interactive component must define computeNextState: ${definition.type}`,
+        );
+    }
+
     const portsById = new Map(definition.ports.map((port) => [port.id, port]));
 
     const sides = new Set<string>();

@@ -9,6 +9,8 @@ import { portKey, type Netlist } from "../netlist/netlist";
 import { SIGNALS, type Signal } from "../signal";
 import { resolveSignals } from "./resolveSignals";
 import type { SimulationSnapshot } from "./simulationSnapshot";
+import { portCanDrive, portCanRead } from "../port";
+import type { SimulationAction } from "./simulationAction";
 
 export interface Simulation {
     readonly circuit: Circuit;
@@ -58,7 +60,7 @@ function getComponentInputs(
     const inputs = new Map<string, Signal>();
 
     for (const port of definition.ports) {
-        if (port.kind !== "input") {
+        if (!portCanRead(port.kind)) {
             continue;
         }
 
@@ -104,7 +106,7 @@ function validateOutputs(
             );
         }
 
-        if (port.kind !== "output") {
+        if (!portCanDrive(port.kind)) {
             throw new Error(
                 `Component "${componentId}" produced a signal on non-output port: ${portId}`,
             );
@@ -139,6 +141,7 @@ function evaluateNetSignals(
                 currentNetSignals,
             ),
             state: getComponentState(componentStates, component.id),
+            actions: [],
         };
 
         const outputs = definition.computeOutputs(context);
@@ -146,7 +149,7 @@ function evaluateNetSignals(
         validateOutputs(component.id, definition, outputs);
 
         for (const port of definition.ports) {
-            if (port.kind !== "output") {
+            if (!portCanDrive(port.kind)) {
                 continue;
             }
 
@@ -221,11 +224,38 @@ function createInitialStates(
 
 function computeNextStates(
     simulation: Simulation,
+    actions: readonly SimulationAction[],
 ): ReadonlyMap<string, unknown> {
     const { circuit, registry, netlist, snapshot } = simulation;
 
     if (snapshot.componentStates.size !== circuit.components.length) {
         throw new Error("Simulation state does not match the circuit");
+    }
+
+    const componentIds = new Set(
+        circuit.components.map((component) => component.id),
+    );
+
+    const actionsByComponent = new Map<string, SimulationAction[]>();
+
+    for (const action of actions) {
+        if (action.type.trim() === "") {
+            throw new Error("Simulation action type cannot be empty");
+        }
+
+        if (!componentIds.has(action.componentId)) {
+            throw new Error(
+                `Unknown simulation action target: ${action.componentId}`,
+            );
+        }
+
+        const componentActions = actionsByComponent.get(action.componentId);
+
+        if (componentActions) {
+            componentActions.push(action);
+        } else {
+            actionsByComponent.set(action.componentId, [action]);
+        }
     }
 
     const nextStates = new Map<string, unknown>();
@@ -251,6 +281,7 @@ function computeNextStates(
                 snapshot.netSignals,
             ),
             state: currentState,
+            actions: actionsByComponent.get(component.id) ?? [],
         };
 
         nextStates.set(component.id, definition.computeNextState(context));
@@ -285,8 +316,11 @@ export function createSimulation(
     };
 }
 
-export function advanceSimulation(simulation: Simulation): Simulation {
-    const componentStates = computeNextStates(simulation);
+export function advanceSimulation(
+    simulation: Simulation,
+    actions: readonly SimulationAction[] = [],
+): Simulation {
+    const componentStates = computeNextStates(simulation, actions);
     const tick = simulation.snapshot.tick + 1;
 
     return {
@@ -327,4 +361,11 @@ export function getPortSignal(
     }
 
     return signal;
+}
+
+export function getSimulationComponentState(
+    simulation: Simulation,
+    componentId: string,
+): unknown {
+    return getComponentState(simulation.snapshot.componentStates, componentId);
 }

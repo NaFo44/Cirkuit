@@ -13,6 +13,7 @@ import {
     advanceSimulation,
     createSimulation,
     getPortSignal,
+    getSimulationComponentState,
 } from "./simulationEngine";
 
 function component(
@@ -281,6 +282,175 @@ describe("simulationEngine", () => {
 
         expect(() => createSimulation(circuit, registry)).toThrow(
             "Circuit did not stabilize at tick 0",
+        );
+    });
+
+    it("opens and closes a switch through simulation actions", () => {
+        const circuit: Circuit = {
+            width: 3,
+            height: 1,
+            components: [
+                component("source-1", "source", 0, 0),
+                component("switch-1", "switch", 1, 0),
+                component("light-1", "light", 2, 0),
+            ],
+        };
+
+        const initialSimulation = createSimulation(
+            circuit,
+            defaultComponentRegistry,
+        );
+
+        expect(
+            getSimulationComponentState(initialSimulation, "switch-1"),
+        ).toEqual({
+            closed: false,
+        });
+
+        expect(getPortSignal(initialSimulation, "light-1", "west")).toBe(
+            SIGNALS.floating,
+        );
+
+        const closedSimulation = advanceSimulation(initialSimulation, [
+            {
+                componentId: "switch-1",
+                type: "toggle",
+            },
+        ]);
+
+        expect(closedSimulation.snapshot.tick).toBe(1);
+        expect(
+            getSimulationComponentState(closedSimulation, "switch-1"),
+        ).toEqual({
+            closed: true,
+        });
+        expect(getPortSignal(closedSimulation, "light-1", "west")).toBe(
+            SIGNALS.high,
+        );
+
+        const reopenedSimulation = advanceSimulation(closedSimulation, [
+            {
+                componentId: "switch-1",
+                type: "toggle",
+            },
+        ]);
+
+        expect(reopenedSimulation.snapshot.tick).toBe(2);
+        expect(
+            getSimulationComponentState(reopenedSimulation, "switch-1"),
+        ).toEqual({
+            closed: false,
+        });
+        expect(getPortSignal(reopenedSimulation, "light-1", "west")).toBe(
+            SIGNALS.floating,
+        );
+
+        expect(
+            getSimulationComponentState(initialSimulation, "switch-1"),
+        ).toEqual({
+            closed: false,
+        });
+    });
+
+    it("uses a closed switch as an omnidirectional junction", () => {
+        const circuit: Circuit = {
+            width: 3,
+            height: 3,
+            components: [
+                component("source-1", "source", 0, 1),
+                component("switch-1", "switch", 1, 1),
+                component("light-north", "light", 1, 0),
+                component("light-east", "light", 2, 1),
+                component("light-south", "light", 1, 2),
+            ],
+        };
+
+        const initialSimulation = createSimulation(
+            circuit,
+            defaultComponentRegistry,
+        );
+
+        const closedSimulation = advanceSimulation(initialSimulation, [
+            {
+                componentId: "switch-1",
+                type: "toggle",
+            },
+        ]);
+
+        expect(getPortSignal(closedSimulation, "light-north", "south")).toBe(
+            SIGNALS.high,
+        );
+        expect(getPortSignal(closedSimulation, "light-east", "west")).toBe(
+            SIGNALS.high,
+        );
+        expect(getPortSignal(closedSimulation, "light-south", "north")).toBe(
+            SIGNALS.high,
+        );
+    });
+
+    it("rejects actions targeting an unknown component", () => {
+        const circuit: Circuit = {
+            width: 1,
+            height: 1,
+            components: [component("switch-1", "switch", 0, 0)],
+        };
+
+        const simulation = createSimulation(circuit, defaultComponentRegistry);
+
+        expect(() =>
+            advanceSimulation(simulation, [
+                {
+                    componentId: "missing",
+                    type: "toggle",
+                },
+            ]),
+        ).toThrow("Unknown simulation action target: missing");
+    });
+
+    it("rejects simulation actions with an empty type", () => {
+        const circuit: Circuit = {
+            width: 1,
+            height: 1,
+            components: [component("switch-1", "switch", 0, 0)],
+        };
+
+        const simulation = createSimulation(circuit, defaultComponentRegistry);
+
+        expect(() =>
+            advanceSimulation(simulation, [
+                {
+                    componentId: "switch-1",
+                    type: " ",
+                },
+            ]),
+        ).toThrow("Simulation action type cannot be empty");
+    });
+
+    it("applies multiple switch toggles atomically", () => {
+        const circuit: Circuit = {
+            width: 1,
+            height: 1,
+            components: [component("switch-1", "switch", 0, 0)],
+        };
+
+        const simulation = createSimulation(circuit, defaultComponentRegistry);
+
+        const nextSimulation = advanceSimulation(simulation, [
+            {
+                componentId: "switch-1",
+                type: "toggle",
+            },
+            {
+                componentId: "switch-1",
+                type: "toggle",
+            },
+        ]);
+
+        expect(nextSimulation.snapshot.tick).toBe(1);
+        expect(getSimulationComponentState(nextSimulation, "switch-1")).toEqual(
+            {
+                closed: false,
+            },
         );
     });
 });

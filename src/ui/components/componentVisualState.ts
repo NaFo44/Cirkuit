@@ -7,9 +7,11 @@ import type { PlacedComponent } from "../../domain/circuit/placedComponent";
 import { SIGNALS } from "../../domain/circuit/signal";
 import { resolveSignals } from "../../domain/circuit/simulation/resolveSignals";
 import {
+    getSimulationComponentState,
     getPortSignal,
     type Simulation,
 } from "../../domain/circuit/simulation/simulationEngine";
+import { isSwitchState } from "../../domain/circuit/components/switch";
 
 export type ComponentVisualState = "default" | "active" | "conflict";
 
@@ -39,6 +41,12 @@ const VISUAL_STATE_RESOLVERS = {
         }
 
         return "default";
+    },
+
+    switch: (component, simulation) => {
+        const state = getSimulationComponentState(simulation, component.id);
+
+        return isSwitchState(state) && state.closed ? "active" : "default";
     },
 } satisfies Record<BuiltInComponentType, ComponentVisualStateResolver>;
 

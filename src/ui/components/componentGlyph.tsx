@@ -1,4 +1,9 @@
-import { Lightbulb, Zap, Plug } from "pixelarticons/react";
+import {
+    Lightbulb,
+    Zap,
+    Plug,
+    Switch as SwitchIcon,
+} from "pixelarticons/react";
 import {
     isBuiltInComponentType,
     type BuiltInComponentType,
@@ -10,6 +15,7 @@ const COMPONENT_ICONS: Partial<Record<BuiltInComponentType, PixelIcon>> = {
     source: Zap,
     light: Lightbulb,
     wire: Plug,
+    switch: SwitchIcon,
 };
 
 interface ComponentGlyphProps {

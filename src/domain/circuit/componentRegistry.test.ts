@@ -204,4 +204,27 @@ describe("ComponentRegistry", () => {
                 ]),
         ).toThrow('Conductive port "east" belongs to multiple groups');
     });
+
+    it("rejects an empty primary action", () => {
+        const definition: ComponentDefinition = {
+            ...createDefinition(),
+            primaryAction: " ",
+            computeNextState: ({ state }) => state,
+        };
+
+        expect(() => new ComponentRegistry([definition])).toThrow(
+            "Primary action cannot be empty",
+        );
+    });
+
+    it("rejects an interactive component without state computation", () => {
+        const definition: ComponentDefinition = {
+            ...createDefinition(),
+            primaryAction: "toggle",
+        };
+
+        expect(() => new ComponentRegistry([definition])).toThrow(
+            "Interactive component must define computeNextState",
+        );
+    });
 });
