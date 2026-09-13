@@ -2,23 +2,22 @@ import { useMemo, useState } from "react";
 
 import { CircuitLayout } from "./domain/circuit/circuitLayout";
 import type { BuiltInComponentType } from "./domain/circuit/components/componentType";
-import {
-    rotateClockwise,
-    type Rotation,
-} from "./domain/circuit/placedComponent";
 import { GRID_DIMENSIONS } from "./domain/grid/gridDimensions";
 import type { Position } from "./domain/grid/position";
 import { createComponentVisualStates } from "./ui/components/componentVisualState";
-import { createPlacedComponent } from "./ui/editor/createPlacedComponent";
 import { CircuitGrid } from "./ui/grid/circuitGrid";
 import { ComponentPalette } from "./ui/palette/componentPalette";
 import { useCircuitSimulation } from "./ui/simulation/useCircuitSimulation";
 import { MapViewport } from "./ui/viewport/mapViewport";
+import type { EditorTool } from "./ui/editor/editorTool";
+import { applyEditorTool } from "./ui/editor/applyEditorTool";
 
 export function App() {
-    const [selectedComponent, setSelectedComponent] =
-        useState<BuiltInComponentType>("wire");
-    const [selectedRotation, setSelectedRotation] = useState<Rotation>(0);
+    const [selectedTool, setSelectedTool] = useState<EditorTool>({
+        kind: "component",
+        componentType: "wire",
+        rotation: 0,
+    });
 
     const [circuit, setCircuit] = useState(() =>
         CircuitLayout.empty(GRID_DIMENSIONS.width, GRID_DIMENSIONS.height),
@@ -31,34 +30,24 @@ export function App() {
         [simulation],
     );
 
-    const selectComponent = (component: BuiltInComponentType) => {
-        if (component === selectedComponent && component !== "wire") {
-            setSelectedRotation(rotateClockwise);
-            return;
-        }
-
-        setSelectedComponent(component);
+    const selectEraser = () => {
+        setSelectedTool({
+            kind: "eraser",
+        });
     };
 
-    const paintComponent = (position: Position) => {
-        setCircuit((currentCircuit) => {
-            const existing = currentCircuit.getComponentAt(position);
-
-            if (
-                existing?.type === selectedComponent &&
-                existing.rotation === selectedRotation
-            ) {
-                return currentCircuit;
-            }
-
-            return currentCircuit.withComponent(
-                createPlacedComponent(
-                    selectedComponent,
-                    position,
-                    selectedRotation,
-                ),
-            );
+    const selectComponent = (componentType: BuiltInComponentType) => {
+        setSelectedTool({
+            kind: "component",
+            componentType,
+            rotation: 0,
         });
+    };
+
+    const paintCell = (position: Position) => {
+        setCircuit((currentCircuit) =>
+            applyEditorTool(currentCircuit, selectedTool, position),
+        );
     };
 
     return (
@@ -67,14 +56,14 @@ export function App() {
                 <CircuitGrid
                     circuit={circuit}
                     componentVisualStates={componentVisualStates}
-                    onCellPaint={paintComponent}
+                    onCellPaint={paintCell}
                 />
             </MapViewport>
 
             <ComponentPalette
-                selectedComponent={selectedComponent}
-                selectedRotation={selectedRotation}
-                onSelect={selectComponent}
+                selectedTool={selectedTool}
+                onSelectComponent={selectComponent}
+                onSelectEraser={selectEraser}
             />
         </main>
     );

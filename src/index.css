@@ -174,3 +174,12 @@ button {
     background: var(--cell-conflict);
     box-shadow: 0 0 8px rgb(255 77 79 / 70%);
 }
+
+.component-palette__item--eraser {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    color: #555;
+    background: #f5f5f5;
+}

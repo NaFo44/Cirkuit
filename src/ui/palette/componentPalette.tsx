@@ -2,13 +2,14 @@ import {
     BUILT_IN_COMPONENT_TYPES,
     type BuiltInComponentType,
 } from "../../domain/circuit/components/componentType";
-import type { Rotation } from "../../domain/circuit/placedComponent";
 import { ComponentGlyph } from "../components/componentGlyph";
+import type { EditorTool } from "../editor/editorTool";
+import { Eraser } from "lucide-react";
 
 interface ComponentPaletteProps {
-    selectedComponent: BuiltInComponentType;
-    selectedRotation: Rotation;
-    onSelect: (component: BuiltInComponentType) => void;
+    selectedTool: EditorTool;
+    onSelectComponent: (componentType: BuiltInComponentType) => void;
+    onSelectEraser: () => void;
 }
 
 const COMPONENT_LABELS: Record<BuiltInComponentType, string> = {
@@ -18,9 +19,9 @@ const COMPONENT_LABELS: Record<BuiltInComponentType, string> = {
 };
 
 export function ComponentPalette({
-    selectedComponent,
-    selectedRotation,
-    onSelect,
+    selectedTool,
+    onSelectComponent,
+    onSelectEraser,
 }: ComponentPaletteProps) {
     return (
         <aside className="component-palette" aria-label="Component palette">
@@ -32,14 +33,27 @@ export function ComponentPalette({
                     style={{
                         backgroundColor: `var(--cell-${component})`,
                     }}
-                    title={`${COMPONENT_LABELS[component]}, ${selectedRotation}°${selectedComponent === component && component !== "wire" ? " (click again to rotate)" : ""}`}
-                    aria-label={`${COMPONENT_LABELS[component]}, ${selectedRotation} degrees`}
-                    aria-pressed={selectedComponent === component}
-                    onClick={() => onSelect(component)}
+                    title={`${COMPONENT_LABELS[component]}`}
+                    aria-label={`${COMPONENT_LABELS[component]}`}
+                    aria-pressed={
+                        selectedTool.kind === "component" &&
+                        selectedTool.componentType === component
+                    }
+                    onClick={() => onSelectComponent(component)}
                 >
                     <ComponentGlyph size={25} componentType={component} />
                 </button>
             ))}
+            <button
+                type="button"
+                className="component-palette__item component-palette__item--eraser"
+                title="Eraser"
+                aria-label="Eraser"
+                aria-pressed={selectedTool.kind === "eraser"}
+                onClick={onSelectEraser}
+            >
+                <Eraser size={25} aria-hidden="true" />
+            </button>
         </aside>
     );
 }
