@@ -1,4 +1,4 @@
-name: Deploy yo GitHub Pages
+name: Deploy to GitHub Pages
 
 on:
   push:
@@ -24,38 +24,38 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      -name: Checkout repository
-      uses: actions/checkout@v6
+      - name: Checkout repository
+        uses: actions/checkout@v6
 
-      -name: Setup Node.js
-      uses: actions/setup-node@v6
-      with:
-        node-version: 24
-        cache: npm
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          cache: npm
 
-      -name: Install dependencies
-      run: npm ci
+      - name: Install dependencies
+        run: npm ci
 
-      -name: Check formatting
-      run: npm run format:check
+      - name: Check formatting
+        run: npm run format:check
 
-      -name: Run lint
-      run: npm run lint
+      - name: Run lint
+        run: npm run lint
 
-      -name: Run tests
-      run: npm run test
+      - name: Run tests
+        run: npm test -- --run
 
-      -name: Build
-      run: npm run build
+      - name: Build
+        run: npm run build
 
-      -name: Configure Github Pages
-      uses: actions/configure-pages@v5
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
 
-      -name: Upload website
-      uses: actions/upload-pages-artifact@v4
-      with:
-        path: dist
+      - name: Upload website
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: dist
 
-      -name: Deploy website
-      id: deployment
-      uses: actions/deploy-pages@v4
+      - name: Deploy website
+        id: deployment
+        uses: actions/deploy-pages@v4
