@@ -4,7 +4,7 @@ import {
 } from "../../domain/circuit/components/componentType";
 import { ComponentGlyph } from "../components/componentGlyph";
 import type { EditorTool } from "../editor/editorTool";
-import { Eraser } from "lucide-react";
+import { Eraser } from "pixelarticons/react";
 
 interface ComponentPaletteProps {
     selectedTool: EditorTool;
@@ -52,7 +52,7 @@ export function ComponentPalette({
                 aria-pressed={selectedTool.kind === "eraser"}
                 onClick={onSelectEraser}
             >
-                <Eraser size={25} aria-hidden="true" />
+                <Eraser width={25} height={25} aria-hidden="true" />
             </button>
         </aside>
     );

@@ -113,7 +113,7 @@ export function CircuitGrid({
             style={{
                 width: circuit.width * CELL_SIZE,
                 height: circuit.height * CELL_SIZE,
-                backgroundSize: `${CELL_SIZE}px ${CELL_SIZE}px`,
+                backgroundSize: `${CELL_SIZE * 2}px ${CELL_SIZE * 2}px`,
             }}
             role="grid"
             aria-label="Circuit grid"
@@ -137,10 +137,10 @@ export function CircuitGrid({
                         role="gridcell"
                         className={`circuit-component circuit-cell--${component.type} circuit-component--${visualState}`}
                         style={{
-                            left: position.x + 1,
-                            top: position.y + 1,
-                            width: CELL_SIZE - 1,
-                            height: CELL_SIZE - 1,
+                            left: position.x,
+                            top: position.y,
+                            width: CELL_SIZE,
+                            height: CELL_SIZE,
                         }}
                         aria-label={`Cell ${x},${y}: ${component.type}, ${visualState}, ${component.rotation} degrees`}
                         aria-rowindex={y + 1}

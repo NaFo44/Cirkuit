@@ -1,13 +1,15 @@
-import { Lightbulb, Zap, Cable, type LucideIcon } from "lucide-react";
+import { Lightbulb, Zap, Plug } from "pixelarticons/react";
 import {
     isBuiltInComponentType,
     type BuiltInComponentType,
 } from "../../domain/circuit/components/componentType";
 
-const COMPONENT_ICONS: Partial<Record<BuiltInComponentType, LucideIcon>> = {
+type PixelIcon = typeof Lightbulb;
+
+const COMPONENT_ICONS: Partial<Record<BuiltInComponentType, PixelIcon>> = {
     source: Zap,
     light: Lightbulb,
-    wire: Cable,
+    wire: Plug,
 };
 
 interface ComponentGlyphProps {
@@ -26,5 +28,12 @@ export function ComponentGlyph({ componentType, size }: ComponentGlyphProps) {
         return null;
     }
 
-    return <Icon className="component-glyph" size={size} aria-hidden="true" />;
+    return (
+        <Icon
+            className="component-glyph"
+            width={size}
+            height={size}
+            aria-hidden="true"
+        />
+    );
 }
