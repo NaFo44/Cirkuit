@@ -260,3 +260,49 @@ button {
     color: #276b25;
     background: #e1f3df;
 }
+
+.tooltip {
+    position: relative;
+    display: inline-block;
+}
+
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: max-content;
+    max-width: 160px;
+    padding: 8px 15px;
+    white-space: nowrap;
+    background-color: #000;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+
+    position: absolute;
+    z-index: 1;
+    right: calc(100% + 20px);
+    top: 50%;
+    transform: translateY(-50%);
+
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+}
+
+.tooltip .tooltiptext::after {
+    content: "";
+    position: absolute;
+
+    top: 50%;
+    left: 100%;
+    transform: translateY(-50%);
+
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent transparent transparent #000;
+}
+
+.tooltip:hover .tooltiptext,
+.tooltip > .component-palette__item:focus-visible + .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+}

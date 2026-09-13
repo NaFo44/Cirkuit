@@ -29,56 +29,69 @@ export function ComponentPalette({
     onSelectComponent,
     onSelectEraser,
 }: ComponentPaletteProps) {
+    const modeLabel = mode === "edit" ? "Run circuit" : "Edit circuit";
+
     return (
         <aside className="component-palette" aria-label="Component palette">
-            <button
-                type="button"
-                className="component-palette__item component-palette__item--mode"
-                title={mode === "edit" ? "Run circuit" : "Edit circuit"}
-                aria-label={mode === "edit" ? "Run circuit" : "Edit circuit"}
-                aria-pressed={mode === "simulate"}
-                onClick={() =>
-                    onModeChange(mode === "edit" ? "simulate" : "edit")
-                }
-            >
-                {mode === "edit" ? (
-                    <Play width={25} height={25} aria-hidden="true" />
-                ) : (
-                    <MagicEdit width={25} height={25} aria-hidden="true" />
-                )}
-            </button>
+            <div className="tooltip">
+                <button
+                    type="button"
+                    className="component-palette__item component-palette__item--mode"
+                    aria-label={modeLabel}
+                    aria-pressed={mode === "simulate"}
+                    onClick={() =>
+                        onModeChange(mode === "edit" ? "simulate" : "edit")
+                    }
+                >
+                    {mode === "edit" ? (
+                        <Play width={25} height={25} aria-hidden="true" />
+                    ) : (
+                        <MagicEdit width={25} height={25} aria-hidden="true" />
+                    )}
+                </button>
+                <span className="tooltiptext">
+                    {modeLabel}
+                </span>
+            </div>
 
             {BUILT_IN_COMPONENT_TYPES.map((component) => (
+                <div key={component} className="tooltip">
+                    <button
+                        type="button"
+                        className="component-palette__item"
+                        style={{
+                            backgroundColor: `var(--cell-${component})`,
+                        }}
+                        aria-label={`${COMPONENT_LABELS[component]}`}
+                        aria-pressed={
+                            selectedTool.kind === "component" &&
+                            selectedTool.componentType === component
+                        }
+                        onClick={() => onSelectComponent(component)}
+                        disabled={mode === "simulate"}
+                    >
+                        <ComponentGlyph size={25} componentType={component} />
+                    </button>
+                    <span className="tooltiptext" aria-hidden="true">
+                        {COMPONENT_LABELS[component]}
+                    </span>
+                </div>
+            ))}
+            <div className="tooltip">
                 <button
-                    key={component}
                     type="button"
-                    className="component-palette__item"
-                    style={{
-                        backgroundColor: `var(--cell-${component})`,
-                    }}
-                    title={`${COMPONENT_LABELS[component]}`}
-                    aria-label={`${COMPONENT_LABELS[component]}`}
-                    aria-pressed={
-                        selectedTool.kind === "component" &&
-                        selectedTool.componentType === component
-                    }
-                    onClick={() => onSelectComponent(component)}
+                    className="component-palette__item component-palette__item--eraser"
+                    aria-label="Eraser"
+                    aria-pressed={selectedTool.kind === "eraser"}
+                    onClick={onSelectEraser}
                     disabled={mode === "simulate"}
                 >
-                    <ComponentGlyph size={25} componentType={component} />
+                    <Eraser width={25} height={25} aria-hidden="true" />
                 </button>
-            ))}
-            <button
-                type="button"
-                className="component-palette__item component-palette__item--eraser"
-                title="Eraser"
-                aria-label="Eraser"
-                aria-pressed={selectedTool.kind === "eraser"}
-                onClick={onSelectEraser}
-                disabled={mode === "simulate"}
-            >
-                <Eraser width={25} height={25} aria-hidden="true" />
-            </button>
+                <span className="tooltiptext">
+                    Eraser
+                </span>
+            </div>
         </aside>
     );
 }
