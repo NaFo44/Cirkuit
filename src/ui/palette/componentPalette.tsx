@@ -22,6 +22,8 @@ const COMPONENT_LABELS: Record<BuiltInComponentType, string> = {
     switch: "Switch",
 };
 
+const PALETTE_ICON_SIZE = 24;
+
 export function ComponentPalette({
     mode,
     selectedTool,
@@ -30,7 +32,6 @@ export function ComponentPalette({
     onSelectEraser,
 }: ComponentPaletteProps) {
     const modeLabel = mode === "edit" ? "Run circuit" : "Edit circuit";
-
     return (
         <aside className="component-palette" aria-label="Component palette">
             <div className="tooltip">
@@ -44,14 +45,20 @@ export function ComponentPalette({
                     }
                 >
                     {mode === "edit" ? (
-                        <Play width={25} height={25} aria-hidden="true" />
+                        <Play
+                            width={PALETTE_ICON_SIZE}
+                            height={PALETTE_ICON_SIZE}
+                            aria-hidden="true"
+                        />
                     ) : (
-                        <MagicEdit width={25} height={25} aria-hidden="true" />
+                        <MagicEdit
+                            width={PALETTE_ICON_SIZE}
+                            height={PALETTE_ICON_SIZE}
+                            aria-hidden="true"
+                        />
                     )}
                 </button>
-                <span className="tooltiptext">
-                    {modeLabel}
-                </span>
+                <span className="tooltiptext">{modeLabel}</span>
             </div>
 
             {BUILT_IN_COMPONENT_TYPES.map((component) => (
@@ -70,7 +77,10 @@ export function ComponentPalette({
                         onClick={() => onSelectComponent(component)}
                         disabled={mode === "simulate"}
                     >
-                        <ComponentGlyph size={25} componentType={component} />
+                        <ComponentGlyph
+                            size={PALETTE_ICON_SIZE}
+                            componentType={component}
+                        />
                     </button>
                     <span className="tooltiptext" aria-hidden="true">
                         {COMPONENT_LABELS[component]}
@@ -86,11 +96,13 @@ export function ComponentPalette({
                     onClick={onSelectEraser}
                     disabled={mode === "simulate"}
                 >
-                    <Eraser width={25} height={25} aria-hidden="true" />
+                    <Eraser
+                        width={PALETTE_ICON_SIZE}
+                        height={PALETTE_ICON_SIZE}
+                        aria-hidden="true"
+                    />
                 </button>
-                <span className="tooltiptext">
-                    Eraser
-                </span>
+                <span className="tooltiptext">Eraser</span>
             </div>
         </aside>
     );

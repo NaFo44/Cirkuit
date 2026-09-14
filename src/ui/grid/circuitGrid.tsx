@@ -11,6 +11,7 @@ import type { Position } from "../../domain/grid/position";
 import { ComponentGlyph } from "../components/componentGlyph";
 import type { ComponentVisualState } from "../components/componentVisualState";
 import type { PlacedComponent } from "../../domain/circuit/placedComponent";
+import { createCellLighting } from "../lighting/createCellLighting";
 
 interface CircuitGridProps {
     circuit: CircuitLayout;
@@ -29,6 +30,7 @@ export function CircuitGrid({
 }: CircuitGridProps) {
     const activePointerId = useRef<number | null>(null);
     const lastPaintedCell = useRef<Position | null>(null);
+    const litCells = createCellLighting(circuit, componentVisualStates);
 
     const paintAtPointer = (event: ReactPointerEvent<HTMLDivElement>) => {
         const gridElement = event.currentTarget;
@@ -132,6 +134,24 @@ export function CircuitGrid({
             onPointerCancel={cancelPainting}
             onLostPointerCapture={cancelPainting}
         >
+            {litCells.map(({ position, level }) => {
+                const worldPosition = gridToWorld(position.x, position.y);
+
+                return (
+                    <div
+                        key={`${position.x},${position.y}`}
+                        className={`circuit-lighting-cell circuit-lighting-cell--${level}`}
+                        style={{
+                            left: worldPosition.x,
+                            top: worldPosition.y,
+                            width: CELL_SIZE,
+                            height: CELL_SIZE,
+                        }}
+                        aria-hidden="true"
+                    />
+                );
+            })}
+
             {circuit.components.map((component) => {
                 const { x, y } = component.position;
                 const position = gridToWorld(x, y);
@@ -180,7 +200,7 @@ export function CircuitGrid({
                     >
                         <ComponentGlyph
                             componentType={component.type}
-                            size={13}
+                            size={14}
                         />
                     </div>
                 );
