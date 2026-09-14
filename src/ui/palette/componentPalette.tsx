@@ -5,7 +5,7 @@ import {
 import { ComponentGlyph } from "../components/componentGlyph";
 import type { EditorMode } from "../editor/editorMode";
 import type { EditorTool } from "../editor/editorTool";
-import { Eraser, MagicEdit, Play } from "pixelarticons/react";
+import { Eraser, Pencil, Play } from "pixelarticons/react";
 
 interface ComponentPaletteProps {
     mode: EditorMode;
@@ -51,7 +51,7 @@ export function ComponentPalette({
                             aria-hidden="true"
                         />
                     ) : (
-                        <MagicEdit
+                        <Pencil
                             width={PALETTE_ICON_SIZE}
                             height={PALETTE_ICON_SIZE}
                             aria-hidden="true"

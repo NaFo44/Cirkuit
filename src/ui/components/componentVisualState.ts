@@ -4,7 +4,7 @@ import {
 } from "../../domain/circuit/components/componentType";
 import { DIRECTIONS } from "../../domain/circuit/direction";
 import type { PlacedComponent } from "../../domain/circuit/placedComponent";
-import { SIGNALS } from "../../domain/circuit/signal";
+import { SIGNALS, type Signal } from "../../domain/circuit/signal";
 import { resolveSignals } from "../../domain/circuit/simulation/resolveSignals";
 import {
     getSimulationComponentState,
@@ -13,24 +13,31 @@ import {
 } from "../../domain/circuit/simulation/simulationEngine";
 import { isSwitchState } from "../../domain/circuit/components/switch";
 
-export type ComponentVisualState = "default" | "active" | "conflict";
+export type ComponentVisualState = "default" | "active" | Signal;
 
 type ComponentVisualStateResolver = (
     component: PlacedComponent,
     simulation: Simulation,
 ) => ComponentVisualState;
 
+function resolveDirectionalSignal(
+    component: PlacedComponent,
+    simulation: Simulation,
+): Signal {
+    return resolveSignals(
+        DIRECTIONS.map((portId) =>
+            getPortSignal(simulation, component.id, portId),
+        ),
+    );
+}
+
 const VISUAL_STATE_RESOLVERS = {
-    wire: () => "default",
+    wire: resolveDirectionalSignal,
 
     source: () => "default",
 
     light: (component, simulation) => {
-        const signal = resolveSignals(
-            DIRECTIONS.map((portId) =>
-                getPortSignal(simulation, component.id, portId),
-            ),
-        );
+        const signal = resolveDirectionalSignal(component, simulation);
 
         if (signal === SIGNALS.conflict) {
             return "conflict";
