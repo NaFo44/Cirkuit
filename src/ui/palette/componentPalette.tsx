@@ -49,9 +49,7 @@ export function ComponentPalette({
                         <MagicEdit width={25} height={25} aria-hidden="true" />
                     )}
                 </button>
-                <span className="tooltiptext">
-                    {modeLabel}
-                </span>
+                <span className="tooltiptext">{modeLabel}</span>
             </div>
 
             {BUILT_IN_COMPONENT_TYPES.map((component) => (
@@ -88,9 +86,7 @@ export function ComponentPalette({
                 >
                     <Eraser width={25} height={25} aria-hidden="true" />
                 </button>
-                <span className="tooltiptext">
-                    Eraser
-                </span>
+                <span className="tooltiptext">Eraser</span>
             </div>
         </aside>
     );
