@@ -1,4 +1,4 @@
-import type { CircuitLayout } from "../../domain/circuit/circuitLayout";
+import type { Circuit } from "../../domain/circuit/circuit";
 import type { Position } from "../../domain/grid/position";
 import type { ComponentVisualState } from "../components/componentVisualState";
 
@@ -16,7 +16,7 @@ function positionKey(x: number, y: number): string {
 }
 
 export function createCellLighting(
-    circuit: CircuitLayout,
+    circuit: Circuit,
     componentVisualStates: ReadonlyMap<string, ComponentVisualState>,
 ): readonly LitCell[] {
     const lightLevels = new Map<string, LitCell>();
