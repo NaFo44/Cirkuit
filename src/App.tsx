@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import { CircuitLayout } from "./domain/circuit/circuitLayout";
 import type { BuiltInComponentType } from "./domain/circuit/components/componentType";
@@ -14,6 +14,11 @@ import { applyEditorTool } from "./ui/editor/applyEditorTool";
 import { defaultComponentRegistry } from "./domain/circuit/components/defaultComponentRegistry";
 import type { PlacedComponent } from "./domain/circuit/placedComponent";
 import type { EditorMode } from "./ui/editor/editorMode";
+import { rotateClockwise } from "./domain/circuit/placedComponent";
+
+const ROTATABLE_COMPONENT_TYPES: ReadonlySet<BuiltInComponentType> = new Set([
+    "not",
+]);
 
 export function App() {
     const [mode, setMode] = useState<EditorMode>("edit");
@@ -27,6 +32,54 @@ export function App() {
     const [circuit, setCircuit] = useState(() =>
         CircuitLayout.empty(GRID_DIMENSIONS.width, GRID_DIMENSIONS.height),
     );
+
+    useEffect(() => {
+        const handleKeyDown = (event: KeyboardEvent) => {
+            if (
+                mode !== "edit" ||
+                selectedTool.kind !== "component" ||
+                !ROTATABLE_COMPONENT_TYPES.has(selectedTool.componentType) ||
+                event.repeat ||
+                event.ctrlKey ||
+                event.metaKey ||
+                event.altKey ||
+                event.key.toLowerCase() !== "r"
+            ) {
+                return;
+            }
+
+            const target = event.target;
+
+            if (
+                target instanceof HTMLElement &&
+                (target.isContentEditable ||
+                    target instanceof HTMLInputElement ||
+                    target instanceof HTMLTextAreaElement ||
+                    target instanceof HTMLSelectElement)
+            ) {
+                return;
+            }
+
+            event.preventDefault();
+
+            setSelectedTool((currentTool) => {
+                if (currentTool.kind !== "component") {
+                    return currentTool;
+                }
+
+                return {
+                    ...currentTool,
+                    rotation: rotateClockwise(currentTool.rotation),
+                };
+            });
+        };
+
+        window.addEventListener("keydown", handleKeyDown);
+
+        return () => {
+            window.removeEventListener("keydown", handleKeyDown);
+        };
+    }, [mode, selectedTool]);
 
     const { simulation, dispatchAction } = useCircuitSimulation(
         circuit,

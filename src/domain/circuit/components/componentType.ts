@@ -3,6 +3,7 @@ export const BUILT_IN_COMPONENT_TYPES = [
     "source",
     "light",
     "switch",
+    "not",
 ] as const;
 
 export type BuiltInComponentType = (typeof BUILT_IN_COMPONENT_TYPES)[number];

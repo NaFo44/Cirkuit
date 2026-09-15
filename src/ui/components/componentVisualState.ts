@@ -55,6 +55,8 @@ const VISUAL_STATE_RESOLVERS = {
 
         return isSwitchState(state) && state.closed ? "active" : "default";
     },
+
+    not: () => "default",
 } satisfies Record<BuiltInComponentType, ComponentVisualStateResolver>;
 
 export function getComponentVisualState(

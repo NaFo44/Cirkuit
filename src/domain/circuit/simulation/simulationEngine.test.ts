@@ -453,4 +453,55 @@ describe("simulationEngine", () => {
             },
         );
     });
+
+    it("settles two consecutive NOT gates", () => {
+        const circuit: Circuit = {
+            width: 4,
+            height: 1,
+            components: [
+                component("source-1", "source", 0, 0),
+                component("not-1", "not", 1, 0),
+                component("not-2", "not", 2, 0),
+                component("light-1", "light", 3, 0),
+            ],
+        };
+
+        const simulation = createSimulation(circuit, defaultComponentRegistry);
+
+        expect(getPortSignal(simulation, "not-1", "output")).toBe(SIGNALS.low);
+        expect(getPortSignal(simulation, "not-2", "output")).toBe(SIGNALS.high);
+        expect(getPortSignal(simulation, "light-1", "west")).toBe(SIGNALS.high);
+    });
+
+    it("keeps a NOT output floating when its input is floating", () => {
+        const circuit: Circuit = {
+            width: 1,
+            height: 1,
+            components: [component("not-1", "not", 0, 0)],
+        };
+
+        const simulation = createSimulation(circuit, defaultComponentRegistry);
+
+        expect(getPortSignal(simulation, "not-1", "output")).toBe(
+            SIGNALS.floating,
+        );
+    });
+
+    it("connects a rotated NOT gate vertically", () => {
+        const circuit: Circuit = {
+            width: 1,
+            height: 3,
+            components: [
+                component("source-1", "source", 0, 0),
+                component("not-1", "not", 0, 1, 90),
+                component("light-1", "light", 0, 2),
+            ],
+        };
+
+        const simulation = createSimulation(circuit, defaultComponentRegistry);
+
+        expect(getPortSignal(simulation, "not-1", "input")).toBe(SIGNALS.high);
+        expect(getPortSignal(simulation, "not-1", "output")).toBe(SIGNALS.low);
+        expect(getPortSignal(simulation, "light-1", "north")).toBe(SIGNALS.low);
+    });
 });

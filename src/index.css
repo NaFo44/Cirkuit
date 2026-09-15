@@ -8,6 +8,7 @@
     --cell-light: #ffe3c7;
     --cell-switch: #b8dfb3;
     --cell-switch-active: #70c869;
+    --cell-not: #c9b8ff;
 
     --cell-light-active: #ffd43b;
 
@@ -89,6 +90,7 @@ button {
 
     display: block;
     color: rgb(0 0 0 / 55%);
+    transform-origin: center;
 }
 
 .circuit-component .component-glyph {
@@ -118,6 +120,14 @@ button {
 
 .circuit-cell--light {
     background: var(--cell-light);
+}
+
+.circuit-cell--not {
+    background: var(--cell-not);
+}
+
+.circuit-cell--not .component-glyph {
+    opacity: 1;
 }
 
 .circuit-editor,

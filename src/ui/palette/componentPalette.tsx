@@ -20,6 +20,7 @@ const COMPONENT_LABELS: Record<BuiltInComponentType, string> = {
     source: "Source",
     light: "Light",
     switch: "Switch",
+    not: "NOT gate · R to rotate",
 };
 
 const PALETTE_ICON_SIZE = 24;
@@ -74,12 +75,21 @@ export function ComponentPalette({
                             selectedTool.kind === "component" &&
                             selectedTool.componentType === component
                         }
+                        aria-keyshortcuts={
+                            component === "not" ? "R" : undefined
+                        }
                         onClick={() => onSelectComponent(component)}
                         disabled={mode === "simulate"}
                     >
                         <ComponentGlyph
                             size={PALETTE_ICON_SIZE}
                             componentType={component}
+                            rotation={
+                                selectedTool.kind === "component" &&
+                                selectedTool.componentType === component
+                                    ? selectedTool.rotation
+                                    : 0
+                            }
                         />
                     </button>
                     <span className="tooltiptext" aria-hidden="true">
