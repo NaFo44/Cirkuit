@@ -1,0 +1,1 @@
+export const ROTATE_COMPONENT_SHORTCUT = "R";

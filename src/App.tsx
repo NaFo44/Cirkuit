@@ -15,10 +15,12 @@ import { defaultComponentRegistry } from "./domain/circuit/components/defaultCom
 import type { PlacedComponent } from "./domain/circuit/placedComponent";
 import type { EditorMode } from "./ui/editor/editorMode";
 import { rotateClockwise } from "./domain/circuit/placedComponent";
-
-const ROTATABLE_COMPONENT_TYPES: ReadonlySet<BuiltInComponentType> = new Set([
-    "not",
-]);
+import { CELL_SIZE } from "./domain/grid/gridCoordinates";
+import {
+    getComponentHoverLabel,
+    getComponentPresentation,
+} from "./ui/components/componentPresentation";
+import { ROTATE_COMPONENT_SHORTCUT } from "./ui/editor/editorShortcuts";
 
 export function App() {
     const [mode, setMode] = useState<EditorMode>("edit");
@@ -33,17 +35,27 @@ export function App() {
         CircuitLayout.empty(GRID_DIMENSIONS.width, GRID_DIMENSIONS.height),
     );
 
+    const [hoveredComponentId, setHoveredComponentId] = useState<string | null>(
+        null,
+    );
+
+    const hoveredComponent =
+        hoveredComponentId === null
+            ? undefined
+            : circuit.getComponentById(hoveredComponentId);
+
     useEffect(() => {
         const handleKeyDown = (event: KeyboardEvent) => {
             if (
                 mode !== "edit" ||
                 selectedTool.kind !== "component" ||
-                !ROTATABLE_COMPONENT_TYPES.has(selectedTool.componentType) ||
+                !getComponentPresentation(selectedTool.componentType)
+                    .rotatable ||
                 event.repeat ||
                 event.ctrlKey ||
                 event.metaKey ||
                 event.altKey ||
-                event.key.toLowerCase() !== "r"
+                event.key.toUpperCase() !== ROTATE_COMPONENT_SHORTCUT
             ) {
                 return;
             }
@@ -91,6 +103,13 @@ export function App() {
         [simulation],
     );
 
+    const hoveredComponentLabel = hoveredComponent
+        ? getComponentHoverLabel(
+              hoveredComponent.type,
+              componentVisualStates.get(hoveredComponent.id) ?? "default",
+          )
+        : null;
+
     const selectEraser = () => {
         setSelectedTool({
             kind: "eraser",
@@ -132,7 +151,7 @@ export function App() {
 
     return (
         <main className="circuit-editor">
-            <MapViewport>
+            <MapViewport cellSize={CELL_SIZE}>
                 <CircuitGrid
                     circuit={circuit}
                     componentVisualStates={componentVisualStates}
@@ -141,6 +160,7 @@ export function App() {
                         mode === "simulate" ? interactWithComponent : undefined
                     }
                     isComponentInteractive={isComponentInteractive}
+                    onHoveredComponentChange={setHoveredComponentId}
                 />
             </MapViewport>
 
@@ -151,6 +171,12 @@ export function App() {
                 onSelectComponent={selectComponent}
                 onSelectEraser={selectEraser}
             />
+
+            {hoveredComponentLabel && (
+                <div className="circuit-hover-label" aria-hidden="true">
+                    {hoveredComponentLabel}
+                </div>
+            )}
         </main>
     );
 }

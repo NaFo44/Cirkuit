@@ -12,6 +12,10 @@ import { ComponentGlyph } from "../components/componentGlyph";
 import type { ComponentVisualState } from "../components/componentVisualState";
 import type { PlacedComponent } from "../../domain/circuit/placedComponent";
 import { createCellLighting } from "../lighting/createCellLighting";
+import {
+    getComponentHoverLabel,
+    getComponentPresentation,
+} from "../components/componentPresentation";
 
 interface CircuitGridProps {
     circuit: CircuitLayout;
@@ -19,6 +23,7 @@ interface CircuitGridProps {
     onComponentInteract?: (component: PlacedComponent) => void;
     isComponentInteractive?: (component: PlacedComponent) => boolean;
     componentVisualStates: ReadonlyMap<string, ComponentVisualState>;
+    onHoveredComponentChange?: (componentId: string | null) => void;
 }
 
 export function CircuitGrid({
@@ -27,6 +32,7 @@ export function CircuitGrid({
     onComponentInteract,
     isComponentInteractive,
     componentVisualStates,
+    onHoveredComponentChange,
 }: CircuitGridProps) {
     const activePointerId = useRef<number | null>(null);
     const lastPaintedCell = useRef<Position | null>(null);
@@ -160,14 +166,26 @@ export function CircuitGrid({
                 const interactive =
                     onComponentInteract !== undefined &&
                     (isComponentInteractive?.(component) ?? true);
+                const presentation = getComponentPresentation(component.type);
+                const hidesGlyph = presentation.glyphVisibility === "hidden";
+                const hoverLabel = getComponentHoverLabel(
+                    component.type,
+                    visualState,
+                );
 
                 return (
                     <div
                         key={component.id}
                         role="gridcell"
-                        className={`circuit-component circuit-cell--${component.type} circuit-component--${visualState}${
-                            interactive ? " circuit-component--interactive" : ""
-                        }`}
+                        className={[
+                            "circuit-component",
+                            `circuit-cell--${component.type}`,
+                            `circuit-component--${visualState}`,
+                            `circuit-component--glyph-${presentation.glyphVisibility}`,
+                            interactive ? "circuit-component--interactive" : "",
+                        ]
+                            .filter(Boolean)
+                            .join(" ")}
                         tabIndex={interactive ? 0 : undefined}
                         onClick={
                             interactive
@@ -187,22 +205,30 @@ export function CircuitGrid({
                                   }
                                 : undefined
                         }
+                        onPointerEnter={() =>
+                            onHoveredComponentChange?.(component.id)
+                        }
+                        onPointerLeave={() => onHoveredComponentChange?.(null)}
+                        onFocus={() => onHoveredComponentChange?.(component.id)}
+                        onBlur={() => onHoveredComponentChange?.(null)}
                         style={{
                             left: position.x,
                             top: position.y,
                             width: CELL_SIZE,
                             height: CELL_SIZE,
                         }}
-                        aria-label={`Cell ${x},${y}: ${component.type}, ${visualState}, ${component.rotation} degrees`}
+                        aria-label={`Cell ${x},${y}: ${hoverLabel}, ${component.rotation} degrees`}
                         aria-rowindex={y + 1}
                         aria-colindex={x + 1}
                         data-visual-state={visualState}
                     >
-                        <ComponentGlyph
-                            componentType={component.type}
-                            size={14}
-                            rotation={component.rotation}
-                        />
+                        {!hidesGlyph && (
+                            <ComponentGlyph
+                                componentType={component.type}
+                                size={14}
+                                rotation={component.rotation}
+                            />
+                        )}
                     </div>
                 );
             })}

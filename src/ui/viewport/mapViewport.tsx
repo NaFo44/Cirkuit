@@ -5,9 +5,17 @@ import {
     type PointerEvent as ReactPointerEvent,
     type ReactNode,
 } from "react";
+import {
+    MAX_ZOOM,
+    MIN_ZOOM,
+    clamp,
+    snapToDevicePixel,
+    snapZoomToCellPixels,
+} from "./mapViewportMath";
 
 interface MapViewportProps {
     children: ReactNode;
+    cellSize: number;
 }
 
 interface Camera {
@@ -22,14 +30,7 @@ interface PanGesture {
     lastY: number;
 }
 
-const MIN_ZOOM = 0.25;
-const MAX_ZOOM = 4;
-
-function clamp(value: number, minimum: number, maximum: number) {
-    return Math.min(Math.max(value, minimum), maximum);
-}
-
-export function MapViewport({ children }: MapViewportProps) {
+export function MapViewport({ children, cellSize }: MapViewportProps) {
     const [camera, setCamera] = useState<Camera>({
         x: 0,
         y: 0,
@@ -66,21 +67,45 @@ export function MapViewport({ children }: MapViewportProps) {
             const zoomFactor = Math.exp(-delta * 0.0015);
 
             setCamera((currentCamera) => {
-                const nextZoom = clamp(
+                const pixelRatio = window.devicePixelRatio || 1;
+
+                const targetZoom = clamp(
                     currentCamera.zoom * zoomFactor,
                     MIN_ZOOM,
                     MAX_ZOOM,
                 );
 
+                const currentRenderedZoom = snapZoomToCellPixels(
+                    currentCamera.zoom,
+                    cellSize,
+                    pixelRatio,
+                );
+
+                const nextRenderedZoom = snapZoomToCellPixels(
+                    targetZoom,
+                    cellSize,
+                    pixelRatio,
+                );
+
+                const currentRenderedX = snapToDevicePixel(
+                    currentCamera.x,
+                    pixelRatio,
+                );
+
+                const currentRenderedY = snapToDevicePixel(
+                    currentCamera.y,
+                    pixelRatio,
+                );
+
                 const worldX =
-                    (pointerX - currentCamera.x) / currentCamera.zoom;
+                    (pointerX - currentRenderedX) / currentRenderedZoom;
                 const worldY =
-                    (pointerY - currentCamera.y) / currentCamera.zoom;
+                    (pointerY - currentRenderedY) / currentRenderedZoom;
 
                 return {
-                    zoom: nextZoom,
-                    x: pointerX - worldX * nextZoom,
-                    y: pointerY - worldY * nextZoom,
+                    zoom: targetZoom,
+                    x: pointerX - worldX * nextRenderedZoom,
+                    y: pointerY - worldY * nextRenderedZoom,
                 };
             });
         };
@@ -92,7 +117,7 @@ export function MapViewport({ children }: MapViewportProps) {
         return () => {
             viewport.removeEventListener("wheel", handleWheel);
         };
-    }, []);
+    }, [cellSize]);
 
     const startPanning = (event: ReactPointerEvent<HTMLDivElement>) => {
         if (event.button !== 1 || panGesture.current) {
@@ -146,6 +171,14 @@ export function MapViewport({ children }: MapViewportProps) {
         }
     };
 
+    const pixelRatio = window.devicePixelRatio || 1;
+
+    const renderedCamera = {
+        x: snapToDevicePixel(camera.x, pixelRatio),
+        y: snapToDevicePixel(camera.y, pixelRatio),
+        zoom: snapZoomToCellPixels(camera.zoom, cellSize, pixelRatio),
+    };
+
     return (
         <div
             ref={viewportRef}
@@ -169,8 +202,8 @@ export function MapViewport({ children }: MapViewportProps) {
                 className="map-viewport__content"
                 style={{
                     transform: [
-                        `translate(${camera.x}px, ${camera.y}px)`,
-                        `scale(${camera.zoom})`,
+                        `translate(${renderedCamera.x}px, ${renderedCamera.y}px)`,
+                        `scale(${renderedCamera.zoom})`,
                     ].join(" "),
                 }}
             >

@@ -227,4 +227,13 @@ describe("CircuitLayout", () => {
         expect(sourceNet).toBe(lightNet);
         expect(netlist.nets).toHaveLength(7);
     });
+
+    it("returns a component by id", () => {
+        const source = component("source-1", "source", 1, 0);
+
+        const layout = CircuitLayout.empty(2, 1).withComponent(source);
+
+        expect(layout.getComponentById("source-1")).toBe(source);
+        expect(layout.getComponentById("missing")).toBeUndefined();
+    });
 });

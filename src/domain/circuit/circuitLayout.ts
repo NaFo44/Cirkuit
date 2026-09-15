@@ -109,6 +109,10 @@ export class CircuitLayout implements Circuit {
         );
     }
 
+    getComponentById(id: string): PlacedComponent | undefined {
+        return this.componentById.get(id);
+    }
+
     private validateComponent(component: PlacedComponent): void {
         if (component.id.trim() === "") {
             throw new Error("Component id cannot be empty");

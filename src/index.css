@@ -94,12 +94,21 @@ button {
 }
 
 .circuit-component .component-glyph {
-    opacity: 0;
     transition: opacity 120ms ease;
 }
 
-.circuit-component:hover .component-glyph {
+.circuit-component--glyph-on-hover .component-glyph {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.circuit-component--glyph-on-hover:is(:hover, :focus-visible) .component-glyph {
     opacity: 1;
+}
+
+.circuit-component--glyph-always .component-glyph {
+    opacity: 1;
+    pointer-events: none;
 }
 
 .circuit-cell--wire {
@@ -126,8 +135,20 @@ button {
     background: var(--cell-not);
 }
 
-.circuit-cell--not .component-glyph {
-    opacity: 1;
+.circuit-hover-label {
+    position: fixed;
+    bottom: 16px;
+    left: 26px;
+    z-index: 9;
+
+    color: #616161;
+
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1;
+
+    pointer-events: none;
+    user-select: none;
 }
 
 .circuit-editor,
@@ -158,16 +179,20 @@ button {
 }
 
 .component-palette {
+    --palette-item-size: clamp(44px, 7vh, 50px);
+    --palette-icon-size: clamp(20px, 3.5vh, 24px);
+
     position: fixed;
     top: 50%;
-    right: 24px;
+    right: clamp(8px, 2vw, 24px);
     z-index: 10;
 
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: clamp(8px, 1vh, 10px);
 
-    padding: 10px;
+    box-sizing: border-box;
+    padding: clamp(8px, 1vh, 10px);
 
     background: white;
     border: 1px solid #ebebeb;
@@ -195,14 +220,29 @@ button {
     display: grid;
     place-items: center;
 
-    width: 56px;
-    height: 56px;
+    width: var(--palette-item-size);
+    height: var(--palette-item-size);
     padding: 0;
     overflow: visible;
+    flex: 0 0 var(--palette-item-size);
 
     border: 2px solid transparent;
     line-height: 0;
     cursor: pointer;
+}
+
+.component-palette__item > svg {
+    width: var(--palette-icon-size);
+    height: var(--palette-icon-size);
+}
+
+.component-palette__separator {
+    align-self: stretch;
+    height: 1px;
+    margin: 2px 4px;
+    flex: 0 0 1px;
+
+    background: #d5d5d5;
 }
 
 .component-palette__item::after {
@@ -281,10 +321,13 @@ button {
     max-width: 160px;
     padding: 8px 15px;
     white-space: nowrap;
+
     background-color: #000;
     color: #fff;
-    text-align: center;
     border-radius: 6px;
+
+    font-size: 13px;
+    text-align: center;
 
     position: absolute;
     z-index: 1;
@@ -314,4 +357,57 @@ button {
 .tooltip > .component-palette__item:focus-visible + .tooltiptext {
     visibility: visible;
     opacity: 1;
+}
+
+@media (max-width: 640px), (max-height: 600px) {
+    .component-palette {
+        --palette-item-size: 44px;
+        --palette-icon-size: 20px;
+
+        top: auto;
+        right: auto;
+        bottom: 12px;
+        left: 50%;
+
+        width: calc(100% - 24px);
+        max-width: 380px;
+
+        flex-flow: row wrap;
+        justify-content: center;
+        gap: 6px;
+
+        padding: 8px;
+        transform: translateX(-50%);
+        animation: none;
+    }
+
+    .circuit-hover-label {
+        top: 12px;
+        bottom: auto;
+        left: 12px;
+    }
+
+    .component-palette__separator {
+        align-self: center;
+        width: 1px;
+        height: 32px;
+        margin: 0 2px;
+        flex-basis: 1px;
+    }
+
+    .tooltip .tooltiptext {
+        top: auto;
+        right: auto;
+        bottom: calc(100% + 14px);
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .tooltip .tooltiptext::after {
+        top: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+
+        border-color: #000 transparent transparent transparent;
+    }
 }
