@@ -8,9 +8,9 @@ them, and build whatever you want!
 [Try Cirkuit online](https://nafo44.github.io/Cirkuit/)
 
 > AI was used as a source of information during the development of this
-project, and sometimes to generate code snippets for specific implementation problems.
-All generated code was reviewed. The concept, UI/UX, and assets were created
-entirely by me.
+> project, and sometimes to generate code snippets for specific implementation problems.
+> All generated code was reviewed. The concept, UI/UX, and assets were created
+> entirely by me.
 
 ## Controls
 
