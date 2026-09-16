@@ -1,6 +1,7 @@
 import type { Position } from "../grid/position";
-import type { Direction } from "./port";
 import type { Rotation } from "./placedComponent";
+
+export type Direction = "north" | "east" | "south" | "west";
 
 export const DIRECTIONS: readonly Direction[] = [
     "north",

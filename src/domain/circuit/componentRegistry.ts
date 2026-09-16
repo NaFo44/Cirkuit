@@ -117,8 +117,4 @@ export class ComponentRegistry {
 
         return definition;
     }
-
-    getAll(): readonly ComponentDefinition[] {
-        return [...this.definitions.values()];
-    }
 }

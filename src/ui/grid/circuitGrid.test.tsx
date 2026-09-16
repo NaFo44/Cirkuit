@@ -2,7 +2,7 @@ import { renderToStaticMarkup } from "react-dom/server";
 import { describe, expect, it } from "vitest";
 
 import { CircuitLayout } from "../../domain/circuit/circuitLayout";
-import type { BuiltInComponentType } from "../../domain/circuit/components/componentType";
+import type { BuiltInComponentType } from "../../domain/circuit/components/builtInComponents";
 import type { PlacedComponent } from "../../domain/circuit/placedComponent";
 import type { ComponentVisualState } from "../components/componentVisualState";
 import { CircuitGrid } from "./circuitGrid";

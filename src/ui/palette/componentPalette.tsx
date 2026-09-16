@@ -1,7 +1,7 @@
 import {
     BUILT_IN_COMPONENT_TYPES,
     type BuiltInComponentType,
-} from "../../domain/circuit/components/componentType";
+} from "../../domain/circuit/components/builtInComponents";
 import { ComponentGlyph } from "../components/componentGlyph";
 import { getComponentPresentation } from "../components/componentPresentation";
 import type { EditorMode } from "../editor/editorMode";
@@ -60,7 +60,7 @@ export function ComponentPalette({
                             type="button"
                             className="component-palette__item"
                             style={{
-                                backgroundColor: `var(--cell-${component})`,
+                                backgroundColor: presentation.paletteColor,
                             }}
                             aria-label={presentation.label}
                             aria-pressed={

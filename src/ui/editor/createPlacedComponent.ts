@@ -1,11 +1,11 @@
-import type { BuiltInComponentType } from "../../domain/circuit/components/componentType";
+import type { BuiltInComponentType } from "../../domain/circuit/components/builtInComponents";
 import type {
     PlacedComponent,
     Rotation,
 } from "../../domain/circuit/placedComponent";
 import type { Position } from "../../domain/grid/position";
 
-export function createComponentId(): string {
+function createComponentId(): string {
     return crypto.randomUUID();
 }
 

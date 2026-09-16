@@ -1,73 +1,39 @@
-# React + TypeScript + Vite
+# Cirkuit
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Build your own circuits using pixel art!
 
-Currently, two official plugins are available:
+Cirkuit is a pixel-art circuit sandbox. Place components on the grid, connect
+them, and build whatever you want!
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+[Try Cirkuit online](https://nafo44.github.io/Cirkuit/)
 
-## React Compiler
+> AI was used as a source of information during the development of this
+project, and sometimes to generate code snippets for specific implementation problems.
+All generated code was reviewed. The concept, UI/UX, and assets were created
+entirely by me.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Controls
 
-## Expanding the ESLint configuration
+- Select a component in the palette, then click or drag to place it.
+- Select the eraser to remove components.
+- Press `R` to rotate the selected component when rotation is supported.
+- Use the mouse wheel to zoom and drag with the middle mouse button to pan.
+- Switch to run mode to interact with switches and simulate the circuit.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Development
 
-```js
-export default defineConfig([
-    globalIgnores(["dist"]),
-    {
-        files: ["**/*.{ts,tsx}"],
-        extends: [
-            // Other configs...
+Node.js 24 and npm are recommended.
 
-            // Remove tseslint.configs.recommended and replace with this
-            tseslint.configs.recommendedTypeChecked,
-            // Alternatively, use this for stricter rules
-            tseslint.configs.strictTypeChecked,
-            // Optionally, add this for stylistic rules
-            tseslint.configs.stylisticTypeChecked,
-
-            // Other configs...
-        ],
-        languageOptions: {
-            parserOptions: {
-                project: ["./tsconfig.node.json", "./tsconfig.app.json"],
-                tsconfigRootDir: import.meta.dirname,
-            },
-            // other options...
-        },
-    },
-]);
+```shell
+npm ci
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://npmx.dev/package/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://npmx.dev/package/eslint-plugin-react-dom) for React-specific lint rules:
+Run all checks before committing:
 
-```js
-// eslint.config.js
-import reactX from "eslint-plugin-react-x";
-import reactDom from "eslint-plugin-react-dom";
-
-export default defineConfig([
-    globalIgnores(["dist"]),
-    {
-        files: ["**/*.{ts,tsx}"],
-        extends: [
-            // Other configs...
-            // Enable lint rules for React
-            reactX.configs["recommended-typescript"],
-            // Enable lint rules for React DOM
-            reactDom.configs.recommended,
-        ],
-        languageOptions: {
-            parserOptions: {
-                project: ["./tsconfig.node.json", "./tsconfig.app.json"],
-                tsconfigRootDir: import.meta.dirname,
-            },
-            // other options...
-        },
-    },
-]);
+```shell
+npm run format:check
+npm run lint
+npm test -- --run
+npm run build
 ```

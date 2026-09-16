@@ -1,7 +1,7 @@
 import type { ComponentDefinition } from "../componentDefinition";
 
 export const wireDefinition = {
-    type: "wire",
+    type: "wire" as const,
 
     ports: [
         { id: "north", kind: "passive", side: "north" },

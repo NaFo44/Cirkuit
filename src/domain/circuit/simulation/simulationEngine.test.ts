@@ -3,7 +3,7 @@ import { describe, expect, it } from "vitest";
 import type { Circuit } from "../circuit";
 import type { ComponentDefinition } from "../componentDefinition";
 import { ComponentRegistry } from "../componentRegistry";
-import { defaultComponentRegistry } from "../components/defaultComponentRegistry";
+import { defaultComponentRegistry } from "../components/builtInComponents";
 import { lightDefinition } from "../components/light";
 import { sourceDefinition } from "../components/source";
 import { wireDefinition } from "../components/wire";

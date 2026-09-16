@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import type { BuiltInComponentType } from "../../domain/circuit/components/componentType";
+import type { BuiltInComponentType } from "../../domain/circuit/components/builtInComponents";
 import {
     getComponentHoverLabel,
     getComponentPresentation,

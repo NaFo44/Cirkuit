@@ -1,4 +1,4 @@
-import type { BuiltInComponentType } from "../../domain/circuit/components/componentType";
+import type { BuiltInComponentType } from "../../domain/circuit/components/builtInComponents";
 import type { Rotation } from "../../domain/circuit/placedComponent";
 
 export type EditorTool =

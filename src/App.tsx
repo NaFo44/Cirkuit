@@ -1,7 +1,10 @@
 import { useEffect, useMemo, useState } from "react";
 
 import { CircuitLayout } from "./domain/circuit/circuitLayout";
-import type { BuiltInComponentType } from "./domain/circuit/components/componentType";
+import {
+    defaultComponentRegistry,
+    type BuiltInComponentType,
+} from "./domain/circuit/components/builtInComponents";
 import { GRID_DIMENSIONS } from "./domain/grid/gridDimensions";
 import type { Position } from "./domain/grid/position";
 import { createComponentVisualStates } from "./ui/components/componentVisualState";
@@ -11,7 +14,6 @@ import { useCircuitSimulation } from "./ui/simulation/useCircuitSimulation";
 import { MapViewport } from "./ui/viewport/mapViewport";
 import type { EditorTool } from "./ui/editor/editorTool";
 import { applyEditorTool } from "./ui/editor/applyEditorTool";
-import { defaultComponentRegistry } from "./domain/circuit/components/defaultComponentRegistry";
 import type { PlacedComponent } from "./domain/circuit/placedComponent";
 import type { EditorMode } from "./ui/editor/editorMode";
 import { rotateClockwise } from "./domain/circuit/placedComponent";

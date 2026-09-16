@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 
 import type { ComponentDefinition } from "../../domain/circuit/componentDefinition";
 import { ComponentRegistry } from "../../domain/circuit/componentRegistry";
-import { defaultComponentRegistry } from "../../domain/circuit/components/defaultComponentRegistry";
+import { defaultComponentRegistry } from "../../domain/circuit/components/builtInComponents";
 import { lightDefinition } from "../../domain/circuit/components/light";
 import { sourceDefinition } from "../../domain/circuit/components/source";
 import { wireDefinition } from "../../domain/circuit/components/wire";

@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 
 import type { Circuit } from "../circuit";
-import { defaultComponentRegistry } from "../components/defaultComponentRegistry";
+import { defaultComponentRegistry } from "../components/builtInComponents";
 import { compileNetlist } from "./compileNetlist";
 import { portKey } from "./netlist";
 import type { PlacedComponent, Rotation } from "../placedComponent";

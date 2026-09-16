@@ -1,7 +1,7 @@
 import {
     isBuiltInComponentType,
     type BuiltInComponentType,
-} from "../../domain/circuit/components/componentType";
+} from "../../domain/circuit/components/builtInComponents";
 import { DIRECTIONS } from "../../domain/circuit/direction";
 import type { PlacedComponent } from "../../domain/circuit/placedComponent";
 import { SIGNALS, type Signal } from "../../domain/circuit/signal";

@@ -1,4 +1,4 @@
-import type { Position } from "../grid/position";
+import { positionKey, type Position } from "../grid/position";
 import type { Circuit } from "./circuit";
 import type { PlacedComponent } from "./placedComponent";
 
@@ -38,7 +38,7 @@ export class CircuitLayout implements Circuit {
 
         this.componentByPosition = new Map(
             this.components.map((component) => [
-                CircuitLayout.positionKey(component.position),
+                positionKey(component.position),
                 component,
             ]),
         );
@@ -62,9 +62,7 @@ export class CircuitLayout implements Circuit {
     }
 
     getComponentAt(position: Position): PlacedComponent | undefined {
-        return this.componentByPosition.get(
-            CircuitLayout.positionKey(position),
-        );
+        return this.componentByPosition.get(positionKey(position));
     }
 
     withComponent(component: PlacedComponent): CircuitLayout {
@@ -129,9 +127,5 @@ export class CircuitLayout implements Circuit {
         if (x < 0 || x >= this.width || y < 0 || y >= this.height) {
             throw new Error(`Component is outside the layout: ${component.id}`);
         }
-    }
-
-    private static positionKey(position: Position): string {
-        return JSON.stringify([position.x, position.y]);
     }
 }

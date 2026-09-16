@@ -1,6 +1,6 @@
 import { useRef, type PointerEvent as ReactPointerEvent } from "react";
 
-import type { CircuitLayout } from "../../domain/circuit/circuitLayout";
+import type { Circuit } from "../../domain/circuit/circuit";
 import {
     CELL_SIZE,
     cellsBetween,
@@ -18,7 +18,7 @@ import {
 } from "../components/componentPresentation";
 
 interface CircuitGridProps {
-    circuit: CircuitLayout;
+    circuit: Circuit;
     onCellPaint?: (position: Position) => void;
     onComponentInteract?: (component: PlacedComponent) => void;
     isComponentInteractive?: (component: PlacedComponent) => boolean;

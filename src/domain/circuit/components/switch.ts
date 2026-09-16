@@ -45,7 +45,7 @@ function computeClosedOutputs(
 }
 
 export const switchDefinition = {
-    type: "switch",
+    type: "switch" as const,
     primaryAction: "toggle",
 
     ports: DIRECTIONS.map((side) => ({

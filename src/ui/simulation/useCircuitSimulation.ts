@@ -2,7 +2,6 @@ import { useCallback, useMemo, useState } from "react";
 
 import type { Circuit } from "../../domain/circuit/circuit";
 import type { ComponentRegistry } from "../../domain/circuit/componentRegistry";
-import { defaultComponentRegistry } from "../../domain/circuit/components/defaultComponentRegistry";
 import type { SimulationAction } from "../../domain/circuit/simulation/simulationAction";
 import {
     advanceSimulation,
@@ -17,7 +16,7 @@ interface CircuitSimulationController {
 
 export function useCircuitSimulation(
     circuit: Circuit,
-    registry: ComponentRegistry = defaultComponentRegistry,
+    registry: ComponentRegistry,
 ): CircuitSimulationController {
     const baseSimulation = useMemo(
         () => createSimulation(circuit, registry),

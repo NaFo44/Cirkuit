@@ -3,7 +3,7 @@ import { DIRECTIONS } from "../direction";
 import { SIGNALS } from "../signal";
 
 export const sourceDefinition = {
-    type: "source",
+    type: "source" as const,
     ports: DIRECTIONS.map((side) => ({
         id: side,
         kind: "output" as const,

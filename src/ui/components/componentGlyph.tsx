@@ -7,7 +7,7 @@ import {
 import {
     isBuiltInComponentType,
     type BuiltInComponentType,
-} from "../../domain/circuit/components/componentType";
+} from "../../domain/circuit/components/builtInComponents";
 import type { Rotation } from "../../domain/circuit/placedComponent";
 import { NotGateIcon } from "./notGateIcon";
 

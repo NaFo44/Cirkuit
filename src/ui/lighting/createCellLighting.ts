@@ -1,5 +1,5 @@
 import type { Circuit } from "../../domain/circuit/circuit";
-import type { Position } from "../../domain/grid/position";
+import { positionKey, type Position } from "../../domain/grid/position";
 import type { ComponentVisualState } from "../components/componentVisualState";
 
 const LIGHT_LEVELS_BY_DISTANCE = [3, 2, 1] as const;
@@ -9,10 +9,6 @@ export type LightLevel = (typeof LIGHT_LEVELS_BY_DISTANCE)[number];
 export interface LitCell {
     position: Position;
     level: LightLevel;
-}
-
-function positionKey(x: number, y: number): string {
-    return `${x},${y}`;
 }
 
 export function createCellLighting(
@@ -60,12 +56,13 @@ export function createCellLighting(
                 }
 
                 const level = LIGHT_LEVELS_BY_DISTANCE[distance - 1];
-                const key = positionKey(x, y);
+                const position = { x, y };
+                const key = positionKey(position);
                 const currentCell = lightLevels.get(key);
 
                 if (!currentCell || currentCell.level < level) {
                     lightLevels.set(key, {
-                        position: { x, y },
+                        position,
                         level,
                     });
                 }

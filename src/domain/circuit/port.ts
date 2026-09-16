@@ -1,4 +1,4 @@
-export type Direction = "north" | "east" | "south" | "west";
+import type { Direction } from "./direction";
 
 export type PortKind = "input" | "output" | "inout" | "passive";
 

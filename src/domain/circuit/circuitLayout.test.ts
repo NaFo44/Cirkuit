@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { defaultComponentRegistry } from "./components/defaultComponentRegistry";
+import { defaultComponentRegistry } from "./components/builtInComponents";
 import { compileNetlist } from "./netlist/compileNetlist";
 import { portKey } from "./netlist/netlist";
 import { CircuitLayout } from "./circuitLayout";

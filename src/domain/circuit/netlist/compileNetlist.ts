@@ -1,17 +1,13 @@
-import type { Position } from "../../grid/position";
+import { positionKey, type Position } from "../../grid/position";
 import type { Circuit } from "../circuit";
 import type { ComponentRegistry } from "../componentRegistry";
 import {
     DIRECTION_OFFSETS,
     oppositeDirection,
     rotateDirection,
-} from "../direction";
-import {
-    portCanDrive,
-    portCanRead,
     type Direction,
-    type PortKind,
-} from "../port";
+} from "../direction";
+import { portCanDrive, portCanRead, type PortKind } from "../port";
 import { portKey, type Net, type Netlist, type PortReference } from "./netlist";
 import { UnionFind } from "./unionFind";
 
@@ -22,12 +18,8 @@ interface ResolvedPort {
     readonly side: Direction;
 }
 
-function positionKey(position: Position): string {
-    return JSON.stringify([position.x, position.y]);
-}
-
 function connectionPointKey(position: Position, side: Direction): string {
-    return JSON.stringify([position.x, position.y, side]);
+    return `${positionKey(position)}:${side}`;
 }
 
 function comparePorts(first: PortReference, second: PortReference): number {

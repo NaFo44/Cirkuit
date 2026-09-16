@@ -9,7 +9,7 @@ const INVERTED_SIGNALS = {
 } satisfies Record<Signal, Signal>;
 
 export const notDefinition = {
-    type: "not",
+    type: "not" as const,
 
     ports: [
         {
