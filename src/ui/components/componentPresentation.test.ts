@@ -24,6 +24,8 @@ describe("componentPresentation", () => {
         ["switch", "active", "Switch | Closed"],
 
         ["not", "default", "NOT gate"],
+
+        ["and", "default", "AND gate"],
     ])(
         "describes %s in the %s state",
         (componentType, visualState, expectedLabel) => {
@@ -47,12 +49,15 @@ describe("componentPresentation", () => {
         );
 
         expect(getComponentPresentation("not").glyphVisibility).toBe("always");
+
+        expect(getComponentPresentation("and").glyphVisibility).toBe("always");
     });
 
     it("identifies rotatable components", () => {
         expect(getComponentPresentation("wire").rotatable).toBe(false);
         expect(getComponentPresentation("switch").rotatable).toBe(false);
         expect(getComponentPresentation("not").rotatable).toBe(true);
+        expect(getComponentPresentation("and").rotatable).toBe(true);
     });
 
     it("does not make unknown components rotatable", () => {

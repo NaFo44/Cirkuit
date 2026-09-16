@@ -57,6 +57,8 @@ const VISUAL_STATE_RESOLVERS = {
     },
 
     not: () => "default",
+
+    and: () => "default",
 } satisfies Record<BuiltInComponentType, ComponentVisualStateResolver>;
 
 export function getComponentVisualState(

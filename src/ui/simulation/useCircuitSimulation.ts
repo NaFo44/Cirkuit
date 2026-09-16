@@ -9,46 +9,106 @@ import {
     type Simulation,
 } from "../../domain/circuit/simulation/simulationEngine";
 
-interface CircuitSimulationController {
+interface SimulationResult {
+    readonly simulation: Simulation | null;
+    readonly error: string | null;
+}
+
+interface AdvancedSimulationResult {
+    readonly baseSimulation: Simulation;
     readonly simulation: Simulation;
+    readonly error: string | null;
+}
+
+interface CircuitSimulationController extends SimulationResult {
     dispatchAction(action: SimulationAction): void;
+}
+
+const INACTIVE_RESULT: SimulationResult = {
+    simulation: null,
+    error: null,
+};
+
+function errorMessage(error: unknown): string {
+    return error instanceof Error ? error.message : "Unknown simulation error";
+}
+
+function startSimulation(
+    circuit: Circuit,
+    registry: ComponentRegistry,
+): SimulationResult {
+    try {
+        return {
+            simulation: createSimulation(circuit, registry),
+            error: null,
+        };
+    } catch (error) {
+        return {
+            simulation: null,
+            error: errorMessage(error),
+        };
+    }
 }
 
 export function useCircuitSimulation(
     circuit: Circuit,
     registry: ComponentRegistry,
+    enabled: boolean,
 ): CircuitSimulationController {
-    const baseSimulation = useMemo(
-        () => createSimulation(circuit, registry),
-        [circuit, registry],
+    const baseResult = useMemo(
+        () => (enabled ? startSimulation(circuit, registry) : INACTIVE_RESULT),
+        [circuit, enabled, registry],
     );
 
-    const [advancedSimulation, setAdvancedSimulation] =
-        useState<Simulation | null>(null);
+    const [advancedResult, setAdvancedResult] =
+        useState<AdvancedSimulationResult | null>(null);
 
-    const simulation =
-        advancedSimulation?.circuit === circuit &&
-        advancedSimulation.registry === registry
-            ? advancedSimulation
-            : baseSimulation;
+    const result =
+        enabled && advancedResult?.baseSimulation === baseResult.simulation
+            ? advancedResult
+            : baseResult;
 
     const dispatchAction = useCallback(
         (action: SimulationAction) => {
-            setAdvancedSimulation((currentSimulation) => {
+            if (!enabled) {
+                return;
+            }
+
+            setAdvancedResult((currentResult) => {
+                const baseSimulation = baseResult.simulation;
+
+                if (!baseSimulation) {
+                    return currentResult;
+                }
+
                 const startingSimulation =
-                    currentSimulation?.circuit === circuit &&
-                    currentSimulation.registry === registry
-                        ? currentSimulation
+                    currentResult?.baseSimulation === baseSimulation
+                        ? currentResult.simulation
                         : baseSimulation;
 
-                return advanceSimulation(startingSimulation, [action]);
+                try {
+                    return {
+                        baseSimulation,
+                        simulation: advanceSimulation(startingSimulation, [
+                            action,
+                        ]),
+                        error: null,
+                    };
+                } catch (error) {
+                    return {
+                        baseSimulation,
+                        simulation: startingSimulation,
+                        error: errorMessage(error),
+                    };
+                }
             });
         },
-        [baseSimulation, circuit, registry],
+        [baseResult.simulation, enabled],
     );
 
     return {
-        simulation,
+        simulation: result.simulation,
+        error: result.error,
         dispatchAction,
     };
 }

@@ -1,5 +1,6 @@
 import { ComponentRegistry } from "../componentRegistry";
 import type { ComponentDefinition } from "../componentDefinition";
+import { andDefinition } from "./and";
 import { lightDefinition } from "./light";
 import { notDefinition } from "./not";
 import { sourceDefinition } from "./source";
@@ -12,6 +13,7 @@ export const BUILT_IN_COMPONENT_DEFINITIONS = [
     lightDefinition,
     switchDefinition,
     notDefinition,
+    andDefinition,
 ] as const satisfies readonly ComponentDefinition[];
 
 export type BuiltInComponentType =

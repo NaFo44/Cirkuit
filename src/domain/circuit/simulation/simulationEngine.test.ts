@@ -473,7 +473,7 @@ describe("simulationEngine", () => {
         expect(getPortSignal(simulation, "light-1", "west")).toBe(SIGNALS.high);
     });
 
-    it("keeps a NOT output floating when its input is floating", () => {
+    it("treats a floating NOT input as low", () => {
         const circuit: Circuit = {
             width: 1,
             height: 1,
@@ -482,9 +482,11 @@ describe("simulationEngine", () => {
 
         const simulation = createSimulation(circuit, defaultComponentRegistry);
 
-        expect(getPortSignal(simulation, "not-1", "output")).toBe(
+        expect(getPortSignal(simulation, "not-1", "input")).toBe(
             SIGNALS.floating,
         );
+
+        expect(getPortSignal(simulation, "not-1", "output")).toBe(SIGNALS.high);
     });
 
     it("connects a rotated NOT gate vertically", () => {
@@ -503,5 +505,90 @@ describe("simulationEngine", () => {
         expect(getPortSignal(simulation, "not-1", "input")).toBe(SIGNALS.high);
         expect(getPortSignal(simulation, "not-1", "output")).toBe(SIGNALS.low);
         expect(getPortSignal(simulation, "light-1", "north")).toBe(SIGNALS.low);
+    });
+
+    it("powers a light when both AND inputs are high", () => {
+        const circuit: Circuit = {
+            width: 3,
+            height: 2,
+            components: [
+                component("source-a", "source", 0, 1),
+                component("source-b", "source", 1, 0),
+                component("and-1", "and", 1, 1),
+                component("light-1", "light", 2, 1),
+            ],
+        };
+
+        const simulation = createSimulation(circuit, defaultComponentRegistry);
+
+        expect(getPortSignal(simulation, "and-1", "input-a")).toBe(
+            SIGNALS.high,
+        );
+
+        expect(getPortSignal(simulation, "and-1", "input-b")).toBe(
+            SIGNALS.high,
+        );
+
+        expect(getPortSignal(simulation, "and-1", "output")).toBe(SIGNALS.high);
+
+        expect(getPortSignal(simulation, "light-1", "west")).toBe(SIGNALS.high);
+    });
+
+    it("composes AND and NOT into a NAND gate", () => {
+        const circuit: Circuit = {
+            width: 4,
+            height: 2,
+            components: [
+                component("source-b", "source", 1, 0),
+                component("and-1", "and", 1, 1),
+                component("not-1", "not", 2, 1),
+                component("light-1", "light", 3, 1),
+            ],
+        };
+
+        const simulation = createSimulation(circuit, defaultComponentRegistry);
+
+        expect(getPortSignal(simulation, "and-1", "input-a")).toBe(
+            SIGNALS.floating,
+        );
+
+        expect(getPortSignal(simulation, "and-1", "input-b")).toBe(
+            SIGNALS.high,
+        );
+
+        expect(getPortSignal(simulation, "and-1", "output")).toBe(SIGNALS.low);
+
+        expect(getPortSignal(simulation, "not-1", "output")).toBe(SIGNALS.high);
+
+        expect(getPortSignal(simulation, "light-1", "west")).toBe(SIGNALS.high);
+    });
+
+    it("connects a rotated AND gate", () => {
+        const circuit: Circuit = {
+            width: 3,
+            height: 3,
+            components: [
+                component("source-a", "source", 1, 0),
+                component("source-b", "source", 2, 1),
+                component("and-1", "and", 1, 1, 90),
+                component("light-1", "light", 1, 2),
+            ],
+        };
+
+        const simulation = createSimulation(circuit, defaultComponentRegistry);
+
+        expect(getPortSignal(simulation, "and-1", "input-a")).toBe(
+            SIGNALS.high,
+        );
+
+        expect(getPortSignal(simulation, "and-1", "input-b")).toBe(
+            SIGNALS.high,
+        );
+
+        expect(getPortSignal(simulation, "and-1", "output")).toBe(SIGNALS.high);
+
+        expect(getPortSignal(simulation, "light-1", "north")).toBe(
+            SIGNALS.high,
+        );
     });
 });

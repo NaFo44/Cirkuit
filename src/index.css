@@ -9,6 +9,7 @@
     --cell-switch: #b8dfb3;
     --cell-switch-active: #70c869;
     --cell-not: #c9b8ff;
+    --cell-and: #ffd09a;
 
     --cell-light-active: #ffd43b;
 
@@ -134,6 +135,9 @@ button {
 .circuit-cell--not {
     background: var(--cell-not);
 }
+.circuit-cell--and {
+    background: var(--cell-and);
+}
 
 .circuit-hover-label {
     position: fixed;
@@ -149,6 +153,28 @@ button {
 
     pointer-events: none;
     user-select: none;
+}
+
+.simulation-error {
+    position: fixed;
+    top: 16px;
+    left: 50%;
+    z-index: 11;
+
+    width: max-content;
+    max-width: calc(100% - 32px);
+    box-sizing: border-box;
+    padding: 12px 14px;
+    transform: translateX(-50%);
+
+    color: var(--signal-conflict);
+    background: #fff;
+    border: 1px solid #ebebeb;
+    box-shadow: 0 4px 16px rgb(0 0 0 / 8%);
+
+    font-size: 13px;
+    font-weight: 600;
+    text-align: center;
 }
 
 .circuit-editor,

@@ -31,7 +31,7 @@ describe("notDefinition", () => {
     });
 
     it.each([
-        [SIGNALS.floating, SIGNALS.floating],
+        [SIGNALS.floating, SIGNALS.high],
         [SIGNALS.low, SIGNALS.high],
         [SIGNALS.high, SIGNALS.low],
         [SIGNALS.conflict, SIGNALS.conflict],

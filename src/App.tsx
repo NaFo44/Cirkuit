@@ -7,7 +7,10 @@ import {
 } from "./domain/circuit/components/builtInComponents";
 import { GRID_DIMENSIONS } from "./domain/grid/gridDimensions";
 import type { Position } from "./domain/grid/position";
-import { createComponentVisualStates } from "./ui/components/componentVisualState";
+import {
+    createComponentVisualStates,
+    type ComponentVisualState,
+} from "./ui/components/componentVisualState";
 import { CircuitGrid } from "./ui/grid/circuitGrid";
 import { ComponentPalette } from "./ui/palette/componentPalette";
 import { useCircuitSimulation } from "./ui/simulation/useCircuitSimulation";
@@ -23,6 +26,9 @@ import {
     getComponentPresentation,
 } from "./ui/components/componentPresentation";
 import { ROTATE_COMPONENT_SHORTCUT } from "./ui/editor/editorShortcuts";
+
+const EMPTY_COMPONENT_VISUAL_STATES: ReadonlyMap<string, ComponentVisualState> =
+    new Map();
 
 export function App() {
     const [mode, setMode] = useState<EditorMode>("edit");
@@ -95,13 +101,21 @@ export function App() {
         };
     }, [mode, selectedTool]);
 
-    const { simulation, dispatchAction } = useCircuitSimulation(
+    const {
+        simulation,
+        error: simulationError,
+        dispatchAction,
+    } = useCircuitSimulation(
         circuit,
         defaultComponentRegistry,
+        mode === "simulate",
     );
 
     const componentVisualStates = useMemo(
-        () => createComponentVisualStates(simulation),
+        () =>
+            simulation
+                ? createComponentVisualStates(simulation)
+                : EMPTY_COMPONENT_VISUAL_STATES,
         [simulation],
     );
 
@@ -159,7 +173,9 @@ export function App() {
                     componentVisualStates={componentVisualStates}
                     onCellPaint={mode === "edit" ? paintCell : undefined}
                     onComponentInteract={
-                        mode === "simulate" ? interactWithComponent : undefined
+                        mode === "simulate" && simulation
+                            ? interactWithComponent
+                            : undefined
                     }
                     isComponentInteractive={isComponentInteractive}
                     onHoveredComponentChange={setHoveredComponentId}
@@ -177,6 +193,12 @@ export function App() {
             {hoveredComponentLabel && (
                 <div className="circuit-hover-label" aria-hidden="true">
                     {hoveredComponentLabel}
+                </div>
+            )}
+
+            {simulationError && (
+                <div className="simulation-error" role="alert">
+                    Simulation error: {simulationError}
                 </div>
             )}
         </main>

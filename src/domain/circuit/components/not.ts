@@ -1,12 +1,11 @@
 import type { ComponentDefinition } from "../componentDefinition";
-import { SIGNALS, type Signal } from "../signal";
+import { SIGNALS, toLogicSignal, type LogicSignal } from "../signal";
 
 const INVERTED_SIGNALS = {
-    [SIGNALS.floating]: SIGNALS.floating,
     [SIGNALS.low]: SIGNALS.high,
     [SIGNALS.high]: SIGNALS.low,
     [SIGNALS.conflict]: SIGNALS.conflict,
-} satisfies Record<Signal, Signal>;
+} satisfies Record<LogicSignal, LogicSignal>;
 
 export const notDefinition = {
     type: "not" as const,
@@ -27,7 +26,7 @@ export const notDefinition = {
     createInitialState: () => null,
 
     computeOutputs: ({ inputs }) => {
-        const input = inputs.get("input") ?? SIGNALS.floating;
+        const input = toLogicSignal(inputs.get("input") ?? SIGNALS.floating);
 
         return new Map([["output", INVERTED_SIGNALS[input]]]);
     },

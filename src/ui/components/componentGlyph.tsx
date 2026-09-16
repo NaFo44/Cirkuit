@@ -10,6 +10,7 @@ import {
 } from "../../domain/circuit/components/builtInComponents";
 import type { Rotation } from "../../domain/circuit/placedComponent";
 import { NotGateIcon } from "./notGateIcon";
+import { AndGateIcon } from "./andGateIcon";
 
 type PixelIcon = typeof Lightbulb;
 
@@ -19,6 +20,7 @@ const COMPONENT_ICONS: Record<BuiltInComponentType, PixelIcon> = {
     wire: Plug,
     switch: SwitchIcon,
     not: NotGateIcon,
+    and: AndGateIcon,
 };
 
 interface ComponentGlyphProps {

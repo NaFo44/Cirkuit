@@ -68,6 +68,13 @@ const COMPONENT_PRESENTATIONS = {
         getStateLabel: () => null,
         rotatable: true,
     },
+    and: {
+        label: "AND gate",
+        paletteColor: "var(--cell-and)",
+        glyphVisibility: "always",
+        getStateLabel: () => null,
+        rotatable: true,
+    },
 } satisfies Record<BuiltInComponentType, ComponentPresentation>;
 
 export function getComponentPresentation(
