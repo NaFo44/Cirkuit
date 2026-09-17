@@ -26,6 +26,7 @@ import {
     getComponentPresentation,
 } from "./ui/components/componentPresentation";
 import { ROTATE_COMPONENT_SHORTCUT } from "./ui/editor/editorShortcuts";
+import { QuickStart } from "./ui/guide/quickStart";
 
 const EMPTY_COMPONENT_VISUAL_STATES: ReadonlyMap<string, ComponentVisualState> =
     new Map();
@@ -181,6 +182,8 @@ export function App() {
                     onHoveredComponentChange={setHoveredComponentId}
                 />
             </MapViewport>
+
+            <QuickStart />
 
             <ComponentPalette
                 mode={mode}

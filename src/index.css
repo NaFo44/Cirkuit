@@ -17,6 +17,9 @@
     --signal-low: #7897b0;
     --signal-high: #97cbff;
     --signal-conflict: #ff4d4f;
+
+    --floating-panel-border: #ebebeb;
+    --floating-panel-shadow: 0 8px 24px rgb(0 0 0 / 8%);
 }
 
 html,
@@ -221,8 +224,8 @@ button {
     padding: clamp(8px, 1vh, 10px);
 
     background: white;
-    border: 1px solid #ebebeb;
-    box-shadow: 0 8px 24px rgb(0 0 0 / 8%);
+    border: 1px solid var(--floating-panel-border);
+    box-shadow: var(--floating-panel-shadow);
 
     animation: palette-in 1s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
