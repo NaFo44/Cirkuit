@@ -420,8 +420,7 @@ button {
     box-shadow: var(--floating-panel-shadow);
 }
 
-.map-viewport--panning
-    .annotation-layer.annotation-layer--editable {
+.map-viewport--panning .annotation-layer.annotation-layer--editable {
     cursor: grabbing;
 }
 
