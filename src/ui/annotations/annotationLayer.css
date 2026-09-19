@@ -1,0 +1,104 @@
+.annotation-layer {
+    position: absolute;
+    z-index: 3;
+    inset: 0;
+
+    overflow: visible;
+    pointer-events: none;
+    touch-action: none;
+    user-select: none;
+}
+
+.annotation-layer--editable {
+    pointer-events: auto;
+    cursor: crosshair;
+}
+
+.annotation-layer--editable[data-tool="label"] {
+    cursor: text;
+}
+
+.annotation-layer__svg {
+    position: absolute;
+    inset: 0;
+
+    overflow: visible;
+    pointer-events: none;
+}
+
+.annotation-layer__shape {
+    pointer-events: none;
+}
+
+.annotation-layer--editable .annotation-layer__shape {
+    pointer-events: stroke;
+    cursor: pointer;
+}
+
+.annotation-layer__line,
+.annotation-layer__rectangle {
+    fill: none;
+    stroke: #353535;
+    stroke-width: 2;
+}
+
+.annotation-layer__line {
+    stroke-linecap: round;
+}
+
+.annotation-layer__rectangle {
+    stroke-dasharray: 8 6;
+}
+
+.annotation-layer__shape--selected .annotation-layer__line,
+.annotation-layer__shape--selected .annotation-layer__rectangle {
+    stroke: #97c98f;
+    stroke-width: 3;
+}
+
+.annotation-layer__hit-area {
+    fill: none;
+    stroke: transparent;
+    stroke-width: 12;
+}
+
+.annotation-layer__draft {
+    stroke: #616161;
+    opacity: 0.65;
+    pointer-events: none;
+}
+
+.annotation-layer__label,
+.annotation-layer__label-editor {
+    position: absolute;
+    z-index: 1;
+
+    box-sizing: border-box;
+    min-height: 24px;
+    padding: 4px 7px;
+    transform: translateY(-50%);
+
+    color: #353535;
+    background: rgb(255 255 255 / 92%);
+    border: 1px solid transparent;
+    border-radius: 0px;
+
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.2;
+    white-space: nowrap;
+}
+
+.annotation-layer__label {
+    cursor: pointer;
+}
+
+.annotation-layer__label--selected {
+    border-color: #97c98f;
+}
+
+.annotation-layer__label-editor {
+    width: 180px;
+    outline: 2px solid #97c98f;
+    outline-offset: 1px;
+}

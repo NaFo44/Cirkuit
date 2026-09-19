@@ -1,11 +1,11 @@
 import type { CircuitLayout } from "../../domain/circuit/circuitLayout";
 import type { Position } from "../../domain/grid/position";
 import { createPlacedComponent } from "./createPlacedComponent";
-import type { EditorTool } from "./editorTool";
+import type { CircuitEditorTool } from "./editorTool";
 
 export function applyEditorTool(
     circuit: CircuitLayout,
-    tool: EditorTool,
+    tool: CircuitEditorTool,
     position: Position,
 ): CircuitLayout {
     if (tool.kind === "eraser") {

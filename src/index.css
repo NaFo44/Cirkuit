@@ -382,10 +382,47 @@ button {
     border-color: transparent transparent transparent #000;
 }
 
-.tooltip:hover .tooltiptext,
-.tooltip > .component-palette__item:focus-visible + .tooltiptext {
+.tooltip:not(.tooltip--menu-open):hover .tooltiptext,
+.tooltip:not(.tooltip--menu-open)
+    > .component-palette__item:focus-visible
+    + .tooltiptext {
     visibility: visible;
     opacity: 1;
+}
+
+.circuit-canvas {
+    position: relative;
+    flex: none;
+}
+
+.component-palette__annotation-picker {
+    position: relative;
+}
+
+.component-palette__item--annotation {
+    color: #555;
+    background: #f5f5f5;
+}
+
+.component-palette__annotation-menu {
+    position: absolute;
+    top: 50%;
+    right: calc(100% + 18px);
+    z-index: 2;
+
+    display: flex;
+    gap: 8px;
+    padding: 8px;
+    transform: translateY(-50%);
+
+    background: #fff;
+    border: 1px solid var(--floating-panel-border);
+    box-shadow: var(--floating-panel-shadow);
+}
+
+.map-viewport--panning
+    .annotation-layer.annotation-layer--editable {
+    cursor: grabbing;
 }
 
 @media (max-width: 640px), (max-height: 600px) {
@@ -438,5 +475,13 @@ button {
         transform: translateX(-50%);
 
         border-color: #000 transparent transparent transparent;
+    }
+
+    .component-palette__annotation-menu {
+        top: auto;
+        right: auto;
+        bottom: calc(100% + 14px);
+        left: 50%;
+        transform: translateX(-50%);
     }
 }

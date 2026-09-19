@@ -8,6 +8,8 @@ import type { EditorMode } from "../editor/editorMode";
 import type { EditorTool } from "../editor/editorTool";
 import { Eraser, Pencil, Play } from "pixelarticons/react";
 import { ROTATE_COMPONENT_SHORTCUT } from "../editor/editorShortcuts";
+import type { AnnotationType } from "../../domain/project/circuitAnnotation";
+import { AnnotationToolPicker } from "./annotationToolPicker";
 
 interface ComponentPaletteProps {
     mode: EditorMode;
@@ -15,6 +17,7 @@ interface ComponentPaletteProps {
     onModeChange: (mode: EditorMode) => void;
     onSelectComponent: (componentType: BuiltInComponentType) => void;
     onSelectEraser: () => void;
+    onSelectAnnotation: (annotationType: AnnotationType) => void;
 }
 
 export function ComponentPalette({
@@ -23,6 +26,7 @@ export function ComponentPalette({
     onModeChange,
     onSelectComponent,
     onSelectEraser,
+    onSelectAnnotation,
 }: ComponentPaletteProps) {
     const modeLabel = mode === "edit" ? "Run circuit" : "Edit circuit";
     return (
@@ -104,6 +108,16 @@ export function ComponentPalette({
                 </button>
                 <span className="tooltiptext">Eraser</span>
             </div>
+
+            <AnnotationToolPicker
+                selectedType={
+                    selectedTool.kind === "annotation"
+                        ? selectedTool.annotationType
+                        : null
+                }
+                disabled={mode === "simulate"}
+                onSelect={onSelectAnnotation}
+            />
         </aside>
     );
 }
