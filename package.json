@@ -15,7 +15,8 @@
     "dependencies": {
         "pixelarticons": "^2.4.1",
         "react": "^19.2.8",
-        "react-dom": "^19.2.8"
+        "react-dom": "^19.2.8",
+        "zod": "^4.6.5"
     },
     "devDependencies": {
         "@eslint/js": "^10.0.1",
