@@ -236,4 +236,106 @@ describe("CircuitLayout", () => {
         expect(layout.getComponentById("source-1")).toBe(source);
         expect(layout.getComponentById("missing")).toBeUndefined();
     });
+
+    it("rebuilds a layout from a circuit", () => {
+        const source = component("source-1", "source", 0, 0);
+        const light = component("light-1", "light", 1, 0);
+
+        const layout = CircuitLayout.from({
+            width: 2,
+            height: 1,
+            components: [source, light],
+        });
+
+        expect(layout.width).toBe(2);
+        expect(layout.height).toBe(1);
+        expect(layout.components).toEqual([source, light]);
+        expect(layout.getComponentAt({ x: 0, y: 0 })).toBe(source);
+        expect(layout.getComponentAt({ x: 1, y: 0 })).toBe(light);
+        expect(layout.getComponentById("source-1")).toBe(source);
+        expect(layout.getComponentById("light-1")).toBe(light);
+    });
+
+    it("rejects invalid dimensions when rebuilding a layout", () => {
+        expect(() =>
+            CircuitLayout.from({
+                width: 0,
+                height: 1,
+                components: [],
+            }),
+        ).toThrow("Layout dimensions must be positive integers");
+    });
+
+    it("rejects duplicate component ids when rebuilding a layout", () => {
+        expect(() =>
+            CircuitLayout.from({
+                width: 2,
+                height: 1,
+                components: [
+                    component("component-1", "source", 0, 0),
+                    component("component-1", "light", 1, 0),
+                ],
+            }),
+        ).toThrow("Duplicate component id: component-1");
+    });
+
+    it("rejects duplicated positions when rebuilding a layout", () => {
+        expect(() =>
+            CircuitLayout.from({
+                width: 1,
+                height: 1,
+                components: [
+                    component("source-1", "source", 0, 0),
+                    component("light-1", "light", 0, 0),
+                ],
+            }),
+        ).toThrow("Multiple components occupy position 0,0");
+    });
+
+    it("rejects an invalid rotation when rebuilding a layout", () => {
+        const invalidComponent = {
+            ...component("source-1", "source", 0, 0),
+            rotation: 45,
+        } as unknown as PlacedComponent;
+
+        expect(() =>
+            CircuitLayout.from({
+                width: 1,
+                height: 1,
+                components: [invalidComponent],
+            }),
+        ).toThrow("Invalid component rotation: source-1");
+    });
+
+    it("rejects an empty component type", () => {
+        const layout = CircuitLayout.empty(1, 1);
+
+        expect(() =>
+            layout.withComponent(component("component-1", "", 0, 0)),
+        ).toThrow("Component type cannot be empty: component-1");
+    });
+
+    it("does not retain the source component array", () => {
+        const source = component("source-1", "source", 0, 0);
+        const components: PlacedComponent[] = [source];
+
+        const layout = CircuitLayout.from({
+            width: 2,
+            height: 1,
+            components,
+        });
+
+        components.push(component("light-1", "light", 1, 0));
+
+        expect(layout.components).toEqual([source]);
+        expect(layout.getComponentById("light-1")).toBeUndefined();
+    });
+
+    it.each(["", "   "])("rejects the empty component type %j", (type) => {
+        const layout = CircuitLayout.empty(1, 1);
+
+        expect(() =>
+            layout.withComponent(component("component-1", type, 0, 0)),
+        ).toThrow("Component type cannot be empty: component-1");
+    });
 });

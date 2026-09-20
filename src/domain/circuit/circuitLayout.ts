@@ -1,6 +1,6 @@
 import { positionKey, type Position } from "../grid/position";
 import type { Circuit } from "./circuit";
-import type { PlacedComponent } from "./placedComponent";
+import { isRotation, type PlacedComponent } from "./placedComponent";
 
 function samePosition(first: Position, second: Position): boolean {
     return first.x === second.x && first.y === second.y;
@@ -61,6 +61,36 @@ export class CircuitLayout implements Circuit {
         return new CircuitLayout(width, height, []);
     }
 
+    static from(circuit: Circuit): CircuitLayout {
+        const layout = CircuitLayout.empty(circuit.width, circuit.height);
+        const componentIds = new Set<string>();
+        const occupiedPositions = new Set<string>();
+
+        for (const component of circuit.components) {
+            layout.validateComponent(component);
+
+            if (componentIds.has(component.id)) {
+                throw new Error(`Duplicate component id: ${component.id}`);
+            }
+
+            componentIds.add(component.id);
+
+            const key = positionKey(component.position);
+
+            if (occupiedPositions.has(key)) {
+                throw new Error(`Multiple components occupy position ${key}`);
+            }
+
+            occupiedPositions.add(key);
+        }
+
+        return new CircuitLayout(
+            circuit.width,
+            circuit.height,
+            circuit.components,
+        );
+    }
+
     getComponentAt(position: Position): PlacedComponent | undefined {
         return this.componentByPosition.get(positionKey(position));
     }
@@ -114,6 +144,14 @@ export class CircuitLayout implements Circuit {
     private validateComponent(component: PlacedComponent): void {
         if (component.id.trim() === "") {
             throw new Error("Component id cannot be empty");
+        }
+
+        if (component.type.trim() === "") {
+            throw new Error(`Component type cannot be empty: ${component.id}`);
+        }
+
+        if (!isRotation(component.rotation)) {
+            throw new Error(`Invalid component rotation: ${component.id}`);
         }
 
         const { x, y } = component.position;
