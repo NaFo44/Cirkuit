@@ -51,7 +51,7 @@ function documentPointToCanvas(
     };
 }
 
-function canvasPointToDocument(point: ProjectPointV1): CanvasPoint {
+function canvasPointToDocument(point: CanvasPoint): ProjectPointV1 {
     return {
         x: point.x / CELL_SIZE,
         y: point.y / CELL_SIZE,

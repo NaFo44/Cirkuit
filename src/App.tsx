@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 import { CircuitLayout } from "./domain/circuit/circuitLayout";
 import {
@@ -33,9 +33,19 @@ import type {
 import type { CircuitProject } from "./domain/project/circuitProject";
 import { AnnotationLayer } from "./ui/annotations/annotationLayer";
 import { isCircuitEditorTool, type EditorTool } from "./ui/editor/editorTool";
+import { downloadProjectFile, readProjectFile } from "./ui/project/projectFile";
+import { ProjectActions } from "./ui/project/projectActions";
 
 const EMPTY_COMPONENT_VISUAL_STATES: ReadonlyMap<string, ComponentVisualState> =
     new Map();
+
+function getProjectFileErrorMessage(error: unknown): string {
+    if (error instanceof Error && error.message !== "") {
+        return error.message;
+    }
+
+    return "Could not process the project file.";
+}
 
 export function App() {
     const [mode, setMode] = useState<EditorMode>("edit");
@@ -46,6 +56,10 @@ export function App() {
         rotation: 0,
     });
 
+    const [projectRevision, setProjectRevision] = useState(0);
+    const [projectFileError, setProjectFileError] = useState<string | null>(
+        null,
+    );
     const [project, setProject] = useState<CircuitProject>(() => ({
         circuit: CircuitLayout.empty(
             GRID_DIMENSIONS.width,
@@ -229,6 +243,94 @@ export function App() {
         });
     };
 
+    const saveProject = useCallback(() => {
+        setProjectFileError(null);
+
+        try {
+            downloadProjectFile(project, defaultComponentRegistry);
+        } catch (error) {
+            setProjectFileError(getProjectFileErrorMessage(error));
+        }
+    }, [project]);
+
+    const saveProjectRef = useRef(saveProject);
+
+    useEffect(() => {
+        saveProjectRef.current = saveProject;
+    }, [saveProject]);
+
+    useEffect(() => {
+        const handleSaveShortcut = (event: KeyboardEvent) => {
+            const isSaveShortcut =
+                (event.ctrlKey || event.metaKey) &&
+                !event.altKey &&
+                !event.shiftKey &&
+                event.key.toLowerCase() === "s";
+
+            if (!isSaveShortcut || event.repeat) {
+                return;
+            }
+
+            event.preventDefault();
+
+            const target = event.target;
+
+            const isEditingText =
+                target instanceof HTMLInputElement ||
+                target instanceof HTMLTextAreaElement ||
+                (target instanceof HTMLElement && target.isContentEditable);
+
+            if (isEditingText) {
+                target.blur();
+
+                window.setTimeout(() => {
+                    saveProjectRef.current();
+                }, 0);
+
+                return;
+            }
+
+            saveProjectRef.current();
+        };
+
+        window.addEventListener("keydown", handleSaveShortcut, true);
+
+        return () => {
+            window.removeEventListener("keydown", handleSaveShortcut, true);
+        };
+    }, []);
+
+    const openProject = async (file: File) => {
+        setProjectFileError(null);
+
+        try {
+            const importedProject = await readProjectFile(
+                file,
+                defaultComponentRegistry,
+            );
+
+            const hasCurrentContent =
+                project.circuit.components.length > 0 ||
+                project.annotations.length > 0;
+
+            if (
+                hasCurrentContent &&
+                !window.confirm(
+                    "Replace the current circuit with the selected project?",
+                )
+            ) {
+                return;
+            }
+
+            setMode("edit");
+            setHoveredComponentId(null);
+            setProject(importedProject);
+            setProjectRevision((revision) => revision + 1);
+        } catch (error) {
+            setProjectFileError(getProjectFileErrorMessage(error));
+        }
+    };
+
     const isComponentInteractive = (component: PlacedComponent): boolean =>
         defaultComponentRegistry.get(component.type).primaryAction !==
         undefined;
@@ -259,7 +361,7 @@ export function App() {
 
     return (
         <main className="circuit-editor">
-            <MapViewport cellSize={CELL_SIZE}>
+            <MapViewport key={projectRevision} cellSize={CELL_SIZE}>
                 <div
                     className="circuit-canvas"
                     style={{
@@ -305,7 +407,15 @@ export function App() {
                 </div>
             </MapViewport>
 
-            <QuickStart />
+            <QuickStart
+                footer={
+                    <ProjectActions
+                        error={projectFileError}
+                        onOpen={openProject}
+                        onSave={saveProject}
+                    />
+                }
+            />
 
             <ComponentPalette
                 mode={mode}

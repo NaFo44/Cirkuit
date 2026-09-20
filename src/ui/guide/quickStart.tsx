@@ -1,9 +1,13 @@
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 import { ChevronLeft, ChevronRight } from "pixelarticons/react";
 import andConnectionsScreenshot from "../../assets/quick-start/and-connections.png";
 import rotationScreenshot from "../../assets/quick-start/rotation.png";
 import runCircuitScreenshot from "../../assets/quick-start/run-circuit.png";
 import "./quickStart.css";
+
+interface QuickStartProps {
+    readonly footer?: ReactNode;
+}
 
 interface QuickStartSlide {
     readonly id: string;
@@ -40,7 +44,7 @@ const QUICK_START_SLIDES: readonly QuickStartSlide[] = [
     },
 ];
 
-export function QuickStart() {
+export function QuickStart({ footer }: QuickStartProps) {
     const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
     const [isCollapsed, setIsCollapsed] = useState(false);
     const [hasNavigated, setHasNavigated] = useState(false);
@@ -147,6 +151,10 @@ export function QuickStart() {
                         ))}
                     </div>
                 </div>
+
+                {footer && (
+                    <footer className="quick-start__footer">{footer}</footer>
+                )}
             </div>
 
             <button
