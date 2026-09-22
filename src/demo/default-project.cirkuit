@@ -1,0 +1,878 @@
+{
+  "format": "cirkuit-project",
+  "version": 1,
+  "circuit": {
+    "width": 256,
+    "height": 192,
+    "components": [
+      {
+        "id": "e441b978-7b46-4f2a-b5ec-3a46f1298571",
+        "type": "wire",
+        "position": {
+          "x": 43,
+          "y": 16
+        },
+        "rotation": 0
+      },
+      {
+        "id": "5bcc27d0-5cee-4141-aa26-98adac5149c5",
+        "type": "wire",
+        "position": {
+          "x": 44,
+          "y": 16
+        },
+        "rotation": 0
+      },
+      {
+        "id": "31dd86f7-e401-4398-9000-41a4a101375d",
+        "type": "wire",
+        "position": {
+          "x": 48,
+          "y": 16
+        },
+        "rotation": 0
+      },
+      {
+        "id": "59d535e8-45ad-4510-9308-d3a78149e7eb",
+        "type": "wire",
+        "position": {
+          "x": 49,
+          "y": 16
+        },
+        "rotation": 0
+      },
+      {
+        "id": "68fa654e-a6fc-4ccd-932b-62baeee78d72",
+        "type": "wire",
+        "position": {
+          "x": 42,
+          "y": 16
+        },
+        "rotation": 0
+      },
+      {
+        "id": "d6233f2d-f6d5-4e42-a28b-119fac7961d0",
+        "type": "wire",
+        "position": {
+          "x": 47,
+          "y": 16
+        },
+        "rotation": 0
+      },
+      {
+        "id": "2242d4b3-bd8d-4fa5-b2ac-04d9b0e3b221",
+        "type": "source",
+        "position": {
+          "x": 40,
+          "y": 16
+        },
+        "rotation": 0
+      },
+      {
+        "id": "10cc101e-23d4-42f6-9deb-f44e7b938aef",
+        "type": "switch",
+        "position": {
+          "x": 45,
+          "y": 16
+        },
+        "rotation": 0
+      },
+      {
+        "id": "f49d966c-7c53-4f0f-88e1-505a353f2d33",
+        "type": "light",
+        "position": {
+          "x": 50,
+          "y": 16
+        },
+        "rotation": 0
+      },
+      {
+        "id": "c3275ede-bdf2-407b-929c-3500dbe08ae3",
+        "type": "wire",
+        "position": {
+          "x": 46,
+          "y": 16
+        },
+        "rotation": 0
+      },
+      {
+        "id": "6c12e4e7-8557-4096-b4d0-ea210e37cc78",
+        "type": "wire",
+        "position": {
+          "x": 41,
+          "y": 16
+        },
+        "rotation": 0
+      },
+      {
+        "id": "2eb3fd49-5347-4799-bb60-eb7c523781a3",
+        "type": "wire",
+        "position": {
+          "x": 74,
+          "y": 15
+        },
+        "rotation": 0
+      },
+      {
+        "id": "8184c9e1-133c-4f94-bdf2-bbc9be5e5078",
+        "type": "switch",
+        "position": {
+          "x": 68,
+          "y": 17
+        },
+        "rotation": 0
+      },
+      {
+        "id": "03a2da3c-70e4-4f5c-8b2e-f49da32a9483",
+        "type": "not",
+        "position": {
+          "x": 71,
+          "y": 17
+        },
+        "rotation": 0
+      },
+      {
+        "id": "f8cc91d3-5c58-4155-9f4e-0f232a794f16",
+        "type": "not",
+        "position": {
+          "x": 77,
+          "y": 17
+        },
+        "rotation": 0
+      },
+      {
+        "id": "9965512e-a495-4e97-b14c-31c66e10c22b",
+        "type": "and",
+        "position": {
+          "x": 74,
+          "y": 17
+        },
+        "rotation": 0
+      },
+      {
+        "id": "fe37033f-8131-4663-866b-3aa3369de6df",
+        "type": "wire",
+        "position": {
+          "x": 69,
+          "y": 17
+        },
+        "rotation": 0
+      },
+      {
+        "id": "d95cf005-a954-4208-aa1b-b4fc2f1f08a4",
+        "type": "wire",
+        "position": {
+          "x": 70,
+          "y": 17
+        },
+        "rotation": 0
+      },
+      {
+        "id": "8c9b2fa8-3c4e-4c2e-9500-78cbfd275bf7",
+        "type": "wire",
+        "position": {
+          "x": 72,
+          "y": 17
+        },
+        "rotation": 0
+      },
+      {
+        "id": "cf8ba7e8-c50f-4694-914f-3adfbf689540",
+        "type": "wire",
+        "position": {
+          "x": 73,
+          "y": 17
+        },
+        "rotation": 0
+      },
+      {
+        "id": "9a24ef07-f52c-4f46-af7b-07da64061f62",
+        "type": "wire",
+        "position": {
+          "x": 75,
+          "y": 17
+        },
+        "rotation": 0
+      },
+      {
+        "id": "0471d16e-b101-46a9-b668-9cf3ddd17dfb",
+        "type": "wire",
+        "position": {
+          "x": 76,
+          "y": 17
+        },
+        "rotation": 0
+      },
+      {
+        "id": "55df4c3c-b177-42c8-a17e-a29b1d8b03cd",
+        "type": "wire",
+        "position": {
+          "x": 78,
+          "y": 17
+        },
+        "rotation": 0
+      },
+      {
+        "id": "bcc6b9b3-3e03-4002-ad99-c6d15087688a",
+        "type": "wire",
+        "position": {
+          "x": 79,
+          "y": 17
+        },
+        "rotation": 0
+      },
+      {
+        "id": "c3f7d03a-bdb8-4d9e-9baa-09a2fa83fbac",
+        "type": "light",
+        "position": {
+          "x": 80,
+          "y": 17
+        },
+        "rotation": 0
+      },
+      {
+        "id": "5f35ec2f-7405-4f5f-91d0-6e1c81cc86f1",
+        "type": "source",
+        "position": {
+          "x": 68,
+          "y": 16
+        },
+        "rotation": 0
+      },
+      {
+        "id": "ff279ddc-013d-4c0f-b1c5-1db823bb0bfd",
+        "type": "not",
+        "position": {
+          "x": 71,
+          "y": 15
+        },
+        "rotation": 0
+      },
+      {
+        "id": "da6ac86f-8ec4-44f6-931c-725f1bca190e",
+        "type": "switch",
+        "position": {
+          "x": 68,
+          "y": 15
+        },
+        "rotation": 0
+      },
+      {
+        "id": "1d68c8f4-62ed-42bd-ad9e-7997cdc96261",
+        "type": "wire",
+        "position": {
+          "x": 69,
+          "y": 15
+        },
+        "rotation": 0
+      },
+      {
+        "id": "b190081a-3cc9-4d8a-b0a0-94e18420d9b9",
+        "type": "wire",
+        "position": {
+          "x": 70,
+          "y": 15
+        },
+        "rotation": 0
+      },
+      {
+        "id": "2815da2b-c57b-4a88-8b5e-49401a3c0560",
+        "type": "wire",
+        "position": {
+          "x": 72,
+          "y": 15
+        },
+        "rotation": 0
+      },
+      {
+        "id": "0279669c-49c8-421a-99cb-2546e6e271eb",
+        "type": "wire",
+        "position": {
+          "x": 73,
+          "y": 15
+        },
+        "rotation": 0
+      },
+      {
+        "id": "df8e914d-7979-462b-aba4-997cbc41c8f9",
+        "type": "wire",
+        "position": {
+          "x": 74,
+          "y": 16
+        },
+        "rotation": 0
+      },
+      {
+        "id": "0396fb04-dc27-4468-9e10-295d851caebb",
+        "type": "source",
+        "position": {
+          "x": 38,
+          "y": 36
+        },
+        "rotation": 0
+      },
+      {
+        "id": "71df71ff-f3d7-471f-a81b-06934a3b70ed",
+        "type": "source",
+        "position": {
+          "x": 38,
+          "y": 30
+        },
+        "rotation": 0
+      },
+      {
+        "id": "b736d2e3-867d-452b-b9c3-40435e69d416",
+        "type": "switch",
+        "position": {
+          "x": 39,
+          "y": 36
+        },
+        "rotation": 0
+      },
+      {
+        "id": "516c285c-6f6e-4a44-b688-4340b6300e7b",
+        "type": "switch",
+        "position": {
+          "x": 39,
+          "y": 30
+        },
+        "rotation": 0
+      },
+      {
+        "id": "f5808ea9-1ad0-49fd-8ba2-efd469501a3a",
+        "type": "wire",
+        "position": {
+          "x": 40,
+          "y": 30
+        },
+        "rotation": 0
+      },
+      {
+        "id": "0d4999b4-8f7b-44f1-958c-d674f4cbc663",
+        "type": "wire",
+        "position": {
+          "x": 41,
+          "y": 30
+        },
+        "rotation": 0
+      },
+      {
+        "id": "d5cd8ba0-6bcd-4819-91e0-15aa2b47da68",
+        "type": "wire",
+        "position": {
+          "x": 42,
+          "y": 30
+        },
+        "rotation": 0
+      },
+      {
+        "id": "c0f91dbe-cce7-4a05-a0e8-832074c90160",
+        "type": "wire",
+        "position": {
+          "x": 43,
+          "y": 30
+        },
+        "rotation": 0
+      },
+      {
+        "id": "649e3cfb-b351-4af9-8e20-809394d8e975",
+        "type": "wire",
+        "position": {
+          "x": 44,
+          "y": 30
+        },
+        "rotation": 0
+      },
+      {
+        "id": "104a4e4d-0d03-4991-9b8f-536418398cbc",
+        "type": "wire",
+        "position": {
+          "x": 45,
+          "y": 30
+        },
+        "rotation": 0
+      },
+      {
+        "id": "232ac68d-20a5-4645-b712-1428cb2aa5c0",
+        "type": "wire",
+        "position": {
+          "x": 45,
+          "y": 31
+        },
+        "rotation": 0
+      },
+      {
+        "id": "ac1eefaf-5412-4925-8fc7-25b7d2fd1abe",
+        "type": "and",
+        "position": {
+          "x": 45,
+          "y": 32
+        },
+        "rotation": 0
+      },
+      {
+        "id": "36e8ffa5-5f2d-4d14-9388-92a354a73f87",
+        "type": "not",
+        "position": {
+          "x": 47,
+          "y": 32
+        },
+        "rotation": 0
+      },
+      {
+        "id": "b8ee87b6-cd26-4fa9-a9cb-050efbe8eede",
+        "type": "and",
+        "position": {
+          "x": 45,
+          "y": 36
+        },
+        "rotation": 0
+      },
+      {
+        "id": "d2555b1d-2add-472f-b7ab-ea28f1a656e0",
+        "type": "not",
+        "position": {
+          "x": 47,
+          "y": 36
+        },
+        "rotation": 0
+      },
+      {
+        "id": "c06c7d9e-2439-44dc-bcb0-0616b9edb1fe",
+        "type": "wire",
+        "position": {
+          "x": 44,
+          "y": 32
+        },
+        "rotation": 0
+      },
+      {
+        "id": "b266e51a-3c16-4544-a490-9afa6feb71bc",
+        "type": "wire",
+        "position": {
+          "x": 44,
+          "y": 33
+        },
+        "rotation": 0
+      },
+      {
+        "id": "2f8c9621-6584-4f8d-8ec9-71f2b87cddee",
+        "type": "wire",
+        "position": {
+          "x": 44,
+          "y": 34
+        },
+        "rotation": 0
+      },
+      {
+        "id": "855a8711-f59c-4bb4-a192-710e6f6f5043",
+        "type": "wire",
+        "position": {
+          "x": 45,
+          "y": 34
+        },
+        "rotation": 0
+      },
+      {
+        "id": "de08d524-d3a2-42db-a408-4e4673ab92a6",
+        "type": "wire",
+        "position": {
+          "x": 45,
+          "y": 35
+        },
+        "rotation": 0
+      },
+      {
+        "id": "49d1b2c5-2a6a-4d5d-bd50-178f019d482e",
+        "type": "not",
+        "position": {
+          "x": 43,
+          "y": 34
+        },
+        "rotation": 0
+      },
+      {
+        "id": "1c58fc78-f262-4651-bf47-6afe7c57f9fb",
+        "type": "and",
+        "position": {
+          "x": 41,
+          "y": 34
+        },
+        "rotation": 0
+      },
+      {
+        "id": "12039bba-82f6-4b19-964f-8b9897c94df9",
+        "type": "wire",
+        "position": {
+          "x": 42,
+          "y": 34
+        },
+        "rotation": 0
+      },
+      {
+        "id": "6a157d8d-c400-482a-8ffa-88fdddab2e7a",
+        "type": "wire",
+        "position": {
+          "x": 40,
+          "y": 34
+        },
+        "rotation": 0
+      },
+      {
+        "id": "d85d181d-7fa9-49ae-9f26-a292d73d46d3",
+        "type": "wire",
+        "position": {
+          "x": 40,
+          "y": 35
+        },
+        "rotation": 0
+      },
+      {
+        "id": "4002e3cb-c3f6-4865-bdf3-38a05c0ffd1b",
+        "type": "wire",
+        "position": {
+          "x": 40,
+          "y": 36
+        },
+        "rotation": 0
+      },
+      {
+        "id": "428878c6-8c14-41cc-ae55-4184ef5cae2f",
+        "type": "wire",
+        "position": {
+          "x": 41,
+          "y": 36
+        },
+        "rotation": 0
+      },
+      {
+        "id": "752125f6-8eaf-49ee-b1e2-86df7b1f9c6b",
+        "type": "wire",
+        "position": {
+          "x": 42,
+          "y": 36
+        },
+        "rotation": 0
+      },
+      {
+        "id": "444593d0-dc91-4c23-8ac4-c95c7d3e0cf5",
+        "type": "wire",
+        "position": {
+          "x": 43,
+          "y": 36
+        },
+        "rotation": 0
+      },
+      {
+        "id": "3808e6e2-1589-465f-90e8-ee5c535740b5",
+        "type": "wire",
+        "position": {
+          "x": 44,
+          "y": 36
+        },
+        "rotation": 0
+      },
+      {
+        "id": "a4fd0246-1927-4b4d-9e50-0c14ee16d2a7",
+        "type": "wire",
+        "position": {
+          "x": 41,
+          "y": 33
+        },
+        "rotation": 0
+      },
+      {
+        "id": "2bf6b1c3-a793-4a3d-8e5d-03fcbdb01e0a",
+        "type": "wire",
+        "position": {
+          "x": 41,
+          "y": 32
+        },
+        "rotation": 0
+      },
+      {
+        "id": "f9d0e602-3f44-4f93-ab5d-6fda35361982",
+        "type": "wire",
+        "position": {
+          "x": 41,
+          "y": 31
+        },
+        "rotation": 0
+      },
+      {
+        "id": "0aa0cb16-20a1-463b-8b10-b562307e7c74",
+        "type": "and",
+        "position": {
+          "x": 49,
+          "y": 34
+        },
+        "rotation": 0
+      },
+      {
+        "id": "bb8af273-0546-499a-80fc-55525d18a330",
+        "type": "not",
+        "position": {
+          "x": 51,
+          "y": 34
+        },
+        "rotation": 0
+      },
+      {
+        "id": "9bb89781-240b-4e9c-b20e-e7108f2d60ef",
+        "type": "light",
+        "position": {
+          "x": 53,
+          "y": 34
+        },
+        "rotation": 0
+      },
+      {
+        "id": "a4f233b2-940d-448c-9026-6ef96ad86543",
+        "type": "wire",
+        "position": {
+          "x": 46,
+          "y": 32
+        },
+        "rotation": 0
+      },
+      {
+        "id": "4c5f4132-60fa-40a3-a09e-4609ba9a2658",
+        "type": "wire",
+        "position": {
+          "x": 46,
+          "y": 36
+        },
+        "rotation": 0
+      },
+      {
+        "id": "07bbb801-8ebf-4d89-ba3b-16a27c980af7",
+        "type": "wire",
+        "position": {
+          "x": 48,
+          "y": 32
+        },
+        "rotation": 0
+      },
+      {
+        "id": "b912ab9d-3320-499e-a494-bb915ac89eb7",
+        "type": "wire",
+        "position": {
+          "x": 49,
+          "y": 32
+        },
+        "rotation": 0
+      },
+      {
+        "id": "62915428-22a5-4cbb-b7aa-fbec38ca8ce0",
+        "type": "wire",
+        "position": {
+          "x": 49,
+          "y": 33
+        },
+        "rotation": 0
+      },
+      {
+        "id": "a4c4ff98-a6b0-4128-9b0d-0b8c0b16e464",
+        "type": "wire",
+        "position": {
+          "x": 48,
+          "y": 36
+        },
+        "rotation": 0
+      },
+      {
+        "id": "5b20ae5e-4ec2-4158-bdd4-f461a2fa1c56",
+        "type": "wire",
+        "position": {
+          "x": 48,
+          "y": 35
+        },
+        "rotation": 0
+      },
+      {
+        "id": "6ace8516-f547-4ed8-801a-24dede35390e",
+        "type": "wire",
+        "position": {
+          "x": 48,
+          "y": 34
+        },
+        "rotation": 0
+      },
+      {
+        "id": "7c0780ae-2817-4484-8b1c-d506ddc60903",
+        "type": "wire",
+        "position": {
+          "x": 50,
+          "y": 34
+        },
+        "rotation": 0
+      },
+      {
+        "id": "ec9ea89b-32e5-4b0b-8d94-95b09a2bfd75",
+        "type": "wire",
+        "position": {
+          "x": 52,
+          "y": 34
+        },
+        "rotation": 0
+      }
+    ]
+  },
+  "annotations": {
+    "coordinateSpace": "grid",
+    "items": [
+      {
+        "id": "2a8d8dbf-f2d8-47f2-a37d-6d3f27ef0910",
+        "kind": "label",
+        "position": {
+          "x": 37.8,
+          "y": 13.3
+        },
+        "text": "Power source"
+      },
+      {
+        "id": "d0e5e3fc-9d48-4833-8f4b-46946a534eab",
+        "kind": "label",
+        "position": {
+          "x": 50.16000061035156,
+          "y": 13.419999694824218
+        },
+        "text": "Light"
+      },
+      {
+        "id": "3bcc787f-187b-4dea-9a4f-7a6f8856d9b7",
+        "kind": "label",
+        "position": {
+          "x": 43.439999389648435,
+          "y": 19.340000915527344
+        },
+        "text": "Switch"
+      },
+      {
+        "id": "0fdb3226-b772-4f2c-ba07-901c4bb85838",
+        "kind": "line",
+        "start": {
+          "x": 50.60869736482159,
+          "y": 16.24999977540279
+        },
+        "end": {
+          "x": 51.36956860437742,
+          "y": 14.358695287860716
+        }
+      },
+      {
+        "id": "3ca23bfa-1bdf-4645-962d-8c75e18a81ed",
+        "kind": "line",
+        "start": {
+          "x": 45.47826280756127,
+          "y": 16.77173923033923
+        },
+        "end": {
+          "x": 44.95652333459695,
+          "y": 18.35869722285205
+        }
+      },
+      {
+        "id": "99d696af-909f-4314-84ad-14c1cc8e16ab",
+        "kind": "line",
+        "start": {
+          "x": 40.50000150307368,
+          "y": 16.184782550856237
+        },
+        "end": {
+          "x": 40.26087139504622,
+          "y": 14.358695287860716
+        }
+      },
+      {
+        "id": "78db50e6-f03e-47d3-9668-0845b59ccdae",
+        "kind": "label",
+        "position": {
+          "x": 38.31034501469234,
+          "y": 22.741379743145906
+        },
+        "text": "Run the circuit and try switching the light on!"
+      },
+      {
+        "id": "6ea9d06b-3098-4a6e-ac2d-57bdae09824c",
+        "kind": "label",
+        "position": {
+          "x": 72.9411766685829,
+          "y": 12.191176922951062
+        },
+        "text": "NOT gate: inverts the signal"
+      },
+      {
+        "id": "1bd0845a-aed0-4ac6-8c81-122ce5fe6edd",
+        "kind": "label",
+        "position": {
+          "x": 67.05882389240197,
+          "y": 20.39705987812603
+        },
+        "text": "AND gate: return HIGH when all inputs are HIGH"
+      },
+      {
+        "id": "28cf5ec6-e858-4f19-b2b0-777c9c788591",
+        "kind": "line",
+        "start": {
+          "x": 71.52941110472368,
+          "y": 15.279412274817156
+        },
+        "end": {
+          "x": 73.05882417289442,
+          "y": 13.250000584359274
+        }
+      },
+      {
+        "id": "c3110230-33d8-421e-bad1-f9fa2b44a9a1",
+        "kind": "line",
+        "start": {
+          "x": 74.52941236693965,
+          "y": 17.75000100509795
+        },
+        "end": {
+          "x": 74.73529381653017,
+          "y": 19.514706920450003
+        }
+      },
+      {
+        "id": "cd62f1f5-d87f-45ca-8c21-76660876a3dc",
+        "kind": "rectangle",
+        "position": {
+          "x": 62.02941047361569,
+          "y": 9.044118657656627
+        },
+        "width": 25.970586160475058,
+        "height": 16.00000102847232
+      },
+      {
+        "id": "a7b6c876-d9ea-48b7-ae35-fede0eb3e1ae",
+        "kind": "label",
+        "position": {
+          "x": 69.4347843799339,
+          "y": 27.423912996155103
+        },
+        "text": "OR gate using NOT & AND gates"
+      },
+      {
+        "id": "87cd02d2-a9a3-48ee-990f-0db005360863",
+        "kind": "rectangle",
+        "position": {
+          "x": 32.03448223132159,
+          "y": 27.120690775919304
+        },
+        "width": 27.068967257895395,
+        "height": 13.827587299294033
+      },
+      {
+        "id": "dbea91a8-0adb-47f3-ae17-880861402e61",
+        "kind": "label",
+        "position": {
+          "x": 39.89655001750321,
+          "y": 43.50000279525237
+        },
+        "text": "XOR gate using AND & NOT gates"
+      }
+    ]
+  }
+}

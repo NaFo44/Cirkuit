@@ -22,22 +22,11 @@ import { useProjectFileActions } from "./ui/project/useProjectFileActions";
 import type { CircuitProject } from "./domain/project/circuitProject";
 import { useSaveShortcut } from "./ui/project/useSaveShortcut";
 import { useEditorToolSelection } from "./ui/editor/useEditorToolSelection";
-import { CircuitLayout } from "./domain/circuit/circuitLayout";
-import { GRID_DIMENSIONS } from "./domain/grid/gridDimensions";
+import { createDefaultProject } from "./demo/defaultProject";
 import type { Position } from "./domain/grid/position";
 
 const EMPTY_COMPONENT_VISUAL_STATES: ReadonlyMap<string, ComponentVisualState> =
     new Map();
-
-function createInitialProject(): CircuitProject {
-    return {
-        circuit: CircuitLayout.empty(
-            GRID_DIMENSIONS.width,
-            GRID_DIMENSIONS.height,
-        ),
-        annotations: [],
-    };
-}
 
 export function App() {
     const [mode, setMode] = useState<EditorMode>("edit");
@@ -64,7 +53,7 @@ export function App() {
         updateAnnotation,
         removeAnnotation,
         replaceProject,
-    } = useProjectEditor(createInitialProject);
+    } = useProjectEditor(createDefaultProject);
 
     const { circuit, annotations } = project;
 
