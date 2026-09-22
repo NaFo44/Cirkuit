@@ -4,5 +4,8 @@ import { parseProjectDocument } from "../domain/project/serialization/projectDoc
 import defaultProjectDocument from "./default-project.cirkuit?raw";
 
 export function createDefaultProject(): CircuitProject {
-    return parseProjectDocument(defaultProjectDocument, defaultComponentRegistry);
+    return parseProjectDocument(
+        defaultProjectDocument,
+        defaultComponentRegistry,
+    );
 }

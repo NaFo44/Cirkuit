@@ -13,7 +13,12 @@ import type { PlacedComponent } from "./domain/circuit/placedComponent";
 import type { EditorMode } from "./ui/editor/editorMode";
 import { CELL_SIZE } from "./domain/grid/gridCoordinates";
 import { getComponentHoverLabel } from "./ui/components/componentPresentation";
-import { QuickStart } from "./ui/guide/quickStart";
+import { EditorHints } from "./ui/editor/editorHints";
+import { WorkspaceSidebar } from "./ui/sidebar/workspaceSidebar";
+import {
+    WorkspaceIntroduction,
+    WorkspaceLinks,
+} from "./ui/sidebar/workspaceSidebarSections";
 import { AnnotationLayer } from "./ui/annotations/annotationLayer";
 import { isCircuitEditorTool } from "./ui/editor/editorTool";
 import { ProjectActions } from "./ui/project/projectActions";
@@ -193,15 +198,19 @@ export function App() {
                 </div>
             </MapViewport>
 
-            <QuickStart
-                footer={
+            <WorkspaceSidebar
+                topContent={<WorkspaceIntroduction />}
+                bottomContent={
                     <ProjectActions
                         error={projectFileError}
                         onOpen={openProject}
                         onSave={saveProject}
                     />
                 }
-            />
+                footer={<WorkspaceLinks />}
+            >
+                <EditorHints mode={mode} />
+            </WorkspaceSidebar>
 
             <ComponentPalette
                 mode={mode}

@@ -1,0 +1,57 @@
+.workspace-introduction {
+    padding-top: 14px;
+
+    color: #666;
+    font-size: 13px;
+    line-height: 1.55;
+}
+
+.workspace-introduction p {
+    margin: 0;
+}
+
+.workspace-introduction p + p {
+    margin-top: 8px;
+}
+
+.workspace-introduction__welcome {
+    color: #4d4d4d;
+    font-weight: 600;
+}
+
+.workspace-introduction__presentation {
+    line-height: 1.6;
+}
+
+.workspace-links {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 14px;
+
+    font-size: 12px;
+    line-height: 1;
+}
+
+.workspace-links a {
+    color: #777;
+    text-decoration-color: #d3d3d3;
+    text-underline-offset: 3px;
+
+    transition:
+        color 140ms ease,
+        text-decoration-color 140ms ease;
+}
+
+.workspace-links a:hover,
+.workspace-links a:focus-visible {
+    color: #353535;
+    text-decoration-color: currentColor;
+}
+
+@media (max-width: 260px) {
+    .workspace-links {
+        gap: 10px;
+    }
+}

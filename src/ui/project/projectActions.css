@@ -17,10 +17,10 @@
     flex: 1;
 
     min-width: 0;
-    padding: 7px 8px;
+    padding: 10px 8px;
 
     color: #555;
-    background: transparent;
+    background: #fff;
     border: 1px solid #d3d3d3;
 
     font-size: 12px;
@@ -63,4 +63,10 @@
     font-weight: 600;
     line-height: 1.35;
     overflow-wrap: anywhere;
+}
+
+@media (max-width: 280px) {
+    .project-actions__buttons {
+        flex-direction: column;
+    }
 }

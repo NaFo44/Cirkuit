@@ -81,7 +81,7 @@
     color: #353535;
     background: rgb(255 255 255 / 92%);
     border: 1px solid transparent;
-    border-radius: 0px;
+    border-radius: 0;
 
     font-size: 13px;
     font-weight: 600;

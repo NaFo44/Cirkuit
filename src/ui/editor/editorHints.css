@@ -1,0 +1,45 @@
+.editor-hints__list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.editor-hints__item {
+    display: grid;
+    grid-template-columns: 94px 1fr;
+    align-items: center;
+    gap: 18px;
+}
+
+.editor-hints__input {
+    box-sizing: border-box;
+    padding: 5px 0;
+
+    color: #555;
+
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.editor-hints__action {
+    color: #666;
+    font-size: 12px;
+    line-height: 1.2;
+}
+
+.editor-hints__title {
+    margin: 13px 0;
+    padding-bottom: 10px;
+
+    color: #4d4d4d;
+    border-bottom: 1px solid #d3d3d3;
+
+    font-size: 13px;
+    font-weight: 700;
+    line-height: normal;
+}

@@ -138,6 +138,7 @@ button {
 .circuit-cell--not {
     background: var(--cell-not);
 }
+
 .circuit-cell--and {
     background: var(--cell-and);
 }
@@ -223,7 +224,7 @@ button {
     box-sizing: border-box;
     padding: clamp(8px, 1vh, 10px);
 
-    background: white;
+    background: #fff;
     border: 1px solid var(--floating-panel-border);
     box-shadow: var(--floating-panel-shadow);
 
