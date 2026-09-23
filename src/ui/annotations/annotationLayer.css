@@ -38,7 +38,7 @@
 .annotation-layer__line,
 .annotation-layer__rectangle {
     fill: none;
-    stroke: #353535;
+    stroke: #545454;
     stroke-width: 2;
 }
 
@@ -78,7 +78,7 @@
     padding: 4px 7px;
     transform: translateY(-50%);
 
-    color: #353535;
+    color: #545454;
     background: rgb(255 255 255 / 92%);
     border: 1px solid transparent;
     border-radius: 0;

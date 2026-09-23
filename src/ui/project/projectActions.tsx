@@ -1,5 +1,5 @@
 import { useRef, useState, type ChangeEvent } from "react";
-import { Download, Upload } from "pixelarticons/react";
+import { Download, Folder } from "pixelarticons/react";
 
 import { PROJECT_FILE_ACCEPT } from "./projectFile";
 import "./projectActions.css";
@@ -50,7 +50,7 @@ export function ProjectActions({ error, onOpen, onSave }: ProjectActionsProps) {
                     disabled={isOpening}
                     onClick={() => inputRef.current?.click()}
                 >
-                    <Upload aria-hidden="true" />
+                    <Folder aria-hidden="true" />
                     <span>{isOpening ? "Opening..." : "Open"}</span>
                 </button>
 

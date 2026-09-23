@@ -8,8 +8,8 @@ export function WorkspaceIntroduction() {
             </p>
 
             <p className="workspace-introduction__presentation">
-                This website is a sandbox game where you can build basically
-                anything using wires and the two most basic logic gates.
+                Cirkuit is a sandbox game where you can build pretty much
+                anything using just wires and two basic logic gates.
             </p>
         </section>
     );
