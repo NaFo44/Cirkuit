@@ -7,14 +7,17 @@ import { getComponentPresentation } from "../components/componentPresentation";
 import type { EditorMode } from "../editor/editorMode";
 import type { EditorTool } from "../editor/editorTool";
 import { Eraser, Pencil, Play } from "pixelarticons/react";
-import { ROTATE_COMPONENT_SHORTCUT } from "../editor/editorShortcuts";
+import {
+    ROTATE_COMPONENT_SHORTCUT,
+    TOGGLE_SIMULATION_SHORTCUT,
+} from "../editor/editorShortcuts";
 import type { AnnotationType } from "../../domain/project/circuitAnnotation";
 import { AnnotationToolPicker } from "./annotationToolPicker";
 
 interface ComponentPaletteProps {
     mode: EditorMode;
     selectedTool: EditorTool;
-    onModeChange: (mode: EditorMode) => void;
+    onToggleMode: () => void;
     onSelectComponent: (componentType: BuiltInComponentType) => void;
     onSelectEraser: () => void;
     onSelectAnnotation: (annotationType: AnnotationType) => void;
@@ -23,7 +26,7 @@ interface ComponentPaletteProps {
 export function ComponentPalette({
     mode,
     selectedTool,
-    onModeChange,
+    onToggleMode,
     onSelectComponent,
     onSelectEraser,
     onSelectAnnotation,
@@ -37,9 +40,8 @@ export function ComponentPalette({
                     className="component-palette__item component-palette__item--mode"
                     aria-label={modeLabel}
                     aria-pressed={mode === "simulate"}
-                    onClick={() =>
-                        onModeChange(mode === "edit" ? "simulate" : "edit")
-                    }
+                    aria-keyshortcuts={TOGGLE_SIMULATION_SHORTCUT}
+                    onClick={onToggleMode}
                 >
                     {mode === "edit" ? (
                         <Play aria-hidden="true" />
@@ -47,7 +49,9 @@ export function ComponentPalette({
                         <Pencil aria-hidden="true" />
                     )}
                 </button>
-                <span className="tooltiptext">{modeLabel}</span>
+                <span className="tooltiptext">
+                    {modeLabel} | {TOGGLE_SIMULATION_SHORTCUT}
+                </span>
             </div>
 
             <div className="component-palette__separator" aria-hidden="true" />

@@ -1,1 +1,2 @@
 export const ROTATE_COMPONENT_SHORTCUT = "R";
+export const TOGGLE_SIMULATION_SHORTCUT = "Space";

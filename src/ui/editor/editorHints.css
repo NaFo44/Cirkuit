@@ -10,7 +10,7 @@
 
 .editor-hints__item {
     display: grid;
-    grid-template-columns: 94px 1fr;
+    grid-template-columns: 124px 1fr;
     align-items: center;
     gap: 18px;
 }
@@ -34,7 +34,7 @@
 
 .editor-hints__title {
     margin: 13px 0;
-    padding-bottom: 10px;
+    padding-bottom: 14px;
 
     color: #4d4d4d;
     border-bottom: 1px solid #d3d3d3;

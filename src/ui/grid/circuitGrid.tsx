@@ -195,10 +195,7 @@ export function CircuitGrid({
                         onKeyDown={
                             interactive
                                 ? (event) => {
-                                      if (
-                                          event.key === "Enter" ||
-                                          event.key === " "
-                                      ) {
+                                      if (event.key === "Enter") {
                                           event.preventDefault();
                                           onComponentInteract(component);
                                       }

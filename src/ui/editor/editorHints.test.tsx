@@ -19,10 +19,11 @@ describe("EditorHints", () => {
         expect(markup).not.toContain("Left drag");
     });
 
-    it("always shows viewport shortcuts", () => {
+    it("always shows common shortcuts", () => {
         const markup = renderToStaticMarkup(<EditorHints mode="edit" />);
 
-        expect(markup).toContain("Wheel");
-        expect(markup).toContain("Middle drag");
+        expect(markup).toContain("Space");
+        expect(markup).toContain("Pinch / wheel");
+        expect(markup).toContain("Right / middle drag");
     });
 });

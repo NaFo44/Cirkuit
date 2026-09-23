@@ -195,8 +195,8 @@ button {
 }
 
 .map-viewport--panning,
-.map-viewport--panning .circuit-grid {
-    cursor: grabbing;
+.map-viewport--panning * {
+    cursor: grabbing !important;
 }
 
 .map-viewport__content {
@@ -419,10 +419,6 @@ button {
     background: #fff;
     border: 1px solid var(--floating-panel-border);
     box-shadow: var(--floating-panel-shadow);
-}
-
-.map-viewport--panning .annotation-layer.annotation-layer--editable {
-    cursor: grabbing;
 }
 
 @media (max-width: 640px), (max-height: 600px) {

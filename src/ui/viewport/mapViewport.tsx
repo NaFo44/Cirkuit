@@ -30,6 +30,10 @@ interface PanGesture {
     lastY: number;
 }
 
+function isPanButton(button: number): boolean {
+    return button === 1 || button === 2;
+}
+
 export function MapViewport({ children, cellSize }: MapViewportProps) {
     const [camera, setCamera] = useState<Camera>({
         x: 0,
@@ -120,11 +124,12 @@ export function MapViewport({ children, cellSize }: MapViewportProps) {
     }, [cellSize]);
 
     const startPanning = (event: ReactPointerEvent<HTMLDivElement>) => {
-        if (event.button !== 1 || panGesture.current) {
+        if (!isPanButton(event.button) || panGesture.current) {
             return;
         }
 
         event.preventDefault();
+        event.stopPropagation();
 
         panGesture.current = {
             pointerId: event.pointerId,
@@ -187,11 +192,14 @@ export function MapViewport({ children, cellSize }: MapViewportProps) {
                     ? "map-viewport map-viewport--panning"
                     : "map-viewport"
             }
-            onPointerDown={startPanning}
+            onPointerDownCapture={startPanning}
             onPointerMove={continuePanning}
             onPointerUp={stopPanning}
             onPointerCancel={stopPanning}
             onLostPointerCapture={stopPanning}
+            onContextMenu={(event) => {
+                event.preventDefault();
+            }}
             onAuxClick={(event) => {
                 if (event.button === 1) {
                     event.preventDefault();

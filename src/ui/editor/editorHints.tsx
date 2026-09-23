@@ -12,11 +12,15 @@ interface EditorHint {
 
 const COMMON_HINTS: readonly EditorHint[] = [
     {
-        input: "Wheel",
+        input: "Space",
+        action: "Run / stop",
+    },
+    {
+        input: "Pinch / wheel",
         action: "Zoom",
     },
     {
-        input: "Middle drag",
+        input: "Right / middle drag",
         action: "Pan",
     },
 ];

@@ -27,6 +27,7 @@ import { useProjectFileActions } from "./ui/project/useProjectFileActions";
 import type { CircuitProject } from "./domain/project/circuitProject";
 import { useSaveShortcut } from "./ui/project/useSaveShortcut";
 import { useEditorToolSelection } from "./ui/editor/useEditorToolSelection";
+import { useToggleSimulationShortcut } from "./ui/editor/useToggleSimulationShortcut";
 import { createDefaultProject } from "./demo/defaultProject";
 import type { Position } from "./domain/grid/position";
 
@@ -35,6 +36,14 @@ const EMPTY_COMPONENT_VISUAL_STATES: ReadonlyMap<string, ComponentVisualState> =
 
 export function App() {
     const [mode, setMode] = useState<EditorMode>("edit");
+
+    const toggleMode = useCallback(() => {
+        setMode((currentMode) =>
+            currentMode === "edit" ? "simulate" : "edit",
+        );
+    }, []);
+
+    useToggleSimulationShortcut(toggleMode);
 
     const [hoveredComponentId, setHoveredComponentId] = useState<string | null>(
         null,
@@ -215,7 +224,7 @@ export function App() {
             <ComponentPalette
                 mode={mode}
                 selectedTool={selectedTool}
-                onModeChange={setMode}
+                onToggleMode={toggleMode}
                 onSelectComponent={selectComponent}
                 onSelectEraser={selectEraser}
                 onSelectAnnotation={selectAnnotation}
