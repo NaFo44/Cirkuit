@@ -23,6 +23,7 @@ It is recommended to use a laptop or desktop computer with a mouse to use Circui
 > Shortcuts are also shown in-game.
 
 ### Edit mode:
+
 - **Left drag**: Draw
 - **R**: Rotate
 - **S + drag**: Select
@@ -32,6 +33,7 @@ It is recommended to use a laptop or desktop computer with a mouse to use Circui
 - **Right / middle drag**: Pan
 
 ### Simulation mode:
+
 - **Click**: Toggle switch
 - **Space**: Run / stop
 - **Pinch / wheel**: Zoom
