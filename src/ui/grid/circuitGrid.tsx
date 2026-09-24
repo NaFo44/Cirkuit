@@ -24,6 +24,7 @@ interface CircuitGridProps {
     isComponentInteractive?: (component: PlacedComponent) => boolean;
     componentVisualStates: ReadonlyMap<string, ComponentVisualState>;
     onHoveredComponentChange?: (componentId: string | null) => void;
+    selectedComponentIds?: ReadonlySet<string>;
 }
 
 export function CircuitGrid({
@@ -33,6 +34,7 @@ export function CircuitGrid({
     isComponentInteractive,
     componentVisualStates,
     onHoveredComponentChange,
+    selectedComponentIds,
 }: CircuitGridProps) {
     const activePointerId = useRef<number | null>(null);
     const lastPaintedCell = useRef<Position | null>(null);
@@ -172,6 +174,8 @@ export function CircuitGrid({
                     component.type,
                     visualState,
                 );
+                const selected =
+                    selectedComponentIds?.has(component.id) ?? false;
 
                 return (
                     <div
@@ -183,6 +187,7 @@ export function CircuitGrid({
                             `circuit-component--${visualState}`,
                             `circuit-component--glyph-${presentation.glyphVisibility}`,
                             interactive ? "circuit-component--interactive" : "",
+                            selected ? "circuit-component--selected" : "",
                         ]
                             .filter(Boolean)
                             .join(" ")}
@@ -217,6 +222,7 @@ export function CircuitGrid({
                         aria-label={`Cell ${x},${y}: ${hoverLabel}, ${component.rotation} degrees`}
                         aria-rowindex={y + 1}
                         aria-colindex={x + 1}
+                        aria-selected={selected || undefined}
                         data-visual-state={visualState}
                     >
                         {!hidesGlyph && (

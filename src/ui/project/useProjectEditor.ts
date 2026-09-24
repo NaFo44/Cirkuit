@@ -1,6 +1,7 @@
 import { useCallback, useState } from "react";
 
 import type { CircuitProject } from "../../domain/project/circuitProject";
+import type { CircuitLayout } from "../../domain/circuit/circuitLayout";
 import type { CircuitEditorTool } from "../editor/editorTool";
 import type { Position } from "../../domain/grid/position";
 import { applyEditorTool } from "../editor/applyEditorTool";
@@ -19,6 +20,8 @@ interface ProjectEditor {
     readonly removeAnnotation: (annotationId: string) => void;
 
     readonly replaceProject: (project: CircuitProject) => void;
+
+    readonly updateCircuit: (circuit: CircuitLayout) => void;
 }
 
 export function useProjectEditor(
@@ -100,6 +103,19 @@ export function useProjectEditor(
         setProjectRevision((revision) => revision + 1);
     }, []);
 
+    const updateCircuit = useCallback((circuit: CircuitLayout) => {
+        setProject((currentProject) => {
+            if (currentProject.circuit === circuit) {
+                return currentProject;
+            }
+
+            return {
+                ...currentProject,
+                circuit,
+            };
+        });
+    }, []);
+
     return {
         project,
         revision: projectRevision,
@@ -108,5 +124,6 @@ export function useProjectEditor(
         updateAnnotation,
         removeAnnotation,
         replaceProject,
+        updateCircuit,
     };
 }

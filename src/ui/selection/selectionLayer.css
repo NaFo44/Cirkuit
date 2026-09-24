@@ -1,0 +1,59 @@
+.selection-layer {
+    position: absolute;
+    z-index: 4;
+    inset: 0;
+
+    pointer-events: none;
+    touch-action: none;
+    user-select: none;
+}
+
+.selection-layer--selecting,
+.selection-layer--moving {
+    pointer-events: auto;
+}
+
+.selection-layer--selecting {
+    cursor: crosshair;
+}
+
+.selection-layer--moving {
+    cursor: grabbing;
+}
+
+.selection-layer__move-handle {
+    position: absolute;
+
+    pointer-events: none;
+    cursor: move;
+}
+
+.selection-layer--move-enabled .selection-layer__move-handle {
+    pointer-events: auto;
+}
+
+.selection-layer__rectangle {
+    position: absolute;
+
+    box-sizing: border-box;
+
+    background: rgb(255 255 255 / 20%);
+    border: 2px dashed #353535;
+
+    pointer-events: none;
+}
+
+.selection-layer__move-preview {
+    position: absolute;
+
+    box-sizing: border-box;
+
+    background: rgb(53 53 53 / 16%);
+
+    pointer-events: none;
+}
+
+.selection-layer__move-preview--invalid {
+    background: rgb(255 77 79 / 18%);
+    border-color: var(--signal-conflict);
+}

@@ -5,19 +5,19 @@ import {
     type KeyboardEvent as ReactKeyboardEvent,
 } from "react";
 import type {
-    CanvasPoint,
     AnnotationType,
     CircuitAnnotation,
     LabelAnnotation,
     ShapeType,
 } from "../../domain/project/circuitAnnotation";
+import type { CanvasPoint } from "../../domain/grid/canvasPoint";
 import {
     normalizeRectangle,
     constrainEnd,
     isLineTooSmall,
     isRectangleTooSmall,
-    screenToCanvasPoint,
 } from "./annotationGeometry";
+import { screenToCanvasPoint } from "../grid/canvasCoordinates";
 
 function createAnnotationId(): string {
     return crypto.randomUUID();

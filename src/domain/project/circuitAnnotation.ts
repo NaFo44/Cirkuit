@@ -1,9 +1,6 @@
-export type ShapeType = Exclude<AnnotationType, "label">;
+import type { CanvasPoint } from "../grid/canvasPoint";
 
-export interface CanvasPoint {
-    readonly x: number;
-    readonly y: number;
-}
+export type ShapeType = Exclude<AnnotationType, "label">;
 
 interface BaseAnnotation {
     readonly id: string;

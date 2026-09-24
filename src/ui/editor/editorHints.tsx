@@ -35,6 +35,14 @@ const MODE_HINTS: Readonly<Record<EditorMode, readonly EditorHint[]>> = {
             input: "R",
             action: "Rotate",
         },
+        {
+            input: "S + drag",
+            action: "Select",
+        },
+        {
+            input: "Ctrl+C / V",
+            action: "Copy / paste",
+        },
     ],
     simulate: [
         {

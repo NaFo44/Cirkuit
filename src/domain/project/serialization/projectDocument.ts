@@ -1,6 +1,7 @@
 import { CircuitLayout } from "../../circuit/circuitLayout";
 import type { ComponentRegistry } from "../../circuit/componentRegistry";
-import type { CanvasPoint, CircuitAnnotation } from "../circuitAnnotation";
+import type { CanvasPoint } from "../../grid/canvasPoint";
+import type { CircuitAnnotation } from "../circuitAnnotation";
 import type { CircuitProject } from "../circuitProject";
 import { CELL_SIZE } from "../../grid/gridCoordinates";
 import {

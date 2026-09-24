@@ -1,4 +1,4 @@
-import type { CanvasPoint } from "../../domain/project/circuitAnnotation";
+import type { CanvasPoint } from "../../domain/grid/canvasPoint";
 import type { ShapeType } from "../../domain/project/circuitAnnotation";
 
 type NormalizedRectangle = {
@@ -8,21 +8,6 @@ type NormalizedRectangle = {
     };
     width: number;
     height: number;
-};
-
-type Bounds = {
-    left: number;
-    top: number;
-    height: number;
-    width: number;
-};
-
-type ScreenToCanvasPointOptions = {
-    width: number;
-    height: number;
-    clientX: number;
-    clientY: number;
-    bounds: Bounds;
 };
 
 export function normalizeRectangle(
@@ -70,23 +55,6 @@ export function constrainEnd(
         x: start.x + Math.cos(constrainedAngle) * length,
         y: start.y + Math.sin(constrainedAngle) * length,
     };
-}
-
-export function screenToCanvasPoint({
-    width,
-    height,
-    clientX,
-    clientY,
-    bounds,
-}: ScreenToCanvasPointOptions) {
-    return {
-        x: clamp(((clientX - bounds.left) / bounds.width) * width, 0, width),
-        y: clamp(((clientY - bounds.top) / bounds.height) * height, 0, height),
-    };
-}
-
-function clamp(value: number, minimum: number, maximum: number): number {
-    return Math.min(Math.max(value, minimum), maximum);
 }
 
 export function isLineTooSmall(start: CanvasPoint, end: CanvasPoint): boolean {

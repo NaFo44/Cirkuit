@@ -30,6 +30,9 @@ import { useEditorToolSelection } from "./ui/editor/useEditorToolSelection";
 import { useToggleSimulationShortcut } from "./ui/editor/useToggleSimulationShortcut";
 import { createDefaultProject } from "./demo/defaultProject";
 import type { Position } from "./domain/grid/position";
+import { SelectionLayer } from "./ui/selection/selectionLayer";
+import { useComponentSelection } from "./ui/selection/useComponentSelection";
+import { useGridPointerPosition } from "./ui/grid/useGridPointerPosition";
 
 const EMPTY_COMPONENT_VISUAL_STATES: ReadonlyMap<string, ComponentVisualState> =
     new Map();
@@ -63,6 +66,7 @@ export function App() {
         project,
         revision: projectRevision,
         paintCell: paintProjectCell,
+        updateCircuit,
         addAnnotation,
         updateAnnotation,
         removeAnnotation,
@@ -71,22 +75,63 @@ export function App() {
 
     const { circuit, annotations } = project;
 
+    const canvasWidth = circuit.width * CELL_SIZE;
+    const canvasHeight = circuit.height * CELL_SIZE;
+
+    const {
+        gridRef: canvasRef,
+        trackPointer: trackCanvasPointer,
+        clearPointer: clearCanvasPointer,
+        getPointerPosition: getPastePosition,
+    } = useGridPointerPosition({
+        width: circuit.width,
+        height: circuit.height,
+        cellSize: CELL_SIZE,
+    });
+
+    const {
+        isSelectionModifierPressed,
+        selectedComponentIds,
+        selectRectangle,
+        canMoveSelection,
+        moveSelection,
+        clearSelection,
+        resetSelectionState,
+    } = useComponentSelection({
+        enabled: mode === "edit",
+        circuit,
+        getPastePosition,
+        onCircuitChange: updateCircuit,
+    });
+
+    const selectedComponents = useMemo(
+        () =>
+            circuit.components.filter((component) =>
+                selectedComponentIds.has(component.id),
+            ),
+        [circuit, selectedComponentIds],
+    );
+
     const paintCell = useCallback(
         (position: Position) => {
-            if (isCircuitEditorTool(selectedTool)) {
-                paintProjectCell(selectedTool, position);
+            if (!isCircuitEditorTool(selectedTool)) {
+                return;
             }
+
+            clearSelection();
+            paintProjectCell(selectedTool, position);
         },
-        [paintProjectCell, selectedTool],
+        [clearSelection, paintProjectCell, selectedTool],
     );
 
     const handleProjectOpen = useCallback(
         (importedProject: CircuitProject) => {
             setMode("edit");
             setHoveredComponentId(null);
+            resetSelectionState();
             replaceProject(importedProject);
         },
-        [replaceProject],
+        [replaceProject, resetSelectionState],
     );
 
     const {
@@ -153,24 +198,37 @@ export function App() {
         [dispatchAction],
     );
 
-    const canvasWidth = circuit.width * CELL_SIZE;
-    const canvasHeight = circuit.height * CELL_SIZE;
-
     const annotationLayerEditable =
         mode === "edit" && selectedAnnotationType !== null;
+
+    const selectionInteractionMode =
+        mode !== "edit"
+            ? "disabled"
+            : isSelectionModifierPressed
+              ? "select"
+              : selectedAnnotationType === null
+                ? "move"
+                : "disabled";
 
     return (
         <main className="circuit-editor">
             <MapViewport key={projectRevision} cellSize={CELL_SIZE}>
                 <div
+                    ref={canvasRef}
                     className="circuit-canvas"
                     style={{
                         width: canvasWidth,
                         height: canvasHeight,
                     }}
+                    onPointerDownCapture={trackCanvasPointer}
+                    onPointerMoveCapture={trackCanvasPointer}
+                    onPointerLeave={clearCanvasPointer}
                 >
                     <CircuitGrid
                         circuit={circuit}
+                        selectedComponentIds={
+                            mode === "edit" ? selectedComponentIds : undefined
+                        }
                         componentVisualStates={componentVisualStates}
                         onCellPaint={
                             mode === "edit" && isCircuitEditorTool(selectedTool)
@@ -203,6 +261,16 @@ export function App() {
                         onAdd={addAnnotation}
                         onUpdate={updateAnnotation}
                         onRemove={removeAnnotation}
+                    />
+
+                    <SelectionLayer
+                        width={canvasWidth}
+                        height={canvasHeight}
+                        interactionMode={selectionInteractionMode}
+                        selectedComponents={selectedComponents}
+                        onSelect={selectRectangle}
+                        canMove={canMoveSelection}
+                        onMove={moveSelection}
                     />
                 </div>
             </MapViewport>
