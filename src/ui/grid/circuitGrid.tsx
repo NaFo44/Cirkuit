@@ -20,6 +20,8 @@ import {
 interface CircuitGridProps {
     circuit: Circuit;
     onCellPaint?: (position: Position) => void;
+    onPaintStart?: () => void;
+    onPaintEnd?: () => void;
     onComponentInteract?: (component: PlacedComponent) => void;
     isComponentInteractive?: (component: PlacedComponent) => boolean;
     componentVisualStates: ReadonlyMap<string, ComponentVisualState>;
@@ -30,6 +32,8 @@ interface CircuitGridProps {
 export function CircuitGrid({
     circuit,
     onCellPaint,
+    onPaintStart,
+    onPaintEnd,
     onComponentInteract,
     isComponentInteractive,
     componentVisualStates,
@@ -90,6 +94,8 @@ export function CircuitGrid({
         activePointerId.current = event.pointerId;
         lastPaintedCell.current = null;
 
+        onPaintStart?.();
+
         event.currentTarget.setPointerCapture(event.pointerId);
 
         paintAtPointer(event);
@@ -110,6 +116,8 @@ export function CircuitGrid({
         activePointerId.current = null;
         lastPaintedCell.current = null;
 
+        onPaintEnd?.();
+
         if (event.currentTarget.hasPointerCapture(event.pointerId)) {
             event.currentTarget.releasePointerCapture(event.pointerId);
         }
@@ -119,6 +127,8 @@ export function CircuitGrid({
         if (activePointerId.current === event.pointerId) {
             activePointerId.current = null;
             lastPaintedCell.current = null;
+
+            onPaintEnd?.();
         }
     };
 

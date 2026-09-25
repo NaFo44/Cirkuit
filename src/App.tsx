@@ -33,6 +33,7 @@ import type { Position } from "./domain/grid/position";
 import { SelectionLayer } from "./ui/selection/selectionLayer";
 import { useComponentSelection } from "./ui/selection/useComponentSelection";
 import { useGridPointerPosition } from "./ui/grid/useGridPointerPosition";
+import { useUndoShortcut } from "./ui/project/useHistoryShortcut";
 
 const EMPTY_COMPONENT_VISUAL_STATES: ReadonlyMap<string, ComponentVisualState> =
     new Map();
@@ -65,13 +66,22 @@ export function App() {
     const {
         project,
         revision: projectRevision,
+        beginPaint,
         paintCell: paintProjectCell,
+        endPaint,
+        undo,
+        redo,
         updateCircuit,
         addAnnotation,
         updateAnnotation,
         removeAnnotation,
         replaceProject,
     } = useProjectEditor(createDefaultProject);
+
+    useUndoShortcut({
+        undo,
+        redo,
+    });
 
     const { circuit, annotations } = project;
 
@@ -123,6 +133,18 @@ export function App() {
         },
         [clearSelection, paintProjectCell, selectedTool],
     );
+
+    const handlePaintStart = useCallback(() => {
+        if (!isCircuitEditorTool(selectedTool)) {
+            return;
+        }
+
+        beginPaint();
+    }, [beginPaint, selectedTool]);
+
+    const handlePaintEnd = useCallback(() => {
+        endPaint();
+    }, [endPaint]);
 
     const handleProjectOpen = useCallback(
         (importedProject: CircuitProject) => {
@@ -230,9 +252,19 @@ export function App() {
                             mode === "edit" ? selectedComponentIds : undefined
                         }
                         componentVisualStates={componentVisualStates}
+                        onPaintStart={
+                            mode === "edit" && isCircuitEditorTool(selectedTool)
+                                ? handlePaintStart
+                                : undefined
+                        }
                         onCellPaint={
                             mode === "edit" && isCircuitEditorTool(selectedTool)
                                 ? paintCell
+                                : undefined
+                        }
+                        onPaintEnd={
+                            mode === "edit" && isCircuitEditorTool(selectedTool)
+                                ? handlePaintEnd
                                 : undefined
                         }
                         onComponentInteract={
