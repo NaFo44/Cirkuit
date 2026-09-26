@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useMemo, useRef, useState } from "react";
 
 import { defaultComponentRegistry } from "./domain/circuit/components/builtInComponents";
 import {
@@ -8,7 +8,7 @@ import {
 import { CircuitGrid } from "./ui/grid/circuitGrid";
 import { ComponentPalette } from "./ui/palette/componentPalette";
 import { useCircuitSimulation } from "./ui/simulation/useCircuitSimulation";
-import { MapViewport } from "./ui/viewport/mapViewport";
+import { MapViewport, type MapViewportHandle } from "./ui/viewport/mapViewport";
 import type { PlacedComponent } from "./domain/circuit/placedComponent";
 import type { EditorMode } from "./ui/editor/editorMode";
 import { CELL_SIZE } from "./domain/grid/gridCoordinates";
@@ -40,6 +40,7 @@ const EMPTY_COMPONENT_VISUAL_STATES: ReadonlyMap<string, ComponentVisualState> =
 
 export function App() {
     const [mode, setMode] = useState<EditorMode>("edit");
+    const mapViewportRef = useRef<MapViewportHandle>(null);
 
     const toggleMode = useCallback(() => {
         setMode((currentMode) =>
@@ -156,6 +157,11 @@ export function App() {
         [replaceProject, resetSelectionState],
     );
 
+    const getViewport = useCallback(
+        () => mapViewportRef.current?.getCamera(),
+        [],
+    );
+
     const {
         error: projectFileError,
         openProject,
@@ -164,6 +170,7 @@ export function App() {
         project,
         registry: defaultComponentRegistry,
         onProjectOpen: handleProjectOpen,
+        getViewport,
     });
 
     useSaveShortcut(saveProject);
@@ -234,7 +241,12 @@ export function App() {
 
     return (
         <main className="circuit-editor">
-            <MapViewport key={projectRevision} cellSize={CELL_SIZE}>
+            <MapViewport
+                ref={mapViewportRef}
+                key={projectRevision}
+                cellSize={CELL_SIZE}
+                initialCamera={project.viewport}
+            >
                 <div
                     ref={canvasRef}
                     className="circuit-canvas"

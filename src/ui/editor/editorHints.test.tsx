@@ -22,7 +22,6 @@ describe("EditorHints", () => {
     it("always shows common shortcuts", () => {
         const markup = renderToStaticMarkup(<EditorHints mode="edit" />);
 
-        expect(markup).toContain("Space");
         expect(markup).toContain("Pinch / wheel");
         expect(markup).toContain("Right / middle drag");
     });

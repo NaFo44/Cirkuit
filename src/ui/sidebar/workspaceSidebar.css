@@ -31,7 +31,7 @@
     overscroll-behavior: contain;
 
     background: #fff;
-    border: 1px solid var(--floating-panel-border);
+    border-right: 1px solid var(--floating-panel-border);
     box-shadow: var(--floating-panel-shadow);
 }
 
@@ -130,12 +130,6 @@
 }
 
 @media (max-width: 640px), (max-height: 600px) {
-    .workspace-sidebar {
-        top: 8px;
-        height: calc(100vh - 16px);
-        height: calc(100dvh - 16px);
-    }
-
     .workspace-sidebar__panel {
         padding: 12px;
     }

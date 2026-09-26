@@ -3,7 +3,7 @@
     --grid-alternate: #f4f4f4;
     --grid-line: #dfdfdf;
 
-    --cell-wire: #99ccff;
+    --cell-wire: #bbddff;
     --cell-source: #ff99cc;
     --cell-light: #ffe3c7;
     --cell-switch: #b8dfb3;
@@ -18,8 +18,8 @@
     --signal-high: #97cbff;
     --signal-conflict: #ff4d4f;
 
-    --floating-panel-border: #ebebeb;
-    --floating-panel-shadow: 0 8px 24px rgb(0 0 0 / 8%);
+    --floating-panel-border: #e3e3e3;
+    --floating-panel-shadow: 0 8px 24px rgb(0 0 0 / 6%);
 }
 
 html,
@@ -338,7 +338,6 @@ button {
 }
 
 .component-palette__item--mode[aria-pressed="true"] {
-    color: #276b25;
     background: #e1f3df;
 }
 

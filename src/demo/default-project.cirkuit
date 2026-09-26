@@ -1,6 +1,11 @@
 {
   "format": "cirkuit-project",
   "version": 1,
+  "viewport": {
+    "x": -492.20913973721576,
+    "y": -226.21815130060372,
+    "zoom": 1.5124118661032315
+  },
   "circuit": {
     "width": 256,
     "height": 192,
@@ -108,8 +113,8 @@
         "id": "2eb3fd49-5347-4799-bb60-eb7c523781a3",
         "type": "wire",
         "position": {
-          "x": 74,
-          "y": 15
+          "x": 46,
+          "y": 31
         },
         "rotation": 0
       },
@@ -117,8 +122,8 @@
         "id": "8184c9e1-133c-4f94-bdf2-bbc9be5e5078",
         "type": "switch",
         "position": {
-          "x": 68,
-          "y": 17
+          "x": 40,
+          "y": 33
         },
         "rotation": 0
       },
@@ -126,8 +131,8 @@
         "id": "03a2da3c-70e4-4f5c-8b2e-f49da32a9483",
         "type": "not",
         "position": {
-          "x": 71,
-          "y": 17
+          "x": 43,
+          "y": 33
         },
         "rotation": 0
       },
@@ -135,8 +140,8 @@
         "id": "f8cc91d3-5c58-4155-9f4e-0f232a794f16",
         "type": "not",
         "position": {
-          "x": 77,
-          "y": 17
+          "x": 49,
+          "y": 33
         },
         "rotation": 0
       },
@@ -144,8 +149,8 @@
         "id": "9965512e-a495-4e97-b14c-31c66e10c22b",
         "type": "and",
         "position": {
-          "x": 74,
-          "y": 17
+          "x": 46,
+          "y": 33
         },
         "rotation": 0
       },
@@ -153,8 +158,8 @@
         "id": "fe37033f-8131-4663-866b-3aa3369de6df",
         "type": "wire",
         "position": {
-          "x": 69,
-          "y": 17
+          "x": 41,
+          "y": 33
         },
         "rotation": 0
       },
@@ -162,8 +167,8 @@
         "id": "d95cf005-a954-4208-aa1b-b4fc2f1f08a4",
         "type": "wire",
         "position": {
-          "x": 70,
-          "y": 17
+          "x": 42,
+          "y": 33
         },
         "rotation": 0
       },
@@ -171,8 +176,8 @@
         "id": "8c9b2fa8-3c4e-4c2e-9500-78cbfd275bf7",
         "type": "wire",
         "position": {
-          "x": 72,
-          "y": 17
+          "x": 44,
+          "y": 33
         },
         "rotation": 0
       },
@@ -180,8 +185,8 @@
         "id": "cf8ba7e8-c50f-4694-914f-3adfbf689540",
         "type": "wire",
         "position": {
-          "x": 73,
-          "y": 17
+          "x": 45,
+          "y": 33
         },
         "rotation": 0
       },
@@ -189,8 +194,8 @@
         "id": "9a24ef07-f52c-4f46-af7b-07da64061f62",
         "type": "wire",
         "position": {
-          "x": 75,
-          "y": 17
+          "x": 47,
+          "y": 33
         },
         "rotation": 0
       },
@@ -198,8 +203,8 @@
         "id": "0471d16e-b101-46a9-b668-9cf3ddd17dfb",
         "type": "wire",
         "position": {
-          "x": 76,
-          "y": 17
+          "x": 48,
+          "y": 33
         },
         "rotation": 0
       },
@@ -207,8 +212,8 @@
         "id": "55df4c3c-b177-42c8-a17e-a29b1d8b03cd",
         "type": "wire",
         "position": {
-          "x": 78,
-          "y": 17
+          "x": 50,
+          "y": 33
         },
         "rotation": 0
       },
@@ -216,8 +221,8 @@
         "id": "bcc6b9b3-3e03-4002-ad99-c6d15087688a",
         "type": "wire",
         "position": {
-          "x": 79,
-          "y": 17
+          "x": 51,
+          "y": 33
         },
         "rotation": 0
       },
@@ -225,8 +230,8 @@
         "id": "c3f7d03a-bdb8-4d9e-9baa-09a2fa83fbac",
         "type": "light",
         "position": {
-          "x": 80,
-          "y": 17
+          "x": 52,
+          "y": 33
         },
         "rotation": 0
       },
@@ -234,8 +239,8 @@
         "id": "5f35ec2f-7405-4f5f-91d0-6e1c81cc86f1",
         "type": "source",
         "position": {
-          "x": 68,
-          "y": 16
+          "x": 40,
+          "y": 32
         },
         "rotation": 0
       },
@@ -243,8 +248,8 @@
         "id": "ff279ddc-013d-4c0f-b1c5-1db823bb0bfd",
         "type": "not",
         "position": {
-          "x": 71,
-          "y": 15
+          "x": 43,
+          "y": 31
         },
         "rotation": 0
       },
@@ -252,8 +257,8 @@
         "id": "da6ac86f-8ec4-44f6-931c-725f1bca190e",
         "type": "switch",
         "position": {
-          "x": 68,
-          "y": 15
+          "x": 40,
+          "y": 31
         },
         "rotation": 0
       },
@@ -261,8 +266,8 @@
         "id": "1d68c8f4-62ed-42bd-ad9e-7997cdc96261",
         "type": "wire",
         "position": {
-          "x": 69,
-          "y": 15
+          "x": 41,
+          "y": 31
         },
         "rotation": 0
       },
@@ -270,8 +275,8 @@
         "id": "b190081a-3cc9-4d8a-b0a0-94e18420d9b9",
         "type": "wire",
         "position": {
-          "x": 70,
-          "y": 15
+          "x": 42,
+          "y": 31
         },
         "rotation": 0
       },
@@ -279,8 +284,8 @@
         "id": "2815da2b-c57b-4a88-8b5e-49401a3c0560",
         "type": "wire",
         "position": {
-          "x": 72,
-          "y": 15
+          "x": 44,
+          "y": 31
         },
         "rotation": 0
       },
@@ -288,8 +293,8 @@
         "id": "0279669c-49c8-421a-99cb-2546e6e271eb",
         "type": "wire",
         "position": {
-          "x": 73,
-          "y": 15
+          "x": 45,
+          "y": 31
         },
         "rotation": 0
       },
@@ -297,8 +302,8 @@
         "id": "df8e914d-7979-462b-aba4-997cbc41c8f9",
         "type": "wire",
         "position": {
-          "x": 74,
-          "y": 16
+          "x": 46,
+          "y": 32
         },
         "rotation": 0
       },
@@ -306,8 +311,8 @@
         "id": "0396fb04-dc27-4468-9e10-295d851caebb",
         "type": "source",
         "position": {
-          "x": 10,
-          "y": 19
+          "x": 40,
+          "y": 50
         },
         "rotation": 0
       },
@@ -315,8 +320,8 @@
         "id": "71df71ff-f3d7-471f-a81b-06934a3b70ed",
         "type": "source",
         "position": {
-          "x": 10,
-          "y": 13
+          "x": 40,
+          "y": 44
         },
         "rotation": 0
       },
@@ -324,8 +329,8 @@
         "id": "b736d2e3-867d-452b-b9c3-40435e69d416",
         "type": "switch",
         "position": {
-          "x": 11,
-          "y": 19
+          "x": 41,
+          "y": 50
         },
         "rotation": 0
       },
@@ -333,8 +338,8 @@
         "id": "516c285c-6f6e-4a44-b688-4340b6300e7b",
         "type": "switch",
         "position": {
-          "x": 11,
-          "y": 13
+          "x": 41,
+          "y": 44
         },
         "rotation": 0
       },
@@ -342,8 +347,8 @@
         "id": "f5808ea9-1ad0-49fd-8ba2-efd469501a3a",
         "type": "wire",
         "position": {
-          "x": 12,
-          "y": 13
+          "x": 42,
+          "y": 44
         },
         "rotation": 0
       },
@@ -351,8 +356,8 @@
         "id": "0d4999b4-8f7b-44f1-958c-d674f4cbc663",
         "type": "wire",
         "position": {
-          "x": 13,
-          "y": 13
+          "x": 43,
+          "y": 44
         },
         "rotation": 0
       },
@@ -360,8 +365,8 @@
         "id": "d5cd8ba0-6bcd-4819-91e0-15aa2b47da68",
         "type": "wire",
         "position": {
-          "x": 14,
-          "y": 13
+          "x": 44,
+          "y": 44
         },
         "rotation": 0
       },
@@ -369,8 +374,8 @@
         "id": "c0f91dbe-cce7-4a05-a0e8-832074c90160",
         "type": "wire",
         "position": {
-          "x": 15,
-          "y": 13
+          "x": 45,
+          "y": 44
         },
         "rotation": 0
       },
@@ -378,8 +383,8 @@
         "id": "649e3cfb-b351-4af9-8e20-809394d8e975",
         "type": "wire",
         "position": {
-          "x": 16,
-          "y": 13
+          "x": 46,
+          "y": 44
         },
         "rotation": 0
       },
@@ -387,8 +392,8 @@
         "id": "104a4e4d-0d03-4991-9b8f-536418398cbc",
         "type": "wire",
         "position": {
-          "x": 17,
-          "y": 13
+          "x": 47,
+          "y": 44
         },
         "rotation": 0
       },
@@ -396,8 +401,8 @@
         "id": "232ac68d-20a5-4645-b712-1428cb2aa5c0",
         "type": "wire",
         "position": {
-          "x": 17,
-          "y": 14
+          "x": 47,
+          "y": 45
         },
         "rotation": 0
       },
@@ -405,8 +410,8 @@
         "id": "ac1eefaf-5412-4925-8fc7-25b7d2fd1abe",
         "type": "and",
         "position": {
-          "x": 17,
-          "y": 15
+          "x": 47,
+          "y": 46
         },
         "rotation": 0
       },
@@ -414,8 +419,8 @@
         "id": "36e8ffa5-5f2d-4d14-9388-92a354a73f87",
         "type": "not",
         "position": {
-          "x": 19,
-          "y": 15
+          "x": 49,
+          "y": 46
         },
         "rotation": 0
       },
@@ -423,8 +428,8 @@
         "id": "b8ee87b6-cd26-4fa9-a9cb-050efbe8eede",
         "type": "and",
         "position": {
-          "x": 17,
-          "y": 19
+          "x": 47,
+          "y": 50
         },
         "rotation": 0
       },
@@ -432,8 +437,8 @@
         "id": "d2555b1d-2add-472f-b7ab-ea28f1a656e0",
         "type": "not",
         "position": {
-          "x": 19,
-          "y": 19
+          "x": 49,
+          "y": 50
         },
         "rotation": 0
       },
@@ -441,8 +446,8 @@
         "id": "c06c7d9e-2439-44dc-bcb0-0616b9edb1fe",
         "type": "wire",
         "position": {
-          "x": 16,
-          "y": 15
+          "x": 46,
+          "y": 46
         },
         "rotation": 0
       },
@@ -450,8 +455,8 @@
         "id": "b266e51a-3c16-4544-a490-9afa6feb71bc",
         "type": "wire",
         "position": {
-          "x": 16,
-          "y": 16
+          "x": 46,
+          "y": 47
         },
         "rotation": 0
       },
@@ -459,8 +464,8 @@
         "id": "2f8c9621-6584-4f8d-8ec9-71f2b87cddee",
         "type": "wire",
         "position": {
-          "x": 16,
-          "y": 17
+          "x": 46,
+          "y": 48
         },
         "rotation": 0
       },
@@ -468,8 +473,8 @@
         "id": "855a8711-f59c-4bb4-a192-710e6f6f5043",
         "type": "wire",
         "position": {
-          "x": 17,
-          "y": 17
+          "x": 47,
+          "y": 48
         },
         "rotation": 0
       },
@@ -477,8 +482,8 @@
         "id": "de08d524-d3a2-42db-a408-4e4673ab92a6",
         "type": "wire",
         "position": {
-          "x": 17,
-          "y": 18
+          "x": 47,
+          "y": 49
         },
         "rotation": 0
       },
@@ -486,8 +491,8 @@
         "id": "49d1b2c5-2a6a-4d5d-bd50-178f019d482e",
         "type": "not",
         "position": {
-          "x": 15,
-          "y": 17
+          "x": 45,
+          "y": 48
         },
         "rotation": 0
       },
@@ -495,8 +500,8 @@
         "id": "1c58fc78-f262-4651-bf47-6afe7c57f9fb",
         "type": "and",
         "position": {
-          "x": 13,
-          "y": 17
+          "x": 43,
+          "y": 48
         },
         "rotation": 0
       },
@@ -504,8 +509,8 @@
         "id": "12039bba-82f6-4b19-964f-8b9897c94df9",
         "type": "wire",
         "position": {
-          "x": 14,
-          "y": 17
+          "x": 44,
+          "y": 48
         },
         "rotation": 0
       },
@@ -513,8 +518,8 @@
         "id": "6a157d8d-c400-482a-8ffa-88fdddab2e7a",
         "type": "wire",
         "position": {
-          "x": 12,
-          "y": 17
+          "x": 42,
+          "y": 48
         },
         "rotation": 0
       },
@@ -522,8 +527,8 @@
         "id": "d85d181d-7fa9-49ae-9f26-a292d73d46d3",
         "type": "wire",
         "position": {
-          "x": 12,
-          "y": 18
+          "x": 42,
+          "y": 49
         },
         "rotation": 0
       },
@@ -531,8 +536,8 @@
         "id": "4002e3cb-c3f6-4865-bdf3-38a05c0ffd1b",
         "type": "wire",
         "position": {
-          "x": 12,
-          "y": 19
+          "x": 42,
+          "y": 50
         },
         "rotation": 0
       },
@@ -540,8 +545,8 @@
         "id": "428878c6-8c14-41cc-ae55-4184ef5cae2f",
         "type": "wire",
         "position": {
-          "x": 13,
-          "y": 19
+          "x": 43,
+          "y": 50
         },
         "rotation": 0
       },
@@ -549,8 +554,8 @@
         "id": "752125f6-8eaf-49ee-b1e2-86df7b1f9c6b",
         "type": "wire",
         "position": {
-          "x": 14,
-          "y": 19
+          "x": 44,
+          "y": 50
         },
         "rotation": 0
       },
@@ -558,8 +563,8 @@
         "id": "444593d0-dc91-4c23-8ac4-c95c7d3e0cf5",
         "type": "wire",
         "position": {
-          "x": 15,
-          "y": 19
+          "x": 45,
+          "y": 50
         },
         "rotation": 0
       },
@@ -567,8 +572,8 @@
         "id": "3808e6e2-1589-465f-90e8-ee5c535740b5",
         "type": "wire",
         "position": {
-          "x": 16,
-          "y": 19
+          "x": 46,
+          "y": 50
         },
         "rotation": 0
       },
@@ -576,8 +581,8 @@
         "id": "a4fd0246-1927-4b4d-9e50-0c14ee16d2a7",
         "type": "wire",
         "position": {
-          "x": 13,
-          "y": 16
+          "x": 43,
+          "y": 47
         },
         "rotation": 0
       },
@@ -585,8 +590,8 @@
         "id": "2bf6b1c3-a793-4a3d-8e5d-03fcbdb01e0a",
         "type": "wire",
         "position": {
-          "x": 13,
-          "y": 15
+          "x": 43,
+          "y": 46
         },
         "rotation": 0
       },
@@ -594,8 +599,8 @@
         "id": "f9d0e602-3f44-4f93-ab5d-6fda35361982",
         "type": "wire",
         "position": {
-          "x": 13,
-          "y": 14
+          "x": 43,
+          "y": 45
         },
         "rotation": 0
       },
@@ -603,8 +608,8 @@
         "id": "0aa0cb16-20a1-463b-8b10-b562307e7c74",
         "type": "and",
         "position": {
-          "x": 21,
-          "y": 17
+          "x": 51,
+          "y": 48
         },
         "rotation": 0
       },
@@ -612,8 +617,8 @@
         "id": "bb8af273-0546-499a-80fc-55525d18a330",
         "type": "not",
         "position": {
-          "x": 23,
-          "y": 17
+          "x": 53,
+          "y": 48
         },
         "rotation": 0
       },
@@ -621,8 +626,8 @@
         "id": "9bb89781-240b-4e9c-b20e-e7108f2d60ef",
         "type": "light",
         "position": {
-          "x": 25,
-          "y": 17
+          "x": 55,
+          "y": 48
         },
         "rotation": 0
       },
@@ -630,8 +635,8 @@
         "id": "a4f233b2-940d-448c-9026-6ef96ad86543",
         "type": "wire",
         "position": {
-          "x": 18,
-          "y": 15
+          "x": 48,
+          "y": 46
         },
         "rotation": 0
       },
@@ -639,8 +644,8 @@
         "id": "4c5f4132-60fa-40a3-a09e-4609ba9a2658",
         "type": "wire",
         "position": {
-          "x": 18,
-          "y": 19
+          "x": 48,
+          "y": 50
         },
         "rotation": 0
       },
@@ -648,8 +653,8 @@
         "id": "07bbb801-8ebf-4d89-ba3b-16a27c980af7",
         "type": "wire",
         "position": {
-          "x": 20,
-          "y": 15
+          "x": 50,
+          "y": 46
         },
         "rotation": 0
       },
@@ -657,8 +662,8 @@
         "id": "b912ab9d-3320-499e-a494-bb915ac89eb7",
         "type": "wire",
         "position": {
-          "x": 21,
-          "y": 15
+          "x": 51,
+          "y": 46
         },
         "rotation": 0
       },
@@ -666,8 +671,8 @@
         "id": "62915428-22a5-4cbb-b7aa-fbec38ca8ce0",
         "type": "wire",
         "position": {
-          "x": 21,
-          "y": 16
+          "x": 51,
+          "y": 47
         },
         "rotation": 0
       },
@@ -675,8 +680,8 @@
         "id": "a4c4ff98-a6b0-4128-9b0d-0b8c0b16e464",
         "type": "wire",
         "position": {
-          "x": 20,
-          "y": 19
+          "x": 50,
+          "y": 50
         },
         "rotation": 0
       },
@@ -684,8 +689,8 @@
         "id": "5b20ae5e-4ec2-4158-bdd4-f461a2fa1c56",
         "type": "wire",
         "position": {
-          "x": 20,
-          "y": 18
+          "x": 50,
+          "y": 49
         },
         "rotation": 0
       },
@@ -693,8 +698,8 @@
         "id": "6ace8516-f547-4ed8-801a-24dede35390e",
         "type": "wire",
         "position": {
-          "x": 20,
-          "y": 17
+          "x": 50,
+          "y": 48
         },
         "rotation": 0
       },
@@ -702,8 +707,8 @@
         "id": "7c0780ae-2817-4484-8b1c-d506ddc60903",
         "type": "wire",
         "position": {
-          "x": 22,
-          "y": 17
+          "x": 52,
+          "y": 48
         },
         "rotation": 0
       },
@@ -711,8 +716,143 @@
         "id": "ec9ea89b-32e5-4b0b-8d94-95b09a2bfd75",
         "type": "wire",
         "position": {
-          "x": 24,
-          "y": 17
+          "x": 54,
+          "y": 48
+        },
+        "rotation": 0
+      },
+      {
+        "id": "51cb935a-144a-4e59-b9ed-4cb948aa3a48",
+        "type": "source",
+        "position": {
+          "x": 249,
+          "y": 190
+        },
+        "rotation": 0
+      },
+      {
+        "id": "d5f91de0-bdfa-4303-b932-b935d0b5f701",
+        "type": "source",
+        "position": {
+          "x": 248,
+          "y": 189
+        },
+        "rotation": 0
+      },
+      {
+        "id": "df0303cb-37b2-4e7e-a360-1b8fee349124",
+        "type": "source",
+        "position": {
+          "x": 248,
+          "y": 188
+        },
+        "rotation": 0
+      },
+      {
+        "id": "2ffb3d56-7f30-49f8-ae75-61685cf51cfb",
+        "type": "source",
+        "position": {
+          "x": 249,
+          "y": 187
+        },
+        "rotation": 0
+      },
+      {
+        "id": "34f9ab09-513a-4a81-b7c5-54b961fd2ab7",
+        "type": "source",
+        "position": {
+          "x": 250,
+          "y": 188
+        },
+        "rotation": 0
+      },
+      {
+        "id": "0a357954-2c24-496d-8280-06b0c21ba2ba",
+        "type": "source",
+        "position": {
+          "x": 251,
+          "y": 187
+        },
+        "rotation": 0
+      },
+      {
+        "id": "cca0166f-8e9e-47a3-8bb0-b4de1453018d",
+        "type": "source",
+        "position": {
+          "x": 252,
+          "y": 188
+        },
+        "rotation": 0
+      },
+      {
+        "id": "32e562d0-7db4-4ddc-b1c2-955d60e983b4",
+        "type": "source",
+        "position": {
+          "x": 252,
+          "y": 189
+        },
+        "rotation": 0
+      },
+      {
+        "id": "7e076ca0-4f35-4aa9-99d9-0256f62a4e34",
+        "type": "source",
+        "position": {
+          "x": 251,
+          "y": 190
+        },
+        "rotation": 0
+      },
+      {
+        "id": "cfbeead6-f891-4613-91f3-a6ee349a5d9e",
+        "type": "source",
+        "position": {
+          "x": 250,
+          "y": 191
+        },
+        "rotation": 0
+      },
+      {
+        "id": "bb03cb49-bb24-4bd6-b669-c0b4904d781c",
+        "type": "source",
+        "position": {
+          "x": 249,
+          "y": 189
+        },
+        "rotation": 0
+      },
+      {
+        "id": "afb45e37-8e7e-4e04-b4f4-1c6dd7da9436",
+        "type": "source",
+        "position": {
+          "x": 250,
+          "y": 189
+        },
+        "rotation": 0
+      },
+      {
+        "id": "0f8f2c31-2388-4d3a-94d9-7ca95e258f72",
+        "type": "source",
+        "position": {
+          "x": 250,
+          "y": 190
+        },
+        "rotation": 0
+      },
+      {
+        "id": "33b213b3-004a-4e55-9e9d-89f18ebcb59d",
+        "type": "source",
+        "position": {
+          "x": 251,
+          "y": 189
+        },
+        "rotation": 0
+      },
+      {
+        "id": "0940dab3-15dc-4536-804c-7b6935033fc6",
+        "type": "source",
+        "position": {
+          "x": 251,
+          "y": 188
         },
         "rotation": 0
       }
@@ -794,84 +934,31 @@
         "text": "Run the circuit and try switching the light on!"
       },
       {
-        "id": "6ea9d06b-3098-4a6e-ac2d-57bdae09824c",
+        "id": "8799ad24-9a4d-4ba4-a26b-d8cf4173d0ac",
         "kind": "label",
         "position": {
-          "x": 72.9411766685829,
-          "y": 12.191176922951062
+          "x": 41.659090699735756,
+          "y": 36.215910134400886
         },
-        "text": "NOT gate: inverts the signal"
+        "text": "OR gate using NOT & AND"
       },
       {
-        "id": "1bd0845a-aed0-4ac6-8c81-122ce5fe6edd",
+        "id": "b3d081dc-6604-44df-ae03-7a01edcb81a9",
         "kind": "label",
         "position": {
-          "x": 67.05882389240197,
-          "y": 20.39705987812603
+          "x": 41.894736564720766,
+          "y": 53.03947383280936
         },
-        "text": "AND gate: return HIGH when all inputs are HIGH"
+        "text": "XOR gate using NOT & AND"
       },
       {
-        "id": "28cf5ec6-e858-4f19-b2b0-777c9c788591",
-        "kind": "line",
-        "start": {
-          "x": 71.52941110472368,
-          "y": 15.279412274817156
-        },
-        "end": {
-          "x": 73.05882417289442,
-          "y": 13.250000584359274
-        }
-      },
-      {
-        "id": "c3110230-33d8-421e-bad1-f9fa2b44a9a1",
-        "kind": "line",
-        "start": {
-          "x": 74.52941236693965,
-          "y": 17.75000100509795
-        },
-        "end": {
-          "x": 74.73529381653017,
-          "y": 19.514706920450003
-        }
-      },
-      {
-        "id": "cd62f1f5-d87f-45ca-8c21-76660876a3dc",
-        "kind": "rectangle",
-        "position": {
-          "x": 62.02941047361569,
-          "y": 9.044118657656627
-        },
-        "width": 25.970586160475058,
-        "height": 16.00000102847232
-      },
-      {
-        "id": "a7b6c876-d9ea-48b7-ae35-fede0eb3e1ae",
+        "id": "38153260-6ec9-44f2-a983-0077fd12489d",
         "kind": "label",
         "position": {
-          "x": 69.4347843799339,
-          "y": 27.423912996155103
+          "x": 41.6470599015004,
+          "y": 23.99019622814956
         },
-        "text": "OR gate using NOT & AND gates"
-      },
-      {
-        "id": "a22d7e7f-0b35-462d-b8ea-656aa30533fe",
-        "kind": "rectangle",
-        "position": {
-          "x": 5.051282123387603,
-          "y": 8.98717968259599
-        },
-        "width": 23.974359366236968,
-        "height": 15.923077035937789
-      },
-      {
-        "id": "0160816f-4f87-445a-a70b-226358f3714b",
-        "kind": "label",
-        "position": {
-          "x": 10.686746489588117,
-          "y": 27.331325995683876
-        },
-        "text": "XOR gate using AND & NOT gates"
+        "text": "(more examples bellow)"
       }
     ]
   }

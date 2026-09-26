@@ -11,6 +11,11 @@ import {
 } from "./projectFile";
 
 const PROJECT: CircuitProject = {
+    viewport: {
+        x: 0,
+        y: 0,
+        zoom: 1,
+    },
     circuit: CircuitLayout.from({
         width: 2,
         height: 1,

@@ -21,7 +21,7 @@
 
     color: #555;
     background: #fff;
-    border: 1px solid #d3d3d3;
+    border: 1px solid #e3e3e3;
 
     font-size: 12px;
     font-weight: 600;
@@ -36,9 +36,8 @@
 
 .project-actions__button:hover,
 .project-actions__button:focus-visible {
-    color: #222;
-    background: #f7f7f7;
-    border-color: #d5d5d5;
+    color: #333;
+    background: #fafafa;
 }
 
 .project-actions__button:disabled {

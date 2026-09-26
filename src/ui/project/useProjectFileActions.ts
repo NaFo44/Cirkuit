@@ -9,6 +9,7 @@ interface UseProjectFileActionsOptions {
     readonly registry: ComponentRegistry;
 
     readonly onProjectOpen: (project: CircuitProject) => void;
+    readonly getViewport: () => CircuitProject["viewport"] | undefined;
 }
 
 interface ProjectFileActions {
@@ -29,6 +30,7 @@ export function useProjectFileActions({
     project,
     registry,
     onProjectOpen,
+    getViewport,
 }: UseProjectFileActionsOptions): ProjectFileActions {
     const [projectFileError, setProjectFileError] = useState<string | null>(
         null,
@@ -38,11 +40,17 @@ export function useProjectFileActions({
         setProjectFileError(null);
 
         try {
-            downloadProjectFile(project, registry);
+            downloadProjectFile(
+                {
+                    ...project,
+                    viewport: getViewport() ?? project.viewport,
+                },
+                registry,
+            );
         } catch (error) {
             setProjectFileError(getProjectFileErrorMessage(error));
         }
-    }, [project, registry]);
+    }, [project, getViewport, registry]);
 
     const openProject = useCallback(
         async (file: File) => {

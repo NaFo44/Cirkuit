@@ -12,10 +12,6 @@ interface EditorHint {
 
 const COMMON_HINTS: readonly EditorHint[] = [
     {
-        input: "Space",
-        action: "Run / stop",
-    },
-    {
         input: "Pinch / wheel",
         action: "Zoom",
     },
@@ -58,7 +54,7 @@ export function EditorHints({ mode }: EditorHintsProps) {
     return (
         <section className="editor-hints" aria-labelledby="editor-hints-title">
             <h2 id="editor-hints-title" className="editor-hints__title">
-                Shortcuts
+                Main shortcuts
             </h2>
 
             <ul className="editor-hints__list">

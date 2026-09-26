@@ -15,6 +15,11 @@ import {
 } from "./projectDocument";
 
 const PROJECT: CircuitProject = {
+    viewport: {
+        x: 0,
+        y: 0,
+        zoom: 1,
+    },
     circuit: CircuitLayout.from({
         width: 3,
         height: 1,
@@ -66,7 +71,11 @@ const PROJECT: CircuitProject = {
 const VALID_DOCUMENT: ProjectDocumentV1 = {
     format: PROJECT_DOCUMENT_FORMAT,
     version: PROJECT_DOCUMENT_VERSION,
-
+    viewport: {
+        x: 0,
+        y: 0,
+        zoom: 1,
+    },
     circuit: {
         width: 3,
         height: 1,

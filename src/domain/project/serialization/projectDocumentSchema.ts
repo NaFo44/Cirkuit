@@ -25,6 +25,14 @@ const ProjectPointV1Schema = z
     })
     .strict();
 
+const ProjectViewportV1Schema = z
+    .object({
+        x: FiniteNumberSchema,
+        y: FiniteNumberSchema,
+        zoom: FiniteNumberSchema.positive(),
+    })
+    .strict();
+
 const ProjectGridPositionV1Schema = z
     .object({
         x: FiniteNumberSchema.int(),
@@ -130,6 +138,8 @@ export const ProjectDocumentV1Schema = z
     .object({
         format: z.literal(PROJECT_DOCUMENT_FORMAT),
         version: z.literal(PROJECT_DOCUMENT_VERSION),
+
+        viewport: ProjectViewportV1Schema,
 
         circuit: z
             .object({

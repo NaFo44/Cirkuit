@@ -179,6 +179,11 @@ export function loadProjectDocument(
     return {
         circuit,
         annotations: document.annotations.items.map(createCircuitAnnotation),
+        viewport: {
+            x: document.viewport.x,
+            y: document.viewport.y,
+            zoom: document.viewport.zoom,
+        },
     };
 }
 
@@ -191,6 +196,12 @@ export function createProjectDocument(
     const document = {
         format: PROJECT_DOCUMENT_FORMAT,
         version: PROJECT_DOCUMENT_VERSION,
+
+        viewport: {
+            x: project.viewport.x,
+            y: project.viewport.y,
+            zoom: project.viewport.zoom,
+        },
 
         circuit: {
             width: circuit.width,
