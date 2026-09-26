@@ -34,6 +34,7 @@ import { SelectionLayer } from "./ui/selection/selectionLayer";
 import { useComponentSelection } from "./ui/selection/useComponentSelection";
 import { useGridPointerPosition } from "./ui/grid/useGridPointerPosition";
 import { useUndoShortcut } from "./ui/project/useHistoryShortcut";
+import { CellPreview } from "./ui/grid/cellPreview";
 
 const EMPTY_COMPONENT_VISUAL_STATES: ReadonlyMap<string, ComponentVisualState> =
     new Map();
@@ -92,6 +93,7 @@ export function App() {
 
     const {
         gridRef: canvasRef,
+        pointerPosition,
         trackPointer: trackCanvasPointer,
         clearPointer: clearCanvasPointer,
         getPointerPosition: getPastePosition,
@@ -287,6 +289,17 @@ export function App() {
                         }
                         isComponentInteractive={isComponentInteractive}
                         onHoveredComponentChange={setHoveredComponentId}
+                    />
+
+                    <CellPreview
+                        position={
+                            mode === "edit" &&
+                            isCircuitEditorTool(selectedTool) &&
+                            selectedAnnotationType === null
+                                ? pointerPosition
+                                : null
+                        }
+                        cellSize={CELL_SIZE}
                     />
 
                     <AnnotationLayer

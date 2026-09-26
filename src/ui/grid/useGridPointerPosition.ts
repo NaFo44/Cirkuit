@@ -1,6 +1,7 @@
 import {
     useCallback,
     useRef,
+    useState,
     type PointerEvent as ReactPointerEvent,
     type RefObject,
 } from "react";
@@ -17,6 +18,8 @@ interface UseGridPointerPositionOptions {
 interface GridPointerPosition {
     readonly gridRef: RefObject<HTMLDivElement | null>;
 
+    readonly pointerPosition: Position | null;
+
     readonly trackPointer: (event: ReactPointerEvent<HTMLDivElement>) => void;
 
     readonly clearPointer: () => void;
@@ -29,6 +32,10 @@ export function useGridPointerPosition({
     height,
     cellSize,
 }: UseGridPointerPositionOptions): GridPointerPosition {
+    const [pointerPosition, setPointerPosition] = useState<Position | null>(
+        null,
+    );
+
     const canvasWidth = width * cellSize;
     const canvasHeight = height * cellSize;
 
@@ -39,62 +46,80 @@ export function useGridPointerPosition({
         readonly clientY: number;
     } | null>(null);
 
+    const getPositionFromPointer = useCallback(
+        (clientX: number, clientY: number): Position | null => {
+            const grid = gridRef.current;
+
+            if (!grid) {
+                return null;
+            }
+
+            const bounds = grid.getBoundingClientRect();
+
+            if (
+                clientX < bounds.left ||
+                clientX >= bounds.right ||
+                clientY < bounds.top ||
+                clientY >= bounds.bottom
+            ) {
+                return null;
+            }
+
+            const canvasPoint = screenToCanvasPoint({
+                width: canvasWidth,
+                height: canvasHeight,
+                clientX,
+                clientY,
+                bounds,
+            });
+
+            const position = {
+                x: Math.floor(canvasPoint.x / cellSize),
+                y: Math.floor(canvasPoint.y / cellSize),
+            };
+
+            return position.x >= 0 &&
+                position.x < width &&
+                position.y >= 0 &&
+                position.y < height
+                ? position
+                : null;
+        },
+        [canvasHeight, canvasWidth, cellSize, height, width],
+    );
+
     const trackPointer = useCallback(
         (event: ReactPointerEvent<HTMLDivElement>) => {
             pointerRef.current = {
                 clientX: event.clientX,
                 clientY: event.clientY,
             };
+
+            setPointerPosition(
+                getPositionFromPointer(event.clientX, event.clientY),
+            );
         },
-        [],
+        [getPositionFromPointer],
     );
 
     const clearPointer = useCallback(() => {
         pointerRef.current = null;
+        setPointerPosition(null);
     }, []);
 
     const getPointerPosition = useCallback((): Position | null => {
-        const grid = gridRef.current;
         const pointer = pointerRef.current;
 
-        if (!grid || !pointer) {
+        if (!pointer) {
             return null;
         }
 
-        const bounds = grid.getBoundingClientRect();
-
-        if (
-            pointer.clientX < bounds.left ||
-            pointer.clientX >= bounds.right ||
-            pointer.clientY < bounds.top ||
-            pointer.clientY >= bounds.bottom
-        ) {
-            return null;
-        }
-
-        const canvasPoint = screenToCanvasPoint({
-            width: canvasWidth,
-            height: canvasHeight,
-            clientX: pointer.clientX,
-            clientY: pointer.clientY,
-            bounds,
-        });
-
-        const position = {
-            x: Math.floor(canvasPoint.x / cellSize),
-            y: Math.floor(canvasPoint.y / cellSize),
-        };
-
-        return position.x >= 0 &&
-            position.x < width &&
-            position.y >= 0 &&
-            position.y < height
-            ? position
-            : null;
-    }, [canvasHeight, canvasWidth, cellSize, height, width]);
+        return getPositionFromPointer(pointer.clientX, pointer.clientY);
+    }, [getPositionFromPointer]);
 
     return {
         gridRef,
+        pointerPosition,
         trackPointer,
         clearPointer,
         getPointerPosition,

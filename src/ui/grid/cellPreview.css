@@ -1,0 +1,7 @@
+.cell-preview {
+    position: absolute;
+    pointer-events: none;
+    box-sizing: border-box;
+    background: rgb(128 128 128 / 14%);
+    z-index: 2;
+}
