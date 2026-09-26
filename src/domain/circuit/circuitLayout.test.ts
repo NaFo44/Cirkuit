@@ -338,4 +338,49 @@ describe("CircuitLayout", () => {
             layout.withComponent(component("component-1", type, 0, 0)),
         ).toThrow("Component type cannot be empty: component-1");
     });
+
+    it("removes a group of components", () => {
+        const wire1 = component("wire-1", "wire", 0, 0);
+        const wire2 = component("wire-2", "wire", 1, 0);
+        const wire3 = component("wire-3", "wire", 0, 1);
+        const wire4 = component("wire-4", "wire", 1, 1);
+
+        const layout = CircuitLayout.from({
+            width: 5,
+            height: 5,
+            components: [wire1, wire2, wire3, wire4],
+        });
+
+        const result = layout.withoutComponents(new Set(["wire-1", "wire-3"]));
+
+        expect(result.components).toEqual([wire2, wire4]);
+    });
+
+    it("returns the same layout when no component matches", () => {
+        const wire = component("wire-1", "wire", 0, 0);
+
+        const layout = CircuitLayout.from({
+            width: 5,
+            height: 5,
+            components: [wire],
+        });
+
+        const result = layout.withoutComponents(new Set(["does-not-exist"]));
+
+        expect(result).toBe(result);
+    });
+
+    it("returns the same layout when no ids are provided", () => {
+        const wire = component("wire-1", "wire", 0, 0);
+
+        const layout = CircuitLayout.from({
+            width: 5,
+            height: 5,
+            components: [wire],
+        });
+
+        const result = layout.withoutComponents(new Set());
+
+        expect(result).toBe(layout);
+    });
 });

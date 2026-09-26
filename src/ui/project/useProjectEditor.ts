@@ -35,6 +35,8 @@ interface ProjectEditor {
 
     readonly updateCircuit: (circuit: CircuitLayout) => void;
 
+    readonly removeComponents: (componentIds: readonly string[]) => void;
+
     readonly canUndo: boolean;
     readonly canRedo: boolean;
 
@@ -235,6 +237,22 @@ export function useProjectEditor(
         [updateProject],
     );
 
+    const removeComponents = useCallback(
+        (componentIds: readonly string[]) => {
+            if (componentIds.length === 0) {
+                return;
+            }
+
+            const ids = new Set(componentIds);
+
+            updateProject((currentProject) => ({
+                ...currentProject,
+                circuit: currentProject.circuit.withoutComponents(ids),
+            }));
+        },
+        [updateProject],
+    );
+
     const undo = useCallback(() => {
         setState((currentState) => {
             const transition = undoHistory(
@@ -286,6 +304,7 @@ export function useProjectEditor(
         removeAnnotation,
         replaceProject,
         updateCircuit,
+        removeComponents,
 
         canUndo: state.history.past.length > 0,
         canRedo: state.history.future.length > 0,

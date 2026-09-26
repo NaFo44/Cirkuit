@@ -137,6 +137,22 @@ export class CircuitLayout implements Circuit {
         );
     }
 
+    withoutComponents(componentIds: ReadonlySet<string>): CircuitLayout {
+        if (componentIds.size === 0) {
+            return this;
+        }
+
+        const components = this.components.filter(
+            (component) => !componentIds.has(component.id),
+        );
+
+        if (components.length === this.components.length) {
+            return this;
+        }
+
+        return new CircuitLayout(this.width, this.height, components);
+    }
+
     getComponentById(id: string): PlacedComponent | undefined {
         return this.componentById.get(id);
     }

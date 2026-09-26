@@ -73,6 +73,7 @@ export function App() {
         undo,
         redo,
         updateCircuit,
+        removeComponents,
         addAnnotation,
         updateAnnotation,
         removeAnnotation,
@@ -315,6 +316,13 @@ export function App() {
                         onSelect={selectRectangle}
                         canMove={canMoveSelection}
                         onMove={moveSelection}
+                        onDelete={() => {
+                            removeComponents(
+                                selectedComponents.map(
+                                    (component) => component.id,
+                                ),
+                            );
+                        }}
                     />
                 </div>
             </MapViewport>

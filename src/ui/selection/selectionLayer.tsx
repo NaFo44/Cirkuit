@@ -1,4 +1,8 @@
-import { useState, type PointerEvent as ReactPointerEvent } from "react";
+import {
+    useEffect,
+    useState,
+    type PointerEvent as ReactPointerEvent,
+} from "react";
 
 import type { PlacedComponent } from "../../domain/circuit/placedComponent";
 import type { CanvasPoint } from "../../domain/grid/canvasPoint";
@@ -23,6 +27,7 @@ interface SelectionLayerProps {
     readonly onSelect: (rectangle: SelectionRectangle) => void;
     readonly canMove: (offset: Position) => boolean;
     readonly onMove: (offset: Position) => void;
+    readonly onDelete: () => void;
 }
 
 interface RectangleGesture {
@@ -53,6 +58,7 @@ export function SelectionLayer({
     onSelect,
     canMove,
     onMove,
+    onDelete,
 }: SelectionLayerProps) {
     const [gesture, setGesture] = useState<SelectionGesture | null>(null);
 
@@ -174,6 +180,37 @@ export function SelectionLayer({
             setGesture(null);
         }
     };
+
+    useEffect(() => {
+        if (selectedComponents.length === 0) {
+            return;
+        }
+
+        const handleKeyDown = (event: KeyboardEvent) => {
+            if (event.key !== "Delete") {
+                return;
+            }
+
+            if (
+                event.target instanceof HTMLInputElement ||
+                event.target instanceof HTMLTextAreaElement ||
+                event.target instanceof HTMLSelectElement ||
+                (event.target instanceof HTMLElement &&
+                    event.target.isContentEditable)
+            ) {
+                return;
+            }
+
+            event.preventDefault();
+            onDelete();
+        };
+
+        window.addEventListener("keydown", handleKeyDown);
+
+        return () => {
+            window.removeEventListener("keydown", handleKeyDown);
+        };
+    }, [selectedComponents.length, onDelete]);
 
     const rectangle =
         gesture?.kind === "rectangle"
