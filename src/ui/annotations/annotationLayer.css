@@ -11,7 +11,9 @@
 
 .annotation-layer--editable {
     pointer-events: auto;
-    cursor: crosshair;
+    cursor:
+        url("../../assets/crosshair.png") 10 10,
+        crosshair;
 }
 
 .annotation-layer--editable[data-tool="label"] {

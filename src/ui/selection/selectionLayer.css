@@ -14,7 +14,9 @@
 }
 
 .selection-layer--selecting {
-    cursor: crosshair;
+    cursor:
+        url("../../assets/crosshair.png") 10 10,
+        crosshair;
 }
 
 .selection-layer--moving {
@@ -67,7 +69,7 @@
 
 .selection-layer__outline line {
     stroke: #636363;
-    stroke-width: 1px;
+    stroke-width: 2px;
     fill: none;
     vector-effect: non-scaling-stroke;
 }
