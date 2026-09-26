@@ -197,7 +197,6 @@ export function CircuitGrid({
                             `circuit-component--${visualState}`,
                             `circuit-component--glyph-${presentation.glyphVisibility}`,
                             interactive ? "circuit-component--interactive" : "",
-                            selected ? "circuit-component--selected" : "",
                         ]
                             .filter(Boolean)
                             .join(" ")}

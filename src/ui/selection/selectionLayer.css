@@ -57,3 +57,17 @@
     background: rgb(255 77 79 / 18%);
     border-color: var(--signal-conflict);
 }
+
+.selection-layer__outline {
+    position: absolute;
+    inset: 0;
+    overflow: visible;
+    pointer-events: none;
+}
+
+.selection-layer__outline line {
+    stroke: #636363;
+    stroke-width: 1px;
+    fill: none;
+    vector-effect: non-scaling-stroke;
+}

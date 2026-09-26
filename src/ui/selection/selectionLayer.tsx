@@ -9,6 +9,7 @@ import {
     createSelectionRectangle,
     type SelectionRectangle,
 } from "./componentSelection";
+import { createSelectionOutline } from "./selectionOutline";
 import "./selectionLayer.css";
 
 export type SelectionInteractionMode = "disabled" | "move" | "select";
@@ -182,6 +183,11 @@ export function SelectionLayer({
     const moveOffset =
         gesture?.kind === "move" ? gesture.offset : { x: 0, y: 0 };
 
+    const selectionOutline = createSelectionOutline(
+        selectedComponents,
+        moveOffset,
+    );
+
     const isMoveValid = gesture?.kind !== "move" || canMove(moveOffset);
 
     return (
@@ -206,6 +212,24 @@ export function SelectionLayer({
             onPointerCancel={cancelGesture}
             onLostPointerCapture={cancelGesture}
         >
+            <svg
+                className="selection-layer__outline"
+                width={width}
+                height={height}
+                viewBox={`0 0 ${width} ${height}`}
+                aria-hidden="true"
+            >
+                {selectionOutline.map((segment, index) => (
+                    <line
+                        key={`${segment.x1}-${segment.y1}-${segment.x2}-${segment.y2}-${index}`}
+                        x1={segment.x1}
+                        y1={segment.y1}
+                        x2={segment.x2}
+                        y2={segment.y2}
+                    />
+                ))}
+            </svg>
+
             {selectedComponents.map((component) => (
                 <div
                     key={component.id}

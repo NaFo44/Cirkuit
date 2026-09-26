@@ -422,10 +422,6 @@ button {
     box-shadow: var(--floating-panel-shadow);
 }
 
-.circuit-component--selected {
-    box-shadow: inset 0 0 0 1px #636363;
-}
-
 .workspace-sidebar:not(.workspace-sidebar--collapsed) ~ .circuit-hover-label {
     left: 336px;
 }
