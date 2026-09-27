@@ -73,7 +73,7 @@
 .annotation-layer__label,
 .annotation-layer__label-editor {
     position: absolute;
-    z-index: 1;
+    z-index: 3;
 
     box-sizing: border-box;
     min-height: 24px;

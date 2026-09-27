@@ -1,6 +1,6 @@
 .selection-layer {
     position: absolute;
-    z-index: 4;
+    z-index: 2;
     inset: 0;
 
     pointer-events: none;
