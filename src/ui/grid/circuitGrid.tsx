@@ -1,4 +1,4 @@
-import { useRef, type PointerEvent as ReactPointerEvent } from "react";
+import { useMemo, useRef, type PointerEvent as ReactPointerEvent } from "react";
 
 import type { Circuit } from "../../domain/circuit/circuit";
 import {
@@ -42,7 +42,10 @@ export function CircuitGrid({
 }: CircuitGridProps) {
     const activePointerId = useRef<number | null>(null);
     const lastPaintedCell = useRef<Position | null>(null);
-    const litCells = createCellLighting(circuit, componentVisualStates);
+    const litCells = useMemo(
+        () => createCellLighting(circuit, componentVisualStates),
+        [circuit, componentVisualStates],
+    );
 
     const paintAtPointer = (event: ReactPointerEvent<HTMLDivElement>) => {
         const gridElement = event.currentTarget;

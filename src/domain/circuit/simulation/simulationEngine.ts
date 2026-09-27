@@ -40,6 +40,21 @@ function createFloatingSignals(netlist: Netlist): ReadonlyMap<string, Signal> {
     return new Map(netlist.nets.map((net) => [net.id, SIGNALS.floating]));
 }
 
+function resolveNetId(
+    netlist: Netlist,
+    componentId: string,
+    portId: string,
+): string {
+    const key = portKey({ componentId, portId });
+    const netId = netlist.netByPort.get(key);
+
+    if (netId === undefined) {
+        throw new Error(`Missing net for port: ${key}`);
+    }
+
+    return netId;
+}
+
 function getComponentState(
     componentStates: ReadonlyMap<string, unknown>,
     componentId: string,
@@ -64,16 +79,7 @@ function getComponentInputs(
             continue;
         }
 
-        const key = portKey({
-            componentId,
-            portId: port.id,
-        });
-        const netId = netlist.netByPort.get(key);
-
-        if (netId === undefined) {
-            throw new Error(`Missing net for port: ${key}`);
-        }
-
+        const netId = resolveNetId(netlist, componentId, port.id);
         const signal = netSignals.get(netId);
 
         if (signal === undefined) {
@@ -86,8 +92,10 @@ function getComponentInputs(
     return inputs;
 }
 
+const VALID_SIGNALS = new Set(Object.values(SIGNALS));
+
 function isSignal(value: unknown): value is Signal {
-    return Object.values(SIGNALS).some((signal) => signal === value);
+    return VALID_SIGNALS.has(value as Signal);
 }
 
 function validateOutputs(
@@ -344,16 +352,7 @@ export function getPortSignal(
     componentId: string,
     portId: string,
 ): Signal {
-    const key = portKey({
-        componentId,
-        portId,
-    });
-    const netId = simulation.netlist.netByPort.get(key);
-
-    if (netId === undefined) {
-        throw new Error(`Unknown port: ${key}`);
-    }
-
+    const netId = resolveNetId(simulation.netlist, componentId, portId);
     const signal = simulation.snapshot.netSignals.get(netId);
 
     if (signal === undefined) {

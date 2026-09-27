@@ -245,6 +245,8 @@ export function App() {
                 ? "move"
                 : "disabled";
 
+    const canPaint = mode === "edit" && isCircuitEditorTool(selectedTool);
+
     return (
         <main className="circuit-editor">
             <MapViewport
@@ -270,21 +272,9 @@ export function App() {
                             mode === "edit" ? selectedComponentIds : undefined
                         }
                         componentVisualStates={componentVisualStates}
-                        onPaintStart={
-                            mode === "edit" && isCircuitEditorTool(selectedTool)
-                                ? handlePaintStart
-                                : undefined
-                        }
-                        onCellPaint={
-                            mode === "edit" && isCircuitEditorTool(selectedTool)
-                                ? paintCell
-                                : undefined
-                        }
-                        onPaintEnd={
-                            mode === "edit" && isCircuitEditorTool(selectedTool)
-                                ? handlePaintEnd
-                                : undefined
-                        }
+                        onPaintStart={canPaint ? handlePaintStart : undefined}
+                        onCellPaint={canPaint ? paintCell : undefined}
+                        onPaintEnd={canPaint ? handlePaintEnd : undefined}
                         onComponentInteract={
                             mode === "simulate" && simulation
                                 ? interactWithComponent
@@ -296,9 +286,7 @@ export function App() {
 
                     <CellPreview
                         position={
-                            mode === "edit" &&
-                            isCircuitEditorTool(selectedTool) &&
-                            selectedAnnotationType === null
+                            canPaint && selectedAnnotationType === null
                                 ? pointerPosition
                                 : null
                         }
