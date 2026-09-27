@@ -34,7 +34,7 @@
 
 .annotation-layer--editable .annotation-layer__shape {
     pointer-events: stroke;
-    cursor: pointer;
+    cursor: move;
 }
 
 .annotation-layer__line,

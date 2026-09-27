@@ -7,6 +7,7 @@ import type { KeyboardEvent as ReactKeyboardEvent } from "react";
 
 interface AnnotationLabelProps {
     annotations: readonly CircuitAnnotation[];
+    draggedAnnotation: CircuitAnnotation | null;
     selectedAnnotationId: string | null;
     isEditable: boolean;
     labelEditor: LabelEditorState | null;
@@ -15,7 +16,7 @@ interface AnnotationLabelProps {
     ) => void;
     commitLabel: () => void;
     onSelect: (
-        event: React.PointerEvent<HTMLButtonElement>,
+        event: React.PointerEvent<Element>,
         annotationId: string,
     ) => void;
     editLabel: (annotation: LabelAnnotation) => void;
@@ -24,6 +25,7 @@ interface AnnotationLabelProps {
 
 export function AnnotationLabelLayer({
     annotations,
+    draggedAnnotation,
     selectedAnnotationId,
     isEditable,
     labelEditor,
@@ -35,8 +37,17 @@ export function AnnotationLabelLayer({
 }: AnnotationLabelProps) {
     return (
         <>
-            {annotations.map((annotation) =>
-                annotation.kind === "label" ? (
+            {annotations.map((annotation) => {
+                const renderedAnnotation =
+                    annotation.id === draggedAnnotation?.id
+                        ? draggedAnnotation
+                        : annotation;
+
+                if (renderedAnnotation.kind !== "label") {
+                    return null;
+                }
+
+                return (
                     <button
                         key={annotation.id}
                         type="button"
@@ -46,19 +57,19 @@ export function AnnotationLabelLayer({
                                 : ""
                         }`}
                         style={{
-                            left: annotation.position.x,
-                            top: annotation.position.y,
+                            left: renderedAnnotation.position.x,
+                            top: renderedAnnotation.position.y,
                         }}
                         tabIndex={isEditable ? 0 : -1}
                         onPointerDown={(event) =>
                             onSelect(event, annotation.id)
                         }
-                        onDoubleClick={() => editLabel(annotation)}
+                        onDoubleClick={() => editLabel(renderedAnnotation)}
                     >
-                        {annotation.text}
+                        {renderedAnnotation.text}
                     </button>
-                ) : null,
-            )}
+                );
+            })}
 
             {isEditable && labelEditor && (
                 <input

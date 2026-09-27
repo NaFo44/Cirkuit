@@ -2,15 +2,16 @@ import { normalizeRectangle } from "./annotationGeometry";
 import type { CircuitAnnotation } from "../../domain/project/circuitAnnotation";
 import type { ShapeDraft } from "./useAnnotationEditor";
 
-interface AnnotationShapeProps {
+interface AnnotationShapeLayerProps {
     width: number;
     height: number;
     annotations: readonly CircuitAnnotation[];
     draft: ShapeDraft | null;
+    draggedAnnotation: CircuitAnnotation | null;
     selectedAnnotationId: string | null;
     isEditable: boolean;
     onSelect: (
-        event: React.PointerEvent<SVGElement>,
+        event: React.PointerEvent<Element>,
         annotationId: string,
     ) => void;
 }
@@ -20,10 +21,11 @@ export function AnnotationShapeLayer({
     height,
     annotations,
     draft,
+    draggedAnnotation,
     selectedAnnotationId,
     isEditable,
     onSelect,
-}: AnnotationShapeProps) {
+}: AnnotationShapeLayerProps) {
     return (
         <svg
             className="annotation-layer__svg"
@@ -32,14 +34,19 @@ export function AnnotationShapeLayer({
             viewBox={`0 0 ${width} ${height}`}
         >
             {annotations.map((annotation) => {
-                if (annotation.kind === "label") {
+                const renderedAnnotation =
+                    annotation.id === draggedAnnotation?.id
+                        ? draggedAnnotation
+                        : annotation;
+
+                if (renderedAnnotation.kind === "label") {
                     return null;
                 }
 
                 const selected =
                     isEditable && annotation.id === selectedAnnotationId;
 
-                if (annotation.kind === "line") {
+                if (renderedAnnotation.kind === "line") {
                     return (
                         <g
                             key={annotation.id}
@@ -54,18 +61,18 @@ export function AnnotationShapeLayer({
                         >
                             <line
                                 className="annotation-layer__line"
-                                x1={annotation.start.x}
-                                y1={annotation.start.y}
-                                x2={annotation.end.x}
-                                y2={annotation.end.y}
+                                x1={renderedAnnotation.start.x}
+                                y1={renderedAnnotation.start.y}
+                                x2={renderedAnnotation.end.x}
+                                y2={renderedAnnotation.end.y}
                                 vectorEffect="non-scaling-stroke"
                             />
                             <line
                                 className="annotation-layer__hit-area"
-                                x1={annotation.start.x}
-                                y1={annotation.start.y}
-                                x2={annotation.end.x}
-                                y2={annotation.end.y}
+                                x1={renderedAnnotation.start.x}
+                                y1={renderedAnnotation.start.y}
+                                x2={renderedAnnotation.end.x}
+                                y2={renderedAnnotation.end.y}
                                 vectorEffect="non-scaling-stroke"
                             />
                         </g>
@@ -86,18 +93,18 @@ export function AnnotationShapeLayer({
                     >
                         <rect
                             className="annotation-layer__rectangle"
-                            x={annotation.position.x}
-                            y={annotation.position.y}
-                            width={annotation.width}
-                            height={annotation.height}
+                            x={renderedAnnotation.position.x}
+                            y={renderedAnnotation.position.y}
+                            width={renderedAnnotation.width}
+                            height={renderedAnnotation.height}
                             vectorEffect="non-scaling-stroke"
                         />
                         <rect
                             className="annotation-layer__hit-area"
-                            x={annotation.position.x}
-                            y={annotation.position.y}
-                            width={annotation.width}
-                            height={annotation.height}
+                            x={renderedAnnotation.position.x}
+                            y={renderedAnnotation.position.y}
+                            width={renderedAnnotation.width}
+                            height={renderedAnnotation.height}
                             vectorEffect="non-scaling-stroke"
                         />
                     </g>

@@ -1,3 +1,5 @@
+import { useRef } from "react";
+
 import type {
     AnnotationType,
     CircuitAnnotation,
@@ -26,11 +28,14 @@ export function AnnotationLayer({
     onUpdate,
     onRemove,
 }: AnnotationLayerProps) {
+    const layerRef = useRef<HTMLDivElement>(null);
+
     const {
         isEditable,
         selectedAnnotationId,
         draft,
         labelEditor,
+        draggedAnnotation,
         handlePointerDown,
         handlePointerMove,
         handlePointerUp,
@@ -43,14 +48,17 @@ export function AnnotationLayer({
     } = useAnnotationEditor({
         width,
         height,
+        annotations,
         annotationTool,
         onAdd,
         onUpdate,
         onRemove,
+        layerRef,
     });
 
     return (
         <div
+            ref={layerRef}
             className={`annotation-layer ${
                 isEditable ? "annotation-layer--editable" : ""
             }`}
@@ -67,6 +75,7 @@ export function AnnotationLayer({
                 height={height}
                 annotations={annotations}
                 draft={draft}
+                draggedAnnotation={draggedAnnotation}
                 selectedAnnotationId={selectedAnnotationId}
                 isEditable={isEditable}
                 onSelect={selectAnnotation}
@@ -74,6 +83,7 @@ export function AnnotationLayer({
 
             <AnnotationLabelLayer
                 annotations={annotations}
+                draggedAnnotation={draggedAnnotation}
                 selectedAnnotationId={selectedAnnotationId}
                 isEditable={isEditable}
                 labelEditor={labelEditor}

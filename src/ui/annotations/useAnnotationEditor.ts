@@ -3,6 +3,7 @@ import {
     useEffect,
     type PointerEvent as ReactPointerEvent,
     type KeyboardEvent as ReactKeyboardEvent,
+    type RefObject,
 } from "react";
 import type {
     AnnotationType,
@@ -18,6 +19,35 @@ import {
     isRectangleTooSmall,
 } from "./annotationGeometry";
 import { screenToCanvasPoint } from "../grid/canvasCoordinates";
+
+const ANNOTATION_DRAG_THRESHOLD = 3;
+
+function moveAnnotation(
+    annotation: CircuitAnnotation,
+    offset: CanvasPoint,
+): CircuitAnnotation {
+    if (annotation.kind === "line") {
+        return {
+            ...annotation,
+            start: {
+                x: annotation.start.x + offset.x,
+                y: annotation.start.y + offset.y,
+            },
+            end: {
+                x: annotation.end.x + offset.x,
+                y: annotation.end.y + offset.y,
+            },
+        };
+    }
+
+    return {
+        ...annotation,
+        position: {
+            x: annotation.position.x + offset.x,
+            y: annotation.position.y + offset.y,
+        },
+    };
+}
 
 function createAnnotationId(): string {
     return crypto.randomUUID();
@@ -45,22 +75,34 @@ export interface ShapeDraft {
     readonly current: CanvasPoint;
 }
 
+interface AnnotationDrag {
+    readonly pointerId: number;
+    readonly annotation: CircuitAnnotation;
+    readonly start: CanvasPoint;
+    readonly current: CanvasPoint;
+    readonly hasMoved: boolean;
+}
+
 interface UseAnnotationEditorOptions {
     width: number;
     height: number;
+    annotations: readonly CircuitAnnotation[];
     annotationTool: AnnotationType | null;
     onAdd: (annotation: CircuitAnnotation) => void;
     onUpdate: (annotation: CircuitAnnotation) => void;
     onRemove: (annotationId: string) => void;
+    layerRef: RefObject<HTMLDivElement | null>;
 }
 
 export function useAnnotationEditor({
     width,
     height,
+    annotations,
     annotationTool,
     onAdd,
     onUpdate,
     onRemove,
+    layerRef,
 }: UseAnnotationEditorOptions) {
     const [selectedAnnotationId, setSelectedAnnotationId] = useState<
         string | null
@@ -69,13 +111,18 @@ export function useAnnotationEditor({
     const [labelEditor, setLabelEditor] = useState<LabelEditorState | null>(
         null,
     );
+    const [drag, setDrag] = useState<AnnotationDrag | null>(null);
 
     const isEditable = annotationTool !== null;
 
-    const pointFromEvent = (
-        event: ReactPointerEvent<HTMLDivElement>,
-    ): CanvasPoint => {
-        const bounds = event.currentTarget.getBoundingClientRect();
+    const pointFromEvent = (event: ReactPointerEvent<Element>): CanvasPoint => {
+        const layer = layerRef.current;
+
+        if (!layer) {
+            throw new Error("Annotation layer is not mounted");
+        }
+
+        const bounds = layer.getBoundingClientRect();
 
         return screenToCanvasPoint({
             width,
@@ -167,6 +214,30 @@ export function useAnnotationEditor({
     };
 
     const handlePointerMove = (event: ReactPointerEvent<HTMLDivElement>) => {
+        if (drag && drag.pointerId === event.pointerId) {
+            const current = pointFromEvent(event);
+
+            const deltaX = current.x - drag.start.x;
+            const deltaY = current.y - drag.start.y;
+
+            const hasMoved =
+                Math.abs(deltaX) >= ANNOTATION_DRAG_THRESHOLD ||
+                Math.abs(deltaY) >= ANNOTATION_DRAG_THRESHOLD;
+
+            if (hasMoved && !drag.hasMoved) {
+                layerRef.current?.setPointerCapture(event.pointerId);
+                event.preventDefault();
+            }
+
+            setDrag({
+                ...drag,
+                current,
+                hasMoved: drag.hasMoved || hasMoved,
+            });
+
+            return;
+        }
+
         if (!draft || draft.pointerId !== event.pointerId) {
             return;
         }
@@ -185,9 +256,36 @@ export function useAnnotationEditor({
     };
 
     const handlePointerUp = (event: ReactPointerEvent<HTMLDivElement>) => {
+        if (drag && drag.pointerId === event.pointerId) {
+            const current = pointFromEvent(event);
+
+            const offset = {
+                x: current.x - drag.start.x,
+                y: current.y - drag.start.y,
+            };
+
+            if (drag.hasMoved) {
+                onUpdate(moveAnnotation(drag.annotation, offset));
+            }
+
+            if (event.currentTarget.hasPointerCapture(event.pointerId)) {
+                event.currentTarget.releasePointerCapture(event.pointerId);
+            }
+
+            setDrag(null);
+
+            return;
+        }
+
         if (!draft || draft.pointerId !== event.pointerId) {
             return;
         }
+
+        if (event.currentTarget.hasPointerCapture(event.pointerId)) {
+            event.currentTarget.releasePointerCapture(event.pointerId);
+        }
+
+        setDraft(null);
 
         const end = constrainEnd(
             draft.start,
@@ -195,12 +293,6 @@ export function useAnnotationEditor({
             draft.kind,
             event.shiftKey,
         );
-
-        if (event.currentTarget.hasPointerCapture(event.pointerId)) {
-            event.currentTarget.releasePointerCapture(event.pointerId);
-        }
-
-        setDraft(null);
 
         const id = createAnnotationId();
 
@@ -245,7 +337,7 @@ export function useAnnotationEditor({
     };
 
     const selectAnnotation = (
-        event: ReactPointerEvent,
+        event: ReactPointerEvent<Element>,
         annotationId: string,
     ) => {
         if (!isEditable) {
@@ -253,7 +345,26 @@ export function useAnnotationEditor({
         }
 
         event.stopPropagation();
+
+        const annotation = annotations.find(
+            (currentAnnotation) => currentAnnotation.id === annotationId,
+        );
+
+        if (!annotation) {
+            return;
+        }
+
         setSelectedAnnotationId(annotationId);
+
+        const position = pointFromEvent(event);
+
+        setDrag({
+            pointerId: event.pointerId,
+            annotation,
+            start: position,
+            current: position,
+            hasMoved: false,
+        });
     };
 
     useEffect(() => {
@@ -283,13 +394,23 @@ export function useAnnotationEditor({
 
     const handlePointerCancel = () => {
         setDraft(null);
+        setDrag(null);
     };
+
+    const draggedAnnotation =
+        drag === null
+            ? null
+            : moveAnnotation(drag.annotation, {
+                  x: drag.current.x - drag.start.x,
+                  y: drag.current.y - drag.start.y,
+              });
 
     return {
         isEditable,
         selectedAnnotationId,
         draft,
         labelEditor,
+        draggedAnnotation,
         handlePointerDown,
         handlePointerMove,
         handlePointerUp,
