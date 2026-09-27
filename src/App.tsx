@@ -35,6 +35,7 @@ import { useComponentSelection } from "./ui/selection/useComponentSelection";
 import { useGridPointerPosition } from "./ui/grid/useGridPointerPosition";
 import { useUndoShortcut } from "./ui/project/useHistoryShortcut";
 import { CellPreview } from "./ui/grid/cellPreview";
+import { HistoryActions } from "./ui/editor/historyActions";
 
 const EMPTY_COMPONENT_VISUAL_STATES: ReadonlyMap<string, ComponentVisualState> =
     new Map();
@@ -73,6 +74,8 @@ export function App() {
         endPaint,
         undo,
         redo,
+        canUndo,
+        canRedo,
         updateCircuit,
         removeComponents,
         addAnnotation,
@@ -361,6 +364,13 @@ export function App() {
                 onSelectComponent={selectComponent}
                 onSelectEraser={selectEraser}
                 onSelectAnnotation={selectAnnotation}
+            />
+            
+            <HistoryActions
+                undo={undo}
+                redo={redo}
+                canUndo={canUndo}
+                canRedo={canRedo}
             />
 
             {hoveredComponentLabel && selectedTool.kind !== "annotation" && (

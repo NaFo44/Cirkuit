@@ -1,0 +1,41 @@
+.history-actions {
+    position: fixed;
+    top: 16px;
+    left: 26px;
+    z-index: 9;
+    transition: left 420ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.history-actions__button {
+    color: #515151;
+    background: transparent;
+    border: 0;
+    transform-origin: center;
+    opacity: 0.85;
+}
+
+.history-actions__button:hover {
+    opacity: 1;
+}
+
+.history-actions__button:active svg {
+    transform: scale(0.95);
+}
+
+.history-actions__button:disabled {
+    opacity: 0.4;
+}
+
+.workspace-sidebar:not(.workspace-sidebar--collapsed) ~ .history-actions {
+    left: 326px;
+}
+
+.workspace-sidebar--collapsed ~ .history-actions {
+    left: 16px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .history-actions {
+        transition: none;
+    }
+}
