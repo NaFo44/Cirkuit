@@ -20,6 +20,7 @@ It is recommended to use a laptop or desktop computer with a mouse to use Circui
 
 ## Controls
 
+> [!NOTE]
 > Shortcuts are also shown in-game.
 
 ### Edit mode:
@@ -41,14 +42,14 @@ It is recommended to use a laptop or desktop computer with a mouse to use Circui
 
 ## Features
 
-One of the project's main goals was to optimize the user experience.
-That is why Cirkuit offer only essentials features:
+After the engine itslef, my main goal was to optimize the user experience.
+That's why Cirkuit only has essentials features:
 
 - Project import/export: projects are saved as .cirkuit files.
 - 2 modes: editing and simulation. Press the Space bar or the button at the top of the sidebar to start the simulation.
-- Various components: power source, wire, lamp, switch, NOT gate, AND gate.
-- Annotation: Cirkuit provides three tools for documenting your projects: label, line, and rectangle.
-- Selection: you can select, copy/paste, and move groups of elements, making it much easier to modify your circuit!
+- Basic components: power source, wire, lamp, switch, NOT gate, AND gate.
+- Annotation: Cirkuit has three tools for documenting your projects: label, line, and rectangle.
+- Selection: you can select, copy/paste, and move groups of pixels, making it much easier to modify your circuit!
 - Eraser: it erases lol
 
 ## Development
@@ -85,7 +86,7 @@ So basically, if you draw a row of connected wire pixels, the compiler turns all
 
 Each net can be `floating`, `low`, `high`, or `conflict`. The simulation engine propagates the signals until everything settles into a stable state.
 
-Switches are also handled on simulation ticks, so toggling one applies the change atomically on the next tick. If the circuit contains an unstable loop, the engine detects it and reports it instead of getting stuck and freezing the editor.
+Switches are also handled on simulation ticks, so toggling one applies the change atomically on the next tick. If the circuit contains an unstable loop, the engine detects it and reports it instead of getting stuck and freezing the editor (which can happen when working on complex circuits),
 
 ### Modularity and project files
 
