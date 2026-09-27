@@ -365,7 +365,7 @@ export function App() {
                 onSelectEraser={selectEraser}
                 onSelectAnnotation={selectAnnotation}
             />
-            
+
             <HistoryActions
                 undo={undo}
                 redo={redo}

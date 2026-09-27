@@ -9,7 +9,12 @@ interface HistoryActionsProps {
     readonly canRedo: boolean;
 }
 
-export function HistoryActions({ undo, redo, canUndo, canRedo }: HistoryActionsProps) {
+export function HistoryActions({
+    undo,
+    redo,
+    canUndo,
+    canRedo,
+}: HistoryActionsProps) {
     return (
         <div className="history-actions">
             <div className="history-actions__buttons">
