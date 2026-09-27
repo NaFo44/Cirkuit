@@ -1,9 +1,8 @@
 # Cirkuit
 
-Build your own circuits using pixel art!
+A pixel-art circuit sandbox (that's it). Place components on the grid, connect them, and build whatever you want!
 
-Cirkuit is a pixel-art circuit sandbox. Place components on the grid, connect
-them, and build whatever you want!
+![Main features demo](.github/assets/demo.gif)
 
 [Try Cirkuit online](https://nafo44.github.io/Cirkuit/)
 
@@ -12,11 +11,15 @@ them, and build whatever you want!
 > All generated code was reviewed. The concept, UI/UX, and assets were created
 > entirely by me.
 
-![Main features demo](.github/assets/demo.gif)
+## Why I made this
 
-## Recommanded setup
+Well, I'm studying Electronics and Industrial Computing at university, so this theme is literally a perfect fit for me.
 
-It is recommended to use a laptop or desktop computer with a mouse to use Circuit, although use with a laptop touchpad is also supported.
+I also know Stardance brings together a lot of software developers and hardware makers, so I wanted to build something that speaks to both. Just circuits and logic gates. What could go wrong?
+
+## Recommended setup
+
+It is recommended to use a laptop or desktop computer with a mouse to use Cirkuit, although use with a laptop touchpad is also supported.
 
 ## Controls
 
@@ -42,8 +45,7 @@ It is recommended to use a laptop or desktop computer with a mouse to use Circui
 
 ## Features
 
-After the engine itslef, my main goal was to optimize the user experience.
-That's why Cirkuit only has essentials features:
+After the engine itself, my main goal was to optimize the user experience. So that's why Cirkuit only has essential features:
 
 - Project import/export: projects are saved as .cirkuit files.
 - 2 modes: editing and simulation. Press the Space bar or the button at the top of the sidebar to start the simulation.
@@ -51,6 +53,30 @@ That's why Cirkuit only has essentials features:
 - Annotation: Cirkuit has three tools for documenting your projects: label, line, and rectangle.
 - Selection: you can select, copy/paste, and move groups of pixels, making it much easier to modify your circuit!
 - Eraser: it erases lol
+
+## Capabilities
+
+You can build pretty much anything you can imagine.
+
+> [!NOTE]
+> Two demo circuits are available to try live in-game!
+
+### A 7-segment 3bit decoder
+
+![7-segment 3bit decoder](./.github/assets/segment-decoder.webp)
+
+I studied this circuit at university, so I wanted to build it!
+It works, but I ran into a problem: wires cannot cross, which is very inconvenient for complex circuits. That’s why I’m planning to add a second layer so I can do all the wiring on the underside.
+
+### XOR gate
+
+![XOR gate](./.github/assets/xor.png)
+
+Pretty basic one! It's made from four NAND gates (AND followed by NOT).
+
+### Your next build?
+
+No pressure :D
 
 ## Development
 
@@ -66,13 +92,13 @@ Run all checks before committing:
 ```shell
 npm run format:check
 npm run lint
-npm test -- --run
+npm run test
 npm run build
 ```
 
 ## How it works
 
-The editor, circuit model, and simulation engine are kept separate. It makes it possible to change one part without having to rewrite everything else.
+The editor, circuit model, and simulation engine are kept separate. This makes it possible to change one part without having to rewrite everything else.
 
 ### From pixels to electrical nets
 
@@ -90,8 +116,8 @@ Switches are also handled on simulation ticks, so toggling one applies the chang
 
 ### Modularity and project files
 
-Components own their ports and simulation logic, as mentioned above. This keeps the rest of the system fairly dumb: adding a new component don't require changing the netlist compiler or the simulation engine.
+Components own their ports and simulation logic, as mentioned above. This keeps the rest of the system fairly dumb: adding a new component doesn't require changing the netlist compiler or the simulation engine.
 
-Projects are stored as `.cirkuit` JSON files. Zod validates documents when they're imported and exported, so malformed projects or projects modified manually can't crash the editor during runtime.
+Projects are stored as `.cirkuit` JSON files. Zod validates documents when they are imported and exported, so malformed projects or projects modified manually can't crash the editor at runtime.
 
 Things like unknown component types, duplicate IDs, overlapping components, or components placed outside the grid are rejected.
