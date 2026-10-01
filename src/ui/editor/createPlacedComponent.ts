@@ -1,5 +1,6 @@
 import type { BuiltInComponentType } from "../../domain/circuit/components/builtInComponents";
 import type {
+    CircuitLayer,
     PlacedComponent,
     Rotation,
 } from "../../domain/circuit/placedComponent";
@@ -13,6 +14,7 @@ export function createPlacedComponent(
     componentType: BuiltInComponentType,
     position: Position,
     rotation: Rotation = 0,
+    layer: CircuitLayer = 0,
 ): PlacedComponent {
     return {
         id: createComponentId(),
@@ -22,5 +24,6 @@ export function createPlacedComponent(
             y: position.y,
         },
         rotation,
+        layer,
     };
 }

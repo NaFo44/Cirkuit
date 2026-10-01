@@ -16,6 +16,7 @@ function renderComponent(
         type: componentType,
         position: { x: 0, y: 0 },
         rotation: 0,
+        layer: 0,
     };
 
     const circuit = CircuitLayout.empty(1, 1).withComponent(component);
@@ -64,5 +65,42 @@ describe("CircuitGrid", () => {
 
         expect(markup).toContain("circuit-component--glyph-always");
         expect(markup).toContain('class="component-glyph"');
+    });
+
+    it("renders the active layer above an inactive non-interactive layer", () => {
+        const inactive: PlacedComponent = {
+            id: "inactive",
+            type: "switch",
+            position: { x: 0, y: 0 },
+            rotation: 0,
+            layer: 1,
+        };
+        const active: PlacedComponent = {
+            id: "active",
+            type: "wire",
+            position: { x: 0, y: 0 },
+            rotation: 0,
+            layer: 0,
+        };
+        const circuit = CircuitLayout.from({
+            width: 1,
+            height: 1,
+            components: [active, inactive],
+        });
+
+        const markup = renderToStaticMarkup(
+            <CircuitGrid
+                circuit={circuit}
+                activeLayer={0}
+                componentVisualStates={new Map()}
+                onComponentInteract={() => undefined}
+            />,
+        );
+
+        expect(markup).toContain("circuit-component--inactive-layer");
+        expect(markup).toContain("opacity:0.25;pointer-events:none");
+        expect(markup.indexOf("layer 1")).toBeLessThan(
+            markup.indexOf("layer 0"),
+        );
     });
 });

@@ -16,6 +16,7 @@ function component(
         type,
         position: { x, y },
         rotation: 0,
+        layer: 0,
     };
 }
 

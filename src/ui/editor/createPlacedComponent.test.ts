@@ -31,6 +31,7 @@ describe("createPlacedComponent", () => {
                 y: 7,
             },
             rotation: 0,
+            layer: 0,
         });
     });
 
@@ -55,5 +56,11 @@ describe("createPlacedComponent", () => {
         );
 
         expect(placedComponent.rotation).toBe(270);
+    });
+
+    it("uses the requested layer", () => {
+        const component = createPlacedComponent("wire", { x: 1, y: 2 }, 0, 1);
+
+        expect(component.layer).toBe(1);
     });
 });

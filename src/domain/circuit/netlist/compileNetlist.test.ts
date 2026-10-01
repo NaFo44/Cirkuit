@@ -26,6 +26,7 @@ function component(
         type,
         position: { x, y },
         rotation,
+        layer: 0,
     };
 }
 
@@ -53,12 +54,14 @@ describe("compileNetlist", () => {
                     type: "source",
                     position: { x: 0, y: 0 },
                     rotation: 0,
+                    layer: 0,
                 },
                 {
                     id: "light-1",
                     type: "light",
                     position: { x: 1, y: 0 },
                     rotation: 0,
+                    layer: 0,
                 },
             ],
         };
@@ -100,18 +103,21 @@ describe("compileNetlist", () => {
                     type: "source",
                     position: { x: 0, y: 0 },
                     rotation: 0,
+                    layer: 0,
                 },
                 {
                     id: "wire-1",
                     type: "wire",
                     position: { x: 1, y: 0 },
                     rotation: 0,
+                    layer: 0,
                 },
                 {
                     id: "light-1",
                     type: "light",
                     position: { x: 2, y: 0 },
                     rotation: 0,
+                    layer: 0,
                 },
             ],
         };
@@ -136,12 +142,14 @@ describe("compileNetlist", () => {
                     type: "wire",
                     position: { x: 0, y: 0 },
                     rotation: 0,
+                    layer: 0,
                 },
                 {
                     id: "light-1",
                     type: "light",
                     position: { x: 1, y: 0 },
                     rotation: 0,
+                    layer: 0,
                 },
             ],
         };

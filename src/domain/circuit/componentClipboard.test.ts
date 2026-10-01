@@ -5,7 +5,11 @@ import {
     createComponentClipboard,
     pasteComponentClipboard,
 } from "./componentClipboard";
-import type { PlacedComponent, Rotation } from "./placedComponent";
+import type {
+    CircuitLayer,
+    PlacedComponent,
+    Rotation,
+} from "./placedComponent";
 
 function component(
     id: string,
@@ -13,12 +17,14 @@ function component(
     x: number,
     y: number,
     rotation: Rotation = 0,
+    layer: CircuitLayer = 0,
 ): PlacedComponent {
     return {
         id,
         type,
         position: { x, y },
         rotation,
+        layer,
     };
 }
 
@@ -47,11 +53,13 @@ describe("componentClipboard", () => {
                     type: "source",
                     rotation: 90,
                     offset: { x: 0, y: 0 },
+                    layer: 0,
                 },
                 {
                     type: "wire",
                     rotation: 270,
                     offset: { x: 2, y: 1 },
+                    layer: 0,
                 },
             ],
         });
@@ -69,6 +77,7 @@ describe("componentClipboard", () => {
                     type: "wire",
                     rotation: 270,
                     offset: { x: 0, y: 0 },
+                    layer: 0,
                 },
             ],
         });
@@ -167,6 +176,60 @@ describe("componentClipboard", () => {
         expect(result).toBeNull();
         expect(createdIdCount).toBe(0);
         expect(circuit.components).toHaveLength(3);
+    });
+
+    it("allows a paste onto a position occupied on the other layer", () => {
+        const copied = component("copied", "wire", 0, 0, 0, 0);
+        const blocker = component("blocker", "light", 1, 0, 0, 1);
+        const circuit = CircuitLayout.from({
+            width: 3,
+            height: 1,
+            components: [copied, blocker],
+        });
+        const clipboard = createComponentClipboard(
+            circuit,
+            new Set([copied.id]),
+        );
+
+        if (!clipboard) {
+            throw new Error("Expected a clipboard");
+        }
+
+        const result = pasteComponentClipboard(
+            circuit,
+            clipboard,
+            { x: 1, y: 0 },
+            () => "copy",
+        );
+
+        expect(result?.circuit.getComponentAt({ x: 1, y: 0 }, 0)?.id).toBe(
+            "copy",
+        );
+        expect(result?.circuit.getComponentAt({ x: 1, y: 0 }, 1)).toBe(blocker);
+    });
+
+    it("rejects pasting a via onto a position occupied on either layer", () => {
+        const via = component("via", "via", 0, 0);
+        const blocker = component("blocker", "light", 1, 0, 0, 1);
+        const circuit = CircuitLayout.from({
+            width: 3,
+            height: 1,
+            components: [via, blocker],
+        });
+        const clipboard = createComponentClipboard(circuit, new Set([via.id]));
+
+        if (!clipboard) {
+            throw new Error("Expected a clipboard");
+        }
+
+        expect(
+            pasteComponentClipboard(
+                circuit,
+                clipboard,
+                { x: 1, y: 0 },
+                () => "copy",
+            ),
+        ).toBeNull();
     });
 
     it.each([

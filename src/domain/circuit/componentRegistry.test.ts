@@ -115,6 +115,53 @@ describe("ComponentRegistry", () => {
         ).toThrow('Duplicated port side "west"');
     });
 
+    it("treats an omitted layer offset as layer offset 0", () => {
+        expect(
+            () =>
+                new ComponentRegistry([
+                    createDefinition({
+                        ports: [
+                            {
+                                id: "implicit",
+                                kind: "input",
+                                side: "west",
+                            },
+                            {
+                                id: "explicit",
+                                kind: "output",
+                                side: "west",
+                                layerOffset: 0,
+                            },
+                        ],
+                    }),
+                ]),
+        ).toThrow('Duplicated port side "west"');
+    });
+
+    it("allows ports on the same side of different layers", () => {
+        expect(
+            () =>
+                new ComponentRegistry([
+                    createDefinition({
+                        ports: [
+                            {
+                                id: "top",
+                                kind: "input",
+                                side: "west",
+                                layerOffset: 0,
+                            },
+                            {
+                                id: "bottom",
+                                kind: "output",
+                                side: "west",
+                                layerOffset: 1,
+                            },
+                        ],
+                    }),
+                ]),
+        ).not.toThrow();
+    });
+
     it("rejects conductive groups with fewer than two ports", () => {
         expect(
             () =>

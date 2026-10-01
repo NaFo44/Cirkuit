@@ -12,6 +12,7 @@ import {
     parseProjectDocument,
     serializeProjectDocument,
     type ProjectDocumentV1,
+    type ProjectDocumentV2,
 } from "./projectDocument";
 
 const PROJECT: CircuitProject = {
@@ -29,18 +30,21 @@ const PROJECT: CircuitProject = {
                 type: "source",
                 position: { x: 0, y: 0 },
                 rotation: 0,
+                layer: 0,
             },
             {
                 id: "wire-1",
                 type: "wire",
                 position: { x: 1, y: 0 },
                 rotation: 0,
+                layer: 1,
             },
             {
                 id: "light-1",
                 type: "light",
                 position: { x: 2, y: 0 },
                 rotation: 0,
+                layer: 0,
             },
         ],
     }),
@@ -68,7 +72,7 @@ const PROJECT: CircuitProject = {
     ],
 };
 
-const VALID_DOCUMENT: ProjectDocumentV1 = {
+const VALID_DOCUMENT: ProjectDocumentV2 = {
     format: PROJECT_DOCUMENT_FORMAT,
     version: PROJECT_DOCUMENT_VERSION,
     viewport: {
@@ -85,18 +89,21 @@ const VALID_DOCUMENT: ProjectDocumentV1 = {
                 type: "source",
                 position: { x: 0, y: 0 },
                 rotation: 0,
+                layer: 0,
             },
             {
                 id: "wire-1",
                 type: "wire",
                 position: { x: 1, y: 0 },
                 rotation: 0,
+                layer: 1,
             },
             {
                 id: "light-1",
                 type: "light",
                 position: { x: 2, y: 0 },
                 rotation: 0,
+                layer: 0,
             },
         ],
     },
@@ -168,6 +175,34 @@ describe("projectDocument", () => {
         expect(loaded.annotations).toEqual(PROJECT.annotations);
     });
 
+    it("migrates version 1 components to layer 0", () => {
+        const document: ProjectDocumentV1 = {
+            format: PROJECT_DOCUMENT_FORMAT,
+            version: 1,
+            viewport: { x: 0, y: 0, zoom: 1 },
+            circuit: {
+                width: 1,
+                height: 1,
+                components: [
+                    {
+                        id: "wire-1",
+                        type: "wire",
+                        position: { x: 0, y: 0 },
+                        rotation: 0,
+                    },
+                ],
+            },
+            annotations: {
+                coordinateSpace: PROJECT_ANNOTATION_COORDINATE_SPACE,
+                items: [],
+            },
+        };
+
+        const project = loadProjectDocument(document, defaultComponentRegistry);
+
+        expect(project.circuit.components[0]?.layer).toBe(0);
+    });
+
     it("rejects invalid JSON", () => {
         expect(() =>
             parseProjectDocument("{", defaultComponentRegistry),
@@ -191,11 +226,11 @@ describe("projectDocument", () => {
             loadProjectDocument(
                 {
                     ...VALID_DOCUMENT,
-                    version: 2,
+                    version: 3,
                 },
                 defaultComponentRegistry,
             ),
-        ).toThrow("Invalid project document at version");
+        ).toThrow("Unsupported project document version: 3");
     });
 
     it("rejects an unsupported annotation coordinate space", () => {
@@ -222,6 +257,7 @@ describe("projectDocument", () => {
                         type: "unknown",
                         position: { x: 0, y: 0 },
                         rotation: 0,
+                        layer: 0,
                     },
                 ]),
                 defaultComponentRegistry,
@@ -238,6 +274,7 @@ describe("projectDocument", () => {
                         type: "source",
                         position: { x: 0, y: 0 },
                         rotation: 45,
+                        layer: 0,
                     },
                 ]),
                 defaultComponentRegistry,
@@ -254,17 +291,19 @@ describe("projectDocument", () => {
                         type: "source",
                         position: { x: 0, y: 0 },
                         rotation: 0,
+                        layer: 0,
                     },
                     {
                         id: "light-1",
                         type: "light",
                         position: { x: 0, y: 0 },
                         rotation: 0,
+                        layer: 0,
                     },
                 ]),
                 defaultComponentRegistry,
             ),
-        ).toThrow("Multiple components occupy position 0,0");
+        ).toThrow("Multiple components occupy position 0,0 on layer 0");
     });
 
     it("rejects unknown annotation kind", () => {

@@ -53,6 +53,7 @@ function inverter(
         type: "inverter",
         position: { x, y },
         rotation,
+        layer: 0,
     };
 }
 

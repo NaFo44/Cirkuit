@@ -1,5 +1,6 @@
-import { positionKey, type Position } from "../grid/position";
+import type { Position } from "../grid/position";
 import { CircuitLayout } from "./circuitLayout";
+import { getOccupiedLayers } from "./placedComponent";
 
 export function canMoveComponents(
     circuit: CircuitLayout,
@@ -14,11 +15,7 @@ export function canMoveComponents(
         return false;
     }
 
-    const occupiedPositions = new Set(
-        circuit.components
-            .filter((component) => !componentIds.has(component.id))
-            .map((component) => positionKey(component.position)),
-    );
+    const remainingCircuit = circuit.withoutComponents(componentIds);
 
     return selectedComponents.every((component) => {
         const position = {
@@ -26,12 +23,18 @@ export function canMoveComponents(
             y: component.position.y + offset.y,
         };
 
-        return (
-            position.x >= 0 &&
-            position.x < circuit.width &&
-            position.y >= 0 &&
-            position.y < circuit.height &&
-            !occupiedPositions.has(positionKey(position))
+        if (
+            position.x < 0 ||
+            position.x >= circuit.width ||
+            position.y < 0 ||
+            position.y >= circuit.height
+        ) {
+            return false;
+        }
+
+        return getOccupiedLayers(component).every(
+            (layer) =>
+                remainingCircuit.getComponentAt(position, layer) === undefined,
         );
     });
 }

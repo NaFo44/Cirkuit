@@ -10,7 +10,10 @@ import {
 import type { Position } from "../../domain/grid/position";
 import { ComponentGlyph } from "../components/componentGlyph";
 import type { ComponentVisualState } from "../components/componentVisualState";
-import type { PlacedComponent } from "../../domain/circuit/placedComponent";
+import type {
+    CircuitLayer,
+    PlacedComponent,
+} from "../../domain/circuit/placedComponent";
 import { createCellLighting } from "../lighting/createCellLighting";
 import {
     getComponentHoverLabel,
@@ -19,6 +22,7 @@ import {
 
 interface CircuitGridProps {
     circuit: Circuit;
+    activeLayer?: CircuitLayer;
     onCellPaint?: (position: Position) => void;
     onPaintStart?: () => void;
     onPaintEnd?: () => void;
@@ -31,6 +35,7 @@ interface CircuitGridProps {
 
 export function CircuitGrid({
     circuit,
+    activeLayer = 0,
     onCellPaint,
     onPaintStart,
     onPaintEnd,
@@ -46,6 +51,20 @@ export function CircuitGrid({
         () => createCellLighting(circuit, componentVisualStates),
         [circuit, componentVisualStates],
     );
+
+    const renderedComponents = useMemo(() => {
+        const renderPriority = (component: PlacedComponent): number => {
+            if (component.type === "via") {
+                return 2;
+            }
+
+            return component.layer === activeLayer ? 1 : 0;
+        };
+
+        return [...circuit.components].sort(
+            (first, second) => renderPriority(first) - renderPriority(second),
+        );
+    }, [activeLayer, circuit.components]);
 
     const paintAtPointer = (event: ReactPointerEvent<HTMLDivElement>) => {
         const gridElement = event.currentTarget;
@@ -173,12 +192,18 @@ export function CircuitGrid({
                 );
             })}
 
-            {circuit.components.map((component) => {
+            {renderedComponents.map((component) => {
+                const isVia = component.type === "via";
+                const isActiveLayer = component.layer === activeLayer;
+
+                const isInactiveLayer = !isVia && !isActiveLayer;
+
                 const { x, y } = component.position;
                 const position = gridToWorld(x, y);
                 const visualState =
                     componentVisualStates.get(component.id) ?? "default";
                 const interactive =
+                    !isInactiveLayer &&
                     onComponentInteract !== undefined &&
                     (isComponentInteractive?.(component) ?? true);
                 const presentation = getComponentPresentation(component.type);
@@ -200,6 +225,9 @@ export function CircuitGrid({
                             `circuit-component--${visualState}`,
                             `circuit-component--glyph-${presentation.glyphVisibility}`,
                             interactive ? "circuit-component--interactive" : "",
+                            isInactiveLayer
+                                ? "circuit-component--inactive-layer"
+                                : "",
                         ]
                             .filter(Boolean)
                             .join(" ")}
@@ -230,8 +258,10 @@ export function CircuitGrid({
                             top: position.y,
                             width: CELL_SIZE,
                             height: CELL_SIZE,
+                            opacity: isInactiveLayer ? 0.25 : 1,
+                            pointerEvents: isInactiveLayer ? "none" : "auto",
                         }}
-                        aria-label={`Cell ${x},${y}: ${hoverLabel}, ${component.rotation} degrees`}
+                        aria-label={`Cell ${x},${y}, layer ${component.layer}: ${hoverLabel}, ${component.rotation} degrees`}
                         aria-rowindex={y + 1}
                         aria-colindex={x + 1}
                         aria-selected={selected || undefined}

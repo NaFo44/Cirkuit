@@ -24,15 +24,31 @@ function resolveDirectionalSignal(
     component: PlacedComponent,
     simulation: Simulation,
 ): Signal {
+    return resolvePortSignals(component, simulation, DIRECTIONS);
+}
+
+function resolvePortSignals(
+    component: PlacedComponent,
+    simulation: Simulation,
+    portIds: readonly string[],
+): Signal {
     return resolveSignals(
-        DIRECTIONS.map((portId) =>
+        portIds.map((portId) =>
             getPortSignal(simulation, component.id, portId),
         ),
     );
 }
 
+const VIA_PORT_IDS = [
+    ...DIRECTIONS,
+    ...DIRECTIONS.map((direction) => `${direction}-other`),
+];
+
 const VISUAL_STATE_RESOLVERS = {
     wire: resolveDirectionalSignal,
+
+    via: (component, simulation) =>
+        resolvePortSignals(component, simulation, VIA_PORT_IDS),
 
     source: () => "default",
 

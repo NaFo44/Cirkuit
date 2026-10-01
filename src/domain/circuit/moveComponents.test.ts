@@ -2,7 +2,11 @@ import { describe, expect, it } from "vitest";
 
 import { CircuitLayout } from "./circuitLayout";
 import { canMoveComponents, moveComponents } from "./moveComponents";
-import type { PlacedComponent, Rotation } from "./placedComponent";
+import type {
+    CircuitLayer,
+    PlacedComponent,
+    Rotation,
+} from "./placedComponent";
 
 function component(
     id: string,
@@ -10,12 +14,14 @@ function component(
     x: number,
     y: number,
     rotation: Rotation = 0,
+    layer: CircuitLayer = 0,
 ): PlacedComponent {
     return {
         id,
         type,
         position: { x, y },
         rotation,
+        layer,
     };
 }
 
@@ -98,6 +104,36 @@ describe("moveComponents", () => {
             x: 1,
             y: 1,
         });
+    });
+
+    it("allows a move onto a position occupied on the other layer", () => {
+        const circuit = CircuitLayout.from({
+            width: 3,
+            height: 1,
+            components: [
+                component("wire", "wire", 0, 0, 0, 0),
+                component("blocker", "light", 1, 0, 0, 1),
+            ],
+        });
+
+        expect(
+            canMoveComponents(circuit, new Set(["wire"]), { x: 1, y: 0 }),
+        ).toBe(true);
+    });
+
+    it("rejects moving a via onto a position occupied on either layer", () => {
+        const circuit = CircuitLayout.from({
+            width: 3,
+            height: 1,
+            components: [
+                component("via", "via", 0, 0),
+                component("blocker", "light", 1, 0, 0, 1),
+            ],
+        });
+
+        expect(
+            canMoveComponents(circuit, new Set(["via"]), { x: 1, y: 0 }),
+        ).toBe(false);
     });
 
     it.each([

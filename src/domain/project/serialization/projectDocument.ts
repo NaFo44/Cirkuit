@@ -10,7 +10,7 @@ import {
     PROJECT_DOCUMENT_VERSION,
     parseProjectDocumentValue,
     type ProjectAnnotationV1,
-    type ProjectDocumentV1,
+    type ProjectDocumentV2,
     type ProjectPointV1,
 } from "./projectDocumentSchema";
 
@@ -20,12 +20,15 @@ export {
     PROJECT_DOCUMENT_VERSION,
     ProjectAnnotationV1Schema,
     ProjectDocumentV1Schema,
+    ProjectDocumentV2Schema,
 } from "./projectDocumentSchema";
 
 export type {
     ProjectAnnotationV1,
     ProjectComponentV1,
+    ProjectComponentV2,
     ProjectDocumentV1,
+    ProjectDocumentV2,
     ProjectLabelAnnotationV1,
     ProjectLineAnnotationV1,
     ProjectPointV1,
@@ -150,7 +153,7 @@ function createDocumentAnnotation(
 }
 
 function validateComponentTypes(
-    document: ProjectDocumentV1,
+    document: ProjectDocumentV2,
     registry: ComponentRegistry,
 ): void {
     for (const component of document.circuit.components) {
@@ -190,7 +193,7 @@ export function loadProjectDocument(
 export function createProjectDocument(
     project: CircuitProject,
     registry: ComponentRegistry,
-): ProjectDocumentV1 {
+): ProjectDocumentV2 {
     const circuit = CircuitLayout.from(project.circuit);
 
     const document = {
@@ -214,6 +217,7 @@ export function createProjectDocument(
                     y: component.position.y,
                 },
                 rotation: component.rotation,
+                layer: component.layer,
             })),
         },
 
@@ -221,7 +225,7 @@ export function createProjectDocument(
             coordinateSpace: PROJECT_ANNOTATION_COORDINATE_SPACE,
             items: project.annotations.map(createDocumentAnnotation),
         },
-    } satisfies ProjectDocumentV1;
+    } satisfies ProjectDocumentV2;
 
     // Generated documents follow the same validation as imported documents.
     loadProjectDocument(document, registry);

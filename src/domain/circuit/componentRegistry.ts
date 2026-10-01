@@ -1,4 +1,5 @@
 import type { ComponentDefinition } from "./componentDefinition";
+import { isCircuitLayer } from "./placedComponent";
 
 function validateDefinition(definition: ComponentDefinition): void {
     if (definition.type.trim() === "") {
@@ -25,7 +26,7 @@ function validateDefinition(definition: ComponentDefinition): void {
 
     const portsById = new Map(definition.ports.map((port) => [port.id, port]));
 
-    const sides = new Set<string>();
+    const portPositions = new Set<string>();
 
     if (portsById.size !== definition.ports.length) {
         throw new Error(
@@ -40,13 +41,23 @@ function validateDefinition(definition: ComponentDefinition): void {
             );
         }
 
-        if (sides.has(port.side)) {
+        const layerOffset = port.layerOffset ?? 0;
+
+        if (!isCircuitLayer(layerOffset)) {
+            throw new Error(
+                `Invalid port layer offset for "${port.id}" in component type: ${definition.type}`,
+            );
+        }
+
+        const positionKey = `${port.side}:${layerOffset}`;
+
+        if (portPositions.has(positionKey)) {
             throw new Error(
                 `Duplicated port side "${port.side}" in component type: ${definition.type}`,
             );
         }
 
-        sides.add(port.side);
+        portPositions.add(positionKey);
     }
 
     const conductivePortIds = new Set<string>();

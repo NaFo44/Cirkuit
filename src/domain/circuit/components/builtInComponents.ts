@@ -5,10 +5,12 @@ import { lightDefinition } from "./light";
 import { notDefinition } from "./not";
 import { sourceDefinition } from "./source";
 import { switchDefinition } from "./switch";
+import { viaDefinition } from "./via";
 import { wireDefinition } from "./wire";
 
 export const BUILT_IN_COMPONENT_DEFINITIONS = [
     wireDefinition,
+    viaDefinition,
     sourceDefinition,
     lightDefinition,
     switchDefinition,

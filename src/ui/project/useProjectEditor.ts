@@ -14,6 +14,7 @@ import {
     undoHistory,
     type HistoryState,
 } from "../../domain/circuit/history/history";
+import type { CircuitLayer } from "../../domain/circuit/placedComponent";
 
 interface ProjectEditor {
     readonly project: CircuitProject;
@@ -21,7 +22,11 @@ interface ProjectEditor {
 
     readonly beginPaint: () => void;
 
-    readonly paintCell: (tool: CircuitEditorTool, position: Position) => void;
+    readonly paintCell: (
+        tool: CircuitEditorTool,
+        position: Position,
+        layer: CircuitLayer,
+    ) => void;
 
     readonly endPaint: () => void;
 
@@ -89,12 +94,13 @@ export function useProjectEditor(
     }, []);
 
     const paintCell = useCallback(
-        (tool: CircuitEditorTool, position: Position) => {
+        (tool: CircuitEditorTool, position: Position, layer: CircuitLayer) => {
             const updated: ProjectUpdater = (currentProject) => {
                 const nextCircuit = applyEditorTool(
                     currentProject.circuit,
                     tool,
                     position,
+                    layer,
                 );
 
                 if (nextCircuit === currentProject.circuit) {
@@ -127,8 +133,10 @@ export function useProjectEditor(
 
                 return;
             }
+
+            updateProject(updated);
         },
-        [],
+        [updateProject],
     );
 
     const endPaint = useCallback(() => {

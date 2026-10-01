@@ -3,6 +3,7 @@ import {
     Zap,
     Plug,
     Switch as SwitchIcon,
+    Gps,
 } from "pixelarticons/react";
 import {
     isBuiltInComponentType,
@@ -21,6 +22,7 @@ const COMPONENT_ICONS: Record<BuiltInComponentType, PixelIcon> = {
     switch: SwitchIcon,
     not: NotGateIcon,
     and: AndGateIcon,
+    via: Gps,
 };
 
 interface ComponentGlyphProps {

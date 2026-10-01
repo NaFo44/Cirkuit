@@ -5,6 +5,10 @@ import { compileNetlist } from "./netlist/compileNetlist";
 import { portKey } from "./netlist/netlist";
 import { CircuitLayout } from "./circuitLayout";
 import type { PlacedComponent, Rotation } from "./placedComponent";
+import { getPortSignal } from "./simulation/simulationEngine";
+import { createSimulation } from "./simulation/simulationEngine";
+import { SIGNALS } from "./signal";
+import type { CircuitLayer } from "./placedComponent";
 
 function component(
     id: string,
@@ -12,12 +16,14 @@ function component(
     x: number,
     y: number,
     rotation: Rotation = 0,
+    layer: CircuitLayer = 0,
 ): PlacedComponent {
     return {
         id,
         type,
         position: { x, y },
         rotation,
+        layer,
     };
 }
 
@@ -289,7 +295,34 @@ describe("CircuitLayout", () => {
                     component("light-1", "light", 0, 0),
                 ],
             }),
-        ).toThrow("Multiple components occupy position 0,0");
+        ).toThrow("Multiple components occupy position 0,0 on layer 0");
+    });
+
+    it("allows components at the same position on different layers", () => {
+        const top = component("top", "wire", 0, 0, 0, 0);
+        const bottom = component("bottom", "wire", 0, 0, 0, 1);
+
+        const layout = CircuitLayout.from({
+            width: 1,
+            height: 1,
+            components: [top, bottom],
+        });
+
+        expect(layout.getComponentAt({ x: 0, y: 0 }, 0)).toBe(top);
+        expect(layout.getComponentAt({ x: 0, y: 0 }, 1)).toBe(bottom);
+    });
+
+    it("reserves both layers for a via", () => {
+        expect(() =>
+            CircuitLayout.from({
+                width: 1,
+                height: 1,
+                components: [
+                    component("via", "via", 0, 0, 0, 0),
+                    component("wire", "wire", 0, 0, 0, 1),
+                ],
+            }),
+        ).toThrow("Multiple components occupy position 0,0 on layer 1");
     });
 
     it("rejects an invalid rotation when rebuilding a layout", () => {
@@ -382,5 +415,46 @@ describe("CircuitLayout", () => {
         const result = layout.withoutComponents(new Set());
 
         expect(result).toBe(layout);
+    });
+
+    it.each([0, 1] as const)(
+        "connects both layers through a via placed on layer %i",
+        (viaLayer) => {
+            const circuit = CircuitLayout.from({
+                width: 3,
+                height: 1,
+                components: [
+                    component("source", "source", 0, 0, 0, 0),
+                    component("via", "via", 1, 0, 0, viaLayer),
+                    component("light", "light", 2, 0, 0, 1),
+                ],
+            });
+
+            const simulation = createSimulation(
+                circuit,
+                defaultComponentRegistry,
+            );
+
+            expect(getPortSignal(simulation, "light", "west")).toBe(
+                SIGNALS.high,
+            );
+        },
+    );
+
+    it("does not connect adjacent components on different layers", () => {
+        const circuit = CircuitLayout.from({
+            width: 2,
+            height: 1,
+            components: [
+                component("source", "source", 0, 0, 0, 0),
+                component("light", "light", 1, 0, 0, 1),
+            ],
+        });
+
+        const simulation = createSimulation(circuit, defaultComponentRegistry);
+
+        expect(getPortSignal(simulation, "light", "west")).toBe(
+            SIGNALS.floating,
+        );
     });
 });

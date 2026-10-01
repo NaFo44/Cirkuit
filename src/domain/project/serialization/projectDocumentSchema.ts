@@ -3,7 +3,7 @@ import { z } from "zod";
 import { isRotation, type Rotation } from "../../circuit/placedComponent";
 
 export const PROJECT_DOCUMENT_FORMAT = "cirkuit-project" as const;
-export const PROJECT_DOCUMENT_VERSION = 1 as const;
+export const PROJECT_DOCUMENT_VERSION = 2 as const;
 export const PROJECT_ANNOTATION_COORDINATE_SPACE = "grid" as const;
 
 const NonBlankStringSchema = z
@@ -137,7 +137,7 @@ const ProjectAnnotationsV1Schema = z
 export const ProjectDocumentV1Schema = z
     .object({
         format: z.literal(PROJECT_DOCUMENT_FORMAT),
-        version: z.literal(PROJECT_DOCUMENT_VERSION),
+        version: z.literal(1),
 
         viewport: ProjectViewportV1Schema,
 
@@ -172,6 +172,39 @@ export type ProjectAnnotationV1 = z.infer<typeof ProjectAnnotationV1Schema>;
 
 export type ProjectDocumentV1 = z.infer<typeof ProjectDocumentV1Schema>;
 
+const ProjectComponentV2Schema = z
+    .object({
+        id: NonBlankStringSchema,
+        type: NonBlankStringSchema,
+        position: ProjectGridPositionV1Schema,
+        rotation: RotationSchema,
+        layer: z.union([z.literal(0), z.literal(1)]),
+    })
+    .strict();
+
+export const ProjectDocumentV2Schema = z
+    .object({
+        format: z.literal(PROJECT_DOCUMENT_FORMAT),
+        version: z.literal(PROJECT_DOCUMENT_VERSION),
+
+        viewport: ProjectViewportV1Schema,
+
+        circuit: z
+            .object({
+                width: FiniteNumberSchema.int().positive(),
+                height: FiniteNumberSchema.int().positive(),
+                components: z.array(ProjectComponentV2Schema),
+            })
+            .strict(),
+
+        annotations: ProjectAnnotationsV1Schema,
+    })
+    .strict();
+
+export type ProjectComponentV2 = z.infer<typeof ProjectComponentV2Schema>;
+
+export type ProjectDocumentV2 = z.infer<typeof ProjectDocumentV2Schema>;
+
 function formatIssuePath(path: readonly PropertyKey[]): string {
     return path.reduce<string>((result, part) => {
         if (typeof part === "number") {
@@ -184,21 +217,83 @@ function formatIssuePath(path: readonly PropertyKey[]): string {
     }, "");
 }
 
-export function parseProjectDocumentValue(value: unknown): ProjectDocumentV1 {
-    const result = ProjectDocumentV1Schema.safeParse(value);
+export function parseProjectDocumentValue(value: unknown): ProjectDocumentV2 {
+    const versionResult = z
+        .object({
+            format: z.literal(PROJECT_DOCUMENT_FORMAT),
+            version: z.number().int(),
+        })
+        .passthrough()
+        .safeParse(value);
 
-    if (result.success) {
-        return result.data;
+    if (!versionResult.success) {
+        const [issue] = versionResult.error.issues;
+
+        if (issue === undefined) {
+            throw new Error("Invalid project document");
+        }
+
+        const path = formatIssuePath(issue.path);
+        const location = path === "" ? "" : ` at ${path}`;
+
+        throw new Error(
+            `Invalid project document${location}: ${issue.message}`,
+        );
     }
 
-    const [issue] = result.error.issues;
+    if (versionResult.data.version === 1) {
+        const result = ProjectDocumentV1Schema.safeParse(value);
 
-    if (issue === undefined) {
-        throw new Error("Invalid project document");
+        if (!result.success) {
+            const [issue] = result.error.issues;
+
+            if (issue === undefined) {
+                throw new Error("Invalid project document");
+            }
+
+            const path = formatIssuePath(issue.path);
+            const location = path === "" ? "" : ` at ${path}`;
+
+            throw new Error(
+                `Invalid project document${location}: ${issue.message}`,
+            );
+        }
+
+        return {
+            ...result.data,
+            version: 2,
+            circuit: {
+                ...result.data.circuit,
+                components: result.data.circuit.components.map((component) => ({
+                    ...component,
+                    layer: 0,
+                })),
+            },
+        };
     }
 
-    const path = formatIssuePath(issue.path);
-    const location = path === "" ? "" : ` at ${path}`;
+    if (versionResult.data.version === 2) {
+        const result = ProjectDocumentV2Schema.safeParse(value);
 
-    throw new Error(`Invalid project document${location}: ${issue.message}`);
+        if (result.success) {
+            return result.data;
+        }
+
+        const [issue] = result.error.issues;
+
+        if (issue === undefined) {
+            throw new Error("Invalid project document");
+        }
+
+        const path = formatIssuePath(issue.path);
+        const location = path === "" ? "" : ` at ${path}`;
+
+        throw new Error(
+            `Invalid project document${location}: ${issue.message}`,
+        );
+    }
+
+    throw new Error(
+        `Unsupported project document version: ${versionResult.data.version}`,
+    );
 }

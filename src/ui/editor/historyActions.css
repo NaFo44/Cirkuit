@@ -12,6 +12,7 @@
     border: 0;
     transform-origin: center;
     opacity: 0.85;
+    cursor: pointer;
 }
 
 .history-actions__button:hover {
@@ -24,6 +25,7 @@
 
 .history-actions__button:disabled {
     opacity: 0.4;
+    cursor: default;
 }
 
 .workspace-sidebar:not(.workspace-sidebar--collapsed) ~ .history-actions {

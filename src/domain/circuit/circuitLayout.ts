@@ -1,6 +1,12 @@
 import { positionKey, type Position } from "../grid/position";
 import type { Circuit } from "./circuit";
-import { isRotation, type PlacedComponent } from "./placedComponent";
+import {
+    getOccupiedLayers,
+    isCircuitLayer,
+    isRotation,
+    type CircuitLayer,
+    type PlacedComponent,
+} from "./placedComponent";
 
 function samePosition(first: Position, second: Position): boolean {
     return first.x === second.x && first.y === second.y;
@@ -14,8 +20,13 @@ function sameComponent(
         first.id === second.id &&
         first.type === second.type &&
         first.rotation === second.rotation &&
+        first.layer === second.layer &&
         samePosition(first.position, second.position)
     );
+}
+
+function positionLayerKey(position: Position, layer: CircuitLayer): string {
+    return `${layer}:${positionKey(position)}`;
 }
 
 export class CircuitLayout implements Circuit {
@@ -36,12 +47,18 @@ export class CircuitLayout implements Circuit {
         this.height = height;
         this.components = [...components];
 
-        this.componentByPosition = new Map(
-            this.components.map((component) => [
-                positionKey(component.position),
-                component,
-            ]),
-        );
+        const componentByPosition = new Map<string, PlacedComponent>();
+
+        for (const component of this.components) {
+            for (const layer of getOccupiedLayers(component)) {
+                componentByPosition.set(
+                    positionLayerKey(component.position, layer),
+                    component,
+                );
+            }
+        }
+
+        this.componentByPosition = componentByPosition;
 
         this.componentById = new Map(
             this.components.map((component) => [component.id, component]),
@@ -75,13 +92,17 @@ export class CircuitLayout implements Circuit {
 
             componentIds.add(component.id);
 
-            const key = positionKey(component.position);
+            for (const layer of getOccupiedLayers(component)) {
+                const key = positionLayerKey(component.position, layer);
 
-            if (occupiedPositions.has(key)) {
-                throw new Error(`Multiple components occupy position ${key}`);
+                if (occupiedPositions.has(key)) {
+                    throw new Error(
+                        `Multiple components occupy position ${positionKey(component.position)} on layer ${layer}`,
+                    );
+                }
+
+                occupiedPositions.add(key);
             }
-
-            occupiedPositions.add(key);
         }
 
         return new CircuitLayout(
@@ -91,40 +112,62 @@ export class CircuitLayout implements Circuit {
         );
     }
 
-    getComponentAt(position: Position): PlacedComponent | undefined {
-        return this.componentByPosition.get(positionKey(position));
+    getComponentAt(
+        position: Position,
+        layer: CircuitLayer = 0,
+    ): PlacedComponent | undefined {
+        return this.componentByPosition.get(positionLayerKey(position, layer));
     }
 
     withComponent(component: PlacedComponent): CircuitLayout {
         this.validateComponent(component);
 
         const existingById = this.componentById.get(component.id);
-        const existingAtPosition = this.getComponentAt(component.position);
 
-        if (existingById && existingById !== existingAtPosition) {
+        if (
+            existingById &&
+            !samePosition(existingById.position, component.position)
+        ) {
             throw new Error(
                 `Component id is already used at another position: ${component.id}`,
             );
         }
 
-        if (
-            existingAtPosition &&
-            sameComponent(existingAtPosition, component)
-        ) {
+        const targetLayers = getOccupiedLayers(component);
+
+        const componentsToRemove = new Set<string>();
+
+        if (existingById) {
+            componentsToRemove.add(existingById.id);
+        }
+
+        for (const layer of targetLayers) {
+            const existing = this.getComponentAt(component.position, layer);
+
+            if (existing) {
+                componentsToRemove.add(existing.id);
+            }
+        }
+
+        if (existingById && sameComponent(existingById, component)) {
             return this;
         }
 
         const components = this.components.filter(
-            (existing) => existing !== existingAtPosition,
+            (existing) => !componentsToRemove.has(existing.id),
         );
 
-        components.push(component);
-
-        return new CircuitLayout(this.width, this.height, components);
+        return new CircuitLayout(this.width, this.height, [
+            ...components,
+            component,
+        ]);
     }
 
-    withoutComponentAt(position: Position): CircuitLayout {
-        const existing = this.getComponentAt(position);
+    withoutComponentAt(
+        position: Position,
+        layer: CircuitLayer = 0,
+    ): CircuitLayout {
+        const existing = this.getComponentAt(position, layer);
 
         if (!existing) {
             return this;
@@ -168,6 +211,10 @@ export class CircuitLayout implements Circuit {
 
         if (!isRotation(component.rotation)) {
             throw new Error(`Invalid component rotation: ${component.id}`);
+        }
+
+        if (!isCircuitLayer(component.layer)) {
+            throw new Error(`Invalid component layer: ${component.id}`);
         }
 
         const { x, y } = component.position;

@@ -1,10 +1,15 @@
-import { positionKey, type Position } from "../grid/position";
+import type { Position } from "../grid/position";
 import { CircuitLayout } from "./circuitLayout";
-import type { Rotation } from "./placedComponent";
+import {
+    getOccupiedLayers,
+    type CircuitLayer,
+    type Rotation,
+} from "./placedComponent";
 
 interface ClipboardComponent {
     readonly type: string;
     readonly rotation: Rotation;
+    readonly layer: CircuitLayer;
     readonly offset: Position;
 }
 
@@ -44,6 +49,7 @@ export function createComponentClipboard(
         components: selectedComponents.map((component) => ({
             type: component.type,
             rotation: component.rotation,
+            layer: component.layer,
             offset: {
                 x: component.position.x - origin.x,
                 y: component.position.y - origin.y,
@@ -58,33 +64,36 @@ export function pasteComponentClipboard(
     position: Position,
     createId: ComponentIdFactory,
 ): PasteResult | null {
-    const occupiedPositions = new Set(
-        circuit.components.map((component) => positionKey(component.position)),
-    );
-
-    const pastedPositions = clipboard.components.map((component) => ({
-        x: position.x + component.offset.x,
-        y: position.y + component.offset.y,
+    const pastedPlacements = clipboard.components.map((component) => ({
+        type: component.type,
+        rotation: component.rotation,
+        layer: component.layer,
+        position: {
+            x: position.x + component.offset.x,
+            y: position.y + component.offset.y,
+        },
     }));
 
-    const canPaste = pastedPositions.every(
-        (componentPosition) =>
-            componentPosition.x >= 0 &&
-            componentPosition.x < circuit.width &&
-            componentPosition.y >= 0 &&
-            componentPosition.y < circuit.height &&
-            !occupiedPositions.has(positionKey(componentPosition)),
-    );
+    const canPaste = pastedPlacements.every((component) => {
+        const { x, y } = component.position;
+
+        if (x < 0 || x >= circuit.width || y < 0 || y >= circuit.height) {
+            return false;
+        }
+
+        return getOccupiedLayers(component).every(
+            (layer) =>
+                circuit.getComponentAt(component.position, layer) === undefined,
+        );
+    });
 
     if (!canPaste) {
         return null;
     }
 
-    const pastedComponents = clipboard.components.map((component, index) => ({
+    const pastedComponents = pastedPlacements.map((component) => ({
         id: createId(),
-        type: component.type,
-        rotation: component.rotation,
-        position: pastedPositions[index],
+        ...component,
     }));
 
     return {

@@ -4,6 +4,7 @@
     --grid-line: #dfdfdf;
 
     --cell-wire: #bbddff;
+    --cell-via: #ffd166;
     --cell-source: #ff99cc;
     --cell-light: #ffe3c7;
     --cell-switch: #b8dfb3;
@@ -124,6 +125,18 @@ button {
 }
 
 .circuit-cell--wire.circuit-component--high {
+    background: var(--signal-high);
+}
+
+.circuit-cell--via {
+    background: var(--cell-via);
+}
+
+.circuit-cell--via.circuit-component--low {
+    background: var(--signal-low);
+}
+
+.circuit-cell--via.circuit-component--high {
     background: var(--signal-high);
 }
 
@@ -430,7 +443,51 @@ button {
     left: 26px;
 }
 
+.layer-switcher {
+    position: fixed;
+    top: 16px;
+    left: 50%;
+    z-index: 9;
+    transform: translateX(-50%);
+
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    color: #515151;
+}
+
+.workspace-sidebar:not(.workspace-sidebar--collapsed) ~ .layer-switcher {
+    /* Center in the viewport area that remains to the right of the sidebar. */
+    left: min(calc(50% + 155px), calc(100% - 17px));
+}
+
+.layer-switcher span {
+    font-weight: 600;
+}
+
+.layer-switcher__button {
+    color: #515151;
+    background: transparent;
+    border: 0;
+    transform-origin: center;
+    opacity: 0.85;
+    cursor: pointer;
+}
+
+.layer-switcher__button:hover {
+    opacity: 1;
+}
+
+.layer-switcher__button:active svg {
+    transform: scale(0.95);
+}
+
 @media (max-width: 640px), (max-height: 600px) {
+    .workspace-sidebar:not(.workspace-sidebar--collapsed) ~ .layer-switcher {
+        left: 50%;
+    }
+
     .component-palette {
         --palette-item-size: 44px;
         --palette-icon-size: 20px;

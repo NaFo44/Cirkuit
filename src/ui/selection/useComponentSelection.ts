@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 import {
     createComponentClipboard,
@@ -15,10 +15,12 @@ import {
     getComponentsInsideRectangle,
     type SelectionRectangle,
 } from "./componentSelection";
+import type { CircuitLayer } from "../../domain/circuit/placedComponent";
 
 interface UseComponentSelectionOptions {
     readonly enabled: boolean;
     readonly circuit: CircuitLayout;
+    readonly activeLayer: CircuitLayer;
     readonly getPastePosition: () => Position | null;
     readonly onCircuitChange: (circuit: CircuitLayout) => void;
 }
@@ -43,9 +45,17 @@ function isTextEditingTarget(target: EventTarget | null): boolean {
     );
 }
 
+function isComponentSelectableOnLayer(
+    component: CircuitLayout["components"][number],
+    activeLayer: CircuitLayer,
+): boolean {
+    return component.type === "via" || component.layer === activeLayer;
+}
+
 export function useComponentSelection({
     enabled,
     circuit,
+    activeLayer,
     getPastePosition,
     onCircuitChange,
 }: UseComponentSelectionOptions): ComponentSelection {
@@ -71,17 +81,40 @@ export function useComponentSelection({
 
     const selectRectangle = useCallback(
         (rectangle: SelectionRectangle) => {
-            setSelectedComponentIds(
-                getComponentsInsideRectangle(circuit.components, rectangle),
+            const componentIds = getComponentsInsideRectangle(
+                circuit.components.filter((component) =>
+                    isComponentSelectableOnLayer(component, activeLayer),
+                ),
+                rectangle,
             );
+
+            setSelectedComponentIds(componentIds);
         },
-        [circuit],
+        [activeLayer, circuit],
+    );
+
+    const effectiveSelectedComponentIds = useMemo(
+        () =>
+            new Set(
+                [...selectedComponentIds].filter((componentId) => {
+                    const component = circuit.components.find(
+                        (candidate) => candidate.id === componentId,
+                    );
+
+                    return (
+                        component !== undefined &&
+                        isComponentSelectableOnLayer(component, activeLayer)
+                    );
+                }),
+            ),
+        [activeLayer, circuit, selectedComponentIds],
     );
 
     const canMoveSelection = useCallback(
         (offset: Position) =>
-            enabled && canMoveComponents(circuit, selectedComponentIds, offset),
-        [circuit, enabled, selectedComponentIds],
+            enabled &&
+            canMoveComponents(circuit, effectiveSelectedComponentIds, offset),
+        [circuit, enabled, effectiveSelectedComponentIds],
     );
 
     const moveSelection = useCallback(
@@ -92,7 +125,7 @@ export function useComponentSelection({
 
             const nextCircuit = moveComponents(
                 circuit,
-                selectedComponentIds,
+                effectiveSelectedComponentIds,
                 offset,
             );
 
@@ -100,7 +133,7 @@ export function useComponentSelection({
                 onCircuitChange(nextCircuit);
             }
         },
-        [circuit, enabled, onCircuitChange, selectedComponentIds],
+        [circuit, enabled, effectiveSelectedComponentIds, onCircuitChange],
     );
 
     useEffect(() => {
@@ -160,7 +193,7 @@ export function useComponentSelection({
             if (key === "c") {
                 const clipboard = createComponentClipboard(
                     circuit,
-                    selectedComponentIds,
+                    effectiveSelectedComponentIds,
                 );
 
                 if (!clipboard) {
@@ -207,14 +240,14 @@ export function useComponentSelection({
     }, [
         circuit,
         enabled,
+        effectiveSelectedComponentIds,
         getPastePosition,
         onCircuitChange,
-        selectedComponentIds,
     ]);
 
     return {
         isSelectionModifierPressed,
-        selectedComponentIds,
+        selectedComponentIds: effectiveSelectedComponentIds,
         selectRectangle,
         canMoveSelection,
         moveSelection,

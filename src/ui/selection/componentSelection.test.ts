@@ -21,6 +21,7 @@ function component(
         type: "wire",
         position: { x, y },
         rotation,
+        layer: 0,
     };
 }
 

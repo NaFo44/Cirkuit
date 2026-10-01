@@ -33,6 +33,13 @@ const COMPONENT_PRESENTATIONS = {
         getStateLabel: (visualState) => WIRE_STATE_LABELS[visualState],
         rotatable: false,
     },
+    via: {
+        label: "Via",
+        paletteColor: "var(--cell-via)",
+        glyphVisibility: "always",
+        getStateLabel: (visualState) => WIRE_STATE_LABELS[visualState],
+        rotatable: false,
+    },
     source: {
         label: "Source",
         paletteColor: "var(--cell-source)",

@@ -36,12 +36,15 @@ import { useGridPointerPosition } from "./ui/grid/useGridPointerPosition";
 import { useUndoShortcut } from "./ui/project/useHistoryShortcut";
 import { CellPreview } from "./ui/grid/cellPreview";
 import { HistoryActions } from "./ui/editor/historyActions";
+import type { CircuitLayer } from "./domain/circuit/placedComponent";
+import { ChevronDown, ChevronUp } from "pixelarticons/react";
 
 const EMPTY_COMPONENT_VISUAL_STATES: ReadonlyMap<string, ComponentVisualState> =
     new Map();
 
 export function App() {
     const [mode, setMode] = useState<EditorMode>("edit");
+    const [activeLayer, setActiveLayer] = useState<CircuitLayer>(0);
     const mapViewportRef = useRef<MapViewportHandle>(null);
 
     const toggleMode = useCallback(() => {
@@ -117,6 +120,7 @@ export function App() {
     } = useComponentSelection({
         enabled: mode === "edit",
         circuit,
+        activeLayer,
         getPastePosition,
         onCircuitChange: updateCircuit,
     });
@@ -136,9 +140,9 @@ export function App() {
             }
 
             clearSelection();
-            paintProjectCell(selectedTool, position);
+            paintProjectCell(selectedTool, position, activeLayer);
         },
-        [clearSelection, paintProjectCell, selectedTool],
+        [activeLayer, clearSelection, paintProjectCell, selectedTool],
     );
 
     const handlePaintStart = useCallback(() => {
@@ -156,6 +160,7 @@ export function App() {
     const handleProjectOpen = useCallback(
         (importedProject: CircuitProject) => {
             setMode("edit");
+            setActiveLayer(0);
             setHoveredComponentId(null);
             resetSelectionState();
             replaceProject(importedProject);
@@ -268,6 +273,7 @@ export function App() {
                 >
                     <CircuitGrid
                         circuit={circuit}
+                        activeLayer={activeLayer}
                         selectedComponentIds={
                             mode === "edit" ? selectedComponentIds : undefined
                         }
@@ -344,6 +350,40 @@ export function App() {
             >
                 <EditorHints mode={mode} />
             </WorkspaceSidebar>
+
+            <div
+                className="layer-switcher"
+                role="group"
+                aria-label="Circuit layer"
+            >
+                <button
+                    type="button"
+                    className="layer-switcher__button"
+                    aria-label="Select top layer"
+                    aria-pressed={activeLayer === 0}
+                    title="Top layer"
+                    onClick={() => {
+                        clearSelection();
+                        setActiveLayer(0);
+                    }}
+                >
+                    <ChevronUp aria-hidden="true" />
+                </button>
+                <span aria-live="polite">{activeLayer === 0 ? 1 : 0}</span>
+                <button
+                    type="button"
+                    className="layer-switcher__button"
+                    aria-label="Select bottom layer"
+                    aria-pressed={activeLayer === 1}
+                    title="Bottom layer"
+                    onClick={() => {
+                        clearSelection();
+                        setActiveLayer(1);
+                    }}
+                >
+                    <ChevronDown aria-hidden="true" />
+                </button>
+            </div>
 
             <ComponentPalette
                 mode={mode}
