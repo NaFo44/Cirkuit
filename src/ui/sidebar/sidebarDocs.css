@@ -1,0 +1,55 @@
+.sidebar-docs {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.sidebar-docs__back {
+    align-self: flex-start;
+    padding: 0;
+
+    color: #666;
+    font: inherit;
+    font-size: 12px;
+    background: none;
+    border: 0;
+
+    cursor: pointer;
+    text-decoration: underline;
+    text-decoration-color: #d3d3d3;
+    text-underline-offset: 3px;
+}
+
+.sidebar-docs__back:hover,
+.sidebar-docs__back:focus-visible {
+    color: #353535;
+    text-decoration-color: currentColor;
+}
+
+.sidebar-docs__introduction {
+    margin: 0;
+
+    color: #666;
+    font-size: 13px;
+    line-height: 1.55;
+}
+
+.component-card--title {
+    font-family: "Silkscreen", sans-serif;
+    color: #353535;
+}
+
+.component-card--image {
+    width: 100%;
+    margin-bottom: 18px;
+}
+
+.component-card--description {
+    margin-top: 0;
+    margin-bottom: 34px;
+
+    color: #666;
+    font-size: 13px;
+    line-height: 1.55;
+}

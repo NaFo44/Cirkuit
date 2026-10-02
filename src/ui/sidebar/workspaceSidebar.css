@@ -35,7 +35,7 @@
     box-shadow: var(--floating-panel-shadow);
 }
 
-.workspace-sidebar__panel::before {
+.workspace-sidebar--decorated .workspace-sidebar__panel::before {
     content: "";
 
     position: absolute;

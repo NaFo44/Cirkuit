@@ -19,6 +19,27 @@
     font-weight: 600;
 }
 
+.workspace-introduction__docs-link {
+    padding: 0;
+
+    color: #4d4d4d;
+    font: inherit;
+    font-weight: 600;
+    background: none;
+    border: 0;
+
+    cursor: pointer;
+    text-decoration: underline;
+    text-decoration-color: #d3d3d3;
+    text-underline-offset: 3px;
+}
+
+.workspace-introduction__docs-link:hover,
+.workspace-introduction__docs-link:focus-visible {
+    color: #353535;
+    text-decoration-color: currentColor;
+}
+
 .workspace-introduction__presentation {
     line-height: 1.6;
 }

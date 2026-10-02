@@ -2,6 +2,7 @@ import { renderToStaticMarkup } from "react-dom/server";
 import { describe, expect, it } from "vitest";
 
 import { WorkspaceSidebar } from "./workspaceSidebar";
+import { WorkspaceSidebarContainer } from "./workspaceSidebarContainer";
 
 describe("WorkspaceSidebar", () => {
     it("renders each content area in its expected slot", () => {
@@ -20,10 +21,12 @@ describe("WorkspaceSidebar", () => {
         expect(markup).toContain('data-slot="bottom"');
         expect(markup).toContain('data-slot="footer"');
     });
+});
 
+describe("WorkspaceSidebarContainer", () => {
     it("connects the toggle to the collapsible panel", () => {
         const markup = renderToStaticMarkup(
-            <WorkspaceSidebar>Content</WorkspaceSidebar>,
+            <WorkspaceSidebarContainer>Content</WorkspaceSidebarContainer>,
         );
 
         const panelId = markup.match(/id="([^"]+)"/)?.[1];
@@ -31,5 +34,19 @@ describe("WorkspaceSidebar", () => {
         expect(panelId).toBeDefined();
         expect(markup).toContain(`aria-controls="${panelId}"`);
         expect(markup).toContain('aria-expanded="true"');
+    });
+
+    it("can hide the workspace decoration", () => {
+        const decoratedMarkup = renderToStaticMarkup(
+            <WorkspaceSidebarContainer>Content</WorkspaceSidebarContainer>,
+        );
+        const plainMarkup = renderToStaticMarkup(
+            <WorkspaceSidebarContainer showDecoration={false}>
+                Content
+            </WorkspaceSidebarContainer>,
+        );
+
+        expect(decoratedMarkup).toContain("workspace-sidebar--decorated");
+        expect(plainMarkup).not.toContain("workspace-sidebar--decorated");
     });
 });

@@ -455,6 +455,8 @@ button {
     gap: 10px;
 
     color: #515151;
+
+    transition: left 420ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .workspace-sidebar:not(.workspace-sidebar--collapsed) ~ .layer-switcher {
@@ -481,6 +483,12 @@ button {
 
 .layer-switcher__button:active svg {
     transform: scale(0.95);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .layer-switcher {
+        transition: none;
+    }
 }
 
 @media (max-width: 640px), (max-height: 600px) {

@@ -1,6 +1,12 @@
 import "./workspaceSidebarSections.css";
 
-export function WorkspaceIntroduction() {
+interface WorkspaceIntroductionProps {
+    readonly onOpenDocs?: () => void;
+}
+
+export function WorkspaceIntroduction({
+    onOpenDocs,
+}: WorkspaceIntroductionProps) {
     return (
         <section className="workspace-introduction">
             <p className="workspace-introduction__welcome">
@@ -11,6 +17,20 @@ export function WorkspaceIntroduction() {
                 Cirkuit is a sandbox game where you can build pretty much
                 anything using just wires and two basic logic gates.
             </p>
+
+            {onOpenDocs && (
+                <p>
+                    Check out the component documentation{" "}
+                    <button
+                        type="button"
+                        className="workspace-introduction__docs-link"
+                        onClick={onOpenDocs}
+                    >
+                        here
+                    </button>
+                    .
+                </p>
+            )}
         </section>
     );
 }

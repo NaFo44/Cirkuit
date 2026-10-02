@@ -38,6 +38,8 @@ import { CellPreview } from "./ui/grid/cellPreview";
 import { HistoryActions } from "./ui/editor/historyActions";
 import type { CircuitLayer } from "./domain/circuit/placedComponent";
 import { ChevronDown, ChevronUp } from "pixelarticons/react";
+import { WorkspaceSidebarContainer } from "./ui/sidebar/workspaceSidebarContainer";
+import { SidebarDocs } from "./ui/sidebar/sidebarDocs";
 
 const EMPTY_COMPONENT_VISUAL_STATES: ReadonlyMap<string, ComponentVisualState> =
     new Map();
@@ -45,6 +47,7 @@ const EMPTY_COMPONENT_VISUAL_STATES: ReadonlyMap<string, ComponentVisualState> =
 export function App() {
     const [mode, setMode] = useState<EditorMode>("edit");
     const [activeLayer, setActiveLayer] = useState<CircuitLayer>(0);
+    const [docsOpen, setDocsOpen] = useState(false);
     const mapViewportRef = useRef<MapViewportHandle>(null);
 
     const toggleMode = useCallback(() => {
@@ -238,6 +241,14 @@ export function App() {
         [dispatchAction],
     );
 
+    const openDocs = useCallback(() => {
+        setDocsOpen(true);
+    }, []);
+
+    const closeDocs = useCallback(() => {
+        setDocsOpen(false);
+    }, []);
+
     const annotationLayerEditable =
         mode === "edit" && selectedAnnotationType !== null;
 
@@ -337,19 +348,27 @@ export function App() {
                 </div>
             </MapViewport>
 
-            <WorkspaceSidebar
-                topContent={<WorkspaceIntroduction />}
-                bottomContent={
-                    <ProjectActions
-                        error={projectFileError}
-                        onOpen={openProject}
-                        onSave={saveProject}
-                    />
-                }
-                footer={<WorkspaceLinks />}
-            >
-                <EditorHints mode={mode} />
-            </WorkspaceSidebar>
+            <WorkspaceSidebarContainer showDecoration={!docsOpen}>
+                {docsOpen ? (
+                    <SidebarDocs onClose={closeDocs} />
+                ) : (
+                    <WorkspaceSidebar
+                        topContent={
+                            <WorkspaceIntroduction onOpenDocs={openDocs} />
+                        }
+                        bottomContent={
+                            <ProjectActions
+                                error={projectFileError}
+                                onOpen={openProject}
+                                onSave={saveProject}
+                            />
+                        }
+                        footer={<WorkspaceLinks />}
+                    >
+                        <EditorHints mode={mode} />
+                    </WorkspaceSidebar>
+                )}
+            </WorkspaceSidebarContainer>
 
             <div
                 className="layer-switcher"
