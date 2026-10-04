@@ -68,6 +68,40 @@
     transform: translateX(-4px); /* compensate font offset */
 }
 
+.workspace-sidebar__page-title {
+    font-size: clamp(20px, 10vw, 32px);
+    white-space: nowrap;
+}
+
+.workspace-sidebar__page {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.workspace-sidebar__back {
+    align-self: flex-start;
+    padding: 0;
+
+    color: #666;
+    font: inherit;
+    font-size: 12px;
+    background: none;
+    border: 0;
+
+    cursor: pointer;
+    text-decoration: underline;
+    text-decoration-color: #d3d3d3;
+    text-underline-offset: 3px;
+}
+
+.workspace-sidebar__back:hover,
+.workspace-sidebar__back:focus-visible {
+    color: #353535;
+    text-decoration-color: currentColor;
+}
+
 .workspace-sidebar__content {
     display: grid;
     flex: 1 1 auto;

@@ -19,11 +19,38 @@
     font-weight: 600;
 }
 
-.workspace-introduction__docs-link {
+.workspace-navigation {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.workspace-navigation__item {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+}
+
+.workspace-navigation__icon {
+    display: flex;
+    align-items: center;
+    color: #666;
+}
+
+.workspace-navigation__icon svg {
+    display: block;
+    width: 20px;
+    height: 20px;
+    transform: translateY(5px);
+}
+
+.workspace-navigation__button {
+    flex: none;
     padding: 0;
 
     color: #4d4d4d;
     font: inherit;
+    font-size: 13px;
     font-weight: 600;
     background: none;
     border: 0;
@@ -34,8 +61,8 @@
     text-underline-offset: 3px;
 }
 
-.workspace-introduction__docs-link:hover,
-.workspace-introduction__docs-link:focus-visible {
+.workspace-navigation__button:hover,
+.workspace-navigation__button:focus-visible {
     color: #353535;
     text-decoration-color: currentColor;
 }

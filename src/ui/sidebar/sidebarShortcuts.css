@@ -1,45 +1,39 @@
-.editor-hints__list {
+.sidebar-shortcuts__list {
     display: flex;
     flex-direction: column;
     gap: 8px;
 
-    margin: 0;
+    margin: 10px 0 0;
     padding: 0;
     list-style: none;
 }
 
-.editor-hints__item {
+.sidebar-shortcuts__item {
     display: grid;
     grid-template-columns: 124px 1fr;
     align-items: center;
     gap: 18px;
 }
 
-.editor-hints__input {
+.sidebar-shortcuts__input {
     box-sizing: border-box;
     padding: 5px 0;
 
     color: #555;
-
     font-size: 12px;
     font-weight: 700;
     line-height: 1;
 }
 
-.editor-hints__action {
+.sidebar-shortcuts__action {
     color: #666;
     font-size: 12px;
     line-height: 1.2;
 }
 
-.editor-hints__title {
-    margin: 13px 0;
-    padding-bottom: 14px;
-
-    color: #4d4d4d;
-    border-bottom: 1px solid #e3e3e3;
-
-    font-size: 13px;
-    font-weight: 700;
-    line-height: normal;
+@media (max-width: 260px) {
+    .sidebar-shortcuts__item {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        gap: 10px;
+    }
 }

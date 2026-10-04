@@ -15,36 +15,52 @@ interface SidebarDocsProps {
 
 interface ComponentCardProps {
     readonly imageUrl: string;
+    readonly imageWidth: number;
+    readonly imageHeight: number;
     readonly title: string;
     readonly description: string;
 }
 
-function ComponentCard({ imageUrl, title, description }: ComponentCardProps) {
+function ComponentCard({
+    imageUrl,
+    imageWidth,
+    imageHeight,
+    title,
+    description,
+}: ComponentCardProps) {
     return (
-        <div className="component-card">
-            <h2 className="component-card--title">{title}</h2>
+        <article className="sidebar-docs__card">
+            <h2 className="sidebar-docs__card-title">{title}</h2>
             <img
-                className="component-card--image"
+                className="sidebar-docs__card-image"
                 src={imageUrl}
+                width={imageWidth}
+                height={imageHeight}
                 alt={`${title} component`}
             />
-            <p className="component-card--description">{description}</p>
-        </div>
+            <p className="sidebar-docs__card-description">{description}</p>
+        </article>
     );
 }
 
 export function SidebarDocs({ onClose }: SidebarDocsProps) {
     return (
-        <section className="sidebar-docs" aria-labelledby="sidebar-docs-title">
+        <section
+            className="workspace-sidebar__page sidebar-docs"
+            aria-labelledby="sidebar-docs-title"
+        >
             <button
                 type="button"
-                className="sidebar-docs__back"
+                className="workspace-sidebar__back"
                 onClick={onClose}
             >
                 Back to workspace
             </button>
 
-            <h1 id="sidebar-docs-title" className="workspace-sidebar__brand">
+            <h1
+                id="sidebar-docs-title"
+                className="workspace-sidebar__brand workspace-sidebar__page-title"
+            >
                 Docs
             </h1>
 
@@ -53,40 +69,54 @@ export function SidebarDocs({ onClose }: SidebarDocsProps) {
                 to use each component.
             </p>
 
-            <div>
+            <div className="sidebar-docs__cards">
                 <ComponentCard
                     title="Wire"
                     imageUrl={wireImageUrl}
+                    imageWidth={700}
+                    imageHeight={600}
                     description="THE most basic component! You can connect a wire from all sides. It does not conduct electricity through layers, though."
                 />
                 <ComponentCard
                     title="Via"
                     imageUrl={viaImageUrl}
+                    imageWidth={482}
+                    imageHeight={415}
                     description="Really useful one! You can use a via basically like a wire, except it can conduct electricity through layers!"
                 />
                 <ComponentCard
                     title="Source"
                     imageUrl={sourceImageUrl}
+                    imageWidth={557}
+                    imageHeight={482}
                     description="Basic component: it just powers your circuits from all sides (HIGH signal)."
                 />
                 <ComponentCard
                     title="Light"
                     imageUrl={lightImageUrl}
+                    imageWidth={410}
+                    imageHeight={407}
                     description="Light! It can be powered from all sides. It does not conduct electricity."
                 />
                 <ComponentCard
                     title="Switch"
                     imageUrl={switchImageUrl}
+                    imageWidth={565}
+                    imageHeight={482}
                     description="It's basically like a wire, but you can switch its conductivity on and off! It can conduct power from all sides."
                 />
                 <ComponentCard
                     title="NOT gate"
                     imageUrl={notImageUrl}
+                    imageWidth={552}
+                    imageHeight={480}
                     description="It reverses the signal you give it. It has one input (on the left) and one output (on the right). For example, if I input a 'LOW' signal, it will output 'HIGH'. One subtle thing: if you input a 'floating' signal, it will return 'HIGH'."
                 />
                 <ComponentCard
                     title="AND gate"
                     imageUrl={andImageUrl}
+                    imageWidth={562}
+                    imageHeight={480}
                     description="This component has two inputs (on the top and on the left), and one output (on the right). It returns HIGH only when the two inputs are HIGH."
                 />
             </div>

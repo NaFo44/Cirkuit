@@ -13,11 +13,11 @@ import type { PlacedComponent } from "./domain/circuit/placedComponent";
 import type { EditorMode } from "./ui/editor/editorMode";
 import { CELL_SIZE } from "./domain/grid/gridCoordinates";
 import { getComponentHoverLabel } from "./ui/components/componentPresentation";
-import { EditorHints } from "./ui/editor/editorHints";
 import { WorkspaceSidebar } from "./ui/sidebar/workspaceSidebar";
 import {
     WorkspaceIntroduction,
     WorkspaceLinks,
+    WorkspaceNavigation,
 } from "./ui/sidebar/workspaceSidebarSections";
 import { AnnotationLayer } from "./ui/annotations/annotationLayer";
 import { isCircuitEditorTool } from "./ui/editor/editorTool";
@@ -40,15 +40,18 @@ import type { CircuitLayer } from "./domain/circuit/placedComponent";
 import { ChevronDown, ChevronUp } from "pixelarticons/react";
 import { WorkspaceSidebarContainer } from "./ui/sidebar/workspaceSidebarContainer";
 import { SidebarDocs } from "./ui/sidebar/sidebarDocs";
+import { SidebarShortcuts } from "./ui/sidebar/sidebarShortcuts";
 
 const EMPTY_COMPONENT_VISUAL_STATES: ReadonlyMap<string, ComponentVisualState> =
     new Map();
 
+type SidebarView = "main" | "docs" | "shortcuts";
+
 export function App() {
     const [mode, setMode] = useState<EditorMode>("edit");
     const [activeLayer, setActiveLayer] = useState<CircuitLayer>(0);
-    const [docsOpen, setDocsOpen] = useState(false);
     const mapViewportRef = useRef<MapViewportHandle>(null);
+    const [sidebarView, setSidebarView] = useState<SidebarView>("main");
 
     const toggleMode = useCallback(() => {
         setMode((currentMode) =>
@@ -242,11 +245,15 @@ export function App() {
     );
 
     const openDocs = useCallback(() => {
-        setDocsOpen(true);
+        setSidebarView("docs");
     }, []);
 
-    const closeDocs = useCallback(() => {
-        setDocsOpen(false);
+    const openShortcuts = useCallback(() => {
+        setSidebarView("shortcuts");
+    }, []);
+
+    const closeSidebarPage = useCallback(() => {
+        setSidebarView("main");
     }, []);
 
     const annotationLayerEditable =
@@ -348,14 +355,18 @@ export function App() {
                 </div>
             </MapViewport>
 
-            <WorkspaceSidebarContainer showDecoration={!docsOpen}>
-                {docsOpen ? (
-                    <SidebarDocs onClose={closeDocs} />
-                ) : (
+            <WorkspaceSidebarContainer showDecoration={sidebarView === "main"}>
+                {sidebarView === "docs" && (
+                    <SidebarDocs onClose={closeSidebarPage} />
+                )}
+
+                {sidebarView === "shortcuts" && (
+                    <SidebarShortcuts mode={mode} onClose={closeSidebarPage} />
+                )}
+
+                {sidebarView === "main" && (
                     <WorkspaceSidebar
-                        topContent={
-                            <WorkspaceIntroduction onOpenDocs={openDocs} />
-                        }
+                        topContent={<WorkspaceIntroduction />}
                         bottomContent={
                             <ProjectActions
                                 error={projectFileError}
@@ -365,7 +376,10 @@ export function App() {
                         }
                         footer={<WorkspaceLinks />}
                     >
-                        <EditorHints mode={mode} />
+                        <WorkspaceNavigation
+                            onOpenDocs={openDocs}
+                            onOpenShortcuts={openShortcuts}
+                        />
                     </WorkspaceSidebar>
                 )}
             </WorkspaceSidebarContainer>

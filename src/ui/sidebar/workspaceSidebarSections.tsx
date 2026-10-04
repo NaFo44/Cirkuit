@@ -1,12 +1,7 @@
+import { ChevronRight } from "pixelarticons/react";
 import "./workspaceSidebarSections.css";
 
-interface WorkspaceIntroductionProps {
-    readonly onOpenDocs?: () => void;
-}
-
-export function WorkspaceIntroduction({
-    onOpenDocs,
-}: WorkspaceIntroductionProps) {
+export function WorkspaceIntroduction() {
     return (
         <section className="workspace-introduction">
             <p className="workspace-introduction__welcome">
@@ -17,21 +12,47 @@ export function WorkspaceIntroduction({
                 Cirkuit is a sandbox game where you can build pretty much
                 anything using just wires and two basic logic gates.
             </p>
-
-            {onOpenDocs && (
-                <p>
-                    Check out the component documentation{" "}
-                    <button
-                        type="button"
-                        className="workspace-introduction__docs-link"
-                        onClick={onOpenDocs}
-                    >
-                        here
-                    </button>
-                    .
-                </p>
-            )}
         </section>
+    );
+}
+
+interface WorkspaceNavigationProps {
+    readonly onOpenDocs: () => void;
+    readonly onOpenShortcuts: () => void;
+}
+
+export function WorkspaceNavigation({
+    onOpenDocs,
+    onOpenShortcuts,
+}: WorkspaceNavigationProps) {
+    return (
+        <nav className="workspace-navigation" aria-label="Help">
+            <div className="workspace-navigation__item">
+                <span className="workspace-navigation__icon" aria-hidden="true">
+                    <ChevronRight />
+                </span>
+                <button
+                    type="button"
+                    className="workspace-navigation__button"
+                    onClick={onOpenDocs}
+                >
+                    Component documentation
+                </button>
+            </div>
+
+            <div className="workspace-navigation__item">
+                <span className="workspace-navigation__icon" aria-hidden="true">
+                    <ChevronRight />
+                </span>
+                <button
+                    type="button"
+                    className="workspace-navigation__button"
+                    onClick={onOpenShortcuts}
+                >
+                    Keyboard shortcuts
+                </button>
+            </div>
+        </nav>
     );
 }
 
