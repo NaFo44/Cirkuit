@@ -1,4 +1,5 @@
 import {
+    Clock,
     Lightbulb,
     Zap,
     Plug,
@@ -17,6 +18,7 @@ type PixelIcon = typeof Lightbulb;
 
 const COMPONENT_ICONS: Record<BuiltInComponentType, PixelIcon> = {
     source: Zap,
+    clock: Clock,
     light: Lightbulb,
     wire: Plug,
     switch: SwitchIcon,

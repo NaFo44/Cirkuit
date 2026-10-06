@@ -47,6 +47,13 @@ const COMPONENT_PRESENTATIONS = {
         getStateLabel: () => "High",
         rotatable: false,
     },
+    clock: {
+        label: "Clock",
+        paletteColor: "var(--cell-clock)",
+        glyphVisibility: "always",
+        getStateLabel: (visualState) => WIRE_STATE_LABELS[visualState],
+        rotatable: true,
+    },
     light: {
         label: "Light",
         paletteColor: "var(--cell-light)",

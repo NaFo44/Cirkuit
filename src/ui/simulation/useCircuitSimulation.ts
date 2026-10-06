@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from "react";
+import { useEffect, useCallback, useMemo, useState, useRef } from "react";
 
 import type { Circuit } from "../../domain/circuit/circuit";
 import type { ComponentRegistry } from "../../domain/circuit/componentRegistry";
@@ -8,6 +8,7 @@ import {
     createSimulation,
     type Simulation,
 } from "../../domain/circuit/simulation/simulationEngine";
+import { SIMULATION_TICK_INTERVAL_MS } from "../../domain/circuit/simulation/simulationTiming";
 
 interface SimulationResult {
     readonly simulation: Simulation | null;
@@ -63,35 +64,36 @@ export function useCircuitSimulation(
     const [advancedResult, setAdvancedResult] =
         useState<AdvancedSimulationResult | null>(null);
 
-    const result =
-        enabled && advancedResult?.baseSimulation === baseResult.simulation
-            ? advancedResult
-            : baseResult;
+    const pendingActionsRef = useRef<SimulationAction[]>([]);
 
-    const dispatchAction = useCallback(
-        (action: SimulationAction) => {
-            if (!enabled) {
-                return;
-            }
-
+    const advance = useCallback(
+        (actions: readonly SimulationAction[]) => {
             setAdvancedResult((currentResult) => {
                 const baseSimulation = baseResult.simulation;
 
-                if (!baseSimulation) {
+                if (!enabled || !baseSimulation) {
                     return currentResult;
                 }
 
-                const startingSimulation =
+                const matchingResult =
                     currentResult?.baseSimulation === baseSimulation
-                        ? currentResult.simulation
-                        : baseSimulation;
+                        ? currentResult
+                        : null;
+
+                if (matchingResult?.error) {
+                    return matchingResult;
+                }
+
+                const startingSimulation =
+                    matchingResult?.simulation ?? baseSimulation;
 
                 try {
                     return {
                         baseSimulation,
-                        simulation: advanceSimulation(startingSimulation, [
-                            action,
-                        ]),
+                        simulation: advanceSimulation(
+                            startingSimulation,
+                            actions,
+                        ),
                         error: null,
                     };
                 } catch (error) {
@@ -105,6 +107,42 @@ export function useCircuitSimulation(
         },
         [baseResult.simulation, enabled],
     );
+
+    useEffect(() => {
+        pendingActionsRef.current = [];
+
+        if (!enabled || !baseResult.simulation) {
+            return;
+        }
+
+        const timer = window.setInterval(() => {
+            const actions = pendingActionsRef.current;
+            pendingActionsRef.current = [];
+
+            advance(actions);
+        }, SIMULATION_TICK_INTERVAL_MS);
+
+        return () => {
+            window.clearInterval(timer);
+            pendingActionsRef.current = [];
+        };
+    }, [advance, baseResult.simulation, enabled]);
+
+    const dispatchAction = useCallback(
+        (action: SimulationAction) => {
+            if (!enabled || !baseResult.simulation) {
+                return;
+            }
+
+            pendingActionsRef.current.push(action);
+        },
+        [baseResult.simulation, enabled],
+    );
+
+    const result =
+        enabled && advancedResult?.baseSimulation === baseResult.simulation
+            ? advancedResult
+            : baseResult;
 
     return {
         simulation: result.simulation,

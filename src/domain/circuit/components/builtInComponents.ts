@@ -7,11 +7,13 @@ import { sourceDefinition } from "./source";
 import { switchDefinition } from "./switch";
 import { viaDefinition } from "./via";
 import { wireDefinition } from "./wire";
+import { clockDefinition } from "./clock";
 
 export const BUILT_IN_COMPONENT_DEFINITIONS = [
     wireDefinition,
     viaDefinition,
     sourceDefinition,
+    clockDefinition,
     lightDefinition,
     switchDefinition,
     notDefinition,

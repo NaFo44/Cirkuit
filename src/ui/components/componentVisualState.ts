@@ -12,6 +12,7 @@ import {
     type Simulation,
 } from "../../domain/circuit/simulation/simulationEngine";
 import { isSwitchState } from "../../domain/circuit/components/switch";
+import { CLOCK_OUTPUT_PORT_ID } from "../../domain/circuit/components/clock";
 
 export type ComponentVisualState = "default" | "active" | Signal;
 
@@ -51,6 +52,9 @@ const VISUAL_STATE_RESOLVERS = {
         resolvePortSignals(component, simulation, VIA_PORT_IDS),
 
     source: () => "default",
+
+    clock: (component, simulation) =>
+        resolvePortSignals(component, simulation, [CLOCK_OUTPUT_PORT_ID]),
 
     light: (component, simulation) => {
         const signal = resolveDirectionalSignal(component, simulation);

@@ -6,6 +6,7 @@
     --cell-wire: #bbddff;
     --cell-via: #ffd166;
     --cell-source: #ff99cc;
+    --cell-clock: #b8d8ff;
     --cell-light: #ffe3c7;
     --cell-switch: #b8dfb3;
     --cell-switch-active: #70c869;
@@ -142,6 +143,18 @@ button {
 
 .circuit-cell--source {
     background: var(--cell-source);
+}
+
+.circuit-cell--clock {
+    background: var(--cell-clock);
+}
+
+.circuit-cell--clock.circuit-component--low {
+    background: var(--signal-low);
+}
+
+.circuit-cell--clock.circuit-component--high {
+    background: var(--signal-high);
 }
 
 .circuit-cell--light {
