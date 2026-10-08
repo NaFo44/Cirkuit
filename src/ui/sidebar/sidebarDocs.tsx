@@ -2,6 +2,7 @@ import andImageUrl from "../../assets/docs/and.png";
 import lightImageUrl from "../../assets/docs/light.png";
 import notImageUrl from "../../assets/docs/not.png";
 import sourceImageUrl from "../../assets/docs/source.png";
+import clockImageUrl from "../../assets/docs/clock.png";
 import switchImageUrl from "../../assets/docs/switch.png";
 import viaImageUrl from "../../assets/docs/via.png";
 import wireImageUrl from "../../assets/docs/wire.png";
@@ -90,6 +91,13 @@ export function SidebarDocs({ onClose }: SidebarDocsProps) {
                     imageWidth={557}
                     imageHeight={482}
                     description="Basic component: it just powers your circuits from all sides (HIGH signal)."
+                />
+                <ComponentCard
+                    title="Clock"
+                    imageUrl={clockImageUrl}
+                    imageWidth={557}
+                    imageHeight={482}
+                    description="This component generated a LOW/HIGH square signal at 1Hz."
                 />
                 <ComponentCard
                     title="Light"
