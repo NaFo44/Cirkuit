@@ -95,9 +95,9 @@ export function SidebarDocs({ onClose }: SidebarDocsProps) {
                 <ComponentCard
                     title="Clock"
                     imageUrl={clockImageUrl}
-                    imageWidth={557}
-                    imageHeight={482}
-                    description="This component generated a LOW/HIGH square signal at 1Hz."
+                    imageWidth={526}
+                    imageHeight={476}
+                    description="This component generates a LOW/HIGH 1Hz square signal."
                 />
                 <ComponentCard
                     title="Light"

@@ -1,4 +1,4 @@
-import { useEffect, useCallback, useMemo, useState, useRef } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 import type { Circuit } from "../../domain/circuit/circuit";
 import type { ComponentRegistry } from "../../domain/circuit/componentRegistry";

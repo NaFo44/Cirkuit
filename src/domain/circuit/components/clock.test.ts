@@ -38,6 +38,7 @@ describe("clockDefinition", () => {
             SIGNALS.high,
             SIGNALS.high,
             SIGNALS.high,
+            SIGNALS.low,
         ];
 
         let simulation = createSimulation(circuit, defaultComponentRegistry);
