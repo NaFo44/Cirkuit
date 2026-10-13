@@ -13,12 +13,14 @@ import {
 import type { Rotation } from "../../domain/circuit/placedComponent";
 import { NotGateIcon } from "./notGateIcon";
 import { AndGateIcon } from "./andGateIcon";
+import { MemoryIcon } from "./memoryIcon";
 
 type PixelIcon = typeof Lightbulb;
 
 const COMPONENT_ICONS: Record<BuiltInComponentType, PixelIcon> = {
     source: Zap,
     clock: Clock,
+    memory: MemoryIcon,
     light: Lightbulb,
     wire: Plug,
     switch: SwitchIcon,

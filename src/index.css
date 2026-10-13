@@ -7,6 +7,7 @@
     --cell-via: #ffd166;
     --cell-source: #ff99cc;
     --cell-clock: #b8d8ff;
+    --cell-memory: #b7c9e8;
     --cell-light: #ffe3c7;
     --cell-switch: #b8dfb3;
     --cell-switch-active: #70c869;
@@ -155,6 +156,22 @@ button {
 
 .circuit-cell--clock.circuit-component--high {
     background: var(--signal-high);
+}
+
+.circuit-cell--memory {
+    background: var(--cell-memory);
+}
+
+.circuit-cell--memory.circuit-component--low {
+    background: var(--signal-low);
+}
+
+.circuit-cell--memory.circuit-component--high {
+    background: var(--signal-high);
+}
+
+.circuit-cell--memory.circuit-component--conflict {
+    background: var(--signal-conflict);
 }
 
 .circuit-cell--light {

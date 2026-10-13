@@ -16,6 +16,10 @@ describe("componentPresentation", () => {
 
         ["source", "default", "Source | High"],
 
+        ["memory", "low", "1-bit Memory | Stored 0"],
+        ["memory", "high", "1-bit Memory | Stored 1"],
+        ["memory", "conflict", "1-bit Memory | Conflict"],
+
         ["light", "default", "Light | Off"],
         ["light", "active", "Light | On"],
         ["light", "conflict", "Light | Conflict"],

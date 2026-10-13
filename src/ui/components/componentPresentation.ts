@@ -54,6 +54,23 @@ const COMPONENT_PRESENTATIONS = {
         getStateLabel: (visualState) => WIRE_STATE_LABELS[visualState],
         rotatable: true,
     },
+    memory: {
+        label: "1-bit Memory",
+        paletteColor: "var(--cell-memory)",
+        glyphVisibility: "always",
+        getStateLabel: (visualState) => {
+            if (visualState === "conflict") {
+                return "Conflict";
+            }
+
+            if (visualState === "high") {
+                return "Stored 1";
+            }
+
+            return "Stored 0";
+        },
+        rotatable: true,
+    },
     light: {
         label: "Light",
         paletteColor: "var(--cell-light)",
