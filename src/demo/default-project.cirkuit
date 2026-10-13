@@ -2,9 +2,9 @@
   "format": "cirkuit-project",
   "version": 2,
   "viewport": {
-    "x": -482.9575635505446,
-    "y": -229.16970765084926,
-    "zoom": 1.5124118661032322
+    "x": -489.5636241566051,
+    "y": -194.62719338156955,
+    "zoom": 1.512411866103236
   },
   "circuit": {
     "width": 256,
@@ -3016,76 +3016,6 @@
         "position": {
           "x": 78,
           "y": 53
-        },
-        "rotation": 0,
-        "layer": 0
-      },
-      {
-        "id": "8c691254-bb18-4b51-87d4-a3c097e8c060",
-        "type": "source",
-        "position": {
-          "x": 83,
-          "y": 69
-        },
-        "rotation": 0,
-        "layer": 0
-      },
-      {
-        "id": "33307dd5-7631-458e-bf0d-2aba83f0f60f",
-        "type": "source",
-        "position": {
-          "x": 85,
-          "y": 69
-        },
-        "rotation": 0,
-        "layer": 0
-      },
-      {
-        "id": "489c3f16-6f14-4072-9880-a94ea9ba341c",
-        "type": "source",
-        "position": {
-          "x": 87,
-          "y": 69
-        },
-        "rotation": 0,
-        "layer": 0
-      },
-      {
-        "id": "b02b8575-88a5-44e5-94e5-35d48467c6d5",
-        "type": "switch",
-        "position": {
-          "x": 83,
-          "y": 68
-        },
-        "rotation": 0,
-        "layer": 0
-      },
-      {
-        "id": "78e10a22-7907-43ac-9bc6-ac4359d96a44",
-        "type": "switch",
-        "position": {
-          "x": 85,
-          "y": 68
-        },
-        "rotation": 0,
-        "layer": 0
-      },
-      {
-        "id": "621b8796-444f-4939-8ebc-4d4e17346a95",
-        "type": "switch",
-        "position": {
-          "x": 87,
-          "y": 68
-        },
-        "rotation": 0,
-        "layer": 0
-      },
-      {
-        "id": "e6b82612-18ad-41dd-8850-231990a5764c",
-        "type": "wire",
-        "position": {
-          "x": 87,
-          "y": 67
         },
         "rotation": 0,
         "layer": 0
@@ -6271,16 +6201,6 @@
         "layer": 0
       },
       {
-        "id": "98c82a02-2eb7-4b66-a1c3-fc9f56546c13",
-        "type": "via",
-        "position": {
-          "x": 87,
-          "y": 66
-        },
-        "rotation": 0,
-        "layer": 0
-      },
-      {
         "id": "29874db7-6ebc-4b95-9418-5a476cf934c5",
         "type": "via",
         "position": {
@@ -6289,66 +6209,6 @@
         },
         "rotation": 0,
         "layer": 0
-      },
-      {
-        "id": "6194aa20-a255-4631-a43c-728103e961a1",
-        "type": "wire",
-        "position": {
-          "x": 88,
-          "y": 66
-        },
-        "rotation": 0,
-        "layer": 1
-      },
-      {
-        "id": "e34392a5-fa64-4dc8-afba-fcfa3918a16a",
-        "type": "wire",
-        "position": {
-          "x": 89,
-          "y": 66
-        },
-        "rotation": 0,
-        "layer": 1
-      },
-      {
-        "id": "bae4c887-3821-4aa4-ac13-198d91d8a97b",
-        "type": "wire",
-        "position": {
-          "x": 90,
-          "y": 66
-        },
-        "rotation": 0,
-        "layer": 1
-      },
-      {
-        "id": "0a7e75f9-d007-4143-8327-0a4167f0740f",
-        "type": "wire",
-        "position": {
-          "x": 90,
-          "y": 65
-        },
-        "rotation": 0,
-        "layer": 1
-      },
-      {
-        "id": "6f7dceb1-ab7a-4e98-ba3e-1b5ceefb4d2f",
-        "type": "wire",
-        "position": {
-          "x": 90,
-          "y": 64
-        },
-        "rotation": 0,
-        "layer": 1
-      },
-      {
-        "id": "4a6e9a4d-481a-445b-8ae5-c41814620f1f",
-        "type": "wire",
-        "position": {
-          "x": 90,
-          "y": 63
-        },
-        "rotation": 0,
-        "layer": 1
       },
       {
         "id": "f7608899-9e61-4635-be9c-4fde341ef543",
@@ -6901,16 +6761,6 @@
         "layer": 0
       },
       {
-        "id": "c806e195-03d3-4a57-916f-07e7b1a0ed4c",
-        "type": "wire",
-        "position": {
-          "x": 123,
-          "y": 13
-        },
-        "rotation": 0,
-        "layer": 1
-      },
-      {
         "id": "d2f74492-2c41-4d28-ad58-5c42d5b8e1c3",
         "type": "via",
         "position": {
@@ -7131,11 +6981,4831 @@
         "layer": 0
       },
       {
-        "id": "2fc15523-520d-4b8e-b034-894cacd6a882",
+        "id": "6f6508e8-bf7a-4e73-86e8-f0dbbb73c8dd",
+        "type": "wire",
+        "position": {
+          "x": 90,
+          "y": 64
+        },
+        "rotation": 0,
+        "layer": 1
+      },
+      {
+        "id": "6851b308-fabc-466b-9a73-d44dd92661e4",
+        "type": "wire",
+        "position": {
+          "x": 90,
+          "y": 63
+        },
+        "rotation": 0,
+        "layer": 1
+      },
+      {
+        "id": "50385c7b-f2c2-4e55-be72-d96e6842445c",
+        "type": "memory",
+        "position": {
+          "x": 109,
+          "y": 45
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "889ba761-6f9d-478e-b4d9-f258f7948dd8",
+        "type": "memory",
+        "position": {
+          "x": 133,
+          "y": 45
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "e6d034af-e19e-4471-86de-d282544d397c",
+        "type": "and",
+        "position": {
+          "x": 127,
+          "y": 53
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "3805248d-6c95-440c-96d8-bbefd026c833",
+        "type": "not",
+        "position": {
+          "x": 130,
+          "y": 53
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "079e94ec-ea48-4f59-908f-19fcb184a9d3",
+        "type": "wire",
+        "position": {
+          "x": 109,
+          "y": 44
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "fcea1a0c-ad3c-4faa-afb3-24edce4bbe54",
+        "type": "wire",
+        "position": {
+          "x": 121,
+          "y": 44
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "85b53be0-67af-4f1d-8796-6ff7ae29befe",
+        "type": "wire",
+        "position": {
+          "x": 133,
+          "y": 44
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "0303005b-b265-4abc-a08b-8f888017db43",
+        "type": "wire",
+        "position": {
+          "x": 110,
+          "y": 45
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "9b2d9c9f-7060-4a50-a66b-280496ce1ffd",
+        "type": "wire",
+        "position": {
+          "x": 134,
+          "y": 45
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "c1600203-2118-4ff5-a597-23538686cda6",
+        "type": "wire",
+        "position": {
+          "x": 134,
+          "y": 49
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "f74dd995-ae5e-491b-804f-10bdc99f4963",
+        "type": "wire",
+        "position": {
+          "x": 126,
+          "y": 56
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "5c9278f3-f881-4d91-bc78-719cf96508e6",
+        "type": "wire",
+        "position": {
+          "x": 128,
+          "y": 53
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "e472256d-61bb-4d02-9dca-2e17e8726ae4",
+        "type": "wire",
+        "position": {
+          "x": 108,
+          "y": 45
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "80ab9a95-0f02-499f-9cd9-6f2bf314c169",
+        "type": "wire",
+        "position": {
+          "x": 129,
+          "y": 53
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "21bcc578-cf62-4203-aa3c-75a30f07237a",
+        "type": "wire",
+        "position": {
+          "x": 131,
+          "y": 53
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "eab4c520-cacf-42d7-ada1-efcb8b1d7573",
+        "type": "wire",
+        "position": {
+          "x": 132,
+          "y": 45
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "6df54f4c-05ce-45f7-808c-64b5a30fc6ce",
+        "type": "wire",
+        "position": {
+          "x": 125,
+          "y": 56
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "9b56fb44-52f1-4449-8e8c-b8091fb8ea66",
+        "type": "wire",
+        "position": {
+          "x": 123,
+          "y": 37
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "162d4214-98a4-4aa6-ac8f-c9e9e903a86a",
+        "type": "wire",
+        "position": {
+          "x": 123,
+          "y": 40
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "55e37312-dae1-440c-8354-9a7443b5f775",
+        "type": "wire",
+        "position": {
+          "x": 123,
+          "y": 41
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "2b68bc85-383e-414c-bee0-b34fe24a26ef",
+        "type": "wire",
+        "position": {
+          "x": 123,
+          "y": 42
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "71848bf5-7a96-4553-99d9-bb1d39da5b4a",
+        "type": "wire",
+        "position": {
+          "x": 123,
+          "y": 43
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "f06c9484-33b8-4681-bcf5-dea2cc660348",
+        "type": "wire",
+        "position": {
+          "x": 123,
+          "y": 44
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "c7cd5983-8df1-4c72-ad28-c4070e411793",
+        "type": "wire",
+        "position": {
+          "x": 123,
+          "y": 45
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "a7d7af0a-b7d0-4363-a52d-7fa42e8a90a5",
+        "type": "wire",
+        "position": {
+          "x": 123,
+          "y": 46
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "d3ebc2a2-32f8-489d-9abb-87d75d51de90",
+        "type": "wire",
+        "position": {
+          "x": 135,
+          "y": 37
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "b957aade-1a7b-4c7c-971a-73e220ad641a",
+        "type": "wire",
+        "position": {
+          "x": 135,
+          "y": 40
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "286df374-41c7-4481-888d-5988a77be648",
+        "type": "wire",
+        "position": {
+          "x": 135,
+          "y": 41
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "584f6417-629a-4355-b5bf-c591b5629e28",
+        "type": "wire",
+        "position": {
+          "x": 135,
+          "y": 42
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "b11684f6-fae9-4ad4-9475-94a731348f3e",
+        "type": "wire",
+        "position": {
+          "x": 135,
+          "y": 43
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "5806ef49-e3d7-496d-8aa6-03cd43f2c607",
+        "type": "wire",
+        "position": {
+          "x": 135,
+          "y": 44
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "9ecad18c-d7cd-466f-916d-8d15920ba05a",
+        "type": "wire",
+        "position": {
+          "x": 135,
+          "y": 45
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "11bb6d3b-a2b6-4741-b77b-9a39d430537c",
+        "type": "wire",
+        "position": {
+          "x": 134,
+          "y": 48
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "cf17433e-8501-40de-ae55-e56401a4770d",
+        "type": "wire",
+        "position": {
+          "x": 134,
+          "y": 47
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "dd4c6202-a10d-45c8-88af-36c891de4714",
+        "type": "wire",
+        "position": {
+          "x": 134,
+          "y": 46
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "e3dbcd77-6ce0-4527-8121-9e862b49f0dd",
+        "type": "wire",
+        "position": {
+          "x": 127,
+          "y": 52
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "34dba7c2-2a92-448e-9a4a-6eb16f1c9e33",
+        "type": "wire",
+        "position": {
+          "x": 127,
+          "y": 51
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "49c9bd50-389b-499c-824f-64d86f40ea96",
+        "type": "wire",
+        "position": {
+          "x": 127,
+          "y": 50
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "25fd0cb5-42f6-4587-9718-225dcdf6a878",
+        "type": "wire",
+        "position": {
+          "x": 127,
+          "y": 49
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "acf162de-4f58-47aa-b720-daf7053b3054",
+        "type": "wire",
+        "position": {
+          "x": 128,
+          "y": 49
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "fcb1032c-be19-423b-9bfc-3b7ce1c48e0c",
+        "type": "wire",
+        "position": {
+          "x": 129,
+          "y": 49
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "b982f127-e2c0-45f1-a5b3-39024d3560aa",
+        "type": "wire",
+        "position": {
+          "x": 130,
+          "y": 49
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "f73961c2-b733-4625-bf34-f244e68b1bb8",
+        "type": "wire",
+        "position": {
+          "x": 131,
+          "y": 49
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "443cb79c-dad4-4d74-b2d4-68ee59ce6fe1",
+        "type": "wire",
+        "position": {
+          "x": 132,
+          "y": 49
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "fb7d78df-7545-4c85-974f-ccb55401bf28",
+        "type": "wire",
+        "position": {
+          "x": 133,
+          "y": 49
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "3f0ac8b5-d286-435a-86d3-e124b3302b54",
+        "type": "via",
+        "position": {
+          "x": 132,
+          "y": 53
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "9ff18714-2975-4df7-920f-932597e820e0",
+        "type": "wire",
+        "position": {
+          "x": 114,
+          "y": 54
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "f861075e-416c-4b0b-91aa-404f01b36650",
+        "type": "wire",
+        "position": {
+          "x": 114,
+          "y": 55
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "c67755e9-078d-4d09-899f-485ceaee8ce2",
+        "type": "wire",
+        "position": {
+          "x": 114,
+          "y": 56
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "02359040-39fb-436f-baef-b855f934999f",
+        "type": "wire",
+        "position": {
+          "x": 114,
+          "y": 57
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "58d3ecd2-0dd4-4b2b-92c7-7708a4dd15dc",
+        "type": "wire",
+        "position": {
+          "x": 120,
+          "y": 46
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "83d6c8c2-05d0-4ded-a0d6-10ab88b80784",
+        "type": "wire",
+        "position": {
+          "x": 120,
+          "y": 47
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "90fd84d2-037a-40b5-b7a6-bb8b3bbe5787",
+        "type": "wire",
+        "position": {
+          "x": 120,
+          "y": 48
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "f27f9a5f-b484-4192-9b78-771d43270362",
+        "type": "wire",
+        "position": {
+          "x": 120,
+          "y": 49
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "69871f61-921f-4674-a54d-1cf531ccea3b",
+        "type": "wire",
+        "position": {
+          "x": 120,
+          "y": 50
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "660cc2a8-5ec4-4648-9e8e-7f5780a4dd38",
+        "type": "wire",
+        "position": {
+          "x": 120,
+          "y": 51
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "8ad2945d-0e49-4551-8811-49b4d30bca79",
+        "type": "wire",
+        "position": {
+          "x": 120,
+          "y": 52
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "5ed9a518-226c-4aad-ba9f-8bb3282022c7",
+        "type": "wire",
+        "position": {
+          "x": 120,
+          "y": 53
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "7c5813ab-d867-41ce-b74e-8cf7ac740164",
+        "type": "wire",
+        "position": {
+          "x": 121,
+          "y": 43
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "227a8179-eb31-4bab-b186-43d1d0214c07",
+        "type": "wire",
+        "position": {
+          "x": 120,
+          "y": 43
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "7d1944db-1b4c-4146-b45b-100e9f21ec57",
+        "type": "wire",
+        "position": {
+          "x": 119,
+          "y": 43
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "e2c67e85-7b0e-4391-b704-081399bff956",
+        "type": "wire",
+        "position": {
+          "x": 118,
+          "y": 43
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "3c577bf2-dd9c-4a7f-b545-958f264b8ee5",
+        "type": "wire",
+        "position": {
+          "x": 117,
+          "y": 43
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "dcd349a2-bec9-4cfa-b459-221cf43878cf",
+        "type": "wire",
+        "position": {
+          "x": 116,
+          "y": 43
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "a4a7f4e2-7751-4c73-8222-241b7cf05c2f",
+        "type": "wire",
+        "position": {
+          "x": 115,
+          "y": 43
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "92d6cc43-dedb-4c45-90f6-ccd017b5db80",
+        "type": "wire",
+        "position": {
+          "x": 114,
+          "y": 43
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "a9425b58-354a-4a04-aed7-94dd8233b576",
+        "type": "wire",
+        "position": {
+          "x": 113,
+          "y": 43
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "32b5bc48-597f-4c5f-befc-f63d57d4471b",
+        "type": "wire",
+        "position": {
+          "x": 112,
+          "y": 43
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "3a917d19-40ff-4b91-9456-41015c76e190",
+        "type": "wire",
+        "position": {
+          "x": 111,
+          "y": 43
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "b196d86b-40bc-471b-b593-70410807a515",
+        "type": "wire",
+        "position": {
+          "x": 110,
+          "y": 43
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "4cf5fc75-3b15-4796-a2bb-b17cb5f729af",
+        "type": "wire",
+        "position": {
+          "x": 133,
+          "y": 43
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "90f2cff7-c164-41e9-b2dc-507ec97305c1",
+        "type": "wire",
+        "position": {
+          "x": 133,
+          "y": 42
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "a1aa5586-7ddf-4161-a71a-f583724275d0",
+        "type": "wire",
+        "position": {
+          "x": 132,
+          "y": 42
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "2debf4e7-0dec-4db8-9168-10fe3544339b",
+        "type": "wire",
+        "position": {
+          "x": 131,
+          "y": 42
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "e57698ec-2d06-4281-bb03-09b3a99a9390",
+        "type": "wire",
+        "position": {
+          "x": 130,
+          "y": 42
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "9c4f570f-f95e-4f6f-aad8-71051e2a38cf",
+        "type": "wire",
+        "position": {
+          "x": 129,
+          "y": 42
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "d86e3065-9def-4898-9948-7454d04f1f5c",
+        "type": "wire",
+        "position": {
+          "x": 128,
+          "y": 42
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "a8152d42-bb60-48b0-868e-7b03c9f0f8d7",
+        "type": "wire",
+        "position": {
+          "x": 127,
+          "y": 42
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "64d75f78-039d-4042-9fb2-288fac0f4183",
+        "type": "wire",
+        "position": {
+          "x": 126,
+          "y": 42
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "bc012105-fe2b-4335-b52e-ac49f1a6c933",
+        "type": "via",
+        "position": {
+          "x": 125,
+          "y": 42
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "16c9d489-4464-4e12-a3a9-0fdea183c826",
+        "type": "via",
+        "position": {
+          "x": 121,
+          "y": 42
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "e0ede33c-5015-498d-a648-de6ee2f68ac7",
+        "type": "wire",
+        "position": {
+          "x": 108,
+          "y": 46
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "956af819-5981-4554-a566-7816eb5cb10c",
+        "type": "wire",
+        "position": {
+          "x": 108,
+          "y": 47
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "9857c885-2d51-4639-9b4d-398b93c80192",
+        "type": "wire",
+        "position": {
+          "x": 109,
+          "y": 47
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "24673e3b-5b3b-409b-a353-0d4004658f13",
+        "type": "wire",
+        "position": {
+          "x": 110,
+          "y": 47
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "f8d4b079-e6cb-4afd-b4f9-2e919b3ee9d5",
+        "type": "wire",
+        "position": {
+          "x": 111,
+          "y": 47
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "c3518723-e85c-40b9-b775-eda25817d756",
+        "type": "wire",
+        "position": {
+          "x": 112,
+          "y": 47
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "0ff91fa4-f37e-4a42-beed-be86a100be18",
+        "type": "wire",
+        "position": {
+          "x": 113,
+          "y": 47
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "c2f2cbc3-1c85-4298-bf74-55d7990e1db2",
+        "type": "wire",
+        "position": {
+          "x": 114,
+          "y": 47
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "6b1a7b8a-9f21-42b6-8649-7053b9842372",
+        "type": "wire",
+        "position": {
+          "x": 115,
+          "y": 47
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "e30f460c-c263-44b4-ad19-6864c615131c",
+        "type": "wire",
+        "position": {
+          "x": 116,
+          "y": 47
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "c66c8ad7-fb7b-4cd3-9081-2977a75a4046",
+        "type": "wire",
+        "position": {
+          "x": 117,
+          "y": 47
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "a082cc4e-148b-4a1f-bdf8-b51d13959e0c",
+        "type": "via",
+        "position": {
+          "x": 118,
+          "y": 47
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "cb20e96a-5962-4f58-9ed5-359c4ca02c8a",
+        "type": "via",
+        "position": {
+          "x": 129,
+          "y": 51
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "7349bd87-38bd-4a52-8b7b-b365bd573762",
+        "type": "wire",
+        "position": {
+          "x": 129,
+          "y": 52
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "22fc09b9-6a2e-4ba2-9ae8-6c37ab50db7a",
+        "type": "wire",
+        "position": {
+          "x": 132,
+          "y": 46
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "fc84acc4-dae4-45a9-9987-1aa54334cdaf",
+        "type": "via",
+        "position": {
+          "x": 132,
+          "y": 47
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "a2a4002f-3980-4dee-9846-961656a6abc1",
+        "type": "via",
+        "position": {
+          "x": 136,
+          "y": 47
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "a3520762-65d0-4c84-a843-671fe0595675",
+        "type": "via",
+        "position": {
+          "x": 116,
+          "y": 55
+        },
+        "rotation": 0,
+        "layer": 1
+      },
+      {
+        "id": "a80da3d0-f07b-41a8-bdf3-9930dda3e3bb",
+        "type": "wire",
+        "position": {
+          "x": 127,
+          "y": 56
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "45f8903c-3be6-42ff-8f06-320663948bc5",
+        "type": "wire",
+        "position": {
+          "x": 128,
+          "y": 56
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "1c8cd0b9-f205-45f2-8eed-b4d6bc031cac",
+        "type": "wire",
+        "position": {
+          "x": 129,
+          "y": 56
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "effe002f-af7a-4d51-8bec-089751b5f587",
+        "type": "wire",
+        "position": {
+          "x": 130,
+          "y": 56
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "ef4b766a-1665-4671-930d-727b54a611df",
+        "type": "wire",
+        "position": {
+          "x": 131,
+          "y": 56
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "8e24174b-b907-4b09-a673-3613ffc5b09a",
+        "type": "wire",
+        "position": {
+          "x": 132,
+          "y": 56
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "5877021a-ca66-4808-b550-02964d7e0112",
+        "type": "wire",
+        "position": {
+          "x": 133,
+          "y": 56
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "b07faffe-0dc3-478a-aea7-ebd9d03671af",
+        "type": "wire",
+        "position": {
+          "x": 134,
+          "y": 56
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "61a5b45e-e44b-41d3-be66-6b386942b130",
+        "type": "wire",
+        "position": {
+          "x": 135,
+          "y": 56
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "5b6a78c4-efdc-4c8d-ae2d-41e22bb107e9",
+        "type": "not",
+        "position": {
+          "x": 134,
+          "y": 50
+        },
+        "rotation": 90,
+        "layer": 0
+      },
+      {
+        "id": "f992599e-e593-47c1-914c-632eb543086a",
+        "type": "wire",
+        "position": {
+          "x": 134,
+          "y": 51
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "38cf07b0-57f4-469c-8379-c22cd42af878",
+        "type": "wire",
+        "position": {
+          "x": 134,
+          "y": 52
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "666c6828-721c-41d6-bcba-cd58d0f14589",
+        "type": "wire",
+        "position": {
+          "x": 134,
+          "y": 53
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "aa2b122f-34ad-49d5-8211-9153f69ac3d0",
+        "type": "wire",
+        "position": {
+          "x": 134,
+          "y": 54
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "6919587e-2ccb-4ce7-8549-a9b9880bc3e8",
+        "type": "wire",
+        "position": {
+          "x": 134,
+          "y": 55
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "e3b78060-0fde-4842-a64f-afe104c07e20",
+        "type": "wire",
+        "position": {
+          "x": 136,
+          "y": 48
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "f3b6b756-7fe0-4828-b3cb-eb42413927d7",
+        "type": "wire",
+        "position": {
+          "x": 136,
+          "y": 49
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "a0607bcd-606b-4d74-a523-83ad57906d64",
+        "type": "wire",
+        "position": {
+          "x": 136,
+          "y": 50
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "b7a7b1f1-869c-4f0b-8648-bb14092f5400",
+        "type": "wire",
+        "position": {
+          "x": 136,
+          "y": 51
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "567a1b7c-caa4-442c-afc5-4f9a29d9325e",
+        "type": "wire",
+        "position": {
+          "x": 136,
+          "y": 52
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "accd8981-94ae-4f78-a0e5-2f9a24fb0302",
+        "type": "wire",
+        "position": {
+          "x": 136,
+          "y": 53
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "054ed0ba-9c11-4286-8141-599b50ac607e",
+        "type": "wire",
+        "position": {
+          "x": 136,
+          "y": 54
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "355cb2de-ab88-4d37-906c-a1ba34b81965",
+        "type": "wire",
+        "position": {
+          "x": 136,
+          "y": 55
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "2558351c-6f1e-4b01-a1f0-3eaede3862cf",
+        "type": "wire",
+        "position": {
+          "x": 136,
+          "y": 58
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "830f51a8-40ea-45f3-ae15-64470f52feba",
+        "type": "wire",
+        "position": {
+          "x": 136,
+          "y": 57
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "11b71e27-8bfe-4717-b59d-430daed14307",
+        "type": "and",
+        "position": {
+          "x": 136,
+          "y": 56
+        },
+        "rotation": 270,
+        "layer": 0
+      },
+      {
+        "id": "30ccdf05-816f-4e5d-8100-c5a2cdcc931d",
+        "type": "wire",
+        "position": {
+          "x": 121,
+          "y": 57
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "0ea0cd60-07f5-4b3e-9387-63aa63c4863a",
+        "type": "wire",
+        "position": {
+          "x": 136,
+          "y": 59
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "d374fa75-5ec3-4dc1-9e11-308fbdcc4680",
+        "type": "wire",
+        "position": {
+          "x": 115,
+          "y": 57
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "e85eb86f-e2b6-4b2f-9937-53794f6b4c9a",
+        "type": "wire",
+        "position": {
+          "x": 116,
+          "y": 57
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "d137a70b-1f99-4833-8fc6-0d1c8616e1ae",
+        "type": "wire",
+        "position": {
+          "x": 117,
+          "y": 57
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "03791d7b-fc45-44b8-85af-6afe85700c95",
+        "type": "wire",
+        "position": {
+          "x": 118,
+          "y": 57
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "97d21f0d-b661-485a-a411-60cb810a1bee",
+        "type": "wire",
+        "position": {
+          "x": 119,
+          "y": 57
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "16c405c7-4129-451c-a8a0-fb5aab752598",
+        "type": "wire",
+        "position": {
+          "x": 120,
+          "y": 57
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "c59bba86-76ae-4cec-b069-fd324e7837dd",
+        "type": "and",
+        "position": {
+          "x": 116,
+          "y": 54
+        },
+        "rotation": 270,
+        "layer": 0
+      },
+      {
+        "id": "eff2dfe3-668e-487e-aedb-426cd4f6432b",
+        "type": "wire",
+        "position": {
+          "x": 115,
+          "y": 54
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "1f1549e6-6a8b-4282-a364-363ede7cb036",
+        "type": "wire",
+        "position": {
+          "x": 116,
+          "y": 53
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "e8c95d21-f2c8-499b-b4b4-fd5278bafa2d",
+        "type": "wire",
+        "position": {
+          "x": 117,
+          "y": 53
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "f5275ada-e766-42e9-b71c-78101499e6f4",
+        "type": "wire",
+        "position": {
+          "x": 118,
+          "y": 53
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "e38e7447-6780-44ca-9c4c-0028398a7a61",
+        "type": "wire",
+        "position": {
+          "x": 119,
+          "y": 53
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "b76a7582-74fe-4d63-85f9-391b3e550f83",
+        "type": "wire",
+        "position": {
+          "x": 112,
+          "y": 59
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "a72bb653-0a61-4757-a8a8-f985b77ba0a8",
+        "type": "wire",
+        "position": {
+          "x": 113,
+          "y": 59
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "e8f81679-aa29-4f5f-b032-b9f872193bc9",
+        "type": "wire",
+        "position": {
+          "x": 114,
+          "y": 59
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "fb966a99-6866-4347-9a56-3fbe626ff8c7",
+        "type": "wire",
+        "position": {
+          "x": 115,
+          "y": 59
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "fda571bd-aec7-479c-959a-4e4193f13b52",
+        "type": "wire",
+        "position": {
+          "x": 116,
+          "y": 59
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "1ca085da-f452-4961-b0e2-e13f907c45a6",
+        "type": "wire",
+        "position": {
+          "x": 117,
+          "y": 59
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "e1f3e558-049d-415e-9f98-c5166d962845",
+        "type": "wire",
+        "position": {
+          "x": 118,
+          "y": 59
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "db9bf2dc-d12e-4bc4-bc4b-f625cd74a5ce",
+        "type": "wire",
+        "position": {
+          "x": 119,
+          "y": 59
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "c320706c-ce52-4a92-9bd0-486fc90b3230",
+        "type": "wire",
+        "position": {
+          "x": 120,
+          "y": 59
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "323e4fbb-d0b4-4f59-9ac2-119eb3159525",
+        "type": "wire",
+        "position": {
+          "x": 121,
+          "y": 59
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "2aeda0a8-d299-4fd0-9706-521065fcec53",
+        "type": "wire",
+        "position": {
+          "x": 122,
+          "y": 59
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "04441e1f-0a63-4f2c-ba65-bb1162c41031",
+        "type": "wire",
+        "position": {
+          "x": 123,
+          "y": 59
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "2c9d33cc-5a0a-4092-a0be-1cfa15da5a99",
+        "type": "wire",
+        "position": {
+          "x": 124,
+          "y": 59
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "da60f13a-c295-41e9-93b7-8474037e448f",
+        "type": "wire",
+        "position": {
+          "x": 125,
+          "y": 59
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "66cc3459-e82c-4542-a879-860155824631",
+        "type": "wire",
+        "position": {
+          "x": 126,
+          "y": 59
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "cdadb9da-1f5e-40f8-933c-e4ba7b31028e",
+        "type": "wire",
+        "position": {
+          "x": 127,
+          "y": 59
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "708ef4fe-1d3f-47b7-b8d4-8baaabd2b066",
+        "type": "wire",
+        "position": {
+          "x": 128,
+          "y": 59
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "afe77eb4-9ad7-4061-9b6f-b81dd16f21a2",
+        "type": "wire",
+        "position": {
+          "x": 129,
+          "y": 59
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "614000df-82b2-4409-a7d4-c62bfbb31919",
+        "type": "wire",
+        "position": {
+          "x": 130,
+          "y": 59
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "8c488517-bc57-43dd-903d-3e1f28f3d6c3",
+        "type": "wire",
+        "position": {
+          "x": 131,
+          "y": 59
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "ab5edce7-56d5-44ac-bf3f-893147c852c9",
+        "type": "wire",
+        "position": {
+          "x": 132,
+          "y": 59
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "7935496c-ae03-459c-99a6-3e1ed9f251a4",
+        "type": "wire",
+        "position": {
+          "x": 133,
+          "y": 59
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "0c814176-c80f-445b-8892-3230668356a2",
+        "type": "wire",
+        "position": {
+          "x": 134,
+          "y": 59
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "0e1ffcc8-e3cf-4b3e-94ac-df74832f0ee2",
+        "type": "wire",
+        "position": {
+          "x": 135,
+          "y": 59
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "ef09c571-8d2f-4a69-b531-1b9e6b4a49f8",
+        "type": "wire",
+        "position": {
+          "x": 112,
+          "y": 50
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "70f1ffda-67a6-4f6e-bede-e6d4372bf0bb",
+        "type": "wire",
+        "position": {
+          "x": 112,
+          "y": 52
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "d0f1e195-21a8-486a-80d2-23a1c48dfe7d",
+        "type": "wire",
+        "position": {
+          "x": 112,
+          "y": 53
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "6894b81a-9402-4504-aff8-f97361955708",
+        "type": "wire",
+        "position": {
+          "x": 112,
+          "y": 54
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "eb60909c-31a8-4686-9cb8-003257db5f71",
+        "type": "wire",
+        "position": {
+          "x": 112,
+          "y": 57
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "aa685220-449e-48d8-bdd0-5f16681fc4c1",
+        "type": "wire",
+        "position": {
+          "x": 112,
+          "y": 58
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "e4ccf6c4-8703-47b9-aa1f-d23635749a33",
+        "type": "wire",
+        "position": {
+          "x": 112,
+          "y": 56
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "35241d9b-b5dd-4325-a5ed-62ce71969d19",
+        "type": "wire",
+        "position": {
+          "x": 112,
+          "y": 55
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "f74186c2-b897-40d8-b0b9-33b76d94164b",
+        "type": "not",
+        "position": {
+          "x": 112,
+          "y": 51
+        },
+        "rotation": 90,
+        "layer": 0
+      },
+      {
+        "id": "147a3a8e-21d4-4e91-b72e-3b2aef229b27",
+        "type": "via",
+        "position": {
+          "x": 112,
+          "y": 49
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "111ca8a3-abf9-4d79-b74b-ff7c141ea6f0",
+        "type": "via",
+        "position": {
+          "x": 112,
+          "y": 41
+        },
+        "rotation": 0,
+        "layer": 1
+      },
+      {
+        "id": "761ed9ea-08e9-42f9-9ae4-06436383b3f3",
+        "type": "via",
+        "position": {
+          "x": 112,
+          "y": 45
+        },
+        "rotation": 0,
+        "layer": 1
+      },
+      {
+        "id": "73812a91-5500-425f-ad5c-0fa3cbf11dbc",
+        "type": "wire",
+        "position": {
+          "x": 112,
+          "y": 37
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "3051d2ad-02c1-4617-828c-84b5f19f6c6b",
+        "type": "wire",
+        "position": {
+          "x": 112,
+          "y": 40
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "28668532-0aa3-4d20-9a77-b2618d141ca1",
+        "type": "wire",
+        "position": {
+          "x": 111,
+          "y": 45
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "e212e3ae-99ff-4d0d-b471-2b4f041325a5",
+        "type": "and",
+        "position": {
+          "x": 123,
+          "y": 56
+        },
+        "rotation": 90,
+        "layer": 0
+      },
+      {
+        "id": "57b0685e-374f-4aa6-9ffc-5b680ddd01c5",
+        "type": "not",
+        "position": {
+          "x": 122,
+          "y": 57
+        },
+        "rotation": 180,
+        "layer": 0
+      },
+      {
+        "id": "f12e928a-b4a2-4999-a583-068b299897e1",
+        "type": "wire",
+        "position": {
+          "x": 123,
+          "y": 57
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "cab8a4ab-7e66-42c3-a085-c252f9e62ac5",
+        "type": "wire",
+        "position": {
+          "x": 124,
+          "y": 56
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "293eb3d7-a624-43cd-874b-ac0c1691b750",
+        "type": "wire",
+        "position": {
+          "x": 123,
+          "y": 47
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "37b792f9-6504-45a5-8739-10ff2747e4d5",
+        "type": "wire",
+        "position": {
+          "x": 123,
+          "y": 48
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "11a9d36b-3d48-4719-a45b-7b90a5d4401f",
+        "type": "wire",
+        "position": {
+          "x": 123,
+          "y": 49
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "614403ec-547e-46e3-9450-7d8b1c2d2cea",
+        "type": "wire",
+        "position": {
+          "x": 123,
+          "y": 50
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "2f1da275-93f4-42c5-bee7-e02884837ce7",
+        "type": "wire",
+        "position": {
+          "x": 123,
+          "y": 51
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "cecc1e71-dc0e-4d92-b8a9-fb79284e7289",
+        "type": "wire",
+        "position": {
+          "x": 123,
+          "y": 52
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "229d7b6d-d63a-472a-9308-34e1a95f5d1f",
+        "type": "wire",
+        "position": {
+          "x": 123,
+          "y": 53
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "2e8a08cc-3814-4bfe-ad2d-046aaa56ecbe",
+        "type": "wire",
+        "position": {
+          "x": 123,
+          "y": 55
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "cb05b750-6686-421a-b400-8094b7455251",
+        "type": "not",
+        "position": {
+          "x": 123,
+          "y": 54
+        },
+        "rotation": 90,
+        "layer": 0
+      },
+      {
+        "id": "81942578-9bf8-42de-9d05-0158807299eb",
+        "type": "wire",
+        "position": {
+          "x": 124,
+          "y": 46
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "abbd05a3-db31-4ff4-a436-e308d30bdc63",
+        "type": "memory",
+        "position": {
+          "x": 121,
+          "y": 46
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "47a8f961-420d-4cec-acb1-cb64014a0aaa",
+        "type": "wire",
+        "position": {
+          "x": 122,
+          "y": 46
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "83f1660a-daa2-4ff9-8a01-39c989f35fab",
+        "type": "wire",
+        "position": {
+          "x": 121,
+          "y": 45
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "2e0485bd-aea2-44d5-b2b6-7de4cef4deb7",
+        "type": "wire",
+        "position": {
+          "x": 132,
+          "y": 55
+        },
+        "rotation": 0,
+        "layer": 1
+      },
+      {
+        "id": "866f6f15-5204-4654-87b4-ff214d282402",
+        "type": "wire",
+        "position": {
+          "x": 132,
+          "y": 54
+        },
+        "rotation": 0,
+        "layer": 1
+      },
+      {
+        "id": "80eece0c-1a9f-4129-818f-33d2714fc9ce",
+        "type": "wire",
+        "position": {
+          "x": 124,
+          "y": 42
+        },
+        "rotation": 0,
+        "layer": 1
+      },
+      {
+        "id": "446469ec-2626-4152-9776-40021df2e657",
+        "type": "wire",
+        "position": {
+          "x": 123,
+          "y": 42
+        },
+        "rotation": 0,
+        "layer": 1
+      },
+      {
+        "id": "fc89dbbe-ef75-426d-a0ef-c5bdc36872be",
+        "type": "wire",
+        "position": {
+          "x": 122,
+          "y": 42
+        },
+        "rotation": 0,
+        "layer": 1
+      },
+      {
+        "id": "28433742-15e5-411b-ad19-42ceef926873",
+        "type": "wire",
+        "position": {
+          "x": 119,
+          "y": 47
+        },
+        "rotation": 0,
+        "layer": 1
+      },
+      {
+        "id": "bf44e12b-deb9-4e62-8cba-c9db2873a219",
+        "type": "wire",
+        "position": {
+          "x": 120,
+          "y": 47
+        },
+        "rotation": 0,
+        "layer": 1
+      },
+      {
+        "id": "1233a8dc-b3b6-49cd-b2b4-079acd7c1a1e",
+        "type": "wire",
+        "position": {
+          "x": 121,
+          "y": 47
+        },
+        "rotation": 0,
+        "layer": 1
+      },
+      {
+        "id": "e31f347e-6921-4427-b2c4-9d24835313ee",
+        "type": "wire",
+        "position": {
+          "x": 122,
+          "y": 47
+        },
+        "rotation": 0,
+        "layer": 1
+      },
+      {
+        "id": "fb178957-e4ce-4f2d-90c4-d4b3a379e6da",
+        "type": "wire",
+        "position": {
+          "x": 123,
+          "y": 47
+        },
+        "rotation": 0,
+        "layer": 1
+      },
+      {
+        "id": "56f5be85-4f4f-499c-bc2f-a4cc3009bd9e",
+        "type": "wire",
+        "position": {
+          "x": 129,
+          "y": 47
+        },
+        "rotation": 0,
+        "layer": 1
+      },
+      {
+        "id": "4d4dd319-111a-4a8f-8a9d-8c1bb97f550f",
+        "type": "wire",
+        "position": {
+          "x": 129,
+          "y": 48
+        },
+        "rotation": 0,
+        "layer": 1
+      },
+      {
+        "id": "b1167131-5224-44b6-aabc-2466366911fa",
+        "type": "wire",
+        "position": {
+          "x": 129,
+          "y": 49
+        },
+        "rotation": 0,
+        "layer": 1
+      },
+      {
+        "id": "22d1b743-9ba6-41b3-b62c-4b4fa474bd49",
+        "type": "wire",
+        "position": {
+          "x": 129,
+          "y": 50
+        },
+        "rotation": 0,
+        "layer": 1
+      },
+      {
+        "id": "12b5e3d8-0897-436b-a924-5bc7de0e9b16",
+        "type": "wire",
+        "position": {
+          "x": 133,
+          "y": 47
+        },
+        "rotation": 0,
+        "layer": 1
+      },
+      {
+        "id": "b1b4b5b3-e3a2-4be9-983e-684464e4b596",
+        "type": "wire",
+        "position": {
+          "x": 134,
+          "y": 47
+        },
+        "rotation": 0,
+        "layer": 1
+      },
+      {
+        "id": "ea140b38-d59f-4b55-8500-c91565058765",
+        "type": "wire",
+        "position": {
+          "x": 135,
+          "y": 47
+        },
+        "rotation": 0,
+        "layer": 1
+      },
+      {
+        "id": "ff5bebdf-c03f-435b-a280-43315dfb6b23",
+        "type": "wire",
+        "position": {
+          "x": 117,
+          "y": 55
+        },
+        "rotation": 0,
+        "layer": 1
+      },
+      {
+        "id": "7e545222-af82-4d5b-8bf3-040068f93fd0",
+        "type": "wire",
+        "position": {
+          "x": 118,
+          "y": 55
+        },
+        "rotation": 0,
+        "layer": 1
+      },
+      {
+        "id": "2deab954-143e-4a81-9f6a-4b4fef7bb0c9",
+        "type": "wire",
+        "position": {
+          "x": 119,
+          "y": 55
+        },
+        "rotation": 0,
+        "layer": 1
+      },
+      {
+        "id": "08fc6258-d5be-4e2c-b913-bcb4d0789251",
+        "type": "wire",
+        "position": {
+          "x": 120,
+          "y": 55
+        },
+        "rotation": 0,
+        "layer": 1
+      },
+      {
+        "id": "09f3501b-ec54-4719-83fd-79a561df0e33",
+        "type": "wire",
+        "position": {
+          "x": 121,
+          "y": 55
+        },
+        "rotation": 0,
+        "layer": 1
+      },
+      {
+        "id": "cfa2cc62-2241-468f-8c25-cd91244d36de",
+        "type": "wire",
+        "position": {
+          "x": 122,
+          "y": 55
+        },
+        "rotation": 0,
+        "layer": 1
+      },
+      {
+        "id": "1fe19714-fefa-4ab9-a8bd-9a61e44c78d6",
+        "type": "wire",
+        "position": {
+          "x": 123,
+          "y": 55
+        },
+        "rotation": 0,
+        "layer": 1
+      },
+      {
+        "id": "77a201c5-0ba4-44ff-b87c-017b3dcb6e0e",
+        "type": "wire",
+        "position": {
+          "x": 124,
+          "y": 55
+        },
+        "rotation": 0,
+        "layer": 1
+      },
+      {
+        "id": "8a48f17c-db49-4f9f-a2c9-e574afe4d396",
+        "type": "wire",
+        "position": {
+          "x": 125,
+          "y": 55
+        },
+        "rotation": 0,
+        "layer": 1
+      },
+      {
+        "id": "dc7aa4db-8f44-4808-9550-aa71deb29a52",
+        "type": "wire",
+        "position": {
+          "x": 126,
+          "y": 55
+        },
+        "rotation": 0,
+        "layer": 1
+      },
+      {
+        "id": "82035ae3-1785-405f-aee2-9708d570ad9a",
+        "type": "wire",
+        "position": {
+          "x": 127,
+          "y": 55
+        },
+        "rotation": 0,
+        "layer": 1
+      },
+      {
+        "id": "67bc34eb-256e-4b4a-b9f4-226ce23d3bd6",
+        "type": "wire",
+        "position": {
+          "x": 128,
+          "y": 55
+        },
+        "rotation": 0,
+        "layer": 1
+      },
+      {
+        "id": "d0fe4483-685e-4ebd-b28a-0161b1a5ae7c",
+        "type": "wire",
+        "position": {
+          "x": 129,
+          "y": 55
+        },
+        "rotation": 0,
+        "layer": 1
+      },
+      {
+        "id": "4dd4129b-8c03-4494-891b-ab962e86a0ae",
+        "type": "wire",
+        "position": {
+          "x": 130,
+          "y": 55
+        },
+        "rotation": 0,
+        "layer": 1
+      },
+      {
+        "id": "54b4e98b-27c8-4bbb-b298-b25f40cc430f",
+        "type": "wire",
+        "position": {
+          "x": 131,
+          "y": 55
+        },
+        "rotation": 0,
+        "layer": 1
+      },
+      {
+        "id": "109aa37f-4110-4c26-a530-a40a8fe9c6c2",
+        "type": "wire",
+        "position": {
+          "x": 112,
+          "y": 46
+        },
+        "rotation": 0,
+        "layer": 1
+      },
+      {
+        "id": "eb98dca5-0248-4f75-9177-d60f94bb609f",
+        "type": "wire",
+        "position": {
+          "x": 112,
+          "y": 47
+        },
+        "rotation": 0,
+        "layer": 1
+      },
+      {
+        "id": "98a89697-aea2-4916-92cf-413b57d02ec8",
+        "type": "wire",
+        "position": {
+          "x": 112,
+          "y": 48
+        },
+        "rotation": 0,
+        "layer": 1
+      },
+      {
+        "id": "c79974f2-79de-406e-afd7-c9eb558c83e2",
+        "type": "wire",
+        "position": {
+          "x": 112,
+          "y": 42
+        },
+        "rotation": 0,
+        "layer": 1
+      },
+      {
+        "id": "291330ce-4970-4c83-8758-a6c2e7e702eb",
+        "type": "wire",
+        "position": {
+          "x": 112,
+          "y": 43
+        },
+        "rotation": 0,
+        "layer": 1
+      },
+      {
+        "id": "9901b0cd-e3de-48bd-ace6-35b093998181",
+        "type": "wire",
+        "position": {
+          "x": 112,
+          "y": 44
+        },
+        "rotation": 0,
+        "layer": 1
+      },
+      {
+        "id": "9344a155-03d4-4198-a2a2-32592f3434ee",
+        "type": "wire",
+        "position": {
+          "x": 111,
+          "y": 37
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "ad17dcbe-d322-47fe-b4cf-47716d37f21a",
+        "type": "wire",
+        "position": {
+          "x": 110,
+          "y": 37
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "6750e073-7070-4241-95b5-28f7f9f2fdec",
+        "type": "wire",
+        "position": {
+          "x": 109,
+          "y": 37
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "bdbd382d-72d8-4ba5-b2b2-996b23e821d4",
+        "type": "wire",
+        "position": {
+          "x": 108,
+          "y": 37
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "eebb060d-b796-4051-a111-5fe9ee67e626",
+        "type": "wire",
+        "position": {
+          "x": 107,
+          "y": 37
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "d03fd5dd-a181-4f3d-8fba-e648d5f95413",
+        "type": "wire",
+        "position": {
+          "x": 106,
+          "y": 37
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "423c04df-9f13-4301-93ee-f58edaaa95f8",
+        "type": "wire",
+        "position": {
+          "x": 106,
+          "y": 38
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "4a2e35fa-497d-4db7-8b4b-5c32178adfda",
+        "type": "wire",
+        "position": {
+          "x": 106,
+          "y": 39
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "002f24b7-c9cd-412c-a187-e19942422c2b",
+        "type": "wire",
+        "position": {
+          "x": 106,
+          "y": 40
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "a5664cd1-517b-4c07-be1d-13897e20d11f",
+        "type": "wire",
+        "position": {
+          "x": 106,
+          "y": 41
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "b0317a35-da4a-4741-b3f3-d842c8782073",
+        "type": "wire",
+        "position": {
+          "x": 106,
+          "y": 42
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "2f30cb47-4c71-4db5-924c-14903cef8343",
+        "type": "wire",
+        "position": {
+          "x": 106,
+          "y": 43
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "de2e5bc5-d59a-4310-ad23-70bf1b78e340",
+        "type": "wire",
+        "position": {
+          "x": 106,
+          "y": 44
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "e4ff1c7a-8d69-46fa-a593-78edcd0ee643",
+        "type": "wire",
+        "position": {
+          "x": 106,
+          "y": 45
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "68e599dd-2731-4fb4-8acb-e0ab9754df80",
+        "type": "wire",
+        "position": {
+          "x": 106,
+          "y": 46
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "e44a370a-ff63-42ac-8810-c0a085231cb2",
+        "type": "wire",
+        "position": {
+          "x": 106,
+          "y": 47
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "720747e1-883a-46e0-b6c1-f45e9380ecdf",
+        "type": "wire",
+        "position": {
+          "x": 106,
+          "y": 48
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "e5d1bf1d-e431-44ed-b8bd-9339107b53f2",
+        "type": "wire",
+        "position": {
+          "x": 106,
+          "y": 49
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "fef0e858-db66-4ee1-9750-aa30bcbf267b",
+        "type": "wire",
+        "position": {
+          "x": 106,
+          "y": 50
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "6093f8d0-ec0d-48b8-87d2-bf4f206ad0f5",
+        "type": "wire",
+        "position": {
+          "x": 106,
+          "y": 51
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "d1850b55-bd7c-45bd-b318-eb6460c92639",
+        "type": "wire",
+        "position": {
+          "x": 106,
+          "y": 52
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "99f45b0a-ff04-4a51-9477-f18693621ddb",
+        "type": "wire",
+        "position": {
+          "x": 106,
+          "y": 53
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "7bd3acd0-4f9f-4e5b-a7c9-444971270b41",
+        "type": "wire",
+        "position": {
+          "x": 106,
+          "y": 54
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "66828a3c-88f6-4f16-b784-97eedd35ca21",
+        "type": "wire",
+        "position": {
+          "x": 106,
+          "y": 55
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "5412b7b3-2980-4892-bb5e-9160e8b7d1f7",
+        "type": "wire",
+        "position": {
+          "x": 106,
+          "y": 56
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "fc2ed027-8ec8-48d0-9227-161687ca0d04",
+        "type": "wire",
+        "position": {
+          "x": 106,
+          "y": 57
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "d97915f5-3de1-44b8-991a-bd9f8dde658a",
+        "type": "wire",
+        "position": {
+          "x": 106,
+          "y": 58
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "bb38f4db-e786-4d97-9c9a-0686e2ded82e",
+        "type": "wire",
+        "position": {
+          "x": 106,
+          "y": 59
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "1abaaf53-182b-4f82-ba50-4025d9ebb32a",
+        "type": "wire",
+        "position": {
+          "x": 106,
+          "y": 60
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "0d286dd9-10fc-4925-9012-9bf1f4e88cae",
+        "type": "wire",
+        "position": {
+          "x": 106,
+          "y": 61
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "4d8017d0-e6b3-4252-b3f0-9127d05e0def",
+        "type": "wire",
+        "position": {
+          "x": 106,
+          "y": 62
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "11da83d8-36d9-4dfb-a9ac-35c5585701f5",
+        "type": "wire",
+        "position": {
+          "x": 106,
+          "y": 63
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "7b56b45c-3890-4e61-b798-27a379cc446d",
+        "type": "wire",
+        "position": {
+          "x": 106,
+          "y": 64
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "3fc8fcbf-05f4-4273-a3a3-5f0df37d111a",
+        "type": "wire",
+        "position": {
+          "x": 106,
+          "y": 65
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "5ddb74d8-da2f-42c4-9858-4a47c6419a3e",
+        "type": "wire",
+        "position": {
+          "x": 106,
+          "y": 66
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "578bfa2c-04b1-4e6d-bafc-6fc14246accf",
+        "type": "wire",
+        "position": {
+          "x": 106,
+          "y": 67
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "8fba730b-7dc4-42c1-a2fe-116215168001",
+        "type": "wire",
+        "position": {
+          "x": 106,
+          "y": 68
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "d4f2b24b-09ef-4bd3-baea-c266e56b06f8",
+        "type": "wire",
+        "position": {
+          "x": 106,
+          "y": 69
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "78a334a8-aadb-4f3d-b890-b269829489cd",
+        "type": "wire",
+        "position": {
+          "x": 83,
+          "y": 69
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "74ae3c25-9d93-44a6-987d-b3a01e1610df",
+        "type": "wire",
+        "position": {
+          "x": 83,
+          "y": 68
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "29bd646f-9885-44e3-bc2e-7f199788e9d0",
+        "type": "wire",
+        "position": {
+          "x": 123,
+          "y": 36
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "aed5ecdd-0ba3-47fb-96e1-2d5a4aaef05f",
+        "type": "wire",
+        "position": {
+          "x": 123,
+          "y": 35
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "1a353619-908e-4369-87d2-0281b4302ab6",
+        "type": "wire",
+        "position": {
+          "x": 122,
+          "y": 35
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "376bea98-4cd4-4051-a208-2db23de07ae2",
+        "type": "wire",
+        "position": {
+          "x": 121,
+          "y": 35
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "3f0e1262-bec5-4e20-a4e4-dc075d05cd02",
+        "type": "wire",
+        "position": {
+          "x": 120,
+          "y": 35
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "10a6f904-59c0-4747-bf85-ef1f09263fe5",
+        "type": "wire",
+        "position": {
+          "x": 119,
+          "y": 35
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "285d629b-1f55-42ab-83f5-a8a9545c0456",
+        "type": "wire",
+        "position": {
+          "x": 118,
+          "y": 35
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "18b8ae0a-3540-49bf-82e6-66348fb2de57",
+        "type": "wire",
+        "position": {
+          "x": 117,
+          "y": 35
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "4d221f26-f0ef-4eaa-b5ec-bad6709ebbc5",
+        "type": "wire",
+        "position": {
+          "x": 116,
+          "y": 35
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "da5a227b-1162-4a9c-967b-4f4e12ae4443",
+        "type": "wire",
+        "position": {
+          "x": 115,
+          "y": 35
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "66e5e90c-f058-49a3-b1d7-df5a14f1519e",
+        "type": "wire",
+        "position": {
+          "x": 114,
+          "y": 35
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "a75e647e-965f-418c-99b1-13dd5cbe9a7a",
+        "type": "wire",
+        "position": {
+          "x": 113,
+          "y": 35
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "a521f84f-df4d-4788-885f-f8c70e24f2b0",
+        "type": "wire",
+        "position": {
+          "x": 112,
+          "y": 35
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "386a1fb7-6051-430f-ba31-4c41573cca75",
+        "type": "wire",
+        "position": {
+          "x": 111,
+          "y": 35
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "41b86ea8-7183-43b7-89da-dbcc3f6c73ff",
+        "type": "wire",
+        "position": {
+          "x": 110,
+          "y": 35
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "af1ea4be-5e50-44ac-b985-da12ba46ab34",
+        "type": "wire",
+        "position": {
+          "x": 109,
+          "y": 35
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "5694cc96-7bad-436c-8c53-410a2248f16c",
+        "type": "wire",
+        "position": {
+          "x": 108,
+          "y": 35
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "0b49163e-eb19-4f19-9277-19b2a21d1319",
+        "type": "wire",
+        "position": {
+          "x": 107,
+          "y": 35
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "2c923367-96ad-4374-be3d-0f73e60831b9",
+        "type": "wire",
+        "position": {
+          "x": 106,
+          "y": 35
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "34499d41-eb22-49f5-b213-0ee4c8835eea",
+        "type": "wire",
+        "position": {
+          "x": 105,
+          "y": 35
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "5d5f5493-6059-4adc-b3cf-a36855f23dbc",
+        "type": "wire",
+        "position": {
+          "x": 104,
+          "y": 36
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "fc79dda4-5e96-4e92-bb2d-e9a0dea474a0",
+        "type": "wire",
+        "position": {
+          "x": 104,
+          "y": 35
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "75af95e3-2682-4a38-929b-92b5251951ae",
+        "type": "wire",
+        "position": {
+          "x": 104,
+          "y": 37
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "4aa2a35c-50c9-46a7-9914-4417e8d44fa2",
+        "type": "wire",
+        "position": {
+          "x": 104,
+          "y": 38
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "76ec93c5-2b5c-4c80-88f2-b0a7e00938fb",
+        "type": "wire",
+        "position": {
+          "x": 104,
+          "y": 39
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "0683c049-0ab0-4b54-b25e-238a2b16d29c",
+        "type": "wire",
+        "position": {
+          "x": 104,
+          "y": 40
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "51cb36a6-e3da-4e8f-ad08-0eca4ee216ad",
+        "type": "wire",
+        "position": {
+          "x": 104,
+          "y": 41
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "3d425f9c-e50e-4191-9512-8f994a53daff",
+        "type": "wire",
+        "position": {
+          "x": 104,
+          "y": 42
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "83332a0a-9134-4c1b-b3fb-9aff34c17cec",
+        "type": "wire",
+        "position": {
+          "x": 104,
+          "y": 43
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "3d31d2d2-53dd-4f2c-9eaa-8527af12781c",
+        "type": "wire",
+        "position": {
+          "x": 104,
+          "y": 44
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "e1c939e1-3a56-4aab-a4f2-b9c0fa07f90f",
+        "type": "wire",
+        "position": {
+          "x": 104,
+          "y": 45
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "ce8a9c9c-6e29-4b6c-bc83-ae8e9fb2bb1d",
+        "type": "wire",
+        "position": {
+          "x": 104,
+          "y": 46
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "928a58ce-ad42-4563-8a70-c1d2e45df57b",
+        "type": "wire",
+        "position": {
+          "x": 104,
+          "y": 47
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "3f1ceae9-5bed-4f20-96e4-ed50d403023e",
+        "type": "wire",
+        "position": {
+          "x": 104,
+          "y": 48
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "a4b21e32-2e7f-4bdf-9253-562087123e1e",
+        "type": "wire",
+        "position": {
+          "x": 104,
+          "y": 49
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "5ce3e155-f9d8-4408-bd96-ab4ecafabe21",
+        "type": "wire",
+        "position": {
+          "x": 104,
+          "y": 50
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "fb1d9494-bf17-4d39-93c5-a6090054007a",
+        "type": "wire",
+        "position": {
+          "x": 104,
+          "y": 51
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "f38f66d9-2b20-4851-8bcf-71b675bf8bd4",
+        "type": "wire",
+        "position": {
+          "x": 104,
+          "y": 52
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "8cb63d47-4476-4bfe-805a-f61b38f44b5f",
+        "type": "wire",
+        "position": {
+          "x": 104,
+          "y": 53
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "3dda33ec-cfed-4f6a-9975-3f3c5a38d8a7",
+        "type": "wire",
+        "position": {
+          "x": 104,
+          "y": 54
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "549d5ac1-de86-413d-b619-e39b1e236793",
+        "type": "wire",
+        "position": {
+          "x": 104,
+          "y": 55
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "608b8e66-68b0-4618-af0d-72d6f737f844",
+        "type": "wire",
+        "position": {
+          "x": 104,
+          "y": 56
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "30aff12a-881b-4b1f-b09a-62e79ddd6ff5",
+        "type": "wire",
+        "position": {
+          "x": 104,
+          "y": 57
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "e2d399e4-7ec6-4427-8222-298c8fe2dbbd",
+        "type": "wire",
+        "position": {
+          "x": 104,
+          "y": 58
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "03c4a6b1-148a-47ee-92fc-22d942ad6b07",
+        "type": "wire",
+        "position": {
+          "x": 104,
+          "y": 59
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "94a406d1-b3cc-40d1-a703-6a1741d8d32c",
+        "type": "wire",
+        "position": {
+          "x": 104,
+          "y": 60
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "dd754370-0c64-4917-a274-2ac4e967baa0",
+        "type": "wire",
+        "position": {
+          "x": 104,
+          "y": 61
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "1de22b07-fc17-4d73-b588-85bbc5871a97",
+        "type": "wire",
+        "position": {
+          "x": 104,
+          "y": 62
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "68edd10d-b45d-49c3-89ae-ed60fc7b6bb3",
+        "type": "wire",
+        "position": {
+          "x": 104,
+          "y": 63
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "b265831d-13f5-4165-b923-e9d34ee56c02",
+        "type": "wire",
+        "position": {
+          "x": 104,
+          "y": 64
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "fa17b389-186b-418a-baab-dd8ccd882431",
+        "type": "wire",
+        "position": {
+          "x": 104,
+          "y": 65
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "405eaed0-0b5d-4466-b87e-17c863b3d373",
+        "type": "wire",
+        "position": {
+          "x": 104,
+          "y": 66
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "412bffe6-ea0d-4c21-90c6-a3d956528eb0",
+        "type": "wire",
+        "position": {
+          "x": 104,
+          "y": 67
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "58818a7f-8da6-4c1e-98e2-3711bdc30453",
+        "type": "wire",
+        "position": {
+          "x": 104,
+          "y": 68
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "28f03fec-0145-4398-aa8a-757ab1a2625e",
         "type": "wire",
         "position": {
           "x": 85,
-          "y": 72
+          "y": 68
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "d11a428e-188b-45e3-85d5-70780eba7f41",
+        "type": "wire",
+        "position": {
+          "x": 135,
+          "y": 33
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "ed437262-cdc9-4302-9ee6-bd38686c3514",
+        "type": "wire",
+        "position": {
+          "x": 135,
+          "y": 34
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "192495d0-addf-4b92-9a77-1913dcce1578",
+        "type": "wire",
+        "position": {
+          "x": 135,
+          "y": 35
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "a80f68f3-c6c0-4ca3-8a61-c328ea84b966",
+        "type": "wire",
+        "position": {
+          "x": 135,
+          "y": 36
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "39fe739f-4120-4a2e-93b2-656919106582",
+        "type": "wire",
+        "position": {
+          "x": 134,
+          "y": 33
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "91a0202d-b1e9-4ef3-a828-0904c6b8da9e",
+        "type": "wire",
+        "position": {
+          "x": 133,
+          "y": 33
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "4c6e4c28-12ba-4dbc-8944-4072c1f6a2ef",
+        "type": "wire",
+        "position": {
+          "x": 132,
+          "y": 33
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "c32d65f5-198a-437d-902b-18fcb1c44adc",
+        "type": "wire",
+        "position": {
+          "x": 131,
+          "y": 33
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "b9a8a257-68e9-4937-88c2-0346872b98cc",
+        "type": "wire",
+        "position": {
+          "x": 130,
+          "y": 33
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "46776474-91a2-4f08-84e2-4664019a2014",
+        "type": "wire",
+        "position": {
+          "x": 129,
+          "y": 33
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "0af65934-d230-43bb-9bf6-98f2d2743b07",
+        "type": "wire",
+        "position": {
+          "x": 128,
+          "y": 33
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "41d98fbd-c3cc-4b2b-b35d-74759c8245c5",
+        "type": "wire",
+        "position": {
+          "x": 127,
+          "y": 33
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "89adedc9-6205-4185-8b8f-bdbf99ed8fe3",
+        "type": "wire",
+        "position": {
+          "x": 126,
+          "y": 33
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "5760fdab-5b55-48d9-9657-035cb2842cd7",
+        "type": "wire",
+        "position": {
+          "x": 125,
+          "y": 33
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "8fa043cf-8869-4ea5-9038-d12bc61d885e",
+        "type": "wire",
+        "position": {
+          "x": 124,
+          "y": 33
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "e4165ece-0077-485e-9569-980552d46cf3",
+        "type": "wire",
+        "position": {
+          "x": 123,
+          "y": 33
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "5bbd7a03-dc6a-4c61-a1ee-3151989ee13f",
+        "type": "wire",
+        "position": {
+          "x": 122,
+          "y": 33
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "2a9de699-9303-4f53-910a-a7f9552eee4f",
+        "type": "wire",
+        "position": {
+          "x": 121,
+          "y": 33
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "1135fb5e-3439-4f13-bd93-fcde33bc0f2e",
+        "type": "wire",
+        "position": {
+          "x": 120,
+          "y": 33
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "71b27484-b389-4e08-b759-a6d7b876ca4b",
+        "type": "wire",
+        "position": {
+          "x": 119,
+          "y": 33
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "719b1b9b-5f14-4e24-bcc8-e9c168fd5638",
+        "type": "wire",
+        "position": {
+          "x": 118,
+          "y": 33
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "16c387d3-ff2d-46be-ab85-101111c94908",
+        "type": "wire",
+        "position": {
+          "x": 117,
+          "y": 33
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "831636b0-f34d-458f-9c3a-53e0ab700732",
+        "type": "wire",
+        "position": {
+          "x": 116,
+          "y": 33
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "a89553fb-7e5d-46bf-99f6-8c21475fabcf",
+        "type": "wire",
+        "position": {
+          "x": 115,
+          "y": 33
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "28ed95d0-149c-42c6-a3b7-ce87cbd083d3",
+        "type": "wire",
+        "position": {
+          "x": 114,
+          "y": 33
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "4dacf888-7c53-410e-96ec-edf399caaf3c",
+        "type": "wire",
+        "position": {
+          "x": 113,
+          "y": 33
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "a38a3af8-7cfc-4b1d-b3fc-94601a9839db",
+        "type": "wire",
+        "position": {
+          "x": 112,
+          "y": 33
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "5bffb7af-8950-4a9c-b611-1dcb820e9855",
+        "type": "wire",
+        "position": {
+          "x": 111,
+          "y": 33
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "ad57eb2e-c8c7-42b4-9eb8-4dd9de81e578",
+        "type": "wire",
+        "position": {
+          "x": 110,
+          "y": 33
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "b707442a-6ea5-4680-a98d-02d5e5267b4a",
+        "type": "wire",
+        "position": {
+          "x": 109,
+          "y": 33
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "d8d4a090-5f44-4161-9f9b-0549b8b5120c",
+        "type": "wire",
+        "position": {
+          "x": 108,
+          "y": 33
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "0c346e38-49ee-49f1-82b8-5c1b037abd2c",
+        "type": "wire",
+        "position": {
+          "x": 107,
+          "y": 33
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "b5a163b6-8012-4ffd-a472-df6c6070d648",
+        "type": "wire",
+        "position": {
+          "x": 106,
+          "y": 33
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "05c2446b-13e2-4f74-88e1-dee14f739aeb",
+        "type": "wire",
+        "position": {
+          "x": 105,
+          "y": 33
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "5eeccc4b-e20d-4635-9cd3-3e1fdc98b764",
+        "type": "wire",
+        "position": {
+          "x": 104,
+          "y": 33
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "7fb61c2e-c73f-4151-97e7-56d57b1b7a9f",
+        "type": "wire",
+        "position": {
+          "x": 102,
+          "y": 33
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "a427d10b-a48c-40f4-9a35-ec72e8243aa8",
+        "type": "wire",
+        "position": {
+          "x": 103,
+          "y": 33
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "055e2eab-5958-4828-8fec-723d012d990b",
+        "type": "wire",
+        "position": {
+          "x": 102,
+          "y": 34
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "1c6be6c9-7ece-4d8a-b517-54c1d9e04f1d",
+        "type": "wire",
+        "position": {
+          "x": 102,
+          "y": 35
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "13f37a9d-1132-4dd0-8351-52277bd3d8f8",
+        "type": "wire",
+        "position": {
+          "x": 102,
+          "y": 36
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "48d73264-1807-42ba-a990-2b555a56e7da",
+        "type": "wire",
+        "position": {
+          "x": 102,
+          "y": 37
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "755c6cd3-b11f-4e7b-be80-8a22ed392797",
+        "type": "wire",
+        "position": {
+          "x": 102,
+          "y": 38
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "84208409-05f9-40a8-9785-00c3f8cab249",
+        "type": "wire",
+        "position": {
+          "x": 102,
+          "y": 39
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "b193e992-366f-497e-a6fe-e7bfdcbf67e9",
+        "type": "wire",
+        "position": {
+          "x": 102,
+          "y": 40
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "61481714-b97a-4f17-ade7-d87c2fe5c010",
+        "type": "wire",
+        "position": {
+          "x": 102,
+          "y": 41
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "c5c4df0b-681c-420f-8bad-6e3f5324fafc",
+        "type": "wire",
+        "position": {
+          "x": 102,
+          "y": 42
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "481e48b8-80bd-4553-b270-3b39e42c1aac",
+        "type": "wire",
+        "position": {
+          "x": 102,
+          "y": 43
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "959a1525-e481-4c7d-a70f-7229d687f705",
+        "type": "wire",
+        "position": {
+          "x": 102,
+          "y": 44
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "e32c0f05-b076-4261-a085-b580f960939b",
+        "type": "wire",
+        "position": {
+          "x": 102,
+          "y": 45
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "f5a48aa3-b247-450d-808f-c8595e0d8060",
+        "type": "wire",
+        "position": {
+          "x": 102,
+          "y": 46
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "43b46a0b-1828-4a26-822c-967f6a63bff6",
+        "type": "wire",
+        "position": {
+          "x": 102,
+          "y": 47
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "02689225-30b5-4207-8b51-d8a24873c997",
+        "type": "wire",
+        "position": {
+          "x": 102,
+          "y": 48
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "e2f1581a-54e0-43df-8c99-b1df2a524a44",
+        "type": "wire",
+        "position": {
+          "x": 102,
+          "y": 49
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "f883ac96-247f-4437-aefc-3956074138ec",
+        "type": "wire",
+        "position": {
+          "x": 102,
+          "y": 50
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "129e9281-db70-406e-b222-d61c9652dada",
+        "type": "wire",
+        "position": {
+          "x": 102,
+          "y": 51
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "a99774d0-7ae7-4d47-986e-4a3df79cb9d5",
+        "type": "wire",
+        "position": {
+          "x": 102,
+          "y": 52
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "1af60691-dbca-4bcf-b48b-a58c2e57cec1",
+        "type": "wire",
+        "position": {
+          "x": 102,
+          "y": 53
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "87b5d7e6-c288-4fe9-bb80-2a1d1682ac4e",
+        "type": "wire",
+        "position": {
+          "x": 102,
+          "y": 54
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "ef19753b-6814-42e3-81b6-4925f5769db5",
+        "type": "wire",
+        "position": {
+          "x": 102,
+          "y": 55
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "23375b1d-6d99-49b1-b7de-ff6f09cb2107",
+        "type": "wire",
+        "position": {
+          "x": 102,
+          "y": 56
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "43a77221-0ce9-4c63-a43f-7598769e4da6",
+        "type": "wire",
+        "position": {
+          "x": 102,
+          "y": 57
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "8ae8042d-8eb1-45b5-b530-7633b09db179",
+        "type": "wire",
+        "position": {
+          "x": 102,
+          "y": 58
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "e26299bd-44e7-424a-acbe-b54c05bd78ed",
+        "type": "wire",
+        "position": {
+          "x": 102,
+          "y": 59
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "e378afe5-2cc4-48f4-b002-b30e2d3e1c8d",
+        "type": "wire",
+        "position": {
+          "x": 102,
+          "y": 60
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "82eb6876-cb63-47e9-88d8-381ded659dea",
+        "type": "wire",
+        "position": {
+          "x": 102,
+          "y": 61
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "b73c3744-e687-4cca-a1b1-3f14616e9c3b",
+        "type": "via",
+        "position": {
+          "x": 87,
+          "y": 66
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "47ad8128-74a9-4c72-9ab2-efa3225b0ccd",
+        "type": "wire",
+        "position": {
+          "x": 102,
+          "y": 66
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "2a5d587e-fd0a-411a-b4e0-ce44d70142ac",
+        "type": "wire",
+        "position": {
+          "x": 102,
+          "y": 65
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "6e3dc83a-5609-4b20-95f1-68942f69e874",
+        "type": "wire",
+        "position": {
+          "x": 102,
+          "y": 64
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "cc75372a-3f51-4f5d-aab3-d786568de44e",
+        "type": "wire",
+        "position": {
+          "x": 102,
+          "y": 63
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "315b864b-d164-4cfd-887a-933b8adb2137",
+        "type": "wire",
+        "position": {
+          "x": 102,
+          "y": 62
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "08d5fde8-3cf5-4c09-b998-6afafdec39be",
+        "type": "wire",
+        "position": {
+          "x": 88,
+          "y": 66
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "b5c2b5ba-87c2-4a77-8c80-aadd9ab88b57",
+        "type": "wire",
+        "position": {
+          "x": 89,
+          "y": 66
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "fcf73845-cf0e-42af-a7f0-949994ddf757",
+        "type": "wire",
+        "position": {
+          "x": 90,
+          "y": 66
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "71efb51c-e5a3-47b4-a492-a4921b7e7e12",
+        "type": "wire",
+        "position": {
+          "x": 91,
+          "y": 66
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "2530534a-2792-42d8-8385-24379f0bce89",
+        "type": "wire",
+        "position": {
+          "x": 92,
+          "y": 66
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "d444dce9-44dc-4c6c-9775-79fdd72ba181",
+        "type": "wire",
+        "position": {
+          "x": 93,
+          "y": 66
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "3a913c60-d950-4ceb-8e0f-f2088b4299f6",
+        "type": "wire",
+        "position": {
+          "x": 100,
+          "y": 66
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "7b63213c-41c5-438e-9bc1-6dc59002785e",
+        "type": "wire",
+        "position": {
+          "x": 99,
+          "y": 66
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "72d5c857-b837-4a66-adef-af3b33f85640",
+        "type": "wire",
+        "position": {
+          "x": 98,
+          "y": 66
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "bf91f13a-33a1-4510-b7bc-5bed9474a99b",
+        "type": "wire",
+        "position": {
+          "x": 97,
+          "y": 66
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "2034d546-82b8-4246-9a4a-7cb28ec73151",
+        "type": "wire",
+        "position": {
+          "x": 96,
+          "y": 66
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "f66aaf7d-373f-4d04-8065-1d5769478e48",
+        "type": "wire",
+        "position": {
+          "x": 95,
+          "y": 66
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "52486eb4-0e92-49bb-a8ed-00a3a10d6510",
+        "type": "wire",
+        "position": {
+          "x": 94,
+          "y": 66
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "e7929339-f039-401d-8a0d-458eb60e1e81",
+        "type": "wire",
+        "position": {
+          "x": 101,
+          "y": 66
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "8f35d38a-54ff-4f6c-9c71-3d992ae2516d",
+        "type": "wire",
+        "position": {
+          "x": 86,
+          "y": 68
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "4047064a-44ed-414a-a1f1-569767f858a5",
+        "type": "wire",
+        "position": {
+          "x": 87,
+          "y": 68
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "0127c65f-33dc-49f9-9289-4933e3783ee2",
+        "type": "wire",
+        "position": {
+          "x": 88,
+          "y": 68
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "ec2011a6-d9f2-4c76-87ba-78189ef4d461",
+        "type": "wire",
+        "position": {
+          "x": 89,
+          "y": 68
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "19dc5eb3-5929-4fd5-b0fb-3cfee6c7ebf2",
+        "type": "wire",
+        "position": {
+          "x": 90,
+          "y": 68
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "7e240314-523b-4e17-a5b2-9bf4682fd3b7",
+        "type": "wire",
+        "position": {
+          "x": 91,
+          "y": 68
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "f4cf7c2b-4e21-401d-b89c-70053c79ff7b",
+        "type": "wire",
+        "position": {
+          "x": 92,
+          "y": 68
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "d50d0577-ada5-448b-8e2a-dc22180c1ae9",
+        "type": "wire",
+        "position": {
+          "x": 93,
+          "y": 68
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "8f933376-c26c-4ddf-8fc9-5e79c8a667bb",
+        "type": "wire",
+        "position": {
+          "x": 94,
+          "y": 68
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "b14f72d3-000f-424b-b7a9-293093c3da4a",
+        "type": "wire",
+        "position": {
+          "x": 95,
+          "y": 68
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "8bb28ac6-27fc-424d-b187-3c565b12b88e",
+        "type": "wire",
+        "position": {
+          "x": 96,
+          "y": 68
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "a9fd135a-2627-449d-b686-fab5f4f20e91",
+        "type": "wire",
+        "position": {
+          "x": 97,
+          "y": 68
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "dbf0da7f-2e88-42da-bdcb-e57aa2d8f1f9",
+        "type": "wire",
+        "position": {
+          "x": 98,
+          "y": 68
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "b37b052b-4f3e-4077-9ee3-473a7e25e98a",
+        "type": "wire",
+        "position": {
+          "x": 99,
+          "y": 68
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "af5d2168-5f18-4812-9bf6-5356d271a55e",
+        "type": "wire",
+        "position": {
+          "x": 100,
+          "y": 68
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "6f7bd0df-7be7-4dac-a6fc-dde840d8c21b",
+        "type": "wire",
+        "position": {
+          "x": 101,
+          "y": 68
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "86879702-ba85-4fbc-91ad-9355412352af",
+        "type": "wire",
+        "position": {
+          "x": 102,
+          "y": 68
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "c3614d7f-e901-4c10-b64c-a94c05567fac",
+        "type": "wire",
+        "position": {
+          "x": 103,
+          "y": 68
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "b424b2ff-2959-4882-81b8-fc901ef18a3f",
+        "type": "wire",
+        "position": {
+          "x": 83,
+          "y": 70
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "6c23ceec-cf6e-43f3-aa9b-95710329c3a8",
+        "type": "wire",
+        "position": {
+          "x": 84,
+          "y": 70
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "33eb65f2-5f0b-4ee6-ba13-910f8676fee9",
+        "type": "wire",
+        "position": {
+          "x": 85,
+          "y": 70
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "7d2f0cb3-6c8c-4102-ab10-01be4362b469",
+        "type": "wire",
+        "position": {
+          "x": 86,
+          "y": 70
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "89efd06a-7b58-487f-b253-f6ba6734fa2c",
+        "type": "wire",
+        "position": {
+          "x": 87,
+          "y": 70
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "3eb949bb-4452-4a25-8d66-7569cf717151",
+        "type": "wire",
+        "position": {
+          "x": 88,
+          "y": 70
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "951a7424-40b7-455c-afc4-4450b00e99f2",
+        "type": "wire",
+        "position": {
+          "x": 89,
+          "y": 70
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "626ca5a1-5d35-4e08-af90-9f889bc9f3af",
+        "type": "wire",
+        "position": {
+          "x": 90,
+          "y": 70
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "50f36ea5-d380-412b-bcf7-43828d684f19",
+        "type": "wire",
+        "position": {
+          "x": 91,
+          "y": 70
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "0705627b-ad72-4b3f-aaad-475dc9cd7df6",
+        "type": "wire",
+        "position": {
+          "x": 92,
+          "y": 70
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "86700daa-0e62-4105-a658-073d59513a06",
+        "type": "wire",
+        "position": {
+          "x": 103,
+          "y": 70
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "a8d5341b-6e35-4fdc-bd3a-60f7783aa0cd",
+        "type": "wire",
+        "position": {
+          "x": 104,
+          "y": 70
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "ec15fa2f-27a9-4265-8af8-1e388fc84953",
+        "type": "wire",
+        "position": {
+          "x": 105,
+          "y": 70
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "bb4a597c-924c-415f-85d6-661580502a12",
+        "type": "wire",
+        "position": {
+          "x": 106,
+          "y": 70
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "e8943632-41a4-42d2-a89c-012a54537ee1",
+        "type": "wire",
+        "position": {
+          "x": 102,
+          "y": 70
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "68baa94e-f3e8-4f85-950d-3f1ee910a39b",
+        "type": "wire",
+        "position": {
+          "x": 101,
+          "y": 70
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "f43d48ab-8438-497a-8325-69fbd2c8eb0f",
+        "type": "wire",
+        "position": {
+          "x": 100,
+          "y": 70
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "fdefc62d-ec91-4c19-9aba-8f109e39deee",
+        "type": "wire",
+        "position": {
+          "x": 99,
+          "y": 70
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "d20e8d0c-e1c6-4ec0-b1ce-a1808c0476d8",
+        "type": "wire",
+        "position": {
+          "x": 98,
+          "y": 70
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "94a49813-4f51-4eb1-a93b-e60eac2457f0",
+        "type": "wire",
+        "position": {
+          "x": 97,
+          "y": 70
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "de9663da-b6a2-4285-a0ac-a8e495fe5d87",
+        "type": "wire",
+        "position": {
+          "x": 96,
+          "y": 70
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "23bbef24-ae4e-4817-bbf0-6d4a50bf2469",
+        "type": "wire",
+        "position": {
+          "x": 95,
+          "y": 70
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "1f2355ef-b927-4389-8f2f-8ae4d59a2d1e",
+        "type": "wire",
+        "position": {
+          "x": 94,
+          "y": 70
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "2ddfcb3b-5dfc-4f63-bb23-9ad674b3df26",
+        "type": "wire",
+        "position": {
+          "x": 93,
+          "y": 70
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "235dac90-526b-4921-a69b-cb63b22b33e7",
+        "type": "wire",
+        "position": {
+          "x": 88,
+          "y": 66
+        },
+        "rotation": 0,
+        "layer": 1
+      },
+      {
+        "id": "509a1348-8bcd-46c9-bebd-c1599228b831",
+        "type": "wire",
+        "position": {
+          "x": 89,
+          "y": 66
+        },
+        "rotation": 0,
+        "layer": 1
+      },
+      {
+        "id": "02fdcbd2-cf13-4289-8570-cd69165fd49c",
+        "type": "wire",
+        "position": {
+          "x": 90,
+          "y": 66
+        },
+        "rotation": 0,
+        "layer": 1
+      },
+      {
+        "id": "b7479ca8-bd9c-4e3b-9d97-be09b70ac6aa",
+        "type": "wire",
+        "position": {
+          "x": 90,
+          "y": 65
+        },
+        "rotation": 0,
+        "layer": 1
+      },
+      {
+        "id": "7fa681b2-3a72-4e10-9467-ecef3e814bc5",
+        "type": "wire",
+        "position": {
+          "x": 125,
+          "y": 46
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "48dc056b-11b9-4b9c-a70f-f9679d8a436c",
+        "type": "wire",
+        "position": {
+          "x": 125,
+          "y": 47
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "374f457d-bc8f-4705-988c-689788e67993",
+        "type": "wire",
+        "position": {
+          "x": 125,
+          "y": 48
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "3d3f26f1-e31e-43cb-a625-ccc62004cba3",
+        "type": "wire",
+        "position": {
+          "x": 125,
+          "y": 49
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "47456fcf-5b4a-499c-a380-ae90cbc7de89",
+        "type": "wire",
+        "position": {
+          "x": 125,
+          "y": 50
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "6667ae9a-9299-4685-90d4-aaa128a20535",
+        "type": "wire",
+        "position": {
+          "x": 125,
+          "y": 51
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "2601db40-be30-4782-a0c8-5007614fd41c",
+        "type": "wire",
+        "position": {
+          "x": 125,
+          "y": 52
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "70ecad2c-d85e-487f-a764-9923ec11d2b0",
+        "type": "wire",
+        "position": {
+          "x": 125,
+          "y": 53
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "4b786739-aa2f-4387-b617-fc17f66eb1b3",
+        "type": "wire",
+        "position": {
+          "x": 126,
+          "y": 53
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "b55e0af8-0f6f-4f65-8c2e-e214df867500",
+        "type": "wire",
+        "position": {
+          "x": 124,
+          "y": 47
+        },
+        "rotation": 0,
+        "layer": 1
+      },
+      {
+        "id": "d584748f-fedf-48a6-9ef2-d1696df41c0d",
+        "type": "wire",
+        "position": {
+          "x": 125,
+          "y": 47
+        },
+        "rotation": 0,
+        "layer": 1
+      },
+      {
+        "id": "ce722a69-591b-4b2e-9574-ac2dc4057c28",
+        "type": "wire",
+        "position": {
+          "x": 126,
+          "y": 47
+        },
+        "rotation": 0,
+        "layer": 1
+      },
+      {
+        "id": "9f69c2bc-f238-4ecc-ad44-353abc81a5be",
+        "type": "wire",
+        "position": {
+          "x": 127,
+          "y": 47
+        },
+        "rotation": 0,
+        "layer": 1
+      },
+      {
+        "id": "efd8bd0a-fa4e-478b-aba8-d8f8c1415041",
+        "type": "wire",
+        "position": {
+          "x": 128,
+          "y": 47
+        },
+        "rotation": 0,
+        "layer": 1
+      },
+      {
+        "id": "6067059c-c74c-4088-863d-046649eef2f7",
+        "type": "clock",
+        "position": {
+          "x": 108,
+          "y": 43
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "9ba6b3fe-1909-4fa2-824c-b749f2cb01cc",
+        "type": "wire",
+        "position": {
+          "x": 109,
+          "y": 43
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "6d1a09e8-44c1-47ef-aa70-05e01e0675f8",
+        "type": "wire",
+        "position": {
+          "x": 112,
+          "y": 38
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "b12d1903-3530-445a-a02f-7fe3633f06cb",
+        "type": "wire",
+        "position": {
+          "x": 112,
+          "y": 39
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "da6afd92-399f-4ae1-bf6c-49f40fb6d268",
+        "type": "wire",
+        "position": {
+          "x": 123,
+          "y": 39
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "c2668aad-d903-47a1-a05a-c140641528ea",
+        "type": "wire",
+        "position": {
+          "x": 123,
+          "y": 38
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "7c992dc7-02f4-4be8-aae2-9506bbe246ec",
+        "type": "wire",
+        "position": {
+          "x": 135,
+          "y": 38
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "89f14578-191d-4afd-9f0f-7b91322d9a26",
+        "type": "wire",
+        "position": {
+          "x": 135,
+          "y": 39
         },
         "rotation": 0,
         "layer": 0
@@ -7243,51 +11913,6 @@
           "y": 23.99019622814956
         },
         "text": "(more examples bellow)"
-      },
-      {
-        "id": "1a835dc2-5d20-4c30-9cf9-67e7dd5609b1",
-        "kind": "label",
-        "position": {
-          "x": 83.85210776883812,
-          "y": 72.52578568379326
-        },
-        "text": "1 = 0 0 1"
-      },
-      {
-        "id": "e82a35b6-98c8-403d-9e62-b302a51bcf41",
-        "kind": "label",
-        "position": {
-          "x": 83.84579207540553,
-          "y": 73.74262746998497
-        },
-        "text": "2 = 0 1 0"
-      },
-      {
-        "id": "4e5e6f14-a8a9-4b61-b3d9-2ce085e36ad0",
-        "kind": "label",
-        "position": {
-          "x": 83.84000088541134,
-          "y": 74.98578464278245
-        },
-        "text": "3 = 0 1 1"
-      },
-      {
-        "id": "ec03c15c-a61e-4de3-bb92-3b7516c4b552",
-        "kind": "label",
-        "position": {
-          "x": 83.9010536284328,
-          "y": 76.14789027626188
-        },
-        "text": "4 = 1 00"
-      },
-      {
-        "id": "8b581b74-e198-4278-9b86-bd363ddca282",
-        "kind": "label",
-        "position": {
-          "x": 83.84999923706054,
-          "y": 71.40499992370606
-        },
-        "text": "0 = 0 0 0"
       }
     ]
   }

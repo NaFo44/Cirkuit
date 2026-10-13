@@ -6,6 +6,7 @@ import clockImageUrl from "../../assets/docs/clock.png";
 import switchImageUrl from "../../assets/docs/switch.png";
 import viaImageUrl from "../../assets/docs/via.png";
 import wireImageUrl from "../../assets/docs/wire.png";
+import memoryImageUrl from "../../assets/docs/memory.png";
 
 import "./workspaceSidebar.css";
 import "./sidebarDocs.css";
@@ -98,6 +99,13 @@ export function SidebarDocs({ onClose }: SidebarDocsProps) {
                     imageWidth={526}
                     imageHeight={476}
                     description="This component generates a LOW/HIGH 1Hz square signal."
+                />
+                <ComponentCard
+                    title="Memory"
+                    imageUrl={memoryImageUrl}
+                    imageWidth={526}
+                    imageHeight={476}
+                    description="This is one step up in difficulty! It has two inputs: a clock input (at the top) and a signal input (on the left). The output signal is provided on the right. This component can store a 1-bit value, which is updated on every rising edge of the clock signal."
                 />
                 <ComponentCard
                     title="Light"
