@@ -13,6 +13,19 @@ import {
 } from "../editor/editorShortcuts";
 import type { AnnotationType } from "../../domain/project/circuitAnnotation";
 import { AnnotationToolPicker } from "./annotationToolPicker";
+import { useId, useState } from "react";
+import { ChevronLeft, ChevronRight } from "pixelarticons/react";
+
+const ADVANCED_COMPONENT_TYPES = [
+    "clock",
+    "memory",
+    "via",
+] as const satisfies readonly BuiltInComponentType[];
+
+const BASIC_COMPONENT_TYPES = BUILT_IN_COMPONENT_TYPES.filter(
+    (component) =>
+        component !== "clock" && component !== "memory" && component !== "via",
+);
 
 interface ComponentPaletteProps {
     mode: EditorMode;
@@ -32,8 +45,103 @@ export function ComponentPalette({
     onSelectAnnotation,
 }: ComponentPaletteProps) {
     const modeLabel = mode === "edit" ? "Run circuit" : "Edit circuit";
+    const [isAdvancedOpen, setIsAdvancedOpen] = useState(false);
+    const advancedPanelId = useId();
+
+    const advancedLabel = isAdvancedOpen
+        ? "Hide advanced components"
+        : "Show advanced components";
+
+    const renderComponent = (component: BuiltInComponentType) => {
+        const presentation = getComponentPresentation(component);
+        const isSelected =
+            selectedTool.kind === "component" &&
+            selectedTool.componentType === component;
+
+        const tooltipLabel = presentation.rotatable
+            ? `${presentation.label} | ${ROTATE_COMPONENT_SHORTCUT} to rotate`
+            : presentation.label;
+
+        return (
+            <div key={component} className="tooltip">
+                <button
+                    type="button"
+                    className="component-palette__item"
+                    style={{ backgroundColor: presentation.paletteColor }}
+                    aria-label={presentation.label}
+                    aria-pressed={isSelected}
+                    aria-keyshortcuts={
+                        presentation.rotatable
+                            ? ROTATE_COMPONENT_SHORTCUT
+                            : undefined
+                    }
+                    onClick={() => onSelectComponent(component)}
+                    disabled={mode === "simulate"}
+                >
+                    <ComponentGlyph
+                        componentType={component}
+                        rotation={
+                            selectedTool.kind === "component" && isSelected
+                                ? selectedTool.rotation
+                                : 0
+                        }
+                    />
+                </button>
+
+                <span className="tooltiptext" aria-hidden="true">
+                    {tooltipLabel}
+                </span>
+            </div>
+        );
+    };
+
     return (
-        <aside className="component-palette" aria-label="Component palette">
+        <aside
+            className={`component-palette${
+                isAdvancedOpen ? " component-palette--advanced-open" : ""
+            }`}
+            aria-label="Component palette"
+        >
+            <div
+                id={advancedPanelId}
+                className="component-palette__advanced-panel"
+                role="group"
+                aria-label="Advanced components"
+                hidden={!isAdvancedOpen}
+            >
+                {ADVANCED_COMPONENT_TYPES.map(renderComponent)}
+                <AnnotationToolPicker
+                    selectedType={
+                        selectedTool.kind === "annotation"
+                            ? selectedTool.annotationType
+                            : null
+                    }
+                    disabled={mode === "simulate"}
+                    onSelect={onSelectAnnotation}
+                />
+            </div>
+
+            <div className="component-palette__advanced-tab tooltip">
+                <button
+                    type="button"
+                    className="component-palette__advanced-toggle"
+                    aria-label={advancedLabel}
+                    aria-controls={advancedPanelId}
+                    aria-expanded={isAdvancedOpen}
+                    onClick={() => setIsAdvancedOpen((open) => !open)}
+                >
+                    {isAdvancedOpen ? (
+                        <ChevronRight aria-hidden="true" />
+                    ) : (
+                        <ChevronLeft aria-hidden="true" />
+                    )}
+                </button>
+
+                <span className="tooltiptext" aria-hidden="true">
+                    {advancedLabel}
+                </span>
+            </div>
+
             <div className="tooltip">
                 <button
                     type="button"
@@ -56,49 +164,8 @@ export function ComponentPalette({
 
             <div className="component-palette__separator" aria-hidden="true" />
 
-            {BUILT_IN_COMPONENT_TYPES.map((component) => {
-                const presentation = getComponentPresentation(component);
-                const tooltipLabel = presentation.rotatable
-                    ? `${presentation.label} | ${ROTATE_COMPONENT_SHORTCUT} to rotate`
-                    : presentation.label;
+            {BASIC_COMPONENT_TYPES.map(renderComponent)}
 
-                return (
-                    <div key={component} className="tooltip">
-                        <button
-                            type="button"
-                            className="component-palette__item"
-                            style={{
-                                backgroundColor: presentation.paletteColor,
-                            }}
-                            aria-label={presentation.label}
-                            aria-pressed={
-                                selectedTool.kind === "component" &&
-                                selectedTool.componentType === component
-                            }
-                            aria-keyshortcuts={
-                                presentation.rotatable
-                                    ? ROTATE_COMPONENT_SHORTCUT
-                                    : undefined
-                            }
-                            onClick={() => onSelectComponent(component)}
-                            disabled={mode === "simulate"}
-                        >
-                            <ComponentGlyph
-                                componentType={component}
-                                rotation={
-                                    selectedTool.kind === "component" &&
-                                    selectedTool.componentType === component
-                                        ? selectedTool.rotation
-                                        : 0
-                                }
-                            />
-                        </button>
-                        <span className="tooltiptext" aria-hidden="true">
-                            {tooltipLabel}
-                        </span>
-                    </div>
-                );
-            })}
             <div className="tooltip">
                 <button
                     type="button"
@@ -112,16 +179,6 @@ export function ComponentPalette({
                 </button>
                 <span className="tooltiptext">Eraser</span>
             </div>
-
-            <AnnotationToolPicker
-                selectedType={
-                    selectedTool.kind === "annotation"
-                        ? selectedTool.annotationType
-                        : null
-                }
-                disabled={mode === "simulate"}
-                onSelect={onSelectAnnotation}
-            />
         </aside>
     );
 }
