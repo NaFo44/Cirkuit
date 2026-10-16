@@ -126,7 +126,6 @@ export function App() {
     } = useComponentSelection({
         enabled: mode === "edit",
         circuit,
-        activeLayer,
         getPastePosition,
         onCircuitChange: updateCircuit,
     });
@@ -396,7 +395,6 @@ export function App() {
                     aria-pressed={activeLayer === 0}
                     title="Top layer"
                     onClick={() => {
-                        clearSelection();
                         setActiveLayer(0);
                     }}
                 >
@@ -410,7 +408,6 @@ export function App() {
                     aria-pressed={activeLayer === 1}
                     title="Bottom layer"
                     onClick={() => {
-                        clearSelection();
                         setActiveLayer(1);
                     }}
                 >

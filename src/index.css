@@ -59,8 +59,6 @@ button {
     background: #fff;
     border: var(--floating-panel-border-width) solid
         var(--floating-panel-border);
-    box-shadow: 0 4px 18px rgb(0 0 0 / 6%);
-
     cursor: pointer;
 }
 

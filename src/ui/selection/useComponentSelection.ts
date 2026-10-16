@@ -15,12 +15,10 @@ import {
     getComponentsInsideRectangle,
     type SelectionRectangle,
 } from "./componentSelection";
-import type { CircuitLayer } from "../../domain/circuit/placedComponent";
 
 interface UseComponentSelectionOptions {
     readonly enabled: boolean;
     readonly circuit: CircuitLayout;
-    readonly activeLayer: CircuitLayer;
     readonly getPastePosition: () => Position | null;
     readonly onCircuitChange: (circuit: CircuitLayout) => void;
 }
@@ -45,17 +43,9 @@ function isTextEditingTarget(target: EventTarget | null): boolean {
     );
 }
 
-function isComponentSelectableOnLayer(
-    component: CircuitLayout["components"][number],
-    activeLayer: CircuitLayer,
-): boolean {
-    return component.type === "via" || component.layer === activeLayer;
-}
-
 export function useComponentSelection({
     enabled,
     circuit,
-    activeLayer,
     getPastePosition,
     onCircuitChange,
 }: UseComponentSelectionOptions): ComponentSelection {
@@ -81,33 +71,23 @@ export function useComponentSelection({
 
     const selectRectangle = useCallback(
         (rectangle: SelectionRectangle) => {
-            const componentIds = getComponentsInsideRectangle(
-                circuit.components.filter((component) =>
-                    isComponentSelectableOnLayer(component, activeLayer),
-                ),
-                rectangle,
+            setSelectedComponentIds(
+                getComponentsInsideRectangle(circuit.components, rectangle),
             );
-
-            setSelectedComponentIds(componentIds);
         },
-        [activeLayer, circuit],
+        [circuit],
     );
 
     const effectiveSelectedComponentIds = useMemo(
         () =>
             new Set(
-                [...selectedComponentIds].filter((componentId) => {
-                    const component = circuit.components.find(
-                        (candidate) => candidate.id === componentId,
-                    );
-
-                    return (
-                        component !== undefined &&
-                        isComponentSelectableOnLayer(component, activeLayer)
-                    );
-                }),
+                circuit.components
+                    .filter((component) =>
+                        selectedComponentIds.has(component.id),
+                    )
+                    .map((component) => component.id),
             ),
-        [activeLayer, circuit, selectedComponentIds],
+        [circuit, selectedComponentIds],
     );
 
     const canMoveSelection = useCallback(
