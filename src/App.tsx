@@ -41,6 +41,7 @@ import { ChevronDown, ChevronUp } from "pixelarticons/react";
 import { WorkspaceSidebarContainer } from "./ui/sidebar/workspaceSidebarContainer";
 import { SidebarDocs } from "./ui/sidebar/sidebarDocs";
 import { SidebarShortcuts } from "./ui/sidebar/sidebarShortcuts";
+import { ProbeLayer } from "./ui/probe/probeLayer";
 
 const EMPTY_COMPONENT_VISUAL_STATES: ReadonlyMap<string, ComponentVisualState> =
     new Map();
@@ -71,9 +72,12 @@ export function App() {
         selectComponent,
         selectEraser,
         selectAnnotation,
+        selectProbe,
     } = useEditorToolSelection({
         mode,
     });
+
+    const isProbing = selectedTool.kind === "probe";
 
     const {
         project,
@@ -124,7 +128,7 @@ export function App() {
         clearSelection,
         resetSelectionState,
     } = useComponentSelection({
-        enabled: mode === "edit",
+        enabled: mode === "edit" && !isProbing,
         circuit,
         getPastePosition,
         onCircuitChange: updateCircuit,
@@ -259,7 +263,7 @@ export function App() {
         mode === "edit" && selectedAnnotationType !== null;
 
     const selectionInteractionMode =
-        mode !== "edit"
+        mode !== "edit" || isProbing
             ? "disabled"
             : isSelectionModifierPressed
               ? "select"
@@ -292,14 +296,16 @@ export function App() {
                         circuit={circuit}
                         activeLayer={activeLayer}
                         selectedComponentIds={
-                            mode === "edit" ? selectedComponentIds : undefined
+                            mode === "edit" && !isProbing
+                                ? selectedComponentIds
+                                : undefined
                         }
                         componentVisualStates={componentVisualStates}
                         onPaintStart={canPaint ? handlePaintStart : undefined}
                         onCellPaint={canPaint ? paintCell : undefined}
                         onPaintEnd={canPaint ? handlePaintEnd : undefined}
                         onComponentInteract={
-                            mode === "simulate" && simulation
+                            mode === "simulate" && simulation && !isProbing
                                 ? interactWithComponent
                                 : undefined
                         }
@@ -335,22 +341,32 @@ export function App() {
                         onRemove={removeAnnotation}
                     />
 
-                    <SelectionLayer
-                        width={canvasWidth}
-                        height={canvasHeight}
-                        interactionMode={selectionInteractionMode}
-                        selectedComponents={selectedComponents}
-                        onSelect={selectRectangle}
-                        canMove={canMoveSelection}
-                        onMove={moveSelection}
-                        onDelete={() => {
-                            removeComponents(
-                                selectedComponents.map(
-                                    (component) => component.id,
-                                ),
-                            );
-                        }}
-                    />
+                    {!isProbing && (
+                        <SelectionLayer
+                            width={canvasWidth}
+                            height={canvasHeight}
+                            interactionMode={selectionInteractionMode}
+                            selectedComponents={selectedComponents}
+                            onSelect={selectRectangle}
+                            canMove={canMoveSelection}
+                            onMove={moveSelection}
+                            onDelete={() => {
+                                removeComponents(
+                                    selectedComponents.map(
+                                        (component) => component.id,
+                                    ),
+                                );
+                            }}
+                        />
+                    )}
+
+                    {isProbing && (
+                        <ProbeLayer
+                            key={projectRevision}
+                            circuit={circuit}
+                            activeLayer={activeLayer}
+                        />
+                    )}
                 </div>
             </MapViewport>
 
@@ -422,6 +438,7 @@ export function App() {
                 onSelectComponent={selectComponent}
                 onSelectEraser={selectEraser}
                 onSelectAnnotation={selectAnnotation}
+                onSelectProbe={selectProbe}
             />
 
             <HistoryActions

@@ -6,7 +6,7 @@ import { ComponentGlyph } from "../components/componentGlyph";
 import { getComponentPresentation } from "../components/componentPresentation";
 import type { EditorMode } from "../editor/editorMode";
 import type { EditorTool } from "../editor/editorTool";
-import { Eraser, Pencil, Play } from "pixelarticons/react";
+import { Eraser, Pencil, Play, Search } from "pixelarticons/react";
 import {
     ROTATE_COMPONENT_SHORTCUT,
     TOGGLE_SIMULATION_SHORTCUT,
@@ -34,6 +34,7 @@ interface ComponentPaletteProps {
     onSelectComponent: (componentType: BuiltInComponentType) => void;
     onSelectEraser: () => void;
     onSelectAnnotation: (annotationType: AnnotationType) => void;
+    onSelectProbe: () => void;
 }
 
 export function ComponentPalette({
@@ -43,6 +44,7 @@ export function ComponentPalette({
     onSelectComponent,
     onSelectEraser,
     onSelectAnnotation,
+    onSelectProbe,
 }: ComponentPaletteProps) {
     const modeLabel = mode === "edit" ? "Run circuit" : "Edit circuit";
     const [isAdvancedOpen, setIsAdvancedOpen] = useState(false);
@@ -119,6 +121,21 @@ export function ComponentPalette({
                     disabled={mode === "simulate"}
                     onSelect={onSelectAnnotation}
                 />
+                <div className="tooltip">
+                    <button
+                        type="button"
+                        className="component-palette__item component-palette__item--probe"
+                        aria-label="Probe"
+                        aria-pressed={selectedTool.kind === "probe"}
+                        onClick={onSelectProbe}
+                    >
+                        <Search aria-hidden="true" />
+                    </button>
+
+                    <span className="tooltiptext" aria-hidden="true">
+                        Probe
+                    </span>
+                </div>
             </div>
 
             <div className="component-palette__advanced-tab tooltip">

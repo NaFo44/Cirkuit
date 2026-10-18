@@ -21,6 +21,8 @@ interface EditorToolSelection {
     readonly selectEraser: () => void;
 
     readonly selectAnnotation: (annotationType: AnnotationType) => void;
+
+    readonly selectProbe: () => void;
 }
 
 export function useEditorToolSelection(
@@ -54,6 +56,20 @@ export function useEditorToolSelection(
             kind: "annotation",
             annotationType,
         });
+    };
+
+    const selectProbe = () => {
+        setSelectedTool((currentTool) =>
+            currentTool.kind === "probe"
+                ? {
+                      kind: "component",
+                      componentType: "wire",
+                      rotation: 0,
+                  }
+                : {
+                      kind: "probe",
+                  },
+        );
     };
 
     useEffect(() => {
@@ -111,5 +127,6 @@ export function useEditorToolSelection(
         selectComponent,
         selectEraser,
         selectAnnotation,
+        selectProbe,
     };
 }

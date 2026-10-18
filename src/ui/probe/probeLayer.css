@@ -1,0 +1,33 @@
+.probe-layer {
+    --probe-color: #81b0e0;
+
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+
+    cursor: crosshair;
+    touch-action: none;
+    user-select: none;
+}
+
+.probe-layer__drawing {
+    position: absolute;
+    inset: 0;
+    overflow: visible;
+
+    pointer-events: none;
+}
+
+.probe-layer__wire,
+.probe-layer__port {
+    fill: var(--probe-color);
+}
+
+.probe-layer__drawing [data-inactive="true"] {
+    opacity: 0.25;
+}
+
+.component-palette__item--probe {
+    color: #555;
+    background: #f5f5f5;
+}

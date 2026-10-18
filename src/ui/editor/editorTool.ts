@@ -17,10 +17,14 @@ export type AnnotationEditorTool = {
     readonly annotationType: AnnotationType;
 };
 
-export type EditorTool = CircuitEditorTool | AnnotationEditorTool;
+export type ProbeTool = {
+    readonly kind: "probe";
+};
+
+export type EditorTool = CircuitEditorTool | AnnotationEditorTool | ProbeTool;
 
 export function isCircuitEditorTool(
     tool: EditorTool,
 ): tool is CircuitEditorTool {
-    return tool.kind !== "annotation";
+    return tool.kind === "component" || tool.kind === "eraser";
 }
