@@ -49,9 +49,11 @@ After the engine itself, my main goal was to optimize the user experience. So th
 
 - Project import/export: projects are saved as .cirkuit files.
 - 2 modes: editing and simulation. Press the Space bar or the button at the top of the sidebar to start the simulation.
-- Basic components: power source, wire, lamp, switch, NOT gate, AND gate.
+- 2 layers: yes! It's very usefull since you can't cross wires. Use the "via" component to link wires on two different layers together.
+- Basic components: power source, wire, lamp, switch, NOT gate, AND gate, clock, and 1-bit memory (simplified D flip-flop)
 - Annotation: Cirkuit has three tools for documenting your projects: label, line, and rectangle.
 - Selection: you can select, copy/paste, and move groups of pixels, making it much easier to modify your circuit!
+- Probe tool: it highlight equipotential wires, for debugging and simplifying your circuits!
 - Eraser: it erases lol
 
 ## Capabilities
@@ -61,12 +63,11 @@ You can build pretty much anything you can imagine.
 > [!NOTE]
 > Two demo circuits are available to try live in-game!
 
-### A 7-segment 3bit decoder
+### A calculator
 
-![7-segment 3bit decoder](./.github/assets/segment-decoder.webp)
+![4-bit calculator](./.github/assets/calculator.png)
 
-I studied this circuit at university, so I wanted to build it!
-It works, but I ran into a problem: wires cannot cross, which is very inconvenient for complex circuits. That’s why I’m planning to add a second layer so I can do all the wiring on the underside.
+It's basically just 4x 1-bit full adders wired to a 4-bit 7-segment decoder.
 
 ### XOR gate
 
