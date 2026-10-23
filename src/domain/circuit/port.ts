@@ -16,6 +16,10 @@ export interface PortDefinition {
     readonly kind: PortKind;
     readonly side: Direction;
 
+    // cell index along the unrotated edge, defaults to 0
+    // north/south: left to right. east/west: top to bottom.
+    readonly offset?: number;
+
     // layer relative to the component's placement layer
     // 0 = same layer
     // 1 = opposite layer

@@ -1,5 +1,7 @@
 import type { ComponentDefinition } from "./componentDefinition";
 import { isCircuitLayer } from "./placedComponent";
+import { getComponentFootprint } from "./componentGeometry";
+import { DIRECTIONS } from "./direction";
 
 function validateDefinition(definition: ComponentDefinition): void {
     if (definition.type.trim() === "") {
@@ -21,6 +23,19 @@ function validateDefinition(definition: ComponentDefinition): void {
     ) {
         throw new Error(
             `Interactive component must define computeNextState: ${definition.type}`,
+        );
+    }
+
+    const footprint = getComponentFootprint(definition);
+
+    if (
+        !Number.isSafeInteger(footprint.width) ||
+        !Number.isSafeInteger(footprint.height) ||
+        footprint.width <= 0 ||
+        footprint.height <= 0
+    ) {
+        throw new Error(
+            `Component footprint must use positive integer dimensions: ${definition.type}`,
         );
     }
 
@@ -49,11 +64,33 @@ function validateDefinition(definition: ComponentDefinition): void {
             );
         }
 
-        const positionKey = `${port.side}:${layerOffset}`;
+        if (!DIRECTIONS.includes(port.side)) {
+            throw new Error(
+                `Invalid port side for "${port.id}" in component type: ${definition.type}`,
+            );
+        }
+
+        const offset = port.offset ?? 0;
+        const edgeLength =
+            port.side === "north" || port.side === "south"
+                ? footprint.width
+                : footprint.height;
+
+        if (
+            !Number.isSafeInteger(offset) ||
+            offset < 0 ||
+            offset >= edgeLength
+        ) {
+            throw new Error(
+                `Invalid port offset for "${port.id}" in component type: ${definition.type}`,
+            );
+        }
+
+        const positionKey = `${port.side}:${offset}:${layerOffset}`;
 
         if (portPositions.has(positionKey)) {
             throw new Error(
-                `Duplicated port side "${port.side}" in component type: ${definition.type}`,
+                `Duplicated port side "${port.side}" at offset ${offset} on layer offset ${layerOffset} in component type ${definition.type}`,
             );
         }
 

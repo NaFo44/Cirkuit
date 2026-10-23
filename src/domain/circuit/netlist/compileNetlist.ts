@@ -4,18 +4,13 @@ import type { ComponentRegistry } from "../componentRegistry";
 import {
     DIRECTION_OFFSETS,
     oppositeDirection,
-    rotateDirection,
     type Direction,
 } from "../direction";
 import { portCanDrive, portCanRead, type PortKind } from "../port";
 import { portKey, type Net, type Netlist, type PortReference } from "./netlist";
 import { UnionFind } from "./unionFind";
-import {
-    getOccupiedLayers,
-    isCircuitLayer,
-    oppositeLayer,
-    type CircuitLayer,
-} from "../placedComponent";
+import { isCircuitLayer, type CircuitLayer } from "../placedComponent";
+import { getOccupiedCells, resolvePortGeometry } from "../componentGeometry";
 
 interface ResolvedPort {
     readonly reference: PortReference;
@@ -35,13 +30,6 @@ function connectionPointKey(
 
 function comparePorts(first: PortReference, second: PortReference): number {
     return portKey(first).localeCompare(portKey(second));
-}
-
-function resolvePortLayer(
-    componentLayer: CircuitLayer,
-    layerOffset: CircuitLayer | undefined,
-): CircuitLayer {
-    return layerOffset === 1 ? oppositeLayer(componentLayer) : componentLayer;
 }
 
 function validateCircuit(circuit: Circuit, registry: ComponentRegistry): void {
@@ -97,12 +85,28 @@ function validateCircuit(circuit: Circuit, registry: ComponentRegistry): void {
             );
         }
 
-        for (const layer of getOccupiedLayers(component)) {
-            const key = `${layer}:${positionKey(component.position)}`;
+        const definition = registry.get(component.type);
+
+        for (const { position, layer } of getOccupiedCells(
+            component,
+            definition,
+        )) {
+            if (
+                position.x < 0 ||
+                position.x >= circuit.width ||
+                position.y < 0 ||
+                position.y >= circuit.height
+            ) {
+                throw new Error(
+                    `Component is outside the circuit: ${component.id}`,
+                );
+            }
+
+            const key = `${layer}:${positionKey(position)}`;
 
             if (occupiedPositions.has(key)) {
                 throw new Error(
-                    `Multiple components occupy position ${positionKey(component.position)} on layer ${layer}`,
+                    `Multiple components occupy position ${positionKey(position)} on layer ${layer}`,
                 );
             }
 
@@ -153,14 +157,10 @@ export function compileNetlist(
                 portId: port.id,
             };
 
-            const layer = resolvePortLayer(component.layer, port.layerOffset);
-
             const resolvedPort: ResolvedPort = {
                 reference,
                 kind: port.kind,
-                position: component.position,
-                layer,
-                side: rotateDirection(port.side, component.rotation),
+                ...resolvePortGeometry(component, definition, port),
             };
 
             const key = portKey(reference);
