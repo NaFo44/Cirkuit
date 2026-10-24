@@ -17,11 +17,18 @@ export interface EvaluationContext {
     readonly actions: readonly ComponentAction[];
 }
 
-export interface ComponentDefinition {
+export interface ComponentDescriptor {
     readonly type: string;
     readonly footprint?: ComponentFootprint;
     readonly ports: readonly PortDefinition[];
+}
 
+export interface ComponentCatalog {
+    has(type: string): boolean;
+    get(type: string): ComponentDescriptor;
+}
+
+export interface ComponentDefinition extends ComponentDescriptor {
     readonly conductiveGroups?: readonly (readonly string[])[];
     readonly primaryAction?: string;
 

@@ -1,29 +1,17 @@
-import type { ComponentDefinition } from "./componentDefinition";
+import type {
+    ComponentCatalog,
+    ComponentDefinition,
+    ComponentDescriptor,
+} from "./componentDefinition";
 import { isCircuitLayer } from "./placedComponent";
 import { getComponentFootprint } from "./componentGeometry";
 import { DIRECTIONS } from "./direction";
 
-function validateDefinition(definition: ComponentDefinition): void {
+export function validateComponentDescriptor(
+    definition: ComponentDescriptor,
+): void {
     if (definition.type.trim() === "") {
         throw new Error("Component type cannot be empty");
-    }
-
-    if (
-        definition.primaryAction !== undefined &&
-        definition.primaryAction.trim() === ""
-    ) {
-        throw new Error(
-            `Primary action cannot be empty in component type ${definition.type}`,
-        );
-    }
-
-    if (
-        definition.primaryAction !== undefined &&
-        definition.computeNextState === undefined
-    ) {
-        throw new Error(
-            `Interactive component must define computeNextState: ${definition.type}`,
-        );
     }
 
     const footprint = getComponentFootprint(definition);
@@ -40,7 +28,6 @@ function validateDefinition(definition: ComponentDefinition): void {
     }
 
     const portsById = new Map(definition.ports.map((port) => [port.id, port]));
-
     const portPositions = new Set<string>();
 
     if (portsById.size !== definition.ports.length) {
@@ -96,7 +83,30 @@ function validateDefinition(definition: ComponentDefinition): void {
 
         portPositions.add(positionKey);
     }
+}
 
+function validateDefinition(definition: ComponentDefinition): void {
+    validateComponentDescriptor(definition);
+
+    if (
+        definition.primaryAction !== undefined &&
+        definition.primaryAction.trim() === ""
+    ) {
+        throw new Error(
+            `Primary action cannot be empty in component type ${definition.type}`,
+        );
+    }
+
+    if (
+        definition.primaryAction !== undefined &&
+        definition.computeNextState === undefined
+    ) {
+        throw new Error(
+            `Interactive component must define computeNextState: ${definition.type}`,
+        );
+    }
+
+    const portsById = new Map(definition.ports.map((port) => [port.id, port]));
     const conductivePortIds = new Set<string>();
 
     for (const group of definition.conductiveGroups ?? []) {
@@ -132,7 +142,7 @@ function validateDefinition(definition: ComponentDefinition): void {
     }
 }
 
-export class ComponentRegistry {
+export class ComponentRegistry implements ComponentCatalog {
     private readonly definitions: ReadonlyMap<string, ComponentDefinition>;
 
     constructor(definitions: readonly ComponentDefinition[]) {

@@ -1,7 +1,7 @@
 import { positionKey, type Position } from "../grid/position";
 import type { Circuit } from "./circuit";
 import { getComponentFootprint, getOccupiedCells } from "./componentGeometry";
-import type { ComponentRegistry } from "./componentRegistry";
+import type { ComponentCatalog } from "./componentDefinition";
 import { defaultComponentRegistry } from "./components/builtInComponents";
 import {
     isCircuitLayer,
@@ -36,7 +36,7 @@ export class CircuitLayout implements Circuit {
     readonly width: number;
     readonly height: number;
     readonly components: readonly PlacedComponent[];
-    readonly registry: ComponentRegistry;
+    readonly registry: ComponentCatalog;
 
     private readonly componentByPosition: ReadonlyMap<string, PlacedComponent>;
 
@@ -46,7 +46,7 @@ export class CircuitLayout implements Circuit {
         width: number,
         height: number,
         components: readonly PlacedComponent[],
-        registry: ComponentRegistry,
+        registry: ComponentCatalog,
     ) {
         this.width = width;
         this.height = height;
@@ -76,7 +76,7 @@ export class CircuitLayout implements Circuit {
     static empty(
         width: number,
         height: number,
-        registry: ComponentRegistry = defaultComponentRegistry,
+        registry: ComponentCatalog = defaultComponentRegistry,
     ): CircuitLayout {
         if (
             !Number.isInteger(width) ||
@@ -92,7 +92,7 @@ export class CircuitLayout implements Circuit {
 
     static from(
         circuit: Circuit,
-        registry: ComponentRegistry = circuit instanceof CircuitLayout
+        registry: ComponentCatalog = circuit instanceof CircuitLayout
             ? circuit.registry
             : defaultComponentRegistry,
     ): CircuitLayout {

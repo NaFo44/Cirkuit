@@ -1,5 +1,5 @@
 import { getComponentFootprint } from "../../domain/circuit/componentGeometry";
-import type { ComponentRegistry } from "../../domain/circuit/componentRegistry";
+import type { ComponentCatalog } from "../../domain/circuit/componentDefinition";
 import { defaultComponentRegistry } from "../../domain/circuit/components/builtInComponents";
 import type { PlacedComponent } from "../../domain/circuit/placedComponent";
 import type { CanvasPoint } from "../../domain/grid/canvasPoint";
@@ -27,7 +27,7 @@ export function createSelectionRectangle(
 function rectangleIntersectsComponent(
     rectangle: SelectionRectangle,
     component: PlacedComponent,
-    registry: ComponentRegistry,
+    registry: ComponentCatalog,
 ): boolean {
     const { width, height } = getComponentFootprint(
         registry.get(component.type),
@@ -49,7 +49,7 @@ function rectangleIntersectsComponent(
 export function getComponentsInsideRectangle(
     components: readonly PlacedComponent[],
     rectangle: SelectionRectangle,
-    registry: ComponentRegistry = defaultComponentRegistry,
+    registry: ComponentCatalog = defaultComponentRegistry,
 ): ReadonlySet<string> {
     return new Set(
         components

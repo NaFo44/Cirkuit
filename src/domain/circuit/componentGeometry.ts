@@ -1,6 +1,6 @@
 import type { Position } from "../grid/position";
 import type {
-    ComponentDefinition,
+    ComponentDescriptor,
     ComponentFootprint,
 } from "./componentDefinition";
 import { rotateDirection, type Direction } from "./direction";
@@ -26,7 +26,7 @@ export interface PortGeometry {
 }
 
 export function getComponentFootprint(
-    definition: ComponentDefinition,
+    definition: ComponentDescriptor,
     rotation: Rotation = 0,
 ): ComponentFootprint {
     const footprint = definition.footprint ?? { width: 1, height: 1 };
@@ -57,7 +57,7 @@ export function rotateLocalPosition(
 }
 
 export function getLocalPortPosition(
-    definition: ComponentDefinition,
+    definition: ComponentDescriptor,
     port: PortDefinition,
 ): Position {
     const { width, height } = getComponentFootprint(definition);
@@ -77,7 +77,7 @@ export function getLocalPortPosition(
 
 export function resolvePortGeometry(
     component: PlacedComponent,
-    definition: ComponentDefinition,
+    definition: ComponentDescriptor,
     port: PortDefinition,
 ): PortGeometry {
     const localPosition = rotateLocalPosition(
@@ -101,7 +101,7 @@ export function resolvePortGeometry(
 
 export function getOccupiedCells(
     component: ComponentPlacement,
-    definition: ComponentDefinition,
+    definition: ComponentDescriptor,
 ): readonly OccupiedCell[] {
     const { width, height } = getComponentFootprint(
         definition,

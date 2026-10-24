@@ -184,6 +184,7 @@ export function loadProjectDocument(
 
     return {
         circuit,
+        modules: [],
         annotations: document.annotations.items.map(createCircuitAnnotation),
         viewport: {
             x: document.viewport.x,
@@ -197,6 +198,10 @@ export function createProjectDocument(
     project: CircuitProject,
     registry: ComponentRegistry,
 ): ProjectDocumentV2 {
+    if (project.modules.length > 0) {
+        throw new Error("Saving modules requires project document version 3");
+    }
+
     const circuit = CircuitLayout.from(project.circuit, registry);
 
     const document = {

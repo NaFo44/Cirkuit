@@ -16,6 +16,7 @@ import {
 } from "./projectDocument";
 
 const PROJECT: CircuitProject = {
+    modules: [],
     viewport: {
         x: 0,
         y: 0,

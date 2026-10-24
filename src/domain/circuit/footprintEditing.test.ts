@@ -295,6 +295,7 @@ describe("projects with component footprints", () => {
         const block = component("block", "block", 1, 1, 90, 1);
         const project = {
             circuit: layout([block]),
+            modules: [],
             annotations: [],
             viewport: { x: 0, y: 0, zoom: 1 },
         };
@@ -316,6 +317,7 @@ describe("projects with component footprints", () => {
         const document = createProjectDocument(
             {
                 circuit: layout([component("block", "block", 1, 1)]),
+                modules: [],
                 annotations: [],
                 viewport: { x: 0, y: 0, zoom: 1 },
             },

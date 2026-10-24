@@ -15,6 +15,8 @@ import {
     type HistoryState,
 } from "../../domain/circuit/history/history";
 import type { CircuitLayer } from "../../domain/circuit/placedComponent";
+import type { ModuleDefinition } from "../../domain/circuit/modules/moduleDefinition";
+import { updateProjectModules } from "../../domain/project/updateProjectModules";
 
 interface ProjectEditor {
     readonly project: CircuitProject;
@@ -39,6 +41,8 @@ interface ProjectEditor {
     readonly replaceProject: (project: CircuitProject) => void;
 
     readonly updateCircuit: (circuit: CircuitLayout) => void;
+
+    readonly updateModules: (modules: readonly ModuleDefinition[]) => void;
 
     readonly removeComponents: (componentIds: readonly string[]) => void;
 
@@ -261,6 +265,15 @@ export function useProjectEditor(
         [updateProject],
     );
 
+    const updateModules = useCallback(
+        (modules: readonly ModuleDefinition[]) => {
+            updateProject((currentProject) =>
+                updateProjectModules(currentProject, modules),
+            );
+        },
+        [updateProject],
+    );
+
     const undo = useCallback(() => {
         setState((currentState) => {
             const transition = undoHistory(
@@ -312,6 +325,7 @@ export function useProjectEditor(
         removeAnnotation,
         replaceProject,
         updateCircuit,
+        updateModules,
         removeComponents,
 
         canUndo: state.history.past.length > 0,
