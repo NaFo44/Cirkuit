@@ -6,7 +6,7 @@
     z-index: 2;
 
     cursor:
-        url("./assets/crosshair.png") 10 10,
+        url("../../assets/crosshair.png") 10 10,
         crosshair;
     touch-action: none;
     user-select: none;

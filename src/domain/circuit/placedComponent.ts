@@ -32,6 +32,8 @@ export interface PlacedComponent {
     readonly layer: CircuitLayer;
 }
 
+export type ComponentPlacement = Omit<PlacedComponent, "id">;
+
 export function getOccupiedLayers(
     component: Pick<PlacedComponent, "type" | "layer">,
 ): readonly CircuitLayer[] {

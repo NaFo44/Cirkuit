@@ -8,6 +8,7 @@ import {
     getOccupiedLayers,
     oppositeLayer,
     type CircuitLayer,
+    type ComponentPlacement,
     type PlacedComponent,
     type Rotation,
 } from "./placedComponent";
@@ -99,7 +100,7 @@ export function resolvePortGeometry(
 }
 
 export function getOccupiedCells(
-    component: PlacedComponent,
+    component: ComponentPlacement,
     definition: ComponentDefinition,
 ): readonly OccupiedCell[] {
     const { width, height } = getComponentFootprint(

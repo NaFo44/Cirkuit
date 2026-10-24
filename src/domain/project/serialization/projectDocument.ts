@@ -173,11 +173,14 @@ export function loadProjectDocument(
 
     validateComponentTypes(document, registry);
 
-    const circuit = CircuitLayout.from({
-        width: document.circuit.width,
-        height: document.circuit.height,
-        components: document.circuit.components,
-    });
+    const circuit = CircuitLayout.from(
+        {
+            width: document.circuit.width,
+            height: document.circuit.height,
+            components: document.circuit.components,
+        },
+        registry,
+    );
 
     return {
         circuit,
@@ -194,7 +197,7 @@ export function createProjectDocument(
     project: CircuitProject,
     registry: ComponentRegistry,
 ): ProjectDocumentV2 {
-    const circuit = CircuitLayout.from(project.circuit);
+    const circuit = CircuitLayout.from(project.circuit, registry);
 
     const document = {
         format: PROJECT_DOCUMENT_FORMAT,

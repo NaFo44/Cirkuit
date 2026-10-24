@@ -1,6 +1,5 @@
 import type { Position } from "../grid/position";
 import { CircuitLayout } from "./circuitLayout";
-import { getOccupiedLayers } from "./placedComponent";
 
 export function canMoveComponents(
     circuit: CircuitLayout,
@@ -15,28 +14,16 @@ export function canMoveComponents(
         return false;
     }
 
-    const remainingCircuit = circuit.withoutComponents(componentIds);
-
-    return selectedComponents.every((component) => {
-        const position = {
-            x: component.position.x + offset.x,
-            y: component.position.y + offset.y,
-        };
-
-        if (
-            position.x < 0 ||
-            position.x >= circuit.width ||
-            position.y < 0 ||
-            position.y >= circuit.height
-        ) {
-            return false;
-        }
-
-        return getOccupiedLayers(component).every(
-            (layer) =>
-                remainingCircuit.getComponentAt(position, layer) === undefined,
-        );
-    });
+    return circuit.canPlaceComponents(
+        selectedComponents.map((component) => ({
+            ...component,
+            position: {
+                x: component.position.x + offset.x,
+                y: component.position.y + offset.y,
+            },
+        })),
+        componentIds,
+    );
 }
 
 export function moveComponents(
@@ -52,19 +39,22 @@ export function moveComponents(
         return circuit;
     }
 
-    return CircuitLayout.from({
-        width: circuit.width,
-        height: circuit.height,
-        components: circuit.components.map((component) =>
-            componentIds.has(component.id)
-                ? {
-                      ...component,
-                      position: {
-                          x: component.position.x + offset.x,
-                          y: component.position.y + offset.y,
-                      },
-                  }
-                : component,
-        ),
-    });
+    return CircuitLayout.from(
+        {
+            width: circuit.width,
+            height: circuit.height,
+            components: circuit.components.map((component) =>
+                componentIds.has(component.id)
+                    ? {
+                          ...component,
+                          position: {
+                              x: component.position.x + offset.x,
+                              y: component.position.y + offset.y,
+                          },
+                      }
+                    : component,
+            ),
+        },
+        circuit.registry,
+    );
 }

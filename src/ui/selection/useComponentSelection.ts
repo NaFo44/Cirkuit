@@ -72,7 +72,11 @@ export function useComponentSelection({
     const selectRectangle = useCallback(
         (rectangle: SelectionRectangle) => {
             setSelectedComponentIds(
-                getComponentsInsideRectangle(circuit.components, rectangle),
+                getComponentsInsideRectangle(
+                    circuit.components,
+                    rectangle,
+                    circuit.registry,
+                ),
             );
         },
         [circuit],

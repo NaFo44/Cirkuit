@@ -1,10 +1,13 @@
 import { positionKey, type Position } from "../grid/position";
 import type { Circuit } from "./circuit";
+import { getComponentFootprint, getOccupiedCells } from "./componentGeometry";
+import type { ComponentRegistry } from "./componentRegistry";
+import { defaultComponentRegistry } from "./components/builtInComponents";
 import {
-    getOccupiedLayers,
     isCircuitLayer,
     isRotation,
     type CircuitLayer,
+    type ComponentPlacement,
     type PlacedComponent,
 } from "./placedComponent";
 
@@ -33,6 +36,7 @@ export class CircuitLayout implements Circuit {
     readonly width: number;
     readonly height: number;
     readonly components: readonly PlacedComponent[];
+    readonly registry: ComponentRegistry;
 
     private readonly componentByPosition: ReadonlyMap<string, PlacedComponent>;
 
@@ -42,17 +46,21 @@ export class CircuitLayout implements Circuit {
         width: number,
         height: number,
         components: readonly PlacedComponent[],
+        registry: ComponentRegistry,
     ) {
         this.width = width;
         this.height = height;
         this.components = [...components];
+        this.registry = registry;
 
         const componentByPosition = new Map<string, PlacedComponent>();
 
         for (const component of this.components) {
-            for (const layer of getOccupiedLayers(component)) {
+            for (const { position, layer } of this.getOccupiedCells(
+                component,
+            )) {
                 componentByPosition.set(
-                    positionLayerKey(component.position, layer),
+                    positionLayerKey(position, layer),
                     component,
                 );
             }
@@ -65,7 +73,11 @@ export class CircuitLayout implements Circuit {
         );
     }
 
-    static empty(width: number, height: number): CircuitLayout {
+    static empty(
+        width: number,
+        height: number,
+        registry: ComponentRegistry = defaultComponentRegistry,
+    ): CircuitLayout {
         if (
             !Number.isInteger(width) ||
             !Number.isInteger(height) ||
@@ -75,11 +87,20 @@ export class CircuitLayout implements Circuit {
             throw new Error("Layout dimensions must be positive integers");
         }
 
-        return new CircuitLayout(width, height, []);
+        return new CircuitLayout(width, height, [], registry);
     }
 
-    static from(circuit: Circuit): CircuitLayout {
-        const layout = CircuitLayout.empty(circuit.width, circuit.height);
+    static from(
+        circuit: Circuit,
+        registry: ComponentRegistry = circuit instanceof CircuitLayout
+            ? circuit.registry
+            : defaultComponentRegistry,
+    ): CircuitLayout {
+        const layout = CircuitLayout.empty(
+            circuit.width,
+            circuit.height,
+            registry,
+        );
         const componentIds = new Set<string>();
         const occupiedPositions = new Set<string>();
 
@@ -92,12 +113,14 @@ export class CircuitLayout implements Circuit {
 
             componentIds.add(component.id);
 
-            for (const layer of getOccupiedLayers(component)) {
-                const key = positionLayerKey(component.position, layer);
+            for (const { position, layer } of layout.getOccupiedCells(
+                component,
+            )) {
+                const key = positionLayerKey(position, layer);
 
                 if (occupiedPositions.has(key)) {
                     throw new Error(
-                        `Multiple components occupy position ${positionKey(component.position)} on layer ${layer}`,
+                        `Multiple components occupy position ${positionKey(position)} on layer ${layer}`,
                     );
                 }
 
@@ -109,6 +132,7 @@ export class CircuitLayout implements Circuit {
             circuit.width,
             circuit.height,
             circuit.components,
+            registry,
         );
     }
 
@@ -117,6 +141,56 @@ export class CircuitLayout implements Circuit {
         layer: CircuitLayer = 0,
     ): PlacedComponent | undefined {
         return this.componentByPosition.get(positionLayerKey(position, layer));
+    }
+
+    getOccupiedCells(component: ComponentPlacement) {
+        return getOccupiedCells(component, this.registry.get(component.type));
+    }
+
+    canPlaceComponents(
+        components: readonly ComponentPlacement[],
+        ignoredComponentIds: ReadonlySet<string> = new Set(),
+    ): boolean {
+        const occupiedPositions = new Set<string>();
+
+        for (const component of components) {
+            if (
+                !this.registry.has(component.type) ||
+                !isRotation(component.rotation) ||
+                !isCircuitLayer(component.layer) ||
+                !Number.isInteger(component.position.x) ||
+                !Number.isInteger(component.position.y)
+            ) {
+                return false;
+            }
+
+            for (const { position, layer } of this.getOccupiedCells(
+                component,
+            )) {
+                if (
+                    position.x < 0 ||
+                    position.x >= this.width ||
+                    position.y < 0 ||
+                    position.y >= this.height
+                ) {
+                    return false;
+                }
+
+                const key = positionLayerKey(position, layer);
+                const existing = this.getComponentAt(position, layer);
+
+                if (
+                    occupiedPositions.has(key) ||
+                    (existing && !ignoredComponentIds.has(existing.id))
+                ) {
+                    return false;
+                }
+
+                occupiedPositions.add(key);
+            }
+        }
+
+        return true;
     }
 
     withComponent(component: PlacedComponent): CircuitLayout {
@@ -133,7 +207,9 @@ export class CircuitLayout implements Circuit {
             );
         }
 
-        const targetLayers = getOccupiedLayers(component);
+        if (existingById && sameComponent(existingById, component)) {
+            return this;
+        }
 
         const componentsToRemove = new Set<string>();
 
@@ -141,26 +217,30 @@ export class CircuitLayout implements Circuit {
             componentsToRemove.add(existingById.id);
         }
 
-        for (const layer of targetLayers) {
-            const existing = this.getComponentAt(component.position, layer);
+        for (const { position, layer } of this.getOccupiedCells(component)) {
+            const existing = this.getComponentAt(position, layer);
 
-            if (existing) {
-                componentsToRemove.add(existing.id);
+            if (!existing || existing.id === component.id) {
+                continue;
             }
-        }
 
-        if (existingById && sameComponent(existingById, component)) {
-            return this;
+            if (!this.isSingleCell(component) || !this.isSingleCell(existing)) {
+                return this;
+            }
+
+            componentsToRemove.add(existing.id);
         }
 
         const components = this.components.filter(
             (existing) => !componentsToRemove.has(existing.id),
         );
 
-        return new CircuitLayout(this.width, this.height, [
-            ...components,
-            component,
-        ]);
+        return new CircuitLayout(
+            this.width,
+            this.height,
+            [...components, component],
+            this.registry,
+        );
     }
 
     withoutComponentAt(
@@ -177,6 +257,7 @@ export class CircuitLayout implements Circuit {
             this.width,
             this.height,
             this.components.filter((component) => component !== existing),
+            this.registry,
         );
     }
 
@@ -193,11 +274,25 @@ export class CircuitLayout implements Circuit {
             return this;
         }
 
-        return new CircuitLayout(this.width, this.height, components);
+        return new CircuitLayout(
+            this.width,
+            this.height,
+            components,
+            this.registry,
+        );
     }
 
     getComponentById(id: string): PlacedComponent | undefined {
         return this.componentById.get(id);
+    }
+
+    private isSingleCell(component: ComponentPlacement): boolean {
+        const { width, height } = getComponentFootprint(
+            this.registry.get(component.type),
+            component.rotation,
+        );
+
+        return width === 1 && height === 1;
     }
 
     private validateComponent(component: PlacedComponent): void {
@@ -225,8 +320,17 @@ export class CircuitLayout implements Circuit {
             );
         }
 
-        if (x < 0 || x >= this.width || y < 0 || y >= this.height) {
-            throw new Error(`Component is outside the layout: ${component.id}`);
+        for (const { position } of this.getOccupiedCells(component)) {
+            if (
+                position.x < 0 ||
+                position.x >= this.width ||
+                position.y < 0 ||
+                position.y >= this.height
+            ) {
+                throw new Error(
+                    `Component is outside the layout: ${component.id}`,
+                );
+            }
         }
     }
 }

@@ -1,3 +1,6 @@
+import { getComponentFootprint } from "../../domain/circuit/componentGeometry";
+import type { ComponentRegistry } from "../../domain/circuit/componentRegistry";
+import { defaultComponentRegistry } from "../../domain/circuit/components/builtInComponents";
 import type { PlacedComponent } from "../../domain/circuit/placedComponent";
 import type { CanvasPoint } from "../../domain/grid/canvasPoint";
 import { CELL_SIZE } from "../../domain/grid/gridCoordinates";
@@ -24,11 +27,16 @@ export function createSelectionRectangle(
 function rectangleIntersectsComponent(
     rectangle: SelectionRectangle,
     component: PlacedComponent,
+    registry: ComponentRegistry,
 ): boolean {
+    const { width, height } = getComponentFootprint(
+        registry.get(component.type),
+        component.rotation,
+    );
     const left = component.position.x * CELL_SIZE;
     const top = component.position.y * CELL_SIZE;
-    const right = left + CELL_SIZE;
-    const bottom = top + CELL_SIZE;
+    const right = left + width * CELL_SIZE;
+    const bottom = top + height * CELL_SIZE;
 
     return (
         rectangle.left < right &&
@@ -41,11 +49,12 @@ function rectangleIntersectsComponent(
 export function getComponentsInsideRectangle(
     components: readonly PlacedComponent[],
     rectangle: SelectionRectangle,
+    registry: ComponentRegistry = defaultComponentRegistry,
 ): ReadonlySet<string> {
     return new Set(
         components
             .filter((component) =>
-                rectangleIntersectsComponent(rectangle, component),
+                rectangleIntersectsComponent(rectangle, component, registry),
             )
             .map((component) => component.id),
     );

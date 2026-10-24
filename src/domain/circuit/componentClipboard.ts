@@ -1,10 +1,6 @@
 import type { Position } from "../grid/position";
 import { CircuitLayout } from "./circuitLayout";
-import {
-    getOccupiedLayers,
-    type CircuitLayer,
-    type Rotation,
-} from "./placedComponent";
+import type { CircuitLayer, Rotation } from "./placedComponent";
 
 interface ClipboardComponent {
     readonly type: string;
@@ -74,20 +70,10 @@ export function pasteComponentClipboard(
         },
     }));
 
-    const canPaste = pastedPlacements.every((component) => {
-        const { x, y } = component.position;
-
-        if (x < 0 || x >= circuit.width || y < 0 || y >= circuit.height) {
-            return false;
-        }
-
-        return getOccupiedLayers(component).every(
-            (layer) =>
-                circuit.getComponentAt(component.position, layer) === undefined,
-        );
-    });
-
-    if (!canPaste) {
+    if (
+        pastedPlacements.length === 0 ||
+        !circuit.canPlaceComponents(pastedPlacements)
+    ) {
         return null;
     }
 
@@ -97,11 +83,14 @@ export function pasteComponentClipboard(
     }));
 
     return {
-        circuit: CircuitLayout.from({
-            width: circuit.width,
-            height: circuit.height,
-            components: [...circuit.components, ...pastedComponents],
-        }),
+        circuit: CircuitLayout.from(
+            {
+                width: circuit.width,
+                height: circuit.height,
+                components: [...circuit.components, ...pastedComponents],
+            },
+            circuit.registry,
+        ),
         componentIds: new Set(
             pastedComponents.map((component) => component.id),
         ),
