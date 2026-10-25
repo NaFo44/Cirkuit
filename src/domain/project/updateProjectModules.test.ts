@@ -146,12 +146,16 @@ describe("updateProjectModules", () => {
         ).toEqual([]);
     });
 
-    it("prevents silently dropping modules before format v3 is implemented", () => {
+    it("saves an unused module library in project format v3", () => {
         const project = updateProjectModules(createTestProject(), [
             createTestModule(),
         ]);
-        expect(() =>
-            createProjectDocument(project, defaultComponentRegistry),
-        ).toThrow("Saving modules requires project document version 3");
+        const document = createProjectDocument(
+            project,
+            defaultComponentRegistry,
+        );
+        expect(document.version).toBe(3);
+        expect(document.modules).toHaveLength(1);
+        expect(document.modules[0].id).toBe("inverter");
     });
 });

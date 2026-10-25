@@ -12,7 +12,7 @@ import {
     parseProjectDocument,
     serializeProjectDocument,
     type ProjectDocumentV1,
-    type ProjectDocumentV2,
+    type ProjectDocumentV3,
 } from "./projectDocument";
 
 const PROJECT: CircuitProject = {
@@ -73,9 +73,10 @@ const PROJECT: CircuitProject = {
     ],
 };
 
-const VALID_DOCUMENT: ProjectDocumentV2 = {
+const VALID_DOCUMENT: ProjectDocumentV3 = {
     format: PROJECT_DOCUMENT_FORMAT,
     version: PROJECT_DOCUMENT_VERSION,
+    modules: [],
     viewport: {
         x: 0,
         y: 0,
@@ -227,11 +228,11 @@ describe("projectDocument", () => {
             loadProjectDocument(
                 {
                     ...VALID_DOCUMENT,
-                    version: 3,
+                    version: 4,
                 },
                 defaultComponentRegistry,
             ),
-        ).toThrow("Unsupported project document version: 3");
+        ).toThrow("Unsupported project document version: 4");
     });
 
     it("rejects an unsupported annotation coordinate space", () => {

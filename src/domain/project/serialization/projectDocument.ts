@@ -10,9 +10,15 @@ import {
     PROJECT_DOCUMENT_VERSION,
     parseProjectDocumentValue,
     type ProjectAnnotationV1,
-    type ProjectDocumentV2,
+    type ProjectDocumentV3,
+    type ProjectModuleV3,
     type ProjectPointV1,
 } from "./projectDocumentSchema";
+import { getComponentFootprint } from "../../circuit/componentGeometry";
+import type { ModuleDefinition } from "../../circuit/modules/moduleDefinition";
+import type { Circuit } from "../../circuit/circuit";
+import type { ComponentCatalog } from "../../circuit/componentDefinition";
+import { ModuleCatalog } from "../../circuit/modules/moduleCatalog";
 
 export {
     PROJECT_ANNOTATION_COORDINATE_SPACE,
@@ -21,6 +27,9 @@ export {
     ProjectAnnotationV1Schema,
     ProjectDocumentV1Schema,
     ProjectDocumentV2Schema,
+    ProjectDocumentV3Schema,
+    ProjectModuleV3Schema,
+    ProjectModulePortV3Schema,
 } from "./projectDocumentSchema";
 
 export type {
@@ -33,6 +42,9 @@ export type {
     ProjectLineAnnotationV1,
     ProjectPointV1,
     ProjectRectangleAnnotationV1,
+    ProjectDocumentV3,
+    ProjectModuleV3,
+    ProjectModulePortV3,
 } from "./projectDocumentSchema";
 
 function cellUnitsToCanvas(value: number, context: string): number {
@@ -152,15 +164,29 @@ function createDocumentAnnotation(
     }
 }
 
-function validateComponentTypes(
-    document: ProjectDocumentV2,
-    registry: ComponentRegistry,
+function validateDocumentCircuit(
+    circuit: Circuit,
+    registry: ComponentCatalog,
 ): void {
-    for (const component of document.circuit.components) {
+    for (const component of circuit.components) {
         if (!registry.has(component.type)) {
             throw new Error(
                 `Unknown component type "${component.type}" for component: ${component.id}`,
             );
+        }
+
+        const { width, height } = getComponentFootprint(
+            registry.get(component.type),
+            component.rotation,
+        );
+
+        if (
+            component.position.x < 0 ||
+            component.position.y < 0 ||
+            component.position.x + width > circuit.width ||
+            component.position.y + height > circuit.height
+        ) {
+            throw new Error(`Component is outside the layout: ${component.id}`);
         }
     }
 }
@@ -171,7 +197,19 @@ export function loadProjectDocument(
 ): CircuitProject {
     const document = parseProjectDocumentValue(value);
 
-    validateComponentTypes(document, registry);
+    const modules: ModuleDefinition[] = document.modules.map((definition) => ({
+        id: definition.id,
+        name: definition.name,
+        footprint: definition.footprint,
+        ports: definition.ports,
+        circuit: definition.circuit,
+        annotations: definition.annotations.items.map(createCircuitAnnotation),
+    }));
+
+    const moduleCatalog = new ModuleCatalog(modules, registry);
+    const catalog = modules.length > 0 ? moduleCatalog : registry;
+
+    validateDocumentCircuit(document.circuit, catalog);
 
     const circuit = CircuitLayout.from(
         {
@@ -179,12 +217,12 @@ export function loadProjectDocument(
             height: document.circuit.height,
             components: document.circuit.components,
         },
-        registry,
+        catalog,
     );
 
     return {
         circuit,
-        modules: [],
+        modules: moduleCatalog.modules,
         annotations: document.annotations.items.map(createCircuitAnnotation),
         viewport: {
             x: document.viewport.x,
@@ -194,16 +232,57 @@ export function loadProjectDocument(
     };
 }
 
+function createDocumentCircuit(circuit: Circuit): ProjectDocumentV3["circuit"] {
+    return {
+        width: circuit.width,
+        height: circuit.height,
+        components: circuit.components.map((component) => ({
+            id: component.id,
+            type: component.type,
+            position: {
+                x: component.position.x,
+                y: component.position.y,
+            },
+            rotation: component.rotation,
+            layer: component.layer,
+        })),
+    };
+}
+
+function createDocumentModule(definition: ModuleDefinition): ProjectModuleV3 {
+    return {
+        id: definition.id,
+        name: definition.name,
+        footprint: {
+            width: definition.footprint.width,
+            height: definition.footprint.height,
+        },
+        ports: definition.ports.map((port) => ({
+            id: port.id,
+            name: port.name,
+            kind: port.kind,
+            side: port.side,
+            ...(port.offset === undefined ? {} : { offset: port.offset }),
+            ...(port.layerOffset === undefined
+                ? {}
+                : { layerOffset: port.layerOffset }),
+            internalPort: {
+                componentId: port.internalPort.componentId,
+                portId: port.internalPort.portId,
+            },
+        })),
+        circuit: createDocumentCircuit(definition.circuit),
+        annotations: {
+            coordinateSpace: PROJECT_ANNOTATION_COORDINATE_SPACE,
+            items: definition.annotations.map(createDocumentAnnotation),
+        },
+    };
+}
+
 export function createProjectDocument(
     project: CircuitProject,
     registry: ComponentRegistry,
-): ProjectDocumentV2 {
-    if (project.modules.length > 0) {
-        throw new Error("Saving modules requires project document version 3");
-    }
-
-    const circuit = CircuitLayout.from(project.circuit, registry);
-
+): ProjectDocumentV3 {
     const document = {
         format: PROJECT_DOCUMENT_FORMAT,
         version: PROJECT_DOCUMENT_VERSION,
@@ -214,26 +293,14 @@ export function createProjectDocument(
             zoom: project.viewport.zoom,
         },
 
-        circuit: {
-            width: circuit.width,
-            height: circuit.height,
-            components: circuit.components.map((component) => ({
-                id: component.id,
-                type: component.type,
-                position: {
-                    x: component.position.x,
-                    y: component.position.y,
-                },
-                rotation: component.rotation,
-                layer: component.layer,
-            })),
-        },
+        circuit: createDocumentCircuit(project.circuit),
+        modules: project.modules.map(createDocumentModule),
 
         annotations: {
             coordinateSpace: PROJECT_ANNOTATION_COORDINATE_SPACE,
             items: project.annotations.map(createDocumentAnnotation),
         },
-    } satisfies ProjectDocumentV2;
+    } satisfies ProjectDocumentV3;
 
     // Generated documents follow the same validation as imported documents.
     loadProjectDocument(document, registry);

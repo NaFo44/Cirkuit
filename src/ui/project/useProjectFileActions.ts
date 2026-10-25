@@ -61,6 +61,7 @@ export function useProjectFileActions({
 
                 const hasCurrentContent =
                     project.circuit.components.length > 0 ||
+                    project.modules.length > 0 ||
                     project.annotations.length > 0;
 
                 if (
