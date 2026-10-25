@@ -21,6 +21,7 @@ export interface ComponentDescriptor {
     readonly type: string;
     readonly footprint?: ComponentFootprint;
     readonly ports: readonly PortDefinition[];
+    readonly conductiveGroups?: readonly (readonly string[])[];
 }
 
 export interface ComponentCatalog {
@@ -29,7 +30,6 @@ export interface ComponentCatalog {
 }
 
 export interface ComponentDefinition extends ComponentDescriptor {
-    readonly conductiveGroups?: readonly (readonly string[])[];
     readonly primaryAction?: string;
 
     createInitialState(): unknown;

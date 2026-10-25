@@ -9,6 +9,7 @@ import {
     type Simulation,
 } from "../../domain/circuit/simulation/simulationEngine";
 import { SIMULATION_TICK_INTERVAL_MS } from "../../domain/circuit/simulation/simulationTiming";
+import type { ModuleDefinition } from "../../domain/circuit/modules/moduleDefinition";
 
 interface SimulationResult {
     readonly simulation: Simulation | null;
@@ -30,6 +31,8 @@ const INACTIVE_RESULT: SimulationResult = {
     error: null,
 };
 
+const EMPTY_MODULES: readonly ModuleDefinition[] = [];
+
 function errorMessage(error: unknown): string {
     return error instanceof Error ? error.message : "Unknown simulation error";
 }
@@ -37,10 +40,11 @@ function errorMessage(error: unknown): string {
 function startSimulation(
     circuit: Circuit,
     registry: ComponentRegistry,
+    modules: readonly ModuleDefinition[],
 ): SimulationResult {
     try {
         return {
-            simulation: createSimulation(circuit, registry),
+            simulation: createSimulation(circuit, registry, modules),
             error: null,
         };
     } catch (error) {
@@ -55,10 +59,14 @@ export function useCircuitSimulation(
     circuit: Circuit,
     registry: ComponentRegistry,
     enabled: boolean,
+    modules: readonly ModuleDefinition[] = EMPTY_MODULES,
 ): CircuitSimulationController {
     const baseResult = useMemo(
-        () => (enabled ? startSimulation(circuit, registry) : INACTIVE_RESULT),
-        [circuit, enabled, registry],
+        () =>
+            enabled
+                ? startSimulation(circuit, registry, modules)
+                : INACTIVE_RESULT,
+        [circuit, enabled, registry, modules],
     );
 
     const [advancedResult, setAdvancedResult] =

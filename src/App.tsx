@@ -208,6 +208,7 @@ export function App() {
         circuit,
         defaultComponentRegistry,
         mode === "simulate",
+        project.modules,
     );
 
     const componentVisualStates = useMemo(
@@ -226,11 +227,16 @@ export function App() {
         : null;
 
     const isComponentInteractive = (component: PlacedComponent): boolean =>
+        defaultComponentRegistry.has(component.type) &&
         defaultComponentRegistry.get(component.type).primaryAction !==
-        undefined;
+            undefined;
 
     const interactWithComponent = useCallback(
         (component: PlacedComponent) => {
+            if (!defaultComponentRegistry.has(component.type)) {
+                return;
+            }
+
             const actionType = defaultComponentRegistry.get(
                 component.type,
             ).primaryAction;

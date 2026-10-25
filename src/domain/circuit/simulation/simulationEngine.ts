@@ -4,7 +4,12 @@ import type {
     EvaluationContext,
 } from "../componentDefinition";
 import type { ComponentRegistry } from "../componentRegistry";
-import { compileNetlist } from "../netlist/compileNetlist";
+import {
+    compileSimulation,
+    type CompiledSimulation,
+} from "./compileSimulation";
+import type { ModuleDefinition } from "../modules/moduleDefinition";
+import type { PlacedComponent } from "../placedComponent";
 import { portKey, type Netlist } from "../netlist/netlist";
 import { SIGNALS, type Signal } from "../signal";
 import { resolveSignals } from "./resolveSignals";
@@ -17,6 +22,7 @@ export interface Simulation {
     readonly registry: ComponentRegistry;
     readonly netlist: Netlist;
     readonly snapshot: SimulationSnapshot;
+    readonly compiled: CompiledSimulation;
 }
 
 function mapsAreEqual<K, V>(
@@ -129,7 +135,7 @@ function validateOutputs(
 }
 
 function evaluateNetSignals(
-    circuit: Circuit,
+    components: readonly PlacedComponent[],
     registry: ComponentRegistry,
     netlist: Netlist,
     componentStates: ReadonlyMap<string, unknown>,
@@ -138,7 +144,7 @@ function evaluateNetSignals(
 ): ReadonlyMap<string, Signal> {
     const outputSignals = new Map<string, Signal>();
 
-    for (const component of circuit.components) {
+    for (const component of components) {
         const definition = registry.get(component.type);
         const context: EvaluationContext = {
             tick,
@@ -185,7 +191,7 @@ function evaluateNetSignals(
 }
 
 function settleSignals(
-    circuit: Circuit,
+    components: readonly PlacedComponent[],
     registry: ComponentRegistry,
     netlist: Netlist,
     componentStates: ReadonlyMap<string, unknown>,
@@ -195,12 +201,12 @@ function settleSignals(
 
     const maximumPasses = Math.max(
         16,
-        2 * (circuit.components.length + netlist.nets.length),
+        2 * (components.length + netlist.nets.length),
     );
 
     for (let pass = 0; pass < maximumPasses; pass += 1) {
         const nextSignals = evaluateNetSignals(
-            circuit,
+            components,
             registry,
             netlist,
             componentStates,
@@ -219,11 +225,11 @@ function settleSignals(
 }
 
 function createInitialStates(
-    circuit: Circuit,
+    components: readonly PlacedComponent[],
     registry: ComponentRegistry,
 ): ReadonlyMap<string, unknown> {
     return new Map(
-        circuit.components.map((component) => [
+        components.map((component) => [
             component.id,
             registry.get(component.type).createInitialState(),
         ]),
@@ -234,15 +240,14 @@ function computeNextStates(
     simulation: Simulation,
     actions: readonly SimulationAction[],
 ): ReadonlyMap<string, unknown> {
-    const { circuit, registry, netlist, snapshot } = simulation;
+    const { registry, netlist, snapshot } = simulation;
+    const components = simulation.compiled.components;
 
-    if (snapshot.componentStates.size !== circuit.components.length) {
+    if (snapshot.componentStates.size !== components.length) {
         throw new Error("Simulation state does not match the circuit");
     }
 
-    const componentIds = new Set(
-        circuit.components.map((component) => component.id),
-    );
+    const componentIds = new Set(components.map((component) => component.id));
 
     const actionsByComponent = new Map<string, SimulationAction[]>();
 
@@ -268,7 +273,7 @@ function computeNextStates(
 
     const nextStates = new Map<string, unknown>();
 
-    for (const component of circuit.components) {
+    for (const component of components) {
         const definition = registry.get(component.type);
         const currentState = getComponentState(
             snapshot.componentStates,
@@ -301,20 +306,23 @@ function computeNextStates(
 export function createSimulation(
     circuit: Circuit,
     registry: ComponentRegistry,
+    modules: readonly ModuleDefinition[] = [],
 ): Simulation {
-    const netlist = compileNetlist(circuit, registry);
-    const componentStates = createInitialStates(circuit, registry);
+    const compiled = compileSimulation(circuit, registry, modules);
+    const netlist = compiled.netlist;
+    const componentStates = createInitialStates(compiled.components, registry);
     const tick = 0;
 
     return {
         circuit,
+        compiled,
         registry,
         netlist,
         snapshot: {
             tick,
             componentStates,
             netSignals: settleSignals(
-                circuit,
+                compiled.components,
                 registry,
                 netlist,
                 componentStates,
@@ -337,7 +345,7 @@ export function advanceSimulation(
             tick,
             componentStates,
             netSignals: settleSignals(
-                simulation.circuit,
+                simulation.compiled.components,
                 simulation.registry,
                 simulation.netlist,
                 componentStates,
@@ -367,4 +375,22 @@ export function getSimulationComponentState(
     componentId: string,
 ): unknown {
     return getComponentState(simulation.snapshot.componentStates, componentId);
+}
+
+export function getModuleComponentId(
+    simulation: Simulation,
+    instanceId: string,
+    internalComponentId: string,
+): string {
+    const id = simulation.compiled.moduleComponents
+        .get(instanceId)
+        ?.get(internalComponentId);
+
+    if (id === undefined) {
+        throw new Error(
+            `Unknown module component: ${instanceId}/${internalComponentId}`,
+        );
+    }
+
+    return id;
 }

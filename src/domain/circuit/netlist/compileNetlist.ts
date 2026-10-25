@@ -1,6 +1,6 @@
 import { positionKey, type Position } from "../../grid/position";
 import type { Circuit } from "../circuit";
-import type { ComponentRegistry } from "../componentRegistry";
+import type { ComponentCatalog } from "../componentDefinition";
 import {
     DIRECTION_OFFSETS,
     oppositeDirection,
@@ -32,7 +32,7 @@ function comparePorts(first: PortReference, second: PortReference): number {
     return portKey(first).localeCompare(portKey(second));
 }
 
-function validateCircuit(circuit: Circuit, registry: ComponentRegistry): void {
+function validateCircuit(circuit: Circuit, registry: ComponentCatalog): void {
     if (!Number.isInteger(circuit.width) || circuit.width <= 0) {
         throw new Error("Circuit width must be a positive integer");
     }
@@ -140,7 +140,7 @@ function createNet(resolvedPorts: readonly ResolvedPort[]): Net {
 
 export function compileNetlist(
     circuit: Circuit,
-    registry: ComponentRegistry,
+    registry: ComponentCatalog,
 ): Netlist {
     validateCircuit(circuit, registry);
 
