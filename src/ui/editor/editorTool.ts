@@ -21,7 +21,14 @@ export type ProbeTool = {
     readonly kind: "probe";
 };
 
-export type EditorTool = CircuitEditorTool | AnnotationEditorTool | ProbeTool;
+export type ModuleEditorTool = {
+    readonly kind: "module";
+    readonly moduleId: string;
+    readonly rotation: Rotation;
+};
+
+export type EditorTool =
+    CircuitEditorTool | AnnotationEditorTool | ProbeTool | ModuleEditorTool;
 
 export function isCircuitEditorTool(
     tool: EditorTool,

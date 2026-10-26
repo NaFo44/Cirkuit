@@ -1,0 +1,25 @@
+.module-placement-preview {
+    position: absolute;
+    z-index: 3;
+    opacity: 0.65;
+    outline: 2px solid #545454;
+    outline-offset: -2px;
+    pointer-events: none;
+}
+
+.module-placement-preview[data-valid="false"] {
+    outline-color: var(--signal-conflict);
+}
+
+.module-placement-preview[data-valid="false"]::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgb(255 77 79 / 20%);
+}
+
+.circuit-canvas--placing-module .circuit-grid {
+    cursor:
+        url("../../assets//crosshair.png") 10 10,
+        crosshair;
+}

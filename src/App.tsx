@@ -47,11 +47,14 @@ import {
     createModulePortSignals,
     EMPTY_MODULE_PORT_SIGNALS,
 } from "./ui/components/modulePortSignals";
+import { useModulePlacement } from "./ui/modules/useModulePlacement";
+import { ModulePlacementPreview } from "./ui/modules/modulePlacementPreview";
+import { SidebarModules } from "./ui/sidebar/sidebarModules";
 
 const EMPTY_COMPONENT_VISUAL_STATES: ReadonlyMap<string, ComponentVisualState> =
     new Map();
 
-type SidebarView = "main" | "docs" | "shortcuts";
+type SidebarView = "main" | "docs" | "shortcuts" | "modules";
 
 export function App() {
     const [mode, setMode] = useState<EditorMode>("edit");
@@ -75,6 +78,7 @@ export function App() {
         selectedTool,
         selectedAnnotationType,
         selectComponent,
+        selectModule,
         selectEraser,
         selectAnnotation,
         selectProbe,
@@ -83,6 +87,8 @@ export function App() {
     });
 
     const isProbing = selectedTool.kind === "probe";
+
+    const isPlacingModule = selectedTool.kind === "module";
 
     const {
         project,
@@ -133,7 +139,7 @@ export function App() {
         clearSelection,
         resetSelectionState,
     } = useComponentSelection({
-        enabled: mode === "edit" && !isProbing,
+        enabled: mode === "edit" && !isProbing && !isPlacingModule,
         circuit,
         getPastePosition,
         onCircuitChange: updateCircuit,
@@ -146,6 +152,19 @@ export function App() {
             ),
         [circuit, selectedComponentIds],
     );
+
+    const modulePlacement = useModulePlacement({
+        circuit,
+        modules: project.modules,
+        tool: selectedTool.kind === "module" ? selectedTool : null,
+        pointerPosition,
+        layer: activeLayer,
+        enabled: mode === "edit",
+        onCircuitChange: updateCircuit,
+        onPlaced: clearSelection,
+    });
+
+    const endModuleDrag = modulePlacement.endDrag;
 
     const paintCell = useCallback(
         (position: Position) => {
@@ -173,13 +192,15 @@ export function App() {
 
     const handleProjectOpen = useCallback(
         (importedProject: CircuitProject) => {
+            selectComponent("wire");
+            endModuleDrag();
             setMode("edit");
             setActiveLayer(0);
             setHoveredComponentId(null);
             resetSelectionState();
             replaceProject(importedProject);
         },
-        [replaceProject, resetSelectionState],
+        [replaceProject, resetSelectionState, selectComponent, endModuleDrag],
     );
 
     const getViewport = useCallback(
@@ -275,6 +296,10 @@ export function App() {
         setSidebarView("shortcuts");
     }, []);
 
+    const openModules = useCallback(() => {
+        setSidebarView("modules");
+    }, []);
+
     const closeSidebarPage = useCallback(() => {
         setSidebarView("main");
     }, []);
@@ -283,7 +308,7 @@ export function App() {
         mode === "edit" && selectedAnnotationType !== null;
 
     const selectionInteractionMode =
-        mode !== "edit" || isProbing
+        mode !== "edit" || isProbing || isPlacingModule
             ? "disabled"
             : isSelectionModifierPressed
               ? "select"
@@ -323,14 +348,24 @@ export function App() {
             >
                 <div
                     ref={canvasRef}
-                    className="circuit-canvas"
+                    className={
+                        isPlacingModule
+                            ? "circuit-canvas circuit-canvas--placing-module"
+                            : "circuit-canvas"
+                    }
                     style={{
                         width: canvasWidth,
                         height: canvasHeight,
                     }}
-                    onPointerDownCapture={trackCanvasPointer}
+                    onPointerDownCapture={(event) => {
+                        trackCanvasPointer(event);
+                        modulePlacement.onPointerDownCapture(event);
+                    }}
                     onPointerMoveCapture={trackCanvasPointer}
                     onPointerLeave={clearCanvasPointer}
+                    onDragOver={modulePlacement.onDragOver}
+                    onDragLeave={modulePlacement.onDragLeave}
+                    onDrop={modulePlacement.onDrop}
                 >
                     <CircuitGrid
                         circuit={circuit}
@@ -365,6 +400,10 @@ export function App() {
                         cellSize={CELL_SIZE}
                         footprint={previewFootprint}
                     />
+
+                    {modulePlacement.preview && (
+                        <ModulePlacementPreview {...modulePlacement.preview} />
+                    )}
 
                     <AnnotationLayer
                         key={
@@ -425,6 +464,25 @@ export function App() {
                     <SidebarShortcuts mode={mode} onClose={closeSidebarPage} />
                 )}
 
+                {sidebarView === "modules" && (
+                    <SidebarModules
+                        modules={project.modules}
+                        selectedModuleId={
+                            selectedTool.kind === "module"
+                                ? selectedTool.moduleId
+                                : null
+                        }
+                        disabled={mode !== "edit"}
+                        onSelect={(id) => {
+                            clearSelection();
+                            selectModule(id);
+                        }}
+                        onDragStart={modulePlacement.startDrag}
+                        onDragEnd={modulePlacement.endDrag}
+                        onClose={closeSidebarPage}
+                    />
+                )}
+
                 {sidebarView === "main" && (
                     <WorkspaceSidebar
                         topContent={<WorkspaceIntroduction />}
@@ -440,6 +498,7 @@ export function App() {
                         <WorkspaceNavigation
                             onOpenDocs={openDocs}
                             onOpenShortcuts={openShortcuts}
+                            onOpenModules={openModules}
                         />
                     </WorkspaceSidebar>
                 )}

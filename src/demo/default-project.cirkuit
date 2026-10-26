@@ -1,9 +1,9 @@
 {
   "format": "cirkuit-project",
-  "version": 2,
+  "version": 3,
   "viewport": {
-    "x": -569.0971672712055,
-    "y": -255.70285714285717,
+    "x": -900,
+    "y": -40,
     "zoom": 1.6262786389623964
   },
   "circuit": {
@@ -19579,6 +19579,256 @@
         },
         "rotation": 0,
         "layer": 0
+      },
+      {
+        "id": "demo-xor-instance",
+        "type": "module:demo-xor",
+        "position": {
+          "x": 47,
+          "y": 5
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "demo-xor-source-a",
+        "type": "source",
+        "position": {
+          "x": 40,
+          "y": 6
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "demo-xor-switch-a",
+        "type": "switch",
+        "position": {
+          "x": 42,
+          "y": 6
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "demo-xor-wire-a-41",
+        "type": "wire",
+        "position": {
+          "x": 41,
+          "y": 6
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "demo-xor-wire-a-43",
+        "type": "wire",
+        "position": {
+          "x": 43,
+          "y": 6
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "demo-xor-wire-a-44",
+        "type": "wire",
+        "position": {
+          "x": 44,
+          "y": 6
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "demo-xor-wire-a-45",
+        "type": "wire",
+        "position": {
+          "x": 45,
+          "y": 6
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "demo-xor-wire-a-46",
+        "type": "wire",
+        "position": {
+          "x": 46,
+          "y": 6
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "demo-xor-source-b",
+        "type": "source",
+        "position": {
+          "x": 40,
+          "y": 8
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "demo-xor-switch-b",
+        "type": "switch",
+        "position": {
+          "x": 42,
+          "y": 8
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "demo-xor-wire-b-41",
+        "type": "wire",
+        "position": {
+          "x": 41,
+          "y": 8
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "demo-xor-wire-b-43",
+        "type": "wire",
+        "position": {
+          "x": 43,
+          "y": 8
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "demo-xor-wire-b-44",
+        "type": "wire",
+        "position": {
+          "x": 44,
+          "y": 8
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "demo-xor-wire-b-45",
+        "type": "wire",
+        "position": {
+          "x": 45,
+          "y": 8
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "demo-xor-wire-b-46",
+        "type": "wire",
+        "position": {
+          "x": 46,
+          "y": 8
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "demo-xor-wire-y-52",
+        "type": "wire",
+        "position": {
+          "x": 52,
+          "y": 7
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "demo-xor-wire-y-53",
+        "type": "wire",
+        "position": {
+          "x": 53,
+          "y": 7
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "demo-xor-wire-y-54",
+        "type": "wire",
+        "position": {
+          "x": 54,
+          "y": 7
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "demo-xor-light",
+        "type": "light",
+        "position": {
+          "x": 55,
+          "y": 7
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "demo-not-instance",
+        "type": "module:demo-not",
+        "position": {
+          "x": 58,
+          "y": 5
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "demo-not-source",
+        "type": "source",
+        "position": {
+          "x": 59,
+          "y": 2
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "demo-not-switch",
+        "type": "switch",
+        "position": {
+          "x": 59,
+          "y": 3
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "demo-not-wire-in",
+        "type": "wire",
+        "position": {
+          "x": 59,
+          "y": 4
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "demo-not-wire-y",
+        "type": "wire",
+        "position": {
+          "x": 62,
+          "y": 6
+        },
+        "rotation": 0,
+        "layer": 0
+      },
+      {
+        "id": "demo-not-light",
+        "type": "light",
+        "position": {
+          "x": 63,
+          "y": 6
+        },
+        "rotation": 0,
+        "layer": 0
       }
     ]
   },
@@ -19818,7 +20068,587 @@
           "x": 88.34000091552734,
           "y": 12.804999923706054
         }
+      },
+      {
+        "id": "demo-xor-title",
+        "kind": "label",
+        "position": {
+          "x": 40,
+          "y": 3
+        },
+        "text": "XOR module"
+      },
+      {
+        "id": "demo-xor-label-a",
+        "kind": "label",
+        "position": {
+          "x": 41.8,
+          "y": 5
+        },
+        "text": "A"
+      },
+      {
+        "id": "demo-xor-label-b",
+        "kind": "label",
+        "position": {
+          "x": 41.8,
+          "y": 9.8
+        },
+        "text": "B"
+      },
+      {
+        "id": "demo-xor-help",
+        "kind": "label",
+        "position": {
+          "x": 40,
+          "y": 11.5
+        },
+        "text": "XOR: Y = A != B"
+      },
+      {
+        "id": "demo-not-title",
+        "kind": "label",
+        "position": {
+          "x": 57.5,
+          "y": 9
+        },
+        "text": "NOT module"
+      },
+      {
+        "id": "demo-not-label-in",
+        "kind": "label",
+        "position": {
+          "x": 60.2,
+          "y": 3
+        },
+        "text": "IN"
+      },
+      {
+        "id": "demo-not-help",
+        "kind": "label",
+        "position": {
+          "x": 57.5,
+          "y": 11.5
+        },
+        "text": "NOT: Y = !IN"
       }
     ]
-  }
+  },
+  "modules": [
+    {
+      "id": "demo-xor",
+      "name": "XOR",
+      "footprint": {
+        "width": 5,
+        "height": 5
+      },
+      "ports": [
+        {
+          "id": "a",
+          "name": "A",
+          "kind": "input",
+          "side": "west",
+          "offset": 1,
+          "internalPort": {
+            "componentId": "xor-wire-0-0",
+            "portId": "west"
+          }
+        },
+        {
+          "id": "b",
+          "name": "B",
+          "kind": "input",
+          "side": "west",
+          "offset": 3,
+          "internalPort": {
+            "componentId": "xor-wire-0-6",
+            "portId": "west"
+          }
+        },
+        {
+          "id": "y",
+          "name": "Y",
+          "kind": "output",
+          "side": "east",
+          "offset": 2,
+          "internalPort": {
+            "componentId": "xor-not-11-4",
+            "portId": "output"
+          }
+        }
+      ],
+      "circuit": {
+        "width": 13,
+        "height": 7,
+        "components": [
+          {
+            "id": "xor-wire-0-0",
+            "type": "wire",
+            "position": {
+              "x": 0,
+              "y": 0
+            },
+            "rotation": 0,
+            "layer": 0
+          },
+          {
+            "id": "xor-wire-1-0",
+            "type": "wire",
+            "position": {
+              "x": 1,
+              "y": 0
+            },
+            "rotation": 0,
+            "layer": 0
+          },
+          {
+            "id": "xor-wire-2-0",
+            "type": "wire",
+            "position": {
+              "x": 2,
+              "y": 0
+            },
+            "rotation": 0,
+            "layer": 0
+          },
+          {
+            "id": "xor-wire-3-0",
+            "type": "wire",
+            "position": {
+              "x": 3,
+              "y": 0
+            },
+            "rotation": 0,
+            "layer": 0
+          },
+          {
+            "id": "xor-wire-4-0",
+            "type": "wire",
+            "position": {
+              "x": 4,
+              "y": 0
+            },
+            "rotation": 0,
+            "layer": 0
+          },
+          {
+            "id": "xor-wire-5-0",
+            "type": "wire",
+            "position": {
+              "x": 5,
+              "y": 0
+            },
+            "rotation": 0,
+            "layer": 0
+          },
+          {
+            "id": "xor-wire-5-1",
+            "type": "wire",
+            "position": {
+              "x": 5,
+              "y": 1
+            },
+            "rotation": 0,
+            "layer": 0
+          },
+          {
+            "id": "xor-and-5-2",
+            "type": "and",
+            "position": {
+              "x": 5,
+              "y": 2
+            },
+            "rotation": 0,
+            "layer": 0
+          },
+          {
+            "id": "xor-not-7-2",
+            "type": "not",
+            "position": {
+              "x": 7,
+              "y": 2
+            },
+            "rotation": 0,
+            "layer": 0
+          },
+          {
+            "id": "xor-and-5-6",
+            "type": "and",
+            "position": {
+              "x": 5,
+              "y": 6
+            },
+            "rotation": 0,
+            "layer": 0
+          },
+          {
+            "id": "xor-not-7-6",
+            "type": "not",
+            "position": {
+              "x": 7,
+              "y": 6
+            },
+            "rotation": 0,
+            "layer": 0
+          },
+          {
+            "id": "xor-wire-4-2",
+            "type": "wire",
+            "position": {
+              "x": 4,
+              "y": 2
+            },
+            "rotation": 0,
+            "layer": 0
+          },
+          {
+            "id": "xor-wire-4-3",
+            "type": "wire",
+            "position": {
+              "x": 4,
+              "y": 3
+            },
+            "rotation": 0,
+            "layer": 0
+          },
+          {
+            "id": "xor-wire-4-4",
+            "type": "wire",
+            "position": {
+              "x": 4,
+              "y": 4
+            },
+            "rotation": 0,
+            "layer": 0
+          },
+          {
+            "id": "xor-wire-5-4",
+            "type": "wire",
+            "position": {
+              "x": 5,
+              "y": 4
+            },
+            "rotation": 0,
+            "layer": 0
+          },
+          {
+            "id": "xor-wire-5-5",
+            "type": "wire",
+            "position": {
+              "x": 5,
+              "y": 5
+            },
+            "rotation": 0,
+            "layer": 0
+          },
+          {
+            "id": "xor-not-3-4",
+            "type": "not",
+            "position": {
+              "x": 3,
+              "y": 4
+            },
+            "rotation": 0,
+            "layer": 0
+          },
+          {
+            "id": "xor-and-1-4",
+            "type": "and",
+            "position": {
+              "x": 1,
+              "y": 4
+            },
+            "rotation": 0,
+            "layer": 0
+          },
+          {
+            "id": "xor-wire-2-4",
+            "type": "wire",
+            "position": {
+              "x": 2,
+              "y": 4
+            },
+            "rotation": 0,
+            "layer": 0
+          },
+          {
+            "id": "xor-wire-0-4",
+            "type": "wire",
+            "position": {
+              "x": 0,
+              "y": 4
+            },
+            "rotation": 0,
+            "layer": 0
+          },
+          {
+            "id": "xor-wire-0-5",
+            "type": "wire",
+            "position": {
+              "x": 0,
+              "y": 5
+            },
+            "rotation": 0,
+            "layer": 0
+          },
+          {
+            "id": "xor-wire-0-6",
+            "type": "wire",
+            "position": {
+              "x": 0,
+              "y": 6
+            },
+            "rotation": 0,
+            "layer": 0
+          },
+          {
+            "id": "xor-wire-1-6",
+            "type": "wire",
+            "position": {
+              "x": 1,
+              "y": 6
+            },
+            "rotation": 0,
+            "layer": 0
+          },
+          {
+            "id": "xor-wire-2-6",
+            "type": "wire",
+            "position": {
+              "x": 2,
+              "y": 6
+            },
+            "rotation": 0,
+            "layer": 0
+          },
+          {
+            "id": "xor-wire-3-6",
+            "type": "wire",
+            "position": {
+              "x": 3,
+              "y": 6
+            },
+            "rotation": 0,
+            "layer": 0
+          },
+          {
+            "id": "xor-wire-4-6",
+            "type": "wire",
+            "position": {
+              "x": 4,
+              "y": 6
+            },
+            "rotation": 0,
+            "layer": 0
+          },
+          {
+            "id": "xor-wire-1-3",
+            "type": "wire",
+            "position": {
+              "x": 1,
+              "y": 3
+            },
+            "rotation": 0,
+            "layer": 0
+          },
+          {
+            "id": "xor-wire-1-2",
+            "type": "wire",
+            "position": {
+              "x": 1,
+              "y": 2
+            },
+            "rotation": 0,
+            "layer": 0
+          },
+          {
+            "id": "xor-wire-1-1",
+            "type": "wire",
+            "position": {
+              "x": 1,
+              "y": 1
+            },
+            "rotation": 0,
+            "layer": 0
+          },
+          {
+            "id": "xor-and-9-4",
+            "type": "and",
+            "position": {
+              "x": 9,
+              "y": 4
+            },
+            "rotation": 0,
+            "layer": 0
+          },
+          {
+            "id": "xor-not-11-4",
+            "type": "not",
+            "position": {
+              "x": 11,
+              "y": 4
+            },
+            "rotation": 0,
+            "layer": 0
+          },
+          {
+            "id": "xor-wire-6-2",
+            "type": "wire",
+            "position": {
+              "x": 6,
+              "y": 2
+            },
+            "rotation": 0,
+            "layer": 0
+          },
+          {
+            "id": "xor-wire-6-6",
+            "type": "wire",
+            "position": {
+              "x": 6,
+              "y": 6
+            },
+            "rotation": 0,
+            "layer": 0
+          },
+          {
+            "id": "xor-wire-8-2",
+            "type": "wire",
+            "position": {
+              "x": 8,
+              "y": 2
+            },
+            "rotation": 0,
+            "layer": 0
+          },
+          {
+            "id": "xor-wire-9-2",
+            "type": "wire",
+            "position": {
+              "x": 9,
+              "y": 2
+            },
+            "rotation": 0,
+            "layer": 0
+          },
+          {
+            "id": "xor-wire-9-3",
+            "type": "wire",
+            "position": {
+              "x": 9,
+              "y": 3
+            },
+            "rotation": 0,
+            "layer": 0
+          },
+          {
+            "id": "xor-wire-8-6",
+            "type": "wire",
+            "position": {
+              "x": 8,
+              "y": 6
+            },
+            "rotation": 0,
+            "layer": 0
+          },
+          {
+            "id": "xor-wire-8-5",
+            "type": "wire",
+            "position": {
+              "x": 8,
+              "y": 5
+            },
+            "rotation": 0,
+            "layer": 0
+          },
+          {
+            "id": "xor-wire-8-4",
+            "type": "wire",
+            "position": {
+              "x": 8,
+              "y": 4
+            },
+            "rotation": 0,
+            "layer": 0
+          },
+          {
+            "id": "xor-wire-10-4",
+            "type": "wire",
+            "position": {
+              "x": 10,
+              "y": 4
+            },
+            "rotation": 0,
+            "layer": 0
+          },
+          {
+            "id": "xor-wire-12-4",
+            "type": "wire",
+            "position": {
+              "x": 12,
+              "y": 4
+            },
+            "rotation": 0,
+            "layer": 0
+          }
+        ]
+      },
+      "annotations": {
+        "coordinateSpace": "grid",
+        "items": []
+      }
+    },
+    {
+      "id": "demo-not",
+      "name": "NOT",
+      "footprint": {
+        "width": 4,
+        "height": 3
+      },
+      "ports": [
+        {
+          "id": "in",
+          "name": "IN",
+          "kind": "input",
+          "side": "north",
+          "offset": 1,
+          "internalPort": {
+            "componentId": "not-gate",
+            "portId": "input"
+          }
+        },
+        {
+          "id": "y",
+          "name": "Y",
+          "kind": "output",
+          "side": "east",
+          "offset": 1,
+          "internalPort": {
+            "componentId": "not-gate",
+            "portId": "output"
+          }
+        }
+      ],
+      "circuit": {
+        "width": 1,
+        "height": 1,
+        "components": [
+          {
+            "id": "not-gate",
+            "type": "not",
+            "position": {
+              "x": 0,
+              "y": 0
+            },
+            "rotation": 0,
+            "layer": 0
+          }
+        ]
+      },
+      "annotations": {
+        "coordinateSpace": "grid",
+        "items": []
+      }
+    }
+  ]
 }

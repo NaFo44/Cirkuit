@@ -3,7 +3,6 @@
     inset: 0;
     background: var(--cell-module, #e8edf5);
     color: #545454;
-    font-family: "Silkscreen", monospace;
     font-weight: 700;
     pointer-events: none;
 }

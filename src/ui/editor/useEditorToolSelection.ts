@@ -23,6 +23,8 @@ interface EditorToolSelection {
     readonly selectAnnotation: (annotationType: AnnotationType) => void;
 
     readonly selectProbe: () => void;
+
+    readonly selectModule: (moduleId: string) => void;
 }
 
 export function useEditorToolSelection(
@@ -41,6 +43,14 @@ export function useEditorToolSelection(
         setSelectedTool({
             kind: "component",
             componentType,
+            rotation: 0,
+        });
+    };
+
+    const selectModule = (moduleId: string) => {
+        setSelectedTool({
+            kind: "module",
+            moduleId,
             rotation: 0,
         });
     };
@@ -74,17 +84,7 @@ export function useEditorToolSelection(
 
     useEffect(() => {
         const handleKeyDown = (event: KeyboardEvent) => {
-            if (
-                options.mode !== "edit" ||
-                selectedTool.kind !== "component" ||
-                !getComponentPresentation(selectedTool.componentType)
-                    .rotatable ||
-                event.repeat ||
-                event.ctrlKey ||
-                event.metaKey ||
-                event.altKey ||
-                event.key.toUpperCase() !== ROTATE_COMPONENT_SHORTCUT
-            ) {
+            if (options.mode !== "edit" || event.repeat) {
                 return;
             }
 
@@ -100,18 +100,45 @@ export function useEditorToolSelection(
                 return;
             }
 
+            if (event.key === "Escape" && selectedTool.kind === "module") {
+                event.preventDefault();
+
+                setSelectedTool({
+                    kind: "component",
+                    componentType: "wire",
+                    rotation: 0,
+                });
+
+                return;
+            }
+
+            const rotatable =
+                selectedTool.kind === "module" ||
+                (selectedTool.kind === "component" &&
+                    getComponentPresentation(selectedTool.componentType)
+                        .rotatable);
+
+            if (
+                !rotatable ||
+                event.ctrlKey ||
+                event.metaKey ||
+                event.altKey ||
+                event.key.toUpperCase() !== ROTATE_COMPONENT_SHORTCUT
+            ) {
+                return;
+            }
+
             event.preventDefault();
 
-            setSelectedTool((currentTool) => {
-                if (currentTool.kind !== "component") {
-                    return currentTool;
-                }
-
-                return {
-                    ...currentTool,
-                    rotation: rotateClockwise(currentTool.rotation),
-                };
-            });
+            setSelectedTool((currentTool) =>
+                currentTool.kind === "component" ||
+                currentTool.kind === "module"
+                    ? {
+                          ...currentTool,
+                          rotation: rotateClockwise(currentTool.rotation),
+                      }
+                    : currentTool,
+            );
         };
 
         window.addEventListener("keydown", handleKeyDown);
@@ -125,6 +152,7 @@ export function useEditorToolSelection(
         selectedTool,
         selectedAnnotationType,
         selectComponent,
+        selectModule,
         selectEraser,
         selectAnnotation,
         selectProbe,
