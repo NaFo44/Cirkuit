@@ -42,6 +42,11 @@ import { WorkspaceSidebarContainer } from "./ui/sidebar/workspaceSidebarContaine
 import { SidebarDocs } from "./ui/sidebar/sidebarDocs";
 import { SidebarShortcuts } from "./ui/sidebar/sidebarShortcuts";
 import { ProbeLayer } from "./ui/probe/probeLayer";
+import { getComponentFootprint } from "./domain/circuit/componentGeometry";
+import {
+    createModulePortSignals,
+    EMPTY_MODULE_PORT_SIGNALS,
+} from "./ui/components/modulePortSignals";
 
 const EMPTY_COMPONENT_VISUAL_STATES: ReadonlyMap<string, ComponentVisualState> =
     new Map();
@@ -223,8 +228,17 @@ export function App() {
         ? getComponentHoverLabel(
               hoveredComponent.type,
               componentVisualStates.get(hoveredComponent.id) ?? "default",
+              project.modules,
           )
         : null;
+
+    const modulePortSignals = useMemo(
+        () =>
+            simulation
+                ? createModulePortSignals(simulation, project.modules)
+                : EMPTY_MODULE_PORT_SIGNALS,
+        [simulation, project.modules],
+    );
 
     const isComponentInteractive = (component: PlacedComponent): boolean =>
         defaultComponentRegistry.has(component.type) &&
@@ -273,11 +287,31 @@ export function App() {
             ? "disabled"
             : isSelectionModifierPressed
               ? "select"
-              : selectedAnnotationType === null
+              : selectedAnnotationType === null &&
+                  selectedTool.kind !== "eraser"
                 ? "move"
                 : "disabled";
 
     const canPaint = mode === "edit" && isCircuitEditorTool(selectedTool);
+
+    const erasedComponent =
+        selectedTool.kind === "eraser" && pointerPosition
+            ? circuit.getComponentAt(pointerPosition, activeLayer)
+            : undefined;
+
+    const previewPosition = erasedComponent?.position ?? pointerPosition;
+
+    const previewFootprint = erasedComponent
+        ? getComponentFootprint(
+              circuit.registry.get(erasedComponent.type),
+              erasedComponent.rotation,
+          )
+        : selectedTool.kind === "component"
+          ? getComponentFootprint(
+                circuit.registry.get(selectedTool.componentType),
+                selectedTool.rotation,
+            )
+          : undefined;
 
     return (
         <main className="circuit-editor">
@@ -317,15 +351,19 @@ export function App() {
                         }
                         isComponentInteractive={isComponentInteractive}
                         onHoveredComponentChange={setHoveredComponentId}
+                        registry={circuit.registry}
+                        modules={project.modules}
+                        modulePortSignals={modulePortSignals}
                     />
 
                     <CellPreview
                         position={
                             canPaint && selectedAnnotationType === null
-                                ? pointerPosition
+                                ? previewPosition
                                 : null
                         }
                         cellSize={CELL_SIZE}
+                        footprint={previewFootprint}
                     />
 
                     <AnnotationLayer
@@ -353,6 +391,7 @@ export function App() {
                             height={canvasHeight}
                             interactionMode={selectionInteractionMode}
                             selectedComponents={selectedComponents}
+                            registry={circuit.registry}
                             onSelect={selectRectangle}
                             canMove={canMoveSelection}
                             onMove={moveSelection}
@@ -371,6 +410,7 @@ export function App() {
                             key={projectRevision}
                             circuit={circuit}
                             activeLayer={activeLayer}
+                            modules={project.modules}
                         />
                     )}
                 </div>

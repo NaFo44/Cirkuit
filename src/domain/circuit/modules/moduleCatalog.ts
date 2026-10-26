@@ -1,4 +1,6 @@
 import { CircuitLayout } from "../circuitLayout";
+import { getLocalPortPosition } from "../componentGeometry";
+import { positionKey } from "../../grid/position";
 import type {
     ComponentCatalog,
     ComponentDescriptor,
@@ -26,11 +28,13 @@ function validateModuleDefinition(
         throw new Error(`Module type conflicts with a primitive: ${type}`);
     }
 
-    validateComponentDescriptor({
+    const descriptor = {
         type,
         footprint: definition.footprint,
         ports: definition.ports,
-    });
+    };
+
+    validateComponentDescriptor(descriptor);
 
     for (const component of definition.circuit.components) {
         if (component.type.startsWith(MODULE_TYPE_PREFIX)) {
@@ -41,6 +45,7 @@ function validateModuleDefinition(
     }
 
     const circuit = CircuitLayout.from(definition.circuit, primitives);
+    const portIdsByCell = new Map<string, string>();
 
     for (const port of definition.ports) {
         if (port.name.trim() === "") {
@@ -53,13 +58,24 @@ function validateModuleDefinition(
             );
         }
 
+        const cell = positionKey(getLocalPortPosition(descriptor, port));
+        const existingPortId = portIdsByCell.get(cell);
+
+        if (existingPortId !== undefined) {
+            throw new Error(
+                `Module ports occupy the same cell ${cell}: ${existingPortId}, ${port.id} in ${definition.id}`,
+            );
+        }
+
+        portIdsByCell.set(cell, port.id);
+
         const component = circuit.getComponentById(
             port.internalPort.componentId,
         );
 
         if (!component) {
             throw new Error(
-                `Unknown internal component for modyle port: ${port.id}`,
+                `Unknown internal component for module port: ${port.id}`,
             );
         }
 

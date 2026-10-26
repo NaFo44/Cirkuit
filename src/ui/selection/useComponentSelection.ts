@@ -2,7 +2,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 import {
     createComponentClipboard,
-    pasteComponentClipboard,
+    pasteComponentClipboardNearby,
     type ComponentClipboard,
 } from "../../domain/circuit/componentClipboard";
 import type { CircuitLayout } from "../../domain/circuit/circuitLayout";
@@ -201,7 +201,7 @@ export function useComponentSelection({
 
             event.preventDefault();
 
-            const result = pasteComponentClipboard(
+            const result = pasteComponentClipboardNearby(
                 circuit,
                 clipboardRef.current,
                 pastePosition,

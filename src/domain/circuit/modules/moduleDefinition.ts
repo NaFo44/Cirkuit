@@ -12,7 +12,7 @@ import type { CircuitAnnotation } from "../../project/circuitAnnotation";
 export const MODULE_TYPE_PREFIX = "module:";
 export type ModuleComponentType = `module:${string}`;
 
-export interface ModylePortDefinition extends PortDefinition {
+export interface ModulePortDefinition extends PortDefinition {
     readonly name: string;
     readonly internalPort: PortReference;
     readonly layerOffset?: 0;
@@ -22,7 +22,7 @@ export interface ModuleDefinition {
     readonly id: string;
     readonly name: string;
     readonly footprint: ComponentFootprint;
-    readonly ports: readonly ModylePortDefinition[];
+    readonly ports: readonly ModulePortDefinition[];
     readonly circuit: Circuit;
     readonly annotations: readonly CircuitAnnotation[];
 }

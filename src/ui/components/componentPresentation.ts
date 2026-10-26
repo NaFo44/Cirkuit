@@ -3,6 +3,10 @@ import {
     type BuiltInComponentType,
 } from "../../domain/circuit/components/builtInComponents";
 import type { ComponentVisualState } from "./componentVisualState";
+import {
+    getModuleId,
+    type ModuleDefinition,
+} from "../../domain/circuit/modules/moduleDefinition";
 
 export type CircuitGlyphVisibility = "hidden" | "on-hover" | "always";
 
@@ -110,7 +114,24 @@ const COMPONENT_PRESENTATIONS = {
 
 export function getComponentPresentation(
     componentType: string,
+    modules: readonly ModuleDefinition[] = [],
 ): ComponentPresentation {
+    const moduleId = getModuleId(componentType);
+    const module =
+        moduleId === undefined
+            ? undefined
+            : modules.find((definition) => definition.id === moduleId);
+
+    if (module) {
+        return {
+            label: module.name,
+            paletteColor: "var(--cell-module, #e8edf5)",
+            glyphVisibility: "hidden",
+            rotatable: true,
+            getStateLabel: () => null,
+        };
+    }
+
     if (!isBuiltInComponentType(componentType)) {
         return {
             label: componentType,
@@ -127,8 +148,9 @@ export function getComponentPresentation(
 export function getComponentHoverLabel(
     componentType: string,
     visualState: ComponentVisualState,
+    modules: readonly ModuleDefinition[] = [],
 ): string {
-    const presentation = getComponentPresentation(componentType);
+    const presentation = getComponentPresentation(componentType, modules);
     const stateLabel = presentation.getStateLabel(visualState);
 
     return stateLabel

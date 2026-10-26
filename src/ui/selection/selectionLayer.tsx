@@ -15,6 +15,9 @@ import {
 } from "./componentSelection";
 import { createSelectionOutline } from "./selectionOutline";
 import "./selectionLayer.css";
+import type { ComponentCatalog } from "../../domain/circuit/componentDefinition";
+import { defaultComponentRegistry } from "../../domain/circuit/components/builtInComponents";
+import { getComponentRenderBounds } from "../components/componentRenderGeometry";
 
 export type SelectionInteractionMode = "disabled" | "move" | "select";
 
@@ -23,6 +26,7 @@ interface SelectionLayerProps {
     readonly height: number;
     readonly interactionMode: SelectionInteractionMode;
     readonly selectedComponents: readonly PlacedComponent[];
+    readonly registry?: ComponentCatalog;
 
     readonly onSelect: (rectangle: SelectionRectangle) => void;
     readonly canMove: (offset: Position) => boolean;
@@ -55,6 +59,7 @@ export function SelectionLayer({
     height,
     interactionMode,
     selectedComponents,
+    registry = defaultComponentRegistry,
     onSelect,
     canMove,
     onMove,
@@ -223,7 +228,16 @@ export function SelectionLayer({
     const selectionOutline = createSelectionOutline(
         selectedComponents,
         moveOffset,
+        registry,
     );
+
+    const selectedBounds = selectedComponents.map((component) => ({
+        id: component.id,
+        bounds: getComponentRenderBounds(
+            component,
+            registry.get(component.type),
+        ),
+    }));
 
     const isMoveValid = gesture?.kind !== "move" || canMove(moveOffset);
 
@@ -267,17 +281,12 @@ export function SelectionLayer({
                 ))}
             </svg>
 
-            {selectedComponents.map((component) => (
+            {selectedBounds.map(({ id, bounds }) => (
                 <div
-                    key={component.id}
+                    key={id}
                     className="selection-layer__move-handle"
                     data-selection-move-handle
-                    style={{
-                        left: component.position.x * CELL_SIZE,
-                        top: component.position.y * CELL_SIZE,
-                        width: CELL_SIZE,
-                        height: CELL_SIZE,
-                    }}
+                    style={bounds}
                 />
             ))}
 
@@ -294,9 +303,9 @@ export function SelectionLayer({
             )}
 
             {gesture?.kind === "move" &&
-                selectedComponents.map((component) => (
+                selectedBounds.map(({ id, bounds }) => (
                     <div
-                        key={component.id}
+                        key={id}
                         className={[
                             "selection-layer__move-preview",
                             isMoveValid
@@ -306,14 +315,9 @@ export function SelectionLayer({
                             .filter(Boolean)
                             .join(" ")}
                         style={{
-                            left:
-                                (component.position.x + moveOffset.x) *
-                                CELL_SIZE,
-                            top:
-                                (component.position.y + moveOffset.y) *
-                                CELL_SIZE,
-                            width: CELL_SIZE,
-                            height: CELL_SIZE,
+                            ...bounds,
+                            left: bounds.left + moveOffset.x * CELL_SIZE,
+                            top: bounds.top + moveOffset.y * CELL_SIZE,
                         }}
                     />
                 ))}

@@ -96,3 +96,59 @@ export function pasteComponentClipboard(
         ),
     };
 }
+
+export function pasteComponentClipboardNearby(
+    circuit: CircuitLayout,
+    clipboard: ComponentClipboard,
+    position: Position,
+    createId: ComponentIdFactory,
+): PasteResult | null {
+    if (
+        clipboard.components.length === 0 ||
+        !Number.isInteger(position.x) ||
+        !Number.isInteger(position.y) ||
+        position.x < 0 ||
+        position.y < 0 ||
+        position.x >= circuit.width ||
+        position.y >= circuit.height
+    ) {
+        return null;
+    }
+
+    for (
+        let distance = 0;
+        distance < circuit.width + circuit.height;
+        distance++
+    ) {
+        for (let dx = distance; dx >= -distance; dx--) {
+            const x = position.x + dx;
+
+            if (x < 0 || x >= circuit.width) {
+                continue;
+            }
+
+            const dy = distance - Math.abs(dx);
+            const rows =
+                dy === 0 ? [position.y] : [position.y + dy, position.y - dy];
+
+            for (const y of rows) {
+                if (y < 0 || y >= circuit.height) {
+                    continue;
+                }
+
+                const result = pasteComponentClipboard(
+                    circuit,
+                    clipboard,
+                    { x, y },
+                    createId,
+                );
+
+                if (result) {
+                    return result;
+                }
+            }
+        }
+    }
+
+    return null;
+}

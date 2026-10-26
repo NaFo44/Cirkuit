@@ -1,0 +1,82 @@
+.module-symbol {
+    position: absolute;
+    inset: 0;
+    background: var(--cell-module, #e8edf5);
+    color: #545454;
+    font-family: "Silkscreen", monospace;
+    font-weight: 700;
+    pointer-events: none;
+}
+
+.module-symbol__name {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 10px;
+    line-height: 1.2;
+}
+
+.module-symbol__pin {
+    position: absolute;
+    display: grid;
+    place-items: center;
+    box-sizing: border-box;
+    overflow: hidden;
+    background: var(--cell-wire);
+    color: #545454;
+    pointer-events: auto;
+}
+
+.module-symbol__pin[data-signal="floating"] {
+    background: var(--signal-floating);
+}
+
+.module-symbol__pin[data-signal="low"] {
+    background: var(--signal-low);
+}
+
+.module-symbol__pin[data-signal="high"] {
+    background: var(--signal-high);
+}
+
+.module-symbol__pin[data-signal="conflict"] {
+    background: var(--signal-conflict);
+    color: #fff;
+}
+
+.module-symbol__pin[data-signal="conflict"]::after {
+    content: "!";
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    font-size: 10px;
+}
+
+.module-symbol__pin[data-signal="conflict"] .module-symbol__pin-label {
+    visibility: hidden;
+}
+
+.module-symbol__pin:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: -2px;
+}
+
+.module-symbol[data-inactive="true"] .module-symbol__pin {
+    pointer-events: none;
+}
+
+.module-symbol__pin-label {
+    display: block;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 8px;
+    line-height: 1;
+    pointer-events: none;
+}

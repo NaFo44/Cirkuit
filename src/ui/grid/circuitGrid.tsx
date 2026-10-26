@@ -19,6 +19,16 @@ import {
     getComponentHoverLabel,
     getComponentPresentation,
 } from "../components/componentPresentation";
+import type { ComponentCatalog } from "../../domain/circuit/componentDefinition";
+import { defaultComponentRegistry } from "../../domain/circuit/components/builtInComponents";
+import {
+    getModuleComponentType,
+    type ModuleDefinition,
+} from "../../domain/circuit/modules/moduleDefinition";
+import type { Signal } from "../../domain/circuit/signal";
+import { getComponentRenderBounds } from "../components/componentRenderGeometry";
+import { ModuleSymbol } from "../components/moduleSymbol";
+import { EMPTY_MODULE_PORT_SIGNALS } from "../components/modulePortSignals";
 
 interface CircuitGridProps {
     circuit: Circuit;
@@ -31,7 +41,12 @@ interface CircuitGridProps {
     componentVisualStates: ReadonlyMap<string, ComponentVisualState>;
     onHoveredComponentChange?: (componentId: string | null) => void;
     selectedComponentIds?: ReadonlySet<string>;
+    registry?: ComponentCatalog;
+    modules?: readonly ModuleDefinition[];
+    modulePortSignals?: ReadonlyMap<string, Signal>;
 }
+
+const EMPTY_MODULES: readonly ModuleDefinition[] = [];
 
 export function CircuitGrid({
     circuit,
@@ -44,12 +59,26 @@ export function CircuitGrid({
     componentVisualStates,
     onHoveredComponentChange,
     selectedComponentIds,
+    registry = defaultComponentRegistry,
+    modules = EMPTY_MODULES,
+    modulePortSignals = EMPTY_MODULE_PORT_SIGNALS,
 }: CircuitGridProps) {
     const activePointerId = useRef<number | null>(null);
     const lastPaintedCell = useRef<Position | null>(null);
     const litCells = useMemo(
         () => createCellLighting(circuit, componentVisualStates),
         [circuit, componentVisualStates],
+    );
+
+    const moduleByType = useMemo(
+        () =>
+            new Map<string, ModuleDefinition>(
+                modules.map((definition) => [
+                    getModuleComponentType(definition.id),
+                    definition,
+                ]),
+            ),
+        [modules],
     );
 
     const renderedComponents = useMemo(() => {
@@ -195,22 +224,33 @@ export function CircuitGrid({
             {renderedComponents.map((component) => {
                 const isVia = component.type === "via";
                 const isActiveLayer = component.layer === activeLayer;
-
                 const isInactiveLayer = !isVia && !isActiveLayer;
 
                 const { x, y } = component.position;
-                const position = gridToWorld(x, y);
+                const bounds = getComponentRenderBounds(
+                    component,
+                    registry.get(component.type),
+                );
+                const module = moduleByType.get(component.type);
+
                 const visualState =
                     componentVisualStates.get(component.id) ?? "default";
+
                 const interactive =
+                    !module &&
                     !isInactiveLayer &&
                     onComponentInteract !== undefined &&
                     (isComponentInteractive?.(component) ?? true);
-                const presentation = getComponentPresentation(component.type);
+
+                const presentation = getComponentPresentation(
+                    component.type,
+                    modules,
+                );
                 const hidesGlyph = presentation.glyphVisibility === "hidden";
                 const hoverLabel = getComponentHoverLabel(
                     component.type,
                     visualState,
+                    modules,
                 );
                 const selected =
                     selectedComponentIds?.has(component.id) ?? false;
@@ -221,7 +261,9 @@ export function CircuitGrid({
                         role="gridcell"
                         className={[
                             "circuit-component",
-                            `circuit-cell--${component.type}`,
+                            module
+                                ? "circuit-cell--module"
+                                : `circuit-cell--${component.type}`,
                             `circuit-component--${visualState}`,
                             `circuit-component--glyph-${presentation.glyphVisibility}`,
                             interactive ? "circuit-component--interactive" : "",
@@ -254,25 +296,33 @@ export function CircuitGrid({
                         onFocus={() => onHoveredComponentChange?.(component.id)}
                         onBlur={() => onHoveredComponentChange?.(null)}
                         style={{
-                            left: position.x,
-                            top: position.y,
-                            width: CELL_SIZE,
-                            height: CELL_SIZE,
+                            ...bounds,
                             opacity: isInactiveLayer ? 0.25 : 1,
                             pointerEvents: isInactiveLayer ? "none" : "auto",
                         }}
                         aria-label={`Cell ${x},${y}, layer ${component.layer}: ${hoverLabel}, ${component.rotation} degrees`}
                         aria-rowindex={y + 1}
                         aria-colindex={x + 1}
+                        aria-rowspan={bounds.height / CELL_SIZE}
+                        aria-colspan={bounds.width / CELL_SIZE}
                         aria-selected={selected || undefined}
                         data-visual-state={visualState}
                     >
-                        {!hidesGlyph && (
-                            <ComponentGlyph
-                                componentType={component.type}
-                                size={14}
-                                rotation={component.rotation}
+                        {module ? (
+                            <ModuleSymbol
+                                component={component}
+                                definition={module}
+                                signals={modulePortSignals}
+                                inactive={isInactiveLayer}
                             />
+                        ) : (
+                            !hidesGlyph && (
+                                <ComponentGlyph
+                                    componentType={component.type}
+                                    size={14}
+                                    rotation={component.rotation}
+                                />
+                            )
                         )}
                     </div>
                 );

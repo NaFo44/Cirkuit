@@ -1,12 +1,17 @@
-import { CELL_SIZE } from "../../domain/grid/gridCoordinates";
+import type { ComponentFootprint } from "../../domain/circuit/componentDefinition";
 import "./cellPreview.css";
 
 interface CellPreviewProps {
     readonly position: { x: number; y: number } | null;
     readonly cellSize: number;
+    readonly footprint?: ComponentFootprint;
 }
 
-export function CellPreview({ position, cellSize }: CellPreviewProps) {
+export function CellPreview({
+    position,
+    cellSize,
+    footprint = { width: 1, height: 1 },
+}: CellPreviewProps) {
     if (position === null) {
         return null;
     }
@@ -15,10 +20,10 @@ export function CellPreview({ position, cellSize }: CellPreviewProps) {
         <div
             className="cell-preview"
             style={{
-                left: position.x * CELL_SIZE,
-                top: position.y * CELL_SIZE,
-                width: cellSize,
-                height: cellSize,
+                left: position.x * cellSize,
+                top: position.y * cellSize,
+                width: footprint.width * cellSize,
+                height: footprint.height * cellSize,
             }}
             aria-hidden="true"
         />

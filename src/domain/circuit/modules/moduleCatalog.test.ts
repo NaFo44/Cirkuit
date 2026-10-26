@@ -161,6 +161,89 @@ describe("ModuleCatalog", () => {
         ).toThrow("Invalid port offset");
     });
 
+    it.each([
+        {
+            footprint: { width: 3, height: 3 },
+            sides: ["west", "north"],
+            offsets: [0, 0],
+        },
+        {
+            footprint: { width: 3, height: 3 },
+            sides: ["north", "east"],
+            offsets: [2, 0],
+        },
+        {
+            footprint: { width: 3, height: 3 },
+            sides: ["east", "south"],
+            offsets: [2, 2],
+        },
+        {
+            footprint: { width: 3, height: 3 },
+            sides: ["south", "west"],
+            offsets: [0, 2],
+        },
+        {
+            footprint: { width: 1, height: 1 },
+            sides: ["west", "east"],
+            offsets: [0, 0],
+        },
+        {
+            footprint: { width: 3, height: 1 },
+            sides: ["north", "south"],
+            offsets: [1, 1],
+        },
+        {
+            footprint: { width: 1, height: 3 },
+            sides: ["west", "east"],
+            offsets: [1, 1],
+        },
+    ] as const)(
+        "rejects ports on different sides sharing a cell: %j",
+        ({ footprint, sides, offsets }) => {
+            const definition = createTestModule();
+            expect(
+                () =>
+                    new ModuleCatalog([
+                        {
+                            ...definition,
+                            footprint,
+                            ports: definition.ports.map((port, index) => ({
+                                ...port,
+                                side: sides[index],
+                                offset: offsets[index],
+                            })),
+                        },
+                    ]),
+            ).toThrow("Module ports occupy the same cell");
+        },
+    );
+
+    it("allows a one-cell module with a single public port", () => {
+        const definition = createTestModule();
+        const catalog = new ModuleCatalog([
+            {
+                ...definition,
+                footprint: { width: 1, height: 1 },
+                ports: [{ ...definition.ports[0], offset: 0 }],
+            },
+        ]);
+        expect(catalog.get("module:inverter").ports).toHaveLength(1);
+    });
+
+    it("allows ports on adjacent sides when they occupy different cells", () => {
+        const definition = createTestModule();
+        const catalog = new ModuleCatalog([
+            {
+                ...definition,
+                ports: [
+                    { ...definition.ports[0], side: "north", offset: 0 },
+                    { ...definition.ports[1], side: "east", offset: 0 },
+                ],
+            },
+        ]);
+        expect(catalog.get("module:inverter").ports).toHaveLength(2);
+    });
+
     it("rejects blank port names", () => {
         const definition = createTestModule();
         expect(

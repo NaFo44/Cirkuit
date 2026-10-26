@@ -6,138 +6,52 @@ import {
 } from "react";
 
 import type { CircuitLayout } from "../../domain/circuit/circuitLayout";
-import { defaultComponentRegistry } from "../../domain/circuit/components/builtInComponents";
-import {
-    DIRECTION_OFFSETS,
-    rotateDirection,
-} from "../../domain/circuit/direction";
-import { compileNetlist } from "../../domain/circuit/netlist/compileNetlist";
+import type { ModuleDefinition } from "../../domain/circuit/modules/moduleDefinition";
 import {
     portKey,
     type PortReference,
 } from "../../domain/circuit/netlist/netlist";
-import {
-    oppositeLayer,
-    type CircuitLayer,
-    type PlacedComponent,
+import type {
+    CircuitLayer,
+    PlacedComponent,
 } from "../../domain/circuit/placedComponent";
 import type { CanvasPoint } from "../../domain/grid/canvasPoint";
 import { CELL_SIZE } from "../../domain/grid/gridCoordinates";
 import { screenToCanvasPoint } from "../grid/canvasCoordinates";
+import {
+    createProbeIndex,
+    findProbePort,
+    isConductor,
+    type ProbePort,
+} from "./createProbeIndex";
 
 import "./probeLayer.css";
 
-const PORT_OFFSET = CELL_SIZE / 2 - 2;
-const PORT_HIT_RADIUS = CELL_SIZE * 0.35;
+const EMPTY_MODULES: readonly ModuleDefinition[] = [];
 
 interface ProbeLayerProps {
     readonly circuit: CircuitLayout;
     readonly activeLayer: CircuitLayer;
+    readonly modules?: readonly ModuleDefinition[];
 }
 
-interface ProbePort extends PortReference {
-    readonly x: number;
-    readonly y: number;
-    readonly layer: CircuitLayer;
-    readonly component: PlacedComponent;
-}
-
-function isConductor(component: PlacedComponent): boolean {
-    return component.type === "wire" || component.type === "via";
-}
-
-export function ProbeLayer({ circuit, activeLayer }: ProbeLayerProps) {
+export function ProbeLayer({
+    circuit,
+    activeLayer,
+    modules = EMPTY_MODULES,
+}: ProbeLayerProps) {
     const [hoverPoint, setHoverPoint] = useState<CanvasPoint | null>(null);
     const [pinnedPort, setPinnedPort] = useState<PortReference | null>(null);
 
     const width = circuit.width * CELL_SIZE;
     const height = circuit.height * CELL_SIZE;
 
-    const index = useMemo(() => {
-        const netlist = compileNetlist(circuit, defaultComponentRegistry);
+    const index = useMemo(
+        () => createProbeIndex(circuit, modules),
+        [circuit, modules],
+    );
 
-        const portsByComponent = new Map<string, readonly ProbePort[]>();
-        const portsByKey = new Map<string, ProbePort>();
-
-        for (const component of circuit.components) {
-            const definition = defaultComponentRegistry.get(component.type);
-            const centerX = component.position.x * CELL_SIZE + CELL_SIZE / 2;
-            const centerY = component.position.y * CELL_SIZE + CELL_SIZE / 2;
-
-            const ports = definition.ports.map<ProbePort>((port) => {
-                const side = rotateDirection(port.side, component.rotation);
-
-                const direction = DIRECTION_OFFSETS[side];
-
-                return {
-                    componentId: component.id,
-                    portId: port.id,
-                    component,
-                    layer:
-                        port.layerOffset === 1
-                            ? oppositeLayer(component.layer)
-                            : component.layer,
-                    x: centerX + direction.x * PORT_OFFSET,
-                    y: centerY + direction.y * PORT_OFFSET,
-                };
-            });
-
-            portsByComponent.set(component.id, ports);
-
-            for (const port of ports) {
-                portsByKey.set(portKey(port), port);
-            }
-        }
-
-        return {
-            netlist,
-            portsByComponent,
-            portsByKey,
-            netsById: new Map(netlist.nets.map((net) => [net.id, net])),
-        };
-    }, [circuit]);
-
-    const portAt = (point: CanvasPoint | null): ProbePort | null => {
-        if (!point) {
-            return null;
-        }
-
-        const component = circuit.getComponentAt(
-            {
-                x: Math.floor(point.x / CELL_SIZE),
-                y: Math.floor(point.y / CELL_SIZE),
-            },
-            activeLayer,
-        );
-
-        if (!component) {
-            return null;
-        }
-
-        const ports = (index.portsByComponent.get(component.id) ?? []).filter(
-            (port) => port.layer === activeLayer,
-        );
-
-        if (isConductor(component)) {
-            return ports[0] ?? null;
-        }
-
-        let nearest: ProbePort | null = null;
-        let nearestDistance = PORT_HIT_RADIUS;
-
-        for (const port of ports) {
-            const distance = Math.hypot(point.x - port.x, point.y - port.y);
-
-            if (distance < nearestDistance) {
-                nearest = port;
-                nearestDistance = distance;
-            }
-        }
-
-        return nearest;
-    };
-
-    const hoveredPort = portAt(hoverPoint);
+    const hoveredPort = findProbePort(index, circuit, hoverPoint, activeLayer);
 
     const pinnedNetId = pinnedPort
         ? index.netlist.netByPort.get(portKey(pinnedPort))
@@ -223,7 +137,9 @@ export function ProbeLayer({ circuit, activeLayer }: ProbeLayerProps) {
                 const point = pointFromEvent(event);
 
                 setHoverPoint(point);
-                setPinnedPort(portAt(point));
+                setPinnedPort(
+                    findProbePort(index, circuit, point, activeLayer),
+                );
             }}
         >
             <svg
