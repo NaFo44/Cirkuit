@@ -8,8 +8,9 @@ A pixel-art circuit sandbox (that's it). Place components on the grid, connect t
 
 > AI was used as a source of information during the development of this
 > project, and sometimes to generate code snippets for specific implementation problems.
-> All generated code was reviewed. The concept, UI/UX, and assets were created
-> entirely by me.
+> All generated code was reviewed. I used AI a bit more for my last devlogs because
+> I was running out of time before the end of Stardance.
+> The concept, UI/UX, and assets were created entirely by me.
 
 ## Why I made this
 
@@ -54,6 +55,7 @@ After the engine itself, my main goal was to optimize the user experience. So th
 - Annotation: Cirkuit has three tools for documenting your projects: label, line, and rectangle.
 - Selection: you can select, copy/paste, and move groups of pixels, making it much easier to modify your circuit!
 - Probe tool: it highlight equipotential wires, for debugging and simplifying your circuits!
+- Modules: Is your circuit getting too big? Create modules! A module is basically like an integrated circuit that you can reuse over and over. You define its pins, footprint, and name. This feature is mainly for more advanced users!
 - Eraser: it erases lol
 
 ## Capabilities
@@ -68,6 +70,8 @@ You can build pretty much anything you can imagine.
 ![4-bit calculator](./.github/assets/calculator.png)
 
 It's basically just 4x 1-bit full adders wired to a 4-bit 7-segment decoder.
+
+In the demo project, you'll find the same circuit, but using modules for the 1-bit full adder. Instead of repeating the same circuit 4 times, I just created a 5x3 module and reused it.
 
 ### XOR gate
 
