@@ -59,11 +59,12 @@ import {
     ModulePortPicker,
     type ModulePortPickRequest,
 } from "./ui/modules/modulePortPicker";
+import { SidebarTutorial } from "./ui/sidebar/sidebarTutorial";
 
 const EMPTY_COMPONENT_VISUAL_STATES: ReadonlyMap<string, ComponentVisualState> =
     new Map();
 
-type SidebarView = "main" | "docs" | "shortcuts" | "modules";
+type SidebarView = "main" | "docs" | "tutorial" | "shortcuts" | "modules";
 
 interface CircuitWorkspaceProps {
     readonly workspace: ReturnType<typeof useModuleDraftWorkspace>;
@@ -388,6 +389,10 @@ function CircuitWorkspace({ workspace }: CircuitWorkspaceProps) {
         setSidebarView("docs");
     }, []);
 
+    const openTutorial = useCallback(() => {
+        setSidebarView("tutorial");
+    }, []);
+
     const openShortcuts = useCallback(() => {
         setSidebarView("shortcuts");
     }, []);
@@ -590,6 +595,10 @@ function CircuitWorkspace({ workspace }: CircuitWorkspaceProps) {
                     <SidebarDocs onClose={closeSidebarPage} />
                 )}
 
+                {sidebarView === "tutorial" && (
+                    <SidebarTutorial onClose={closeSidebarPage} />
+                )}
+
                 {sidebarView === "shortcuts" && (
                     <SidebarShortcuts mode={mode} onClose={closeSidebarPage} />
                 )}
@@ -664,6 +673,7 @@ function CircuitWorkspace({ workspace }: CircuitWorkspaceProps) {
                         >
                             <WorkspaceNavigation
                                 onOpenDocs={openDocs}
+                                onOpenTutorial={openTutorial}
                                 onOpenShortcuts={openShortcuts}
                             />
                         </WorkspaceSidebar>

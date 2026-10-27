@@ -1,0 +1,73 @@
+.sidebar-tutorial p {
+    margin: 0;
+    color: #666;
+    font-size: 13px;
+    line-height: 1.55;
+}
+
+.sidebar-tutorial__section {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    min-width: 0;
+    padding-top: 24px;
+    border-top: 1px solid #e3e3e3;
+}
+
+.sidebar-tutorial__section h2 {
+    margin: 0;
+    color: #353535;
+    font-family: "Silkscreen", sans-serif;
+    font-size: 18px;
+    line-height: 1.4;
+}
+
+.sidebar-tutorial__steps {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    counter-reset: tutorial-step;
+}
+
+.sidebar-tutorial__step {
+    display: grid;
+    grid-template-columns: 18px minmax(0, 1fr);
+    column-gap: 8px;
+    row-gap: 12px;
+    counter-increment: tutorial-step;
+}
+
+.sidebar-tutorial__step::before {
+    content: counter(tutorial-step) ".";
+    grid-column: 1;
+    grid-row: 1;
+    padding-top: 2px;
+    color: #545454;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1.55;
+}
+
+.sidebar-tutorial__step > * {
+    grid-column: 2;
+    min-width: 0;
+}
+
+.sidebar-tutorial__image-link {
+    display: block;
+    cursor: zoom-in;
+}
+
+.sidebar-tutorial__image-link:focus-visible {
+    outline: 2px solid #545454;
+    outline-offset: 3px;
+}
+
+.sidebar-tutorial__image {
+    display: block;
+    width: 100%;
+    height: auto;
+}

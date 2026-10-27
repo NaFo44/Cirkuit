@@ -19,15 +19,30 @@ export function WorkspaceIntroduction() {
 
 interface WorkspaceNavigationProps {
     readonly onOpenDocs: () => void;
+    readonly onOpenTutorial: () => void;
     readonly onOpenShortcuts: () => void;
 }
 
 export function WorkspaceNavigation({
     onOpenDocs,
+    onOpenTutorial,
     onOpenShortcuts,
 }: WorkspaceNavigationProps) {
     return (
         <nav className="workspace-navigation" aria-label="Workspace navigation">
+            <div className="workspace-navigation__item">
+                <span className="workspace-navigation__icon" aria-hidden="true">
+                    <ChevronRight />
+                </span>
+                <button
+                    type="button"
+                    className="workspace-navigation__button"
+                    onClick={onOpenTutorial}
+                >
+                    Tutorial
+                </button>
+            </div>
+
             <div className="workspace-navigation__item">
                 <span className="workspace-navigation__icon" aria-hidden="true">
                     <ChevronRight />
