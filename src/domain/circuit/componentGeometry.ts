@@ -13,6 +13,7 @@ import {
     type Rotation,
 } from "./placedComponent";
 import type { PortDefinition } from "./port";
+import { MODULE_TYPE_PREFIX } from "./modules/moduleDefinition";
 
 export interface OccupiedCell {
     readonly position: Position;
@@ -97,6 +98,28 @@ export function resolvePortGeometry(
                 ? oppositeLayer(component.layer)
                 : component.layer,
     };
+}
+
+export function resolvePortConnectionGeometries(
+    component: PlacedComponent,
+    definition: ComponentDescriptor,
+    port: PortDefinition,
+): readonly PortGeometry[] {
+    const geometry = resolvePortGeometry(component, definition, port);
+    if (!definition.type.startsWith(MODULE_TYPE_PREFIX)) return [geometry];
+
+    // A module pin occupies a whole cell and connects through every outer edge.
+    const position = getLocalPortPosition(definition, port);
+    const { width, height } = getComponentFootprint(definition);
+    const sides: Direction[] = [];
+    if (position.x === 0) sides.push("west");
+    if (position.x === width - 1) sides.push("east");
+    if (position.y === 0) sides.push("north");
+    if (position.y === height - 1) sides.push("south");
+    return sides.map((side) => ({
+        ...geometry,
+        side: rotateDirection(side, component.rotation),
+    }));
 }
 
 export function getOccupiedCells(

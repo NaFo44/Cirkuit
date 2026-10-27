@@ -3,6 +3,7 @@ import { Download, Folder } from "pixelarticons/react";
 
 import { PROJECT_FILE_ACCEPT } from "./projectFile";
 import "./projectActions.css";
+import "../sidebar/sidebarActionButton.css";
 
 interface ProjectActionsProps {
     readonly error: string | null;
@@ -44,7 +45,7 @@ export function ProjectActions({ error, onOpen, onSave }: ProjectActionsProps) {
             <div className="project-actions__buttons">
                 <button
                     type="button"
-                    className="project-actions__button"
+                    className="sidebar-action-button"
                     aria-label="Open project"
                     title="Open project"
                     disabled={isOpening}
@@ -56,7 +57,7 @@ export function ProjectActions({ error, onOpen, onSave }: ProjectActionsProps) {
 
                 <button
                     type="button"
-                    className="project-actions__button"
+                    className="sidebar-action-button"
                     aria-label="Download project"
                     title="Download project"
                     disabled={isOpening}

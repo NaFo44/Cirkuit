@@ -1,0 +1,147 @@
+.sidebar-module-draft__field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    color: #545454;
+    font-size: 13px;
+}
+
+.sidebar-module-draft input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px;
+    border: 1px solid #d4d4d4;
+    color: #545454;
+    background: #fff;
+    font: inherit;
+}
+
+.sidebar-module-draft input:focus-visible {
+    outline: 2px solid #545454;
+    outline-offset: -2px;
+}
+
+.sidebar-module-draft__help {
+    margin: 0;
+    color: #666;
+    font-size: 13px;
+    line-height: 1.55;
+}
+
+.sidebar-module-draft__dimensions,
+.sidebar-module-draft__port-actions {
+    display: flex;
+    gap: 8px;
+}
+.sidebar-module-draft__dimensions > label {
+    flex: 1;
+    min-width: 0;
+}
+.sidebar-module-draft label {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    color: #545454;
+    font-size: 12px;
+}
+.sidebar-module-draft
+    :where(
+        button:not(.workspace-sidebar__back):not(.module-body-editor__cell):not(
+                .sidebar-action-button
+            )
+    ) {
+    padding: 8px;
+    border: 1px solid #d4d4d4;
+    background: #fff;
+    color: #545454;
+    font: inherit;
+    font-size: 12px;
+    cursor: pointer;
+}
+.sidebar-module-draft button:disabled:not(.sidebar-action-button) {
+    opacity: 0.5;
+    cursor: default;
+}
+.sidebar-module-draft__ports {
+    display: grid;
+    gap: 8px;
+}
+.sidebar-module-draft__port {
+    min-width: 0;
+    margin: 0;
+    border: 1px solid #d4d4d4;
+}
+.sidebar-module-draft__port[data-selected="true"] {
+    border-color: #545454;
+}
+.sidebar-module-draft__port summary {
+    padding: 12px;
+    cursor: pointer;
+    color: #666;
+    font-size: 12px;
+}
+
+.sidebar-module-draft__port summary:focus-visible {
+    outline: 2px solid #545454;
+    outline-offset: -2px;
+}
+.sidebar-module-draft__port-name {
+    overflow-wrap: anywhere;
+    margin-left: 5px;
+}
+.sidebar-module-draft__port-kind {
+    float: right;
+    margin-left: 8px;
+    color: #888;
+}
+.sidebar-module-draft__port-details {
+    display: grid;
+    gap: 10px;
+    min-width: 0;
+    margin: 0;
+    padding: 12px;
+    border: 0;
+    border-top: 1px solid #e8e8e8;
+}
+.sidebar-module-draft__connection {
+    margin: 0;
+    font-size: 11px;
+    color: #666;
+    overflow-wrap: anywhere;
+}
+.sidebar-module-draft__error {
+    margin: 0;
+    color: #a52628;
+    font-size: 12px;
+    line-height: 1.4;
+}
+.sidebar-module-draft__footer {
+    display: grid;
+    flex: 0 0 auto;
+    gap: 12px;
+    padding-top: 16px;
+    border-top: 1px solid #d4d4d4;
+    background: #fff;
+}
+.sidebar-module-draft {
+    min-height: 0;
+    gap: 0;
+}
+.sidebar-module-draft__content {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    gap: 16px;
+    min-height: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+    overscroll-behavior: contain;
+    padding-bottom: 16px;
+}
+.sidebar-module-draft .sidebar-module-draft__publish {
+    width: 100%;
+}
+
+.sidebar-module-draft .sidebar-module-draft__publish:disabled {
+    cursor: default;
+}

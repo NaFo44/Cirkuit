@@ -7,9 +7,17 @@ import type { AnnotationType } from "../../domain/project/circuitAnnotation";
 import { getComponentPresentation } from "../components/componentPresentation";
 import { ROTATE_COMPONENT_SHORTCUT } from "./editorShortcuts";
 import type { EditorMode } from "./editorMode";
+import type { ModuleDefinition } from "../../domain/circuit/modules/moduleDefinition";
+
+const DEFAULT_TOOL: EditorTool = {
+    kind: "component",
+    componentType: "wire",
+    rotation: 0,
+};
 
 interface UseEditorToolSelectionOptions {
     readonly mode: EditorMode;
+    readonly modules?: readonly ModuleDefinition[];
 }
 
 interface EditorToolSelection {
@@ -30,11 +38,13 @@ interface EditorToolSelection {
 export function useEditorToolSelection(
     options: UseEditorToolSelectionOptions,
 ): EditorToolSelection {
-    const [selectedTool, setSelectedTool] = useState<EditorTool>({
-        kind: "component",
-        componentType: "wire",
-        rotation: 0,
-    });
+    const [storedTool, setSelectedTool] = useState<EditorTool>(DEFAULT_TOOL);
+    const selectedTool =
+        storedTool.kind === "module" &&
+        options.modules &&
+        !options.modules.some((module) => module.id === storedTool.moduleId)
+            ? DEFAULT_TOOL
+            : storedTool;
 
     const selectedAnnotationType =
         selectedTool.kind === "annotation" ? selectedTool.annotationType : null;

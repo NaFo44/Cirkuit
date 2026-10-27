@@ -1,6 +1,9 @@
 import { useCallback, useRef, useState } from "react";
 
-import type { CircuitProject } from "../../domain/project/circuitProject";
+import type {
+    CircuitProject,
+    ProjectViewport,
+} from "../../domain/project/circuitProject";
 import type { CircuitLayout } from "../../domain/circuit/circuitLayout";
 import type { CircuitEditorTool } from "../editor/editorTool";
 import type { Position } from "../../domain/grid/position";
@@ -18,7 +21,7 @@ import type { CircuitLayer } from "../../domain/circuit/placedComponent";
 import type { ModuleDefinition } from "../../domain/circuit/modules/moduleDefinition";
 import { updateProjectModules } from "../../domain/project/updateProjectModules";
 
-interface ProjectEditor {
+export interface ProjectEditor {
     readonly project: CircuitProject;
     readonly revision: number;
 
@@ -45,6 +48,8 @@ interface ProjectEditor {
     readonly updateModules: (modules: readonly ModuleDefinition[]) => void;
 
     readonly removeComponents: (componentIds: readonly string[]) => void;
+
+    readonly updateViewport: (viewport: ProjectViewport) => void;
 
     readonly canUndo: boolean;
     readonly canRedo: boolean;
@@ -265,6 +270,28 @@ export function useProjectEditor(
         [updateProject],
     );
 
+    const updateViewport = useCallback((viewport: ProjectViewport) => {
+        setState((currentState) => {
+            const current = currentState.project.viewport;
+
+            if (
+                current.x === viewport.x &&
+                current.y === viewport.y &&
+                current.zoom === viewport.zoom
+            ) {
+                return currentState;
+            }
+
+            return {
+                ...currentState,
+                project: {
+                    ...currentState.project,
+                    viewport: { ...viewport },
+                },
+            };
+        });
+    }, []);
+
     const updateModules = useCallback(
         (modules: readonly ModuleDefinition[]) => {
             updateProject((currentProject) =>
@@ -325,6 +352,7 @@ export function useProjectEditor(
         removeAnnotation,
         replaceProject,
         updateCircuit,
+        updateViewport,
         updateModules,
         removeComponents,
 

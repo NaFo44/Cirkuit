@@ -2,11 +2,15 @@ import type { ModuleDefinition } from "../../domain/circuit/modules/moduleDefini
 import { MODULE_DRAG_TYPE } from "../../domain/circuit/modules/moduleDrag";
 import "./workspaceSidebar.css";
 import "./sidebarModules.css";
+import "./sidebarActionButton.css";
+import { Pencil, Plus } from "pixelarticons/react";
 
 interface Props {
     readonly modules: readonly ModuleDefinition[];
     readonly selectedModuleId: string | null;
     readonly disabled: boolean;
+    readonly onCreate: () => void;
+    readonly onEdit: (id: string) => void;
     readonly onSelect: (id: string) => void;
     readonly onDragStart: (id: string) => void;
     readonly onDragEnd: () => void;
@@ -23,6 +27,8 @@ export function SidebarModules({
     modules,
     selectedModuleId,
     disabled,
+    onCreate,
+    onEdit,
     onSelect,
     onDragStart,
     onDragEnd,
@@ -59,7 +65,7 @@ export function SidebarModules({
             ) : (
                 <ul className="sidebar-modules__list">
                     {sortModulesByName(modules).map((module) => (
-                        <li key={module.id}>
+                        <li key={module.id} className="sidebar-modules__entry">
                             <button
                                 type="button"
                                 className="sidebar-modules__item"
@@ -86,10 +92,35 @@ export function SidebarModules({
                                     {module.footprint.height} cells
                                 </span>
                             </button>
+                            <button
+                                type="button"
+                                className="sidebar-modules__edit"
+                                aria-label={`Edit ${module.name}`}
+                                title={`Edit ${module.name}`}
+                                disabled={disabled}
+                                onClick={() => onEdit(module.id)}
+                            >
+                                <Pencil
+                                    width={20}
+                                    height={20}
+                                    aria-hidden="true"
+                                />
+                            </button>
                         </li>
                     ))}
                 </ul>
             )}
+
+            <button
+                type="button"
+                className="sidebar-action-button sidebar-modules__create"
+                disabled={disabled}
+                onClick={onCreate}
+                aria-label="Create module"
+            >
+                <Plus aria-hidden="true" />
+                <span>New module</span>
+            </button>
         </section>
     );
 }

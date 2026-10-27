@@ -29,6 +29,40 @@
     cursor: grab;
 }
 
+.sidebar-modules__entry {
+    display: flex;
+    align-items: stretch;
+}
+
+.sidebar-modules__entry .sidebar-modules__item {
+    flex: 1;
+    min-width: 0;
+}
+
+.sidebar-modules__edit {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    border: 1px solid #d4d4d4;
+    border-left: 0;
+    background: #fff;
+    color: #545454;
+    font: inherit;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.sidebar-modules__edit:disabled {
+    opacity: 0.5;
+    cursor: default;
+}
+
+.sidebar-modules__edit:focus-visible {
+    outline: 2px solid #545454;
+    outline-offset: -2px;
+}
+
 .sidebar-modules__item[aria-pressed="true"],
 .sidebar-modules__item:focus-visible {
     outline: 2px solid #545454;
@@ -49,4 +83,9 @@
 
 .sidebar-modules__size {
     font-size: 12px;
+}
+
+.sidebar-modules__create {
+    margin-top: auto;
+    width: 100%;
 }

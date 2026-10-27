@@ -1,0 +1,36 @@
+.module-body-editor > p {
+    margin: 0 0 10px;
+    color: #666;
+    font-size: 12px;
+    line-height: 1.4;
+}
+.module-body-editor__viewport {
+    max-height: 240px;
+    overflow: auto;
+    padding: 4px;
+    background: #f8f8f8;
+}
+.module-body-editor__body {
+    position: relative;
+    margin-inline: auto;
+}
+.module-body-editor__cell {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+}
+.module-body-editor__cell:disabled {
+    cursor: default;
+}
+.module-body-editor__cell[data-selected="true"],
+.module-body-editor__cell:focus-visible {
+    outline: 2px solid #545454;
+    outline-offset: -2px;
+}
+.module-body-editor__cell:not(:disabled):hover {
+    box-shadow: inset 0 0 0 1px #545454;
+}

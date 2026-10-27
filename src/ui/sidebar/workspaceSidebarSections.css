@@ -25,6 +25,11 @@
     gap: 10px;
 }
 
+.workspace-actions {
+    display: grid;
+    gap: 8px;
+}
+
 .workspace-navigation__item {
     display: flex;
     align-items: baseline;

@@ -9,46 +9,8 @@
     gap: 8px;
 }
 
-.project-actions__button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
+.project-actions__buttons .sidebar-action-button {
     flex: 1;
-
-    min-width: 0;
-    padding: 10px 8px;
-
-    color: #555;
-    background: #fff;
-    border: 1px solid #d4d4d4;
-
-    font-size: 12px;
-    font-weight: 600;
-    line-height: 1;
-    cursor: pointer;
-
-    transition:
-        color 140ms ease,
-        background-color 140ms ease,
-        border-color 140ms ease;
-}
-
-.project-actions__button:hover,
-.project-actions__button:focus-visible {
-    color: #333;
-    background: #fafafa;
-}
-
-.project-actions__button:disabled {
-    color: #aaa;
-    cursor: wait;
-}
-
-.project-actions__button svg {
-    width: 15px;
-    height: 15px;
-    flex: none;
 }
 
 .project-actions__input {

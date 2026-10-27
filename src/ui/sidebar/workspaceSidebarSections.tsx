@@ -1,5 +1,6 @@
-import { ChevronRight } from "pixelarticons/react";
+import { Blocks, ChevronRight } from "pixelarticons/react";
 import "./workspaceSidebarSections.css";
+import "./sidebarActionButton.css";
 
 export function WorkspaceIntroduction() {
     return (
@@ -19,13 +20,11 @@ export function WorkspaceIntroduction() {
 interface WorkspaceNavigationProps {
     readonly onOpenDocs: () => void;
     readonly onOpenShortcuts: () => void;
-    readonly onOpenModules: () => void;
 }
 
 export function WorkspaceNavigation({
     onOpenDocs,
     onOpenShortcuts,
-    onOpenModules,
 }: WorkspaceNavigationProps) {
     return (
         <nav className="workspace-navigation" aria-label="Workspace navigation">
@@ -54,21 +53,24 @@ export function WorkspaceNavigation({
                     Keyboard shortcuts
                 </button>
             </div>
-
-            <div className="workspace-navigation__item">
-                <span className="workspace-navigation__icon" aria-hidden="true">
-                    <ChevronRight />
-                </span>
-
-                <button
-                    type="button"
-                    className="workspace-navigation__button"
-                    onClick={onOpenModules}
-                >
-                    Modules
-                </button>
-            </div>
         </nav>
+    );
+}
+
+export function WorkspaceModuleAction({
+    onOpenModules,
+}: {
+    readonly onOpenModules: () => void;
+}) {
+    return (
+        <button
+            type="button"
+            className="sidebar-action-button"
+            onClick={onOpenModules}
+        >
+            <Blocks aria-hidden="true" />
+            <span>Modules</span>
+        </button>
     );
 }
 

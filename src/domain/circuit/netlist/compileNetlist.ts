@@ -10,7 +10,10 @@ import { portCanDrive, portCanRead, type PortKind } from "../port";
 import { portKey, type Net, type Netlist, type PortReference } from "./netlist";
 import { UnionFind } from "./unionFind";
 import { isCircuitLayer, type CircuitLayer } from "../placedComponent";
-import { getOccupiedCells, resolvePortGeometry } from "../componentGeometry";
+import {
+    getOccupiedCells,
+    resolvePortConnectionGeometries,
+} from "../componentGeometry";
 
 interface ResolvedPort {
     readonly reference: PortReference;
@@ -146,6 +149,7 @@ export function compileNetlist(
 
     const connections = new UnionFind();
     const resolvedPorts: ResolvedPort[] = [];
+    const connectionPoints: ResolvedPort[] = [];
     const portByConnectionPoint = new Map<string, ResolvedPort>();
 
     for (const component of circuit.components) {
@@ -157,28 +161,37 @@ export function compileNetlist(
                 portId: port.id,
             };
 
-            const resolvedPort: ResolvedPort = {
+            const geometries = resolvePortConnectionGeometries(
+                component,
+                definition,
+                port,
+            );
+            connections.add(portKey(reference));
+            // Keep one logical port, even when it has several physical accesses.
+            resolvedPorts.push({
                 reference,
                 kind: port.kind,
-                ...resolvePortGeometry(component, definition, port),
-            };
-
-            const key = portKey(reference);
-            const pointKey = connectionPointKey(
-                resolvedPort.position,
-                resolvedPort.layer,
-                resolvedPort.side,
-            );
-
-            if (portByConnectionPoint.has(pointKey)) {
-                throw new Error(
-                    `Multiple ports occupy a connection point ${pointKey}`,
+                ...geometries[0],
+            });
+            for (const geometry of geometries) {
+                const resolvedPort: ResolvedPort = {
+                    reference,
+                    kind: port.kind,
+                    ...geometry,
+                };
+                const pointKey = connectionPointKey(
+                    geometry.position,
+                    geometry.layer,
+                    geometry.side,
                 );
+                if (portByConnectionPoint.has(pointKey)) {
+                    throw new Error(
+                        `Multiple ports occupy a connection point ${pointKey}`,
+                    );
+                }
+                connectionPoints.push(resolvedPort);
+                portByConnectionPoint.set(pointKey, resolvedPort);
             }
-
-            connections.add(key);
-            resolvedPorts.push(resolvedPort);
-            portByConnectionPoint.set(pointKey, resolvedPort);
         }
 
         for (const conductiveGroup of definition.conductiveGroups ?? []) {
@@ -201,7 +214,7 @@ export function compileNetlist(
         }
     }
 
-    for (const port of resolvedPorts) {
+    for (const port of connectionPoints) {
         const offset = DIRECTION_OFFSETS[port.side];
         const neighbourPosition = {
             x: port.position.x + offset.x,
