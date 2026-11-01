@@ -39,7 +39,7 @@
     min-width: 0;
 }
 
-.sidebar-modules__edit {
+.sidebar-modules__action {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -53,12 +53,12 @@
     cursor: pointer;
 }
 
-.sidebar-modules__edit:disabled {
+.sidebar-modules__action:disabled {
     opacity: 0.5;
     cursor: default;
 }
 
-.sidebar-modules__edit:focus-visible {
+.sidebar-modules__action:focus-visible {
     outline: 2px solid #545454;
     outline-offset: -2px;
 }

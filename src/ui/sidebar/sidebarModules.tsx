@@ -3,7 +3,7 @@ import { MODULE_DRAG_TYPE } from "../../domain/circuit/modules/moduleDrag";
 import "./workspaceSidebar.css";
 import "./sidebarModules.css";
 import "./sidebarActionButton.css";
-import { Pencil, Plus } from "pixelarticons/react";
+import { Pencil, Plus, Trash } from "pixelarticons/react";
 
 interface Props {
     readonly modules: readonly ModuleDefinition[];
@@ -11,6 +11,7 @@ interface Props {
     readonly disabled: boolean;
     readonly onCreate: () => void;
     readonly onEdit: (id: string) => void;
+    readonly onDelete: (id: string) => void;
     readonly onSelect: (id: string) => void;
     readonly onDragStart: (id: string) => void;
     readonly onDragEnd: () => void;
@@ -29,6 +30,7 @@ export function SidebarModules({
     disabled,
     onCreate,
     onEdit,
+    onDelete,
     onSelect,
     onDragStart,
     onDragEnd,
@@ -94,13 +96,27 @@ export function SidebarModules({
                             </button>
                             <button
                                 type="button"
-                                className="sidebar-modules__edit"
+                                className="sidebar-modules__action"
                                 aria-label={`Edit ${module.name}`}
                                 title={`Edit ${module.name}`}
                                 disabled={disabled}
                                 onClick={() => onEdit(module.id)}
                             >
                                 <Pencil
+                                    width={20}
+                                    height={20}
+                                    aria-hidden="true"
+                                />
+                            </button>
+                            <button
+                                type="button"
+                                className="sidebar-modules__action"
+                                aria-label={`Delete ${module.name}`}
+                                title={`Delete ${module.name}`}
+                                disabled={disabled}
+                                onClick={() => onDelete(module.id)}
+                            >
+                                <Trash
                                     width={20}
                                     height={20}
                                     aria-hidden="true"

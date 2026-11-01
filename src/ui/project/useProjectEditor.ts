@@ -18,7 +18,7 @@ import {
     type HistoryState,
 } from "../../domain/circuit/history/history";
 import type { CircuitLayer } from "../../domain/circuit/placedComponent";
-import type { ModuleDefinition } from "../../domain/circuit/modules/moduleDefinition";
+import {getModuleComponentType, type ModuleDefinition } from "../../domain/circuit/modules/moduleDefinition";
 import { updateProjectModules } from "../../domain/project/updateProjectModules";
 
 export interface ProjectEditor {
@@ -48,6 +48,8 @@ export interface ProjectEditor {
     readonly updateModules: (modules: readonly ModuleDefinition[]) => void;
 
     readonly removeComponents: (componentIds: readonly string[]) => void;
+
+    readonly removeModule: (moduleId: string) => void;
 
     readonly updateViewport: (viewport: ProjectViewport) => void;
 
@@ -301,6 +303,37 @@ export function useProjectEditor(
         [updateProject],
     );
 
+    const removeModule = useCallback(
+        (moduleId: string) => {
+            updateProject((currentProject) => {
+                const modules = currentProject.modules.filter(
+                    (module) => module.id !== moduleId,
+                );
+
+                if (modules.length === currentProject.modules.length) {
+                    return currentProject;
+                }
+
+                const type = getModuleComponentType(moduleId);
+                const instanceIds = new Set(
+                    currentProject.circuit.components
+                        .filter((component) => component.type === type)
+                        .map((component) => component.id),
+                );
+
+                return updateProjectModules(
+                    {
+                        ...currentProject,
+                        circuit:
+                            currentProject.circuit.withoutComponents(instanceIds),
+                    },
+                    modules,
+                );
+            });
+        },
+        [updateProject],
+    );
+
     const undo = useCallback(() => {
         setState((currentState) => {
             const transition = undoHistory(
@@ -355,6 +388,7 @@ export function useProjectEditor(
         updateViewport,
         updateModules,
         removeComponents,
+        removeModule,
 
         canUndo: state.history.past.length > 0,
         canRedo: state.history.future.length > 0,

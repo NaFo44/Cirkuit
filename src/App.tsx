@@ -626,6 +626,19 @@ function CircuitWorkspace({ workspace }: CircuitWorkspaceProps) {
                                 getViewport() ?? project.viewport,
                             );
                         }}
+                        onDelete={(id) => {
+                            endModuleDrag();
+                            endPaint();
+                            clearSelection();
+                            editor.removeModule(id);
+
+                            if (
+                                selectedTool.kind === "module" &&
+                                selectedTool.moduleId === id
+                            ) {
+                                selectComponent("wire");
+                            }
+                        }}
                         onClose={closeSidebarPage}
                     />
                 )}
