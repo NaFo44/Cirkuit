@@ -18,7 +18,10 @@ import {
     type HistoryState,
 } from "../../domain/circuit/history/history";
 import type { CircuitLayer } from "../../domain/circuit/placedComponent";
-import {getModuleComponentType, type ModuleDefinition } from "../../domain/circuit/modules/moduleDefinition";
+import {
+    getModuleComponentType,
+    type ModuleDefinition,
+} from "../../domain/circuit/modules/moduleDefinition";
 import { updateProjectModules } from "../../domain/project/updateProjectModules";
 
 export interface ProjectEditor {
@@ -325,7 +328,9 @@ export function useProjectEditor(
                     {
                         ...currentProject,
                         circuit:
-                            currentProject.circuit.withoutComponents(instanceIds),
+                            currentProject.circuit.withoutComponents(
+                                instanceIds,
+                            ),
                     },
                     modules,
                 );
